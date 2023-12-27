@@ -7,13 +7,24 @@ import { ProcedureStatusComponent } from './procedure-status/procedure-status.co
 import { ProcedureDetailsComponent } from './procedure-details/procedure-details.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-
+import { AllProceduresComponent } from './all-procedures/all-procedures.component';
+import { VettingComponent } from './vetting/vetting.component';
+import { BookingComponent } from './booking/booking.component';
+import { PreProcedureComponent } from './pre-procedure/pre-procedure.component';
+import { IntraProcedureComponent } from './intra-procedure/intra-procedure.component';
+import { PostProcedureComponent } from './post-procedure/post-procedure.component';
 
 @NgModule({
   declarations: [
     WorkAreaComponent,
     ProcedureStatusComponent,
-    ProcedureDetailsComponent
+    ProcedureDetailsComponent,
+    AllProceduresComponent,
+    VettingComponent,
+    BookingComponent,
+    PreProcedureComponent,
+    IntraProcedureComponent,
+    PostProcedureComponent
   ],
   imports: [
     CommonModule,
