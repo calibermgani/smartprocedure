@@ -1,13 +1,112 @@
-<div class="mt-5">
-  <div class="position-relative m-4">
-      <div class="progress" style="height: 1px;">
-        <div class="progress-bar" role="progressbar" style="width: 50%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-      </div>
-      <button type="button" class="position-absolute top-0 start-0 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">1</button>
-      <button type="button" class="position-absolute top-0 start-20 translate-middle btn btn-sm btn-primary rounded-pill" style="width: 2rem; height:2rem;">2</button>
-      <button type="button" class="position-absolute top-0 start-40 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">3</button>
-      <button type="button" class="position-absolute top-0 start-60 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">4</button>
-      <button type="button" class="position-absolute top-0 start-80 translate-middle btn btn-sm btn-secondary rounded-pill" style="width: 2rem; height:2rem;">5</button>
-  </div>
-</div>
+<div>
+<ng-stepper #cdkStepper [linear]="true">
+  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="false">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Vetting</p>
+    </ng-template>
+    <app-procedure-details #stepOne></app-procedure-details>
+  </cdk-step>
 
+  <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Booking</p>
+    </ng-template>
+    <app-procedure-details #stepTwo></app-procedure-details>
+  </cdk-step>
+
+  <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="false">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Pre-procedure</p>
+    </ng-template>
+    <app-procedure-details #stepThree></app-procedure-details>
+  </cdk-step>
+
+  <cdk-step [stepControl]="stepFour.stepFourForm" [optional]="true" [state]="stepFour.state">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Intra-procedure</p>
+    </ng-template>
+    <app-procedure-details #stepFour></app-procedure-details>
+  </cdk-step>
+  <cdk-step [stepControl]="stepFive.stepFiveForm" [optional]="true" [state]="stepFive.state">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Post-procedure</p>
+    </ng-template>
+    <app-procedure-details #stepFive></app-procedure-details>
+  </cdk-step>
+</ng-stepper>
+</div>
+<div class="cards mx-2" style="position: absolute; top: 16% !important;border: 1px solid #F9F7FD;background: #F9F7FD;left:0.6rem;width: 95%; padding: 15px 8px !important;">
+<div class="d-flex flex-row justify-content-between align-items-center my-2">
+  <div class="me-1">
+    <h4 class="mb-2">Accession No</h4>
+    <p class="mb-1">NGH123456</p>
+  </div>
+  <div class="me-1">
+    <h4 class="mb-2">Procedure Code</h4>
+    <p class="mb-1">CT-Brain</p>
+  </div>
+  <div class="me-1">
+    <h4 class="mb-2">Modality Code</h4>
+    <p class="mb-1">CT-Oncology</p>
+  </div>
+  <div class="me-1">
+    <h4 class="mb-2">Procedure Status</h4>
+    <p class="mb-1">Requested</p>
+  </div>
+  <div class="me-1">
+    <h4 class="mb-2">Procedure Sub Status<img src="assets/images/edit_svg.svg" class="ms-1"></h4>
+    <select class="form-selects" style="font-size: 9px !important;">
+      <option value="Select Status" selected>Select Status</option>
+      <option value="requested">Requested</option>
+      <option value="in-vetting">In-Vetting</option>
+      <option value="vetted">Vetted</option>
+      <option value="in-protocoling">In-Protocoling</option>
+  </select>
+  </div>
+  <div class="me-1">
+    <h4 class="mb-2">Priority Scoring<img src="assets/images/edit_svg.svg" class="ms-1"></h4>
+    <select class="form-selects" style="font-size: 9px !important;">
+      <option value="Select Status" selected>Select Status</option>
+      <option value="requested">Requested</option>
+      <option value="in-vetting">In-Vetting</option>
+      <option value="vetted">Vetted</option>
+      <option value="in-protocoling">In-Protocoling</option>
+  </select>
+  </div>
+  <div class="me-1">
+    <div class="dropdown float-end" dropdown>
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" dropdownToggle style="background: none !important;
+          padding: 0px !important;
+          border: none !important;">
+          <img src="assets/images/procedure_alert.svg">
+      </button>
+      <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+          <a class="dropdown-item" href="javascript: void(0);">Action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Something else</a>
+      </div>
+  </div>
+
+  </div>
+  <div class="me-1">
+    <div class="dropdown float-end" dropdown>
+      <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+          aria-haspopup="true" aria-expanded="false" dropdownToggle>
+          <i class="bx bxs-cog align-middle me-1"></i> Setting
+      </button>
+      <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+          <a class="dropdown-item" href="javascript: void(0);">Action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Something else</a>
+      </div>
+  </div>
+  </div>
+
+</div>
+</div>

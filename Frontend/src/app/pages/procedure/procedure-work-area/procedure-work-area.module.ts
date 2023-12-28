@@ -13,7 +13,8 @@ import { BookingComponent } from './booking/booking.component';
 import { PreProcedureComponent } from './pre-procedure/pre-procedure.component';
 import { IntraProcedureComponent } from './intra-procedure/intra-procedure.component';
 import { PostProcedureComponent } from './post-procedure/post-procedure.component';
-
+import {CdkStepperModule} from '@angular/cdk/stepper';
+import {NgStepperModule} from 'angular-ng-stepper';
 @NgModule({
   declarations: [
     WorkAreaComponent,
@@ -31,6 +32,8 @@ import { PostProcedureComponent } from './post-procedure/post-procedure.componen
     ProcedureWorkAreaRoutingModule,
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
+    NgStepperModule,
+    CdkStepperModule
   ]
 })
 export class ProcedureWorkAreaModule { }

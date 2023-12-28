@@ -13,3 +13,72 @@ left: 0% !important;
 .start-80{
   left: 80% !important
 }
+
+
+::ng-deep .step.active .step-bullet{
+  // background-color: #E45112 !important;
+  z-index: 1 !important;
+  color:#E45112 !important;
+  border:0.2rem solid #E45112 !important
+}
+
+::ng-deep .step.active{
+  background-color: #fff !important;
+}
+
+::ng-deep .step.completed .step-bullet{
+  // background-color: #26bf94 !important;
+  // background-color: #594585 !important;
+  border:0.2rem solid #594585 !important;
+  z-index: 1 !important;
+  color:#594585 !important;
+}
+
+.step-bullet{
+  z-index: 1 !important;
+}
+
+::ng-deep .stepper-header{
+  padding-top: 20px;
+}
+
+::ng-deep .step{
+  width: 20.33% !important;
+  left: 0% !important;
+  padding: 0px !important;
+}
+
+::ng-deep .step:after{
+  z-index: auto !important;
+  // background: #E45112 !important;
+}
+::ng-deep .stepper-body{
+  margin: 150px auto !important;
+}
+
+::ng-deep .step.completed + .step::after{
+  background-color: #594585 !important;
+}
+
+::ng-deep ol{
+  padding: 0px !important;
+}
+
+::ng-deep .main-content .content{
+  padding:0px !important;
+  margin-top: 0px !important;
+}
+
+option
+{
+  font-size: 9px !important;
+}
+
+.step-bullet{
+background: #fff !important;
+border: 1px solid #000 !important;
+color: #000 !important;
+height: 20px !important;
+width: 20px !important;
+padding-bottom: 12px !important;
+}

@@ -88,6 +88,21 @@ h4{
   border: none !important;
 }
 
+.form-selects
+{
+  background: #fff !important;
+  border-radius: 2px !important;
+  color: #000 !important;
+  padding: 2px;
+  background-image: url('assets/images/whitearrow.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: left 4.65rem center !important;
+  background-size: 16px !important;
+  width: 100px !important;
+  border: 1px solid #8B8B8B !important;
+
+}
+
 option{
   background: #fff !important;
   color: #000 !important;
