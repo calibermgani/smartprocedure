@@ -1,5 +1,14 @@
 <div>
-<ng-stepper #cdkStepper [linear]="true">
+<ng-stepper #cdkStepper [linear]="true" >
+  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true" *ngFor="let x of stepperData">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">{{x.title}}</p>
+    </ng-template>
+    <app-procedure-details #stepOne  [StageValue]="x.value"></app-procedure-details>
+  </cdk-step>
+</ng-stepper>
+<!-- <ng-stepper #cdkStepper [linear]="true">
   <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="false">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
@@ -8,12 +17,12 @@
     <app-procedure-details #stepOne></app-procedure-details>
   </cdk-step>
 
-  <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true">
+  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Booking</p>
     </ng-template>
-    <app-procedure-details #stepTwo></app-procedure-details>
+    <app-procedure-details #stepOne></app-procedure-details>
   </cdk-step>
 
   <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="false">
@@ -38,10 +47,10 @@
     </ng-template>
     <app-procedure-details #stepFive></app-procedure-details>
   </cdk-step>
-</ng-stepper>
+</ng-stepper> -->
 </div>
-<div class="cards mx-2" style="position: absolute; top: 16% !important;border: 1px solid #F9F7FD;background: #F9F7FD;left:0.6rem;width: 95%; padding: 15px 8px !important;">
-<div class="d-flex flex-row justify-content-between align-items-center my-2">
+<div class="cards me-2" style="position: relative; bottom: 19% !important;border: 1px solid #F9F7FD;background: #F9F7FD;left:0.6rem;width: 100%;left: 0% !important;right: 0% !important;height: 79px !important;border-radius: 10 !important;padding: 10px 0px !important;">
+<div class="d-flex flex-row justify-content-around align-items-center p-2">
   <div class="me-1">
     <h4 class="mb-2">Accession No</h4>
     <p class="mb-1">NGH123456</p>

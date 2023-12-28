@@ -62,8 +62,9 @@ ngx-dropzone-preview {
 
 h1{
   font-size: 12px  !important;
-  font-weight: bold;
+  font-weight: 600 !important;
   margin: 0 !important;
+  color: #000 !important;
 }
 p{
   font-size: 10px !important;
@@ -82,10 +83,13 @@ h4{
   padding: 2px;
   background-image: url('assets/images/whitearrow.svg') !important;
   background-repeat: no-repeat !important;
-  background-position: left 8.65rem center !important;
+  background-position: left 6.65rem center !important;
   background-size: 16px !important;
-  width: 165px !important;
+  // width: 165px !important;
   border: none !important;
+  font-size: 9px !important;
+  font-weight: 400px !important;
+  width: 134px !important;height: 29px !important;
 }
 
 .form-selects

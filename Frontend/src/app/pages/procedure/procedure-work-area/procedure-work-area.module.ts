@@ -15,6 +15,7 @@ import { IntraProcedureComponent } from './intra-procedure/intra-procedure.compo
 import { PostProcedureComponent } from './post-procedure/post-procedure.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {NgStepperModule} from 'angular-ng-stepper';
+import { HttpClientModule } from '@angular/common/http';
 @NgModule({
   declarations: [
     WorkAreaComponent,
@@ -33,7 +34,8 @@ import {NgStepperModule} from 'angular-ng-stepper';
     BsDatepickerModule.forRoot(),
     BsDropdownModule.forRoot(),
     NgStepperModule,
-    CdkStepperModule
+    CdkStepperModule,
+    HttpClientModule
   ]
 })
 export class ProcedureWorkAreaModule { }

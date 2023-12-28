@@ -1,0 +1,37 @@
+[
+  {
+  "Steps": "stepOne",
+  "stepOneForm":"stepOneForm",
+  "title":"Vetting",
+  "id":"1",
+  "value":"Vetting"
+  },
+  {
+    "Steps": "stepTwo",
+    "stepOneForm":"stepTwoForm",
+    "title":"Booking",
+    "id":"2",
+    "value":"Booking"
+  },
+  {
+    "Steps": "stepThree",
+    "stepOneForm":"stepThreeForm",
+    "title":"Pre-procedure",
+    "id":"3",
+    "value":"pre-procedure"
+  },
+  {
+    "Steps": "stepFour",
+    "stepOneForm":"stepFourForm",
+    "title":"Intra-procedure",
+    "id":"4",
+    "value":"intra-procedure"
+  },
+  {
+    "Steps": "stepFive",
+    "stepOneForm":"stepFiveForm",
+    "title":"Post-procedure",
+    "id":"5",
+    "value":"post-procedure"
+  }
+]
