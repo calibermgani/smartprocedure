@@ -693,12 +693,21 @@ body[data-sidebar="colored"] {
   .rightexpand
   {
     position: absolute !important;
-    top: 52% !important;
-    left: 0% !important;
-    z-index: 10000 !important;
+    top: 50% !important;
+    left: 2px !important;
+    width:25px !important;
+    height: 25px !important;
     display: block !important;
   }
   .viewonlymode_header{
     display: none;
+  }
+  .leftexpand
+  {
+    display: none !important;
+  }
+  .expandable_workarea
+  {
+    width: 980px !important;
   }
 }

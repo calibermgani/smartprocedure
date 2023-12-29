@@ -9,13 +9,18 @@ import { Component, OnInit } from '@angular/core';
 export class AllProceduresComponent implements OnInit {
 
   stepperData: any;
+  procedureAlertsData:any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.http.get('assets/json/procedure-stage.json').subscribe((res: any) => {
-      console.log('response',res.length);
       this.stepperData = res;
+    })
+    this.http.get('assets/json/procedure-alerts.json').subscribe((res:any)=>{
+      console.log('res',res);
+
+      this.procedureAlertsData = res;
     })
   }
 }

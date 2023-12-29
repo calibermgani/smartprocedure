@@ -115,10 +115,14 @@ height: 730px;">
           border: none !important;">
           <img src="assets/images/procedure_alert.svg">
       </button>
-      <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-          <a class="dropdown-item" href="javascript: void(0);">Action</a>
-          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
-          <a class="dropdown-item" href="javascript: void(0);">Something else</a>
+      <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="padding: 0px 0px 10px 0px;">
+          <a class="dropdown-item" href="javascript: void(0);" style="background: #D62424;color: #fff;border-radius: 6px 6px 0px 0px !important;margin-bottom: 10px;">Procedure Alert
+            <img src="assets/images/Procedure_notification_alert.svg">
+          </a>
+          <a class="dropdown-item" href="javascript: void(0);" *ngFor="let x of procedureAlertsData">
+            {{x.value}}
+          </a>
+
       </div>
   </div>
 
@@ -127,12 +131,12 @@ height: 730px;">
     <div class="dropdown float-end" dropdown>
       <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
           aria-haspopup="true" aria-expanded="false" dropdownToggle>
-          <i class="bx bxs-cog align-middle me-1"></i> Setting
+          Action <i class="bx bx-chevron-down align-middle me-1"></i>
       </button>
-      <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
-          <a class="dropdown-item" href="javascript: void(0);">Action</a>
-          <a class="dropdown-item" href="javascript: void(0);">Another action</a>
-          <a class="dropdown-item" href="javascript: void(0);">Something else</a>
+      <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="text-align: center !important;">
+          <a class="dropdown-item" href="javascript: void(0);" style="padding: 2px 2px;"><button class="btn" style="background: #D62424;color: #fff;">Cancel</button></a>
+          <!-- <a class="dropdown-item" href="javascript: void(0);">Another action</a>
+          <a class="dropdown-item" href="javascript: void(0);">Something else</a> -->
       </div>
   </div>
   </div>

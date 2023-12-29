@@ -1,0 +1,26 @@
+::ng-deep .nav-pills .nav-link.active
+{
+  color: #fff !important;
+  background-color:  #855EDB !important;
+  border: none !important;
+  border-radius: 0px !important;
+  height: 32px !important;
+}
+
+::ng-deep .nav{
+  background: #594585 !important;
+  height: 33px !important;
+  border-radius: 0px 10px 0px 0px !important;
+  text-align: center !important;
+}
+
+::ng-deep .nav-link:hover{
+  border: none !important;
+  background: none !important;
+  border-radius: 0px !important;
+  margin: 0 !important;
+}
+
+::ng-deep .nav-link{
+  color: #fff !important;
+}

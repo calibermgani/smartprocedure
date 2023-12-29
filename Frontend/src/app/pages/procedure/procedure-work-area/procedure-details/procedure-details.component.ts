@@ -13,7 +13,7 @@ export class ProcedureDetailsComponent implements OnInit{
   ngOnInit(): void {
   }
 
-  go(){
+  CloseViewOnlyMode(){
     console.log('Yes');
     document.body.classList.toggle('selva');
   }

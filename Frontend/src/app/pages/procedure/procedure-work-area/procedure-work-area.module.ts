@@ -14,6 +14,7 @@ import {NgStepperModule} from 'angular-ng-stepper';
 import { HttpClientModule } from '@angular/common/http';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 @NgModule({
   declarations: [
     WorkAreaComponent,
@@ -31,7 +32,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     CdkStepperModule,
     HttpClientModule,
     AccordionModule.forRoot(),
-    CollapseModule.forRoot()
+    CollapseModule.forRoot(),
+    TabsModule.forRoot()
   ]
 })
 export class ProcedureWorkAreaModule { }
