@@ -11,6 +11,10 @@ export class ProcedureDetailsComponent implements OnInit{
   constructor(){}
 
   ngOnInit(): void {
+  }
 
+  go(){
+    console.log('Yes');
+    document.body.classList.toggle('selva');
   }
 }

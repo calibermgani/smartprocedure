@@ -12,6 +12,8 @@ import { VettingComponent } from './vetting/vetting.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {NgStepperModule} from 'angular-ng-stepper';
 import { HttpClientModule } from '@angular/common/http';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 @NgModule({
   declarations: [
     WorkAreaComponent,
@@ -27,7 +29,9 @@ import { HttpClientModule } from '@angular/common/http';
     BsDropdownModule.forRoot(),
     NgStepperModule,
     CdkStepperModule,
-    HttpClientModule
+    HttpClientModule,
+    AccordionModule.forRoot(),
+    CollapseModule.forRoot()
   ]
 })
 export class ProcedureWorkAreaModule { }

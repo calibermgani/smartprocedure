@@ -1,7 +1,8 @@
-<h1 style="position: absolute;
-top: 4%;
+<h1 style="position: relative;
+top: 5%;
 z-index: 1;">Procedure Stage :</h1>
-<div>
+<div style="width: 100% !important;
+height: 730px;">
 <ng-stepper #cdkStepper [linear]="true" style="width: 100% !important;" *ngIf="this.stepperData?.length <= 1">
   <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true">
     <ng-template cdkStepLabel>
@@ -68,7 +69,7 @@ z-index: 1;">Procedure Stage :</h1>
   </cdk-step>
 </ng-stepper> -->
 </div>
-<div class="cards me-2" style="position: relative; bottom: 19% !important;border: 1px solid #F9F7FD;background: #F9F7FD;left:0.6rem;width: 100%;left: 0% !important;right: 0% !important;height: 79px !important;border-radius: 10 !important;padding: 10px 0px !important;">
+<div class="cards me-2" style="position: absolute; bottom: 77% !important;border: 1px solid #F9F7FD;background: #F9F7FD;left:0.6rem;width: 95%;left: 3% !important;right: 0% !important;height: 79px !important;border-radius: 10 !important;padding: 10px 0px !important;">
 <div class="d-flex flex-row justify-content-around align-items-center p-2">
   <div class="me-1">
     <h4 class="mb-2">Accession No</h4>
