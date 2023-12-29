@@ -14,7 +14,7 @@ export class AllProceduresComponent implements OnInit {
 
   ngOnInit() {
     this.http.get('assets/json/procedure-stage.json').subscribe((res: any) => {
-      console.log('response',res);
+      console.log('response',res.length);
       this.stepperData = res;
     })
   }
