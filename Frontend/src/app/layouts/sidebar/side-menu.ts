@@ -10,7 +10,7 @@ export const SIDEMENU: MenuItem[] = [
         id: 2,
         label: 'MENUITEMS.HOME.TEXT',
         icon: 'mdi mdi-home',
-        link: '/dashboards',
+        link: 'dashboards',
         // subItems: [
         //     {
         //         id: 3,
@@ -45,32 +45,32 @@ export const SIDEMENU: MenuItem[] = [
         // ]
     },
     {
-        id: 8,
+        id: 3,
         isLayout: true
     },
     {
-        id: 10,
+        id: 4,
         label: 'MENUITEMS.WHITEBOARD.TEXT',
         icon: 'mdi mdi-clipboard-edit-outline',
-        link: '/whiteboard',
+        link: 'whiteboard',
     },
     {
-        id: 11,
+        id: 5,
         label: 'MENUITEMS.Procedure.TEXT',
         icon: 'mdi mdi-account-circle',
-        link: '/procedure',
+        link: 'procedure',
     },
     {
-    id: 12,
+    id: 6,
     label: 'MENUITEMS.CALENDAR.TEXT',
     icon: 'mdi mdi-calendar',
-    link: '/calender',
+    link: 'calender',
     },
     {
-        id: 13,
+        id: 7,
         label: 'MENUITEMS.CHAT.TEXT',
         icon: 'mdi mdi-send',
-        link: '/chat',
+        link: 'chat',
     },
     // {
     //     id: 22,
@@ -78,13 +78,13 @@ export const SIDEMENU: MenuItem[] = [
     //     icon: 'mdi mdi-baby',
     // },
     {
-        id: 30,
+        id: 8,
         label: 'MENUITEMS.CHECKLIST.TEXT',
         icon: 'mdi mdi-format-list-checkbox',
         link: '/checklist',
     },
     {
-        id: 37,
+        id: 9,
         label: 'MENUITEMS.SETTINGS.TEXT',
         icon: 'mdi mdi-cog-outline',
         link: '/settings',

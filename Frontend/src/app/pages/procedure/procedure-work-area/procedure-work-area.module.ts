@@ -9,10 +9,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { AllProceduresComponent } from './all-procedures/all-procedures.component';
 import { VettingComponent } from './vetting/vetting.component';
-import { BookingComponent } from './booking/booking.component';
-import { PreProcedureComponent } from './pre-procedure/pre-procedure.component';
-import { IntraProcedureComponent } from './intra-procedure/intra-procedure.component';
-import { PostProcedureComponent } from './post-procedure/post-procedure.component';
 import {CdkStepperModule} from '@angular/cdk/stepper';
 import {NgStepperModule} from 'angular-ng-stepper';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,10 +19,6 @@ import { HttpClientModule } from '@angular/common/http';
     ProcedureDetailsComponent,
     AllProceduresComponent,
     VettingComponent,
-    BookingComponent,
-    PreProcedureComponent,
-    IntraProcedureComponent,
-    PostProcedureComponent
   ],
   imports: [
     CommonModule,

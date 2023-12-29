@@ -15,8 +15,6 @@ export class AuthGuard {
     private route : ActivatedRoute
   ) {}
 
-  empty_url:any = '/';
-
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
     // if (environment.defaultauth === 'firebase') {
     //     const currentUser = this.authenticationService.currentUser();
@@ -30,9 +28,9 @@ export class AuthGuard {
       console.log('IN');
          return true;
     }
-    else {
-      this.router.navigate(['/account/auth/login']);
-    }
+    // else {
+    //   this.router.navigate(['/account/auth/login']);
+    // }
     // }
     // not logged in so redirect to login page with the return url  { queryParams: { returnUrl: state.url } }
     this.router.navigate(['/account/auth/login']);

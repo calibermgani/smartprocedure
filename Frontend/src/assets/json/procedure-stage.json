@@ -1,37 +1,37 @@
 [
   {
-  "Steps": "stepOne",
-  "stepOneForm":"stepOneForm",
-  "title":"Vetting",
-  "id":"1",
-  "value":"Vetting"
+    "id": "1",
+    "Steps": "stepOne",
+    "stepOneForm": "stepOneForm",
+    "title": "Vetting",
+    "value": "Vetting"
   },
   {
+    "id": "2",
     "Steps": "stepTwo",
-    "stepOneForm":"stepTwoForm",
-    "title":"Booking",
-    "id":"2",
-    "value":"Booking"
+    "stepOneForm": "stepTwoForm",
+    "title": "Booking",
+    "value": "Booking"
   },
   {
+    "id": "3",
     "Steps": "stepThree",
-    "stepOneForm":"stepThreeForm",
-    "title":"Pre-procedure",
-    "id":"3",
-    "value":"pre-procedure"
+    "stepOneForm": "stepThreeForm",
+    "title": "Pre-procedure",
+    "value": "pre-procedure"
   },
   {
+    "id": "4",
     "Steps": "stepFour",
-    "stepOneForm":"stepFourForm",
-    "title":"Intra-procedure",
-    "id":"4",
-    "value":"intra-procedure"
+    "stepOneForm": "stepFourForm",
+    "title": "Intra-procedure",
+    "value": "intra-procedure"
   },
   {
+    "id": "5",
     "Steps": "stepFive",
-    "stepOneForm":"stepFiveForm",
-    "title":"Post-procedure",
-    "id":"5",
-    "value":"post-procedure"
+    "stepOneForm": "stepFiveForm",
+    "title": "Post-procedure",
+    "value": "post-procedure"
   }
 ]
