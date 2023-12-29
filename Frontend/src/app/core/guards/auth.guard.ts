@@ -25,7 +25,6 @@ export class AuthGuard {
     // } else {
     const currentUser = this.authFackservice.currentUserValue;
     if (currentUser) {
-      console.log('IN');
          return true;
     }
     // else {

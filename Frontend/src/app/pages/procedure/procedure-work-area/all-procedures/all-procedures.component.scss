@@ -39,12 +39,14 @@ left: 0% !important;
 }
 
 ::ng-deep .stepper-header{
-  padding-top: 20px;
+  margin:  0px 50px !important;
+  padding-top: 14px !important;
 }
 
 ::ng-deep .step{
-  width: 20.33% !important;
+  width: 50.33% !important;
   left: 0% !important;
+  right: 0% !important;
   padding: 0px !important;
 }
 
@@ -81,4 +83,13 @@ color: #000 !important;
 height: 20px !important;
 width: 20px !important;
 padding-bottom: 12px !important;
+}
+
+::ng-deep .stepper-header .steps{
+  width: 100% !important;
+  list-style: none !important;
+  display: inline-flex !important;
+  margin: 0 auto !important;
+  justify-content: space-between !important;
+  align-items: center !important;
 }

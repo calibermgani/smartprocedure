@@ -1,12 +1,31 @@
+<h1 style="position: absolute;
+top: 4%;
+z-index: 1;">Procedure Stage :</h1>
 <div>
-<ng-stepper #cdkStepper [linear]="true" >
-  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true" *ngFor="let x of stepperData">
+<ng-stepper #cdkStepper [linear]="true" style="width: 100% !important;" *ngIf="this.stepperData?.length <= 1">
+  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
-      <p class="step-title">{{x.title}}</p>
+      <p class="step-title">Start Procedure</p>
     </ng-template>
-    <app-procedure-details #stepOne  [StageValue]="x.value"></app-procedure-details>
+    <app-procedure-details #stepOne></app-procedure-details>
   </cdk-step>
+  <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Procedure End</p>
+    </ng-template>
+    <app-procedure-details #stepTwo></app-procedure-details>
+  </cdk-step>
+</ng-stepper>
+<ng-stepper #cdkStepper [linear]="true" style="width: 100% !important;" *ngIf="this.stepperData?.length >1">
+<cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true" *ngFor="let x of stepperData">
+  <ng-template cdkStepLabel>
+    <div class="step-bullet">.</div>
+    <p class="step-title">{{x.title}}</p>
+  </ng-template>
+  <app-procedure-details #stepOne  [StageValue]="x.value"></app-procedure-details>
+</cdk-step>
 </ng-stepper>
 <!-- <ng-stepper #cdkStepper [linear]="true">
   <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="false">
