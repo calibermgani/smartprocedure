@@ -680,11 +680,11 @@ body[data-sidebar="colored"] {
 .selva{
   .viewOnly
   {
-    width: 0px !important;
+    width: 20px !important;
     // border: none !important;
     transition: all 600ms ease-out !important;
     z-index: 10000 !important;
-    border-right: 1px solid #ffffff !important;
+    border-right: 1px solid #000000 !important;
     border-top-left-radius: 10px !important;
     // background-image: url('/assets/images/ViewOnlyModeright.svg');
     // background-size: 50px 50px; // Increase the size as needed
@@ -694,9 +694,9 @@ body[data-sidebar="colored"] {
   {
     position: absolute !important;
     top: 50% !important;
-    left: 2px !important;
-    width:25px !important;
-    height: 25px !important;
+    left: 10px !important;
+    width:20px !important;
+    height: 20px !important;
     display: block !important;
   }
   .viewonlymode_header{

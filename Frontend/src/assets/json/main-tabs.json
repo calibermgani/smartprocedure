@@ -1,0 +1,18 @@
+[
+  {
+    "tabs":"Radiology",
+    "id":1
+  },
+  {
+    "tabs":"Nurse",
+    "id":2
+  },
+  {
+    "tabs":"Technologist",
+    "id":3
+  },
+  {
+    "tabs":"Receptionist",
+    "id":4
+  }
+]

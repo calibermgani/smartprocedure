@@ -1,3 +1,4 @@
+import { HttpBackend, HttpClient } from '@angular/common/http';
 import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
@@ -8,13 +9,16 @@ import { Component, Input, OnInit } from '@angular/core';
 export class ProcedureDetailsComponent implements OnInit{
 
   @Input() StageValue:any;
-  constructor(){}
+  mainTabsValue:any;
+  constructor(private http : HttpClient){}
 
   ngOnInit(): void {
+    this.http.get('assets/json/main-tabs.json').subscribe((res:any)=>{
+      this.mainTabsValue = res;
+    })
   }
 
   CloseViewOnlyMode(){
-    console.log('Yes');
     document.body.classList.toggle('selva');
   }
 }

@@ -5,25 +5,24 @@
       <img src="assets/images/ViewOnlyModeright.svg" style="position: absolute;
   top: 509%;
   left: 0%;
-  z-index: 1;display: none;" class="rightexpand" (click)="CloseViewOnlyMode()">
+  z-index: 1;display: none;cursor: pointer;" class="rightexpand" (click)="CloseViewOnlyMode()">
       <p class="mb-0 px-3 py-2" style="color: #fff;background: #594585;width: auto;height: 32px;border-radius: 10px 0px 0px 0px;padding: 8px 9px;" class="viewonlymode_header">View Other User Details</p>
       <img src="assets/images/ViewOnlyModeleft.svg" style="position: absolute;
       top: 50%;
       right: -5%;
-      bottom: 50%;cursor: pointer;width: 25px;height: 25px;"  (click)="CloseViewOnlyMode()" class="leftexpand">
+      bottom: 50%;cursor: pointer;width: 20px;height: 20px;"  (click)="CloseViewOnlyMode()" class="leftexpand">
     </div>
-    <div class="col-8" style="padding: 0px 0px !important;width:745px;" class="expandable_workarea">
+    <div class="col-8 col-11" style="padding: 0px 0px !important;width:745px;" class="expandable_workarea">
       <tabset [justified]="true" class="nav-pills nav-justified">
-        <tab heading="Home">
+        <tab heading="{{x.tabs}}"  *ngFor="let x of mainTabsValue">
           <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
         </tab>
-        <tab heading="Profile">
+        <!-- <tab heading="Profile">
           <ng-template [ngTemplateOutlet]="TabContent1"></ng-template>
         </tab>
         <tab heading="Messages">
           <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
-        </tab>
-        <ng-template [ngTemplateOutlet]="TabContent1"></ng-template>
+        </tab> -->
       </tabset>
     </div>
   </div>
@@ -47,7 +46,7 @@
   </ng-template>
 
   <!-- Tab Content -->
-  <ng-template #TabContent1>
+  <!-- <ng-template #TabContent1>
     <p class="p-3 mb-0">
       Food truck fixie locavore, accusamus mcsweeney's marfa nulla
       single-origin coffee squid. Exercitation +1 labore velit, blog
@@ -57,4 +56,4 @@
       vinyl cillum PBR. Homo nostrud organic, assumenda labore
       aesthetic magna delectus.
     </p>
-  </ng-template>
+  </ng-template> -->

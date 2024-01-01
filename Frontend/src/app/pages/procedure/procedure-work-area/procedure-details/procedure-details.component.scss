@@ -3,14 +3,15 @@
   color: #fff !important;
   background-color:  #855EDB !important;
   border: none !important;
-  border-radius: 0px !important;
+  border-radius: 5px 5px 5px 5px !important;
   height: 32px !important;
+
 }
 
 ::ng-deep .nav{
   background: #594585 !important;
   height: 33px !important;
-  border-radius: 0px 10px 0px 0px !important;
+  border-radius: 7px 10px 0px 0px !important;
   text-align: center !important;
 }
 
@@ -23,4 +24,9 @@
 
 ::ng-deep .nav-link{
   color: #fff !important;
+}
+
+::ng-deep .nav-justified .nav-item
+{
+  flex-grow: 0 !important;
 }
