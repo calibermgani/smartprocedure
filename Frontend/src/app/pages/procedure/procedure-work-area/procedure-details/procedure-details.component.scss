@@ -24,6 +24,8 @@
 
 ::ng-deep .nav-link{
   color: #fff !important;
+  transition: none !important;
+  transform: none !important;
 }
 
 ::ng-deep .nav-justified .nav-item
