@@ -674,13 +674,19 @@ body[data-sidebar="colored"] {
 .viewOnly
 {
 
-  border-right: 1px solid #594585 !important;padding-right: 0px !important;height: 557px;width: 248px;
+  border-right: 1px solid #594585 !important;padding-right: 0px !important;height: 557px
 }
 
 .selva{
+
+  .col-3
+  {
+    width: 0px !important;
+
+  }
   .viewOnly
   {
-    width: 20px !important;
+    width: 10px !important;
     // border: none !important;
     transition: all 600ms ease-out !important;
     z-index: 10000 !important;
@@ -694,7 +700,7 @@ body[data-sidebar="colored"] {
   {
     position: absolute !important;
     top: 50% !important;
-    left: 10px !important;
+    left: 13px !important;
     width:20px !important;
     height: 20px !important;
     display: block !important;
@@ -705,6 +711,11 @@ body[data-sidebar="colored"] {
   .leftexpand
   {
     display: none !important;
+  }
+  .col-9
+  {
+    // width: 97% !important;
+    margin-left: 10px !important;
   }
   .expandable_workarea
   {

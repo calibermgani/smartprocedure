@@ -1,7 +1,8 @@
 <h1 class="mb-2">Procedure Details</h1>
 <div class="cards" style="border-radius: 10px !important; border: 1px solid #8B8B8B;padding: 0px !important;height: 557px;">
   <div class="row">
-    <div class="col-4" class="viewOnly">
+    <div class="col-3 d-none d-lg-block" style="padding-right: 0px;">
+      <div class="viewOnly">
       <img src="assets/images/ViewOnlyModeright.svg" style="position: absolute;
   top: 509%;
   left: 0%;
@@ -9,10 +10,13 @@
       <p class="mb-0 px-3 py-2" style="color: #fff;background: #594585;width: auto;height: 32px;border-radius: 10px 0px 0px 0px;padding: 8px 9px;" class="viewonlymode_header">View Other User Details</p>
       <img src="assets/images/ViewOnlyModeleft.svg" style="position: absolute;
       top: 50%;
-      right: -5%;
+      right:-4%;
       bottom: 50%;cursor: pointer;width: 20px;height: 20px;"  (click)="CloseViewOnlyMode()" class="leftexpand">
+      </div>
+
     </div>
-    <div class="col-8 col-11" style="padding: 0px 0px !important;width:745px;" class="expandable_workarea">
+    <div class="col-9" style="padding: 0px 0px !important;">
+      <div class="expandable_workarea">
       <tabset [justified]="true" class="nav-pills nav-justified">
         <tab heading="{{x.tabs}}"  *ngFor="let x of mainTabsValue">
           <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
@@ -24,6 +28,7 @@
           <ng-template [ngTemplateOutlet]="TabContent"></ng-template>
         </tab> -->
       </tabset>
+      </div>
     </div>
   </div>
 </div>
