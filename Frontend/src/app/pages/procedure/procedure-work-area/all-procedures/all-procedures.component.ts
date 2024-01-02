@@ -18,8 +18,6 @@ export class AllProceduresComponent implements OnInit {
       this.stepperData = res;
     })
     this.http.get('assets/json/procedure-alerts.json').subscribe((res:any)=>{
-      console.log('res',res);
-
       this.procedureAlertsData = res;
     })
   }

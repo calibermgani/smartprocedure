@@ -1,0 +1,19 @@
+[
+  { "id":1,
+    "title": "Radiology",
+    "content": "Radiology", "removable": false, "disabled": false
+  },
+  { "id":2,
+    "title": "Nurse",
+    "content": "Nurse", "removable": false, "disabled": false
+  },
+  { "id":3,
+    "title": "Technologist",
+    "content": "Technologist", "removable": false, "disabled": false
+  },
+  {
+    "id":3,
+    "title": "Receptionist",
+    "content": "Receptionist", "removable": false, "disabled": false
+  }
+]

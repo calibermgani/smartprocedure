@@ -1,7 +1,21 @@
 [
   {
     "tabs":"Radiology",
-    "id":1
+    "id":1,
+    "subtabs":[
+      {
+        "id":1,
+        "subtabs":"Request Info"
+      },
+      {
+        "id":2,
+        "subtabs":"Admission Info"
+      },
+      {
+        "id":3,
+        "subtabs":"Booking"
+      }
+    ]
   },
   {
     "tabs":"Nurse",
