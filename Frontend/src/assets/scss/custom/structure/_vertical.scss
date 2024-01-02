@@ -690,11 +690,9 @@ body[data-sidebar="colored"] {
     // border: none !important;
     transition: all 600ms ease-out !important;
     z-index: 10000 !important;
-    border-right: 1px solid #000000 !important;
+    border-right: 1px solid #594585 !important;
     border-top-left-radius: 10px !important;
-    // background-image: url('/assets/images/ViewOnlyModeright.svg');
-    // background-size: 50px 50px; // Increase the size as needed
-    // background-position: center center;
+    overflow-x: hidden !important;
   }
   .rightexpand
   {
@@ -716,6 +714,12 @@ body[data-sidebar="colored"] {
   {
     width: 97% !important;
     margin-left: 10px !important;
+  }
+  .accords
+  {
+    overflow-x: hidden !important;
+    overflow-y: hidden !important;
+    display: none !important;
   }
   // .expandable_workarea
   // {

@@ -5,7 +5,8 @@
   border: none !important;
   border-radius: 0px 0px 0px 0px !important;
   height: 32px !important;
-
+  padding: 3px 30px !important;
+  opacity: 1;
 }
 
 ::ng-deep .nav{
@@ -26,6 +27,8 @@
   color: #fff !important;
   transition: none !important;
   transform: none !important;
+  padding: 3px 30px !important;
+  opacity: 0.6;
 }
 
 ::ng-deep .nav-justified .nav-item
@@ -36,4 +39,14 @@
 .col-9
 {
   width: 74%;
+}
+
+::ng-deep .card-header{
+  padding: 3px 10px 0px 10px !important;
+  background: #ECECEC !important;
+}
+
+.accordion-item{
+  border: none !important;
+  margin: 10px 0px ;
 }
