@@ -29,6 +29,6 @@ export class ProcedureDetailsComponent implements OnInit{
     document.body.classList.toggle('selva');
   }
   open(){
-    window.alert('Hi You ahve opened the testing modal')
+    window.alert('Hi You have opened the testing modal')
   }
 }
