@@ -11,9 +11,11 @@
 
 ::ng-deep .nav{
   background: #594585 !important;
-  height: 33px !important;
+  height: 34px !important;
   border-radius: 0px 10px 0px 0px !important;
   text-align: center !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
 }
 
 ::ng-deep .nav-link:hover{
@@ -50,3 +52,72 @@
   border: none !important;
   margin: 10px 0px ;
 }
+
+.navs-link{
+  background: none;
+  display: block;
+  transition: none !important;
+  transform: none !important;
+  padding: 4px 6px 4px 6px !important;
+  opacity: 0.6;
+  width: 125px !important;
+  font-weight: normal !important;
+}
+
+.nav-tabs-custom .nav-item .navs-link{
+  border: none;
+}
+
+::ng-deep  .navs-link.active
+{
+  color: #fff !important;
+  background-color:  #747474 !important;
+  border: 1px solid #747474 !important;
+  border-radius: 6px !important;
+  height: 22px !important;
+  padding:4px 6px 4px 6px !important;
+  opacity: 1;
+  width: 125px !important;
+  font-weight: bolder !important;
+
+  .name{
+    color: #fff !important;
+  }
+}
+
+.nav-items
+{
+  flex-basis: 0;
+    flex-grow: 0;
+    text-align: center
+}
+
+// .scroll-container {
+//   border: 2px solid silver;
+//   display: flex;
+//   align-items: center;
+//   overflow-y: scroll;
+
+//   &.hide-scrollbar {
+//     overflow: auto;
+//     &::-webkit-scrollbar {
+//       display: none;
+//     }
+//   }
+
+//   &.show-scroll {
+//     overflow: auto;
+//   }
+
+//   ul {
+//     white-space: nowrap;
+//     background: #efefef;
+//     border: 1px solid #efefef !important;
+//     margin: .1rem;
+//     padding: .2rem .7rem;
+//     &:hover {
+//       cursor: pointer;
+//       border-color: #ccc;
+//     }
+//   }
+// }

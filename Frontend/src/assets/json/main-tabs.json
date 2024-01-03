@@ -1,32 +1,187 @@
 [
   {
-    "tabs":"Radiology",
-    "id":1,
-    "subtabs":[
-      {
-        "id":1,
-        "subtabs":"Request Info"
-      },
-      {
-        "id":2,
-        "subtabs":"Admission Info"
-      },
-      {
-        "id":3,
-        "subtabs":"Booking"
-      }
-    ]
+     "tabs": "Radiology",
+     "id": 1,
+     "template": "#TabContent1",
+     "content": "Dynamic content 1",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+        {
+           "id": 1,
+           "subtabs": "Request Info",
+           "link": "#request_info"
+        },
+        {
+           "id": 2,
+           "subtabs": "Admission Info",
+           "link": "#admission_info"
+        },
+        {
+           "id": 3,
+           "subtabs": "Booking",
+           "link": "#booking"
+        },
+        {
+           "id": 4,
+           "subtabs": "Vetting & Protocoling",
+           "link": "#vettingandprotocoling"
+        },
+        {
+           "id": 5,
+           "subtabs": "Materials",
+           "link": "#materials"
+        },
+        {
+           "id": 6,
+           "subtabs": "IV accusses & closure",
+           "link": "#iv_accusses"
+        },
+        {
+           "id": 7,
+           "subtabs": "Radiation dose info",
+           "link": "#radiation_dose"
+        },
+        {
+          "id": 1,
+          "subtabs": "Request Info",
+          "link": "#request_info"
+       },
+       {
+          "id": 2,
+          "subtabs": "Admission Info",
+          "link": "#admission_info"
+       },
+       {
+          "id": 3,
+          "subtabs": "Booking",
+          "link": "#booking"
+       },
+       {
+          "id": 4,
+          "subtabs": "Vetting & Protocoling",
+          "link": "#vettingandprotocoling"
+       },
+       {
+          "id": 5,
+          "subtabs": "Materials",
+          "link": "#materials"
+       },
+       {
+          "id": 6,
+          "subtabs": "IV accusses & closure",
+          "link": "#iv_accusses"
+       },
+       {
+          "id": 7,
+          "subtabs": "Radiation dose info",
+          "link": "#radiation_dose"
+       }
+     ]
   },
   {
-    "tabs":"Nurse",
-    "id":2
+     "tabs": "Nurse",
+     "id": 2,
+     "template": "#TabContent2",
+     "content": "Dynamic content 2",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+        {
+           "id": 1,
+           "subtabs": "Request Info",
+           "link": "#request_infos"
+        },
+        {
+           "id": 2,
+           "subtabs": "Admission Info",
+           "link": "#admission_infos"
+        },
+        {
+           "id": 3,
+           "subtabs": "Booking",
+           "link": "#bookings"
+        },
+        {
+          "id": 1,
+          "subtabs": "Request Info",
+          "link": "#request_infos"
+       },
+       {
+          "id": 2,
+          "subtabs": "Admission Info",
+          "link": "#admission_infos"
+       },
+       {
+          "id": 3,
+          "subtabs": "Booking",
+          "link": "#bookings"
+       },
+       {
+        "id": 1,
+        "subtabs": "Request Info",
+        "link": "#request_infos"
+     },
+     {
+        "id": 2,
+        "subtabs": "Admission Info",
+        "link": "#admission_infos"
+     },
+     {
+        "id": 3,
+        "subtabs": "Booking",
+        "link": "#bookings"
+     },
+     {
+      "id": 1,
+      "subtabs": "Request Info",
+      "link": "#request_infos"
+   },
+   {
+      "id": 2,
+      "subtabs": "Admission Info",
+      "link": "#admission_infos"
+   },
+   {
+      "id": 3,
+      "subtabs": "Booking",
+      "link": "#bookings"
+   }
+     ]
   },
   {
-    "tabs":"Technologist",
-    "id":3
+     "tabs": "Technologist",
+     "id": 3,
+     "template": "#TabContent3",
+     "content": "Dynamic content 3",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+      {
+        "id": 1,
+        "subtabs": "Request Info",
+        "link": "#request_info"
+     },
+     {
+        "id": 2,
+        "subtabs": "Admission Info",
+        "link": "#admission_info"
+     }
+     ]
   },
   {
-    "tabs":"Receptionist",
-    "id":4
+     "tabs": "Receptionist",
+     "id": 4,
+     "template": "#TabContent4",
+     "content": "Dynamic content 4",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+      {
+        "id": 1,
+        "subtabs": "Request Info",
+        "link": "#request_info"
+     }
+     ]
   }
 ]

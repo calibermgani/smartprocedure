@@ -1,10 +1,15 @@
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { TabDirective } from 'ngx-bootstrap/tabs';
 
 interface MainTab {
   "tabs": string,
   "id": number,
-  "subtabs": string
+  "template":string
+  "content":string,
+  "removable":boolean,
+  "disabled":boolean,
+  "subtabs": string,
 }
 
 interface SubTab {
@@ -24,17 +29,22 @@ export class ProcedureDetailsComponent implements OnInit {
   mainTabsValue: any = [];
   subTabs: any[] = [];
   header_viewOnlymode: any[] = [];
-  isFirstOpen: boolean = true;
+  isFirstOpen: boolean = false;
+  value?: string;
 
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
-    this.http.get<MainTab>('assets/json/main-tabs.json').subscribe((res: MainTab) => {
+    this.http.get<MainTab>('assets/json/main-tabs.json').subscribe((res: any) => {
       this.mainTabsValue = res;
       console.log("res", res);
-      if (res[0].subtabs) {
-        this.subTabs.push(res[0].subtabs);
+
+      for(let i=0;i<res.length;i++)
+      {
+        if (res[i].subtabs) {
+          this.subTabs.push(res[i].subtabs);
+        }
       }
       console.log(this.subTabs);
     });
@@ -42,10 +52,6 @@ export class ProcedureDetailsComponent implements OnInit {
     this.http.get('assets/json/viewOnlyMode.json').subscribe((res: any) => {
       this.header_viewOnlymode = res;
     })
-  }
-
-  fetchData(res: any) {
-
   }
 
   CloseViewOnlyMode() {

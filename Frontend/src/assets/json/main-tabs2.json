@@ -1,0 +1,52 @@
+[
+  {
+    "tabs": "Radiology",
+    "id": 1,
+    "template": "TabContent1",
+    "content": "Dynamic content 1",
+    "removable": false,
+    "disabled": false
+  },
+  {
+    "tabs": "Nurse",
+    "id": 2,
+    "template": "TabContent2",
+    "content": "Dynamic content 2",
+    "removable": false,
+    "disabled": false,
+    "active": true,
+    "subtabs": [
+      {
+        "id": 2,
+        "subtabs": "Lab Result",
+        "link": "#Lab_Result"
+      },
+      {
+        "id": 3,
+        "subtabs": "CT Brain",
+        "link": "#CT_Brain"
+      },
+      {
+        "id": 4,
+        "subtabs": "ECG",
+        "link": "#ECG"
+      }
+    ]
+  },
+  {
+    "tabs": "Technologist",
+    "id": 3,
+    "template": "TabContent3",
+    "content": "Dynamic content 3",
+    "removable": false,
+    "disabled": false
+  },
+  {
+    "tabs": "Receptionist",
+    "id": 4,
+    "template": "TabContent4",
+    "content": "Dynamic content 4",
+    "removable": false,
+    "disabled": false
+  }
+]
