@@ -1,0 +1,32 @@
+[
+  {
+     "tabs": "Task",
+     "id": 1,
+     "template": "TabContent1",
+     "active":"active",
+     "content": "Dynamic content 1",
+     "imgPath":"assets/images/tick_kizin.svg",
+     "removable": false,
+     "disabled": false
+  },
+  {
+     "tabs": "Communication",
+     "id": 2,
+     "template": "TabContent2",
+     "active":"",
+     "content": "Dynamic content 2",
+     "imgPath":"assets/images/communication_kizin.svg",
+     "removable": false,
+     "disabled": false
+  },
+  {
+     "tabs": "Timeline",
+     "id": 3,
+     "template": "TabContent3",
+     "active":"",
+     "content": "Dynamic content 3",
+     "imgPath":"assets/images/timeline_kizin.svg",
+     "removable": false,
+     "disabled": false
+  }
+]

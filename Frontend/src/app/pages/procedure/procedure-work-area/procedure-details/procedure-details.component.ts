@@ -40,7 +40,7 @@ export class ProcedureDetailsComponent implements OnInit {
   ngOnInit() {
     this.http.get<MainTab>('assets/json/main-tabs.json').subscribe((res: any) => {
       this.mainTabsValue = res;
-      console.log("res", res);
+      // console.log("res", res);
 
       for(let i=0;i<res.length;i++)
       {
@@ -48,7 +48,7 @@ export class ProcedureDetailsComponent implements OnInit {
           this.subTabs.push(res[i].subtabs);
         }
       }
-      console.log(this.subTabs);
+      // console.log(this.subTabs);
     });
 
     this.http.get('assets/json/viewOnlyMode.json').subscribe((res: any) => {
