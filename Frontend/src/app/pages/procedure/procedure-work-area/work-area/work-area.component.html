@@ -67,7 +67,27 @@
       <app-all-procedures></app-all-procedures>
     </div>
   </div>
-  <div class="col-lg-2">
-    <div class="cards">Hi</div>
+  <div class="col-lg-2" style="padding: 0px 8px 0px 8px !important;">
+    <div class="cards" style="height: 765px;overflow-y: scroll;overflow-x: hidden;padding: 0px !important;">
+      <div class="d-flex flex-row justify-content-between align-items-center" style="background:#594585;height: 55px;border-radius: 12px 12px 0px 0px;">
+        <h1 style="font-size: 16px !important;color: #fff !important;" class="ms-4">KIZIN</h1>
+        <div class="me-3">
+          <div class="dropdown float-end" dropdown>
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
+                aria-haspopup="true" aria-expanded="false" dropdownToggle style="background: none !important;
+                padding: 0px !important;
+                border: none !important;">
+                <img src="assets/images/procedure_alert.svg">
+            </button>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="padding: 0px 0px 10px 0px; border-radius: 8px 8px 0px 0px;">
+                <a class="dropdown-item" href="javascript: void(0);" style="background: #D62424;color: #fff;border-radius: 6px 6px 0px 0px !important;margin-bottom: 10px;">Procedure Alert
+                  <img src="assets/images/Procedure_notification_alert.svg">
+                </a>
+                <a class="dropdown-item" href="javascript: void(0);" *ngFor="let x of procedureAlertsData">
+                  {{x.value}}
+                </a>
+            </div>
+        </div>
+      </div>
   </div>
 </div>

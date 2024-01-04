@@ -37,34 +37,6 @@
                 the transition does limit overflow.
               </div>
             </accordion-group>
-            <!-- <accordion-group heading="Accordion Item #2" class="accordion-item" #md>
-              <span accordion-heading class="float-end fs-5">
-                <i class="mdi"
-                  [ngClass]="!md?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"></i>
-              </span>
-              <div class="text-muted">
-                <strong class="text-body-emphasis">This is the second item's accordion body.</strong> It is hidden by
-                default, until the collapse plugin adds the appropriate classes that we use to style each element.
-                These classes control the overall appearance, as well as the showing and hiding via CSS
-                transitions. You can modify any of this with custom CSS or overriding our default variables. It's
-                also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
-                the transition does limit overflow.
-              </div>
-            </accordion-group>
-            <accordion-group heading="Accordion Item #3" class="accordion-item" #item3>
-              <span accordion-heading class="float-end fs-5">
-                <i class="mdi"
-                  [ngClass]="!item3?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"></i>
-              </span>
-              <div class="text-muted">
-                <strong class="text-body-emphasis">This is the third item's accordion body.</strong> It is hidden by
-                default, until the collapse plugin adds the appropriate classes that we use to style each element.
-                These classes control the overall appearance, as well as the showing and hiding via CSS
-                transitions. You can modify any of this with custom CSS or overriding our default variables. It's
-                also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
-                the transition does limit overflow.
-              </div>
-            </accordion-group> -->
           </accordion>
         </div>
       </div>
@@ -87,10 +59,11 @@
         <div class="tab-pane" role="tabpanel">
         <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist" >
           <li class="nav-items" role="presentation" *ngFor="let x of mainTabsValue">
-            <a class="nav-link" data-bs-toggle="tab" [href]="x.template" role="tab"
+            <a [class]="'nav-link '+x.active" data-bs-toggle="tab" [href]="x.template" role="tab"
               aria-selected="true">
               <div class="d-flex align-items-center">
-                <i class="mdi mdi-18px mdi-account me-2"></i>
+                <!-- <i class="mdi mdi-18px mdi-account me-2"></i> -->
+                <img [src]="x.imgPath" width="16px" height="16px" class="me-2">
                 <span>{{x.tabs}}</span>
               </div>
             </a>
@@ -99,19 +72,19 @@
 
 
         <div class="tab-content mt-1 text-muted">
-          <div class="tab-pane" id="TabContent1" role="tabpanel">
+          <div class="tab-pane active show" id="TabContent1" role="tabpanel">
             <div class="tab-pane" role="tabpanel">
-              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;">
+              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
-                  <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                  <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <h4 class="name mb-0" style="color: #747474">{{x.subtabs}}</h4>
+                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
                   </a>
                 </li>
               </ul>
-              <div class="tab-content text-muted">
-                <div class="tab-pane" id="request_info" role="tabpanel">
+              <div class="tab-content ms-2 mt-2 text-muted">
+                <div class="tab-pane active show" id="request_info" role="tabpanel">
                   <h1>Request Info</h1>
                 </div>
                 <div class="tab-pane" id="admission_info" role="tabpanel">
@@ -137,17 +110,17 @@
           </div>
           <div class="tab-pane" id="TabContent2" role="tabpanel">
             <div class="tab-pane" role="tabpanel">
-              <div class="scroll-container" style=" overflow-y: scroll;">
-              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;">
+              <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
+              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
-                  <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                  <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <h4 class="name mb-0" style="color: #747474">{{x.subtabs}}</h4>
+                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
                   </a>
                 </li>
               </ul>
-              <div class="tab-content text-muted">
+              <div class="tab-content ms-2 mt-2 text-muted mt-2">
                 <div class="tab-pane" id="request_infos" role="tabpanel">
                   <h1>Request Info</h1>
                 </div>
@@ -170,7 +143,7 @@
                   <h1>Radiation dose info</h1>
                 </div>
               </div>
-            </div>
+            <!-- </div> -->
             </div>
           </div>
           <div class="tab-pane" id="TabContent3" role="tabpanel">
@@ -180,11 +153,11 @@
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
                   <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <h4 class="name mb-0" style="color: #747474">{{x.subtabs}}</h4>
+                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
                   </a>
                 </li>
               </ul>
-              <div class="tab-content text-muted">
+              <div class="tab-content ms-2 mt-2 text-muted">
                 <div class="tab-pane" id="request_info" role="tabpanel">
                   <h1>Request Info</h1>
                 </div>
@@ -216,11 +189,11 @@
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
                   <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <h4 class="name mb-0" style="color: #747474">{{x.subtabs}}</h4>
+                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
                   </a>
                 </li>
               </ul>
-              <div class="tab-content text-muted">
+              <div class="tab-content ms-2 mt-2 text-muted">
                 <div class="tab-pane" id="request_info" role="tabpanel">
                   <h1>Request Info</h1>
                 </div>

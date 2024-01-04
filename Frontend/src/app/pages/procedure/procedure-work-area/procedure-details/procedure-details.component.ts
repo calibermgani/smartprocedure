@@ -5,8 +5,10 @@ import { TabDirective } from 'ngx-bootstrap/tabs';
 interface MainTab {
   "tabs": string,
   "id": number,
-  "template":string
+  "template":string,
+  "active":string,
   "content":string,
+  "imgPath":string,
   "removable":boolean,
   "disabled":boolean,
   "subtabs": string,
