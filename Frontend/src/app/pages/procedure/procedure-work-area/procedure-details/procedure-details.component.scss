@@ -16,7 +16,7 @@
   text-align: center !important;
   display: flex !important;
   flex-wrap: nowrap !important;
-  justify-content: start;
+  // justify-content: start;
 }
 
 
@@ -32,7 +32,7 @@
   transition: none !important;
   transform: none !important;
   padding: 5px 30px !important;
-  opacity: 0.6;
+  opacity: 1;
 }
 
 ::ng-deep .nav-justified .nav-item

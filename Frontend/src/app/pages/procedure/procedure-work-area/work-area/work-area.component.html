@@ -93,12 +93,12 @@
   <div class="selva">
     <div class="tab-pane" role="tabpanel">
       <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist" >
-        <li class="nav-items" role="presentation" *ngFor="let x of kizintabValues">
-          <a [class]="'nav-link '+x.active" data-bs-toggle="tab" [href]="x.template" role="tab"
-            aria-selected="true">
+        <li class="nav-items" role="presentation" *ngFor="let x of kizintabValues;let i = index">
+          <a [class]="x.active == true ?'nav-link active':'nav-link'" data-bs-toggle="tab" [href]="x.template" role="tab"
+            aria-selected="true" (click)="toggleTabIcon(i)">
             <div class="d-flex align-items-center">
-              <!-- <i class="mdi mdi-18px mdi-account me-2"></i> -->
-              <img [src]="x.imgPath" width="16px" height="16px" class="me-2">
+              <!-- <i class="mdi mdi-18px mdi-account me-2"></i>   -->
+              <img [src]="x.active == true ? x.activeimg : x.imgPath" width="16px" height="16px" class="me-2">
               <span>{{x.tabs}}</span>
             </div>
           </a>
@@ -108,7 +108,29 @@
 
       <div class="tab-content mt-1 text-muted">
         <div class="tab-pane active show" id="TabContent1" role="tabpanel">
+          <div class="accords" style="overflow-x: scroll;height: 507px;display: block !important;">
+            <accordion [closeOthers]="false" class="accordion" [isAnimated]="true" *ngFor="let x of procedureStagelist">
+              <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group >
+                <span accordion-heading class="d-flex">
+                  <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">{{x.stage}}</h4>
 
+                  <div class="float-end">
+                  <img src="assets/images/detailed_view.svg" alt="detailed_view" width="10px" height="10px" class="mb-1 me-2" (click)="open()">
+                  <i class="mdi"
+                    [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'" style="font-size: 17px;"></i>
+                  </div>
+                </span>
+                <div class="text-muted">
+                  <strong class="text-body-emphasis">This is the first item's accordion body.</strong> It is hidden by
+                  default, until the collapse plugin adds the appropriate classes that we use to style each element.
+                  These classes control the overall appearance, as well as the showing and hiding via CSS
+                  transitions. You can modify any of this with custom CSS or overriding our default variables. It's
+                  also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
+                  the transition does limit overflow.
+                </div>
+              </accordion-group>
+            </accordion>
+          </div>
         </div>
         <div class="tab-pane" id="TabContent2" role="tabpanel">
           <div class="tab-pane" role="tabpanel">
@@ -134,7 +156,7 @@
 
 
 <ng-template #TabContent1>
-Hi
+
 </ng-template>
 
 <ng-template #TabContent2>

@@ -1,0 +1,79 @@
+[
+  {
+    "id": 1,
+    "stage": "Vetting",
+    "status": "In Progress",
+    "list": [
+      {
+        "id":1,
+        "task": "IV access method",
+        "completed_date_time": "11/2/2014 15.25",
+        "status": "",
+        "role": "Admin",
+        "owner": "Flores Juanita"
+      },
+      {
+        "id":2,
+        "task": "Having the folly catheter",
+        "completed_date_time": "11/2/2014 15.25",
+        "status": "",
+        "role": "Admin",
+        "owner": "Flores Juanita"
+      },
+      {
+        "id":3,
+        "task": "Having the folly catheter",
+        "completed_date_time": "",
+        "status": "In Progress",
+        "role": "Admin",
+        "owner": "Flores Juanita"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "stage": "Booking",
+    "status": "Yet to start",
+    "list": [
+      {
+        "task": "IV access method",
+        "completed_date_time": "11/2/2014 15.25",
+        "status": "",
+        "role": "Admin",
+        "owner": "Flores Juanita"
+      },
+      {
+        "task": "Having the folly catheter",
+        "completed_date_time": "11/2/2014 15.25",
+        "status": "",
+        "role": "Admin",
+        "owner": "Flores Juanita"
+      },
+      {
+        "task": "Having the folly catheter",
+        "completed_date_time": "",
+        "status": "In Progress",
+        "role": "Admin",
+        "owner": "Flores Juanita"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "stage": "Pre procedure",
+    "status": "Yet to start",
+    "list": []
+  },
+  {
+    "id": 4,
+    "stage": "Intra procedure",
+    "status": "Yet to start",
+    "list": []
+  },
+  {
+    "id": 5,
+    "stage": "Post procedure",
+    "status": "Yet to start",
+    "list": []
+  }
+]

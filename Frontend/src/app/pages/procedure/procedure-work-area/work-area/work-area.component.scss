@@ -13,21 +13,26 @@
 
 .nav
 {
-  background:#8B77B7 !important;
+  background:#654e98 !important;
   height: 34px !important;
-  border-radius: 0px 10px 0px 0px !important;
+  border-radius: 0px 0px 0px 0px !important;
   text-align: center !important;
   display: flex !important;
   flex-wrap: nowrap !important;
-  justify-content: start;
+  // justify-content: start;
+  padding: 0px 3px;
 }
 
 .nav-pills .nav-link.active
 {
   background:#fff !important;
   border-radius: 10px 10px 0px 0px !important;
+  padding: 7px 20px !important;
   span
   {
     color: #000 !important;
   }
+}
+.nav-tabs .nav-link:focus{
+  isolation: auto !important;
 }

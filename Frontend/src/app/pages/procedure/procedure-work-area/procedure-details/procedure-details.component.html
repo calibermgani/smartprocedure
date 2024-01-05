@@ -17,8 +17,8 @@
       bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" (click)="CloseViewOnlyMode()" class="leftexpand">
 
         <div class="accords" style="overflow-x: scroll;height: 507px;">
-          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true" *ngFor="let x of header_viewOnlymode">
-            <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group >
+          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true" >
+            <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode">
               <span accordion-heading class="d-flex">
                 <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">{{x.headername}}</h4>
 
@@ -75,7 +75,7 @@
           <div class="tab-pane active show" id="TabContent1" role="tabpanel">
             <div class="tab-pane" role="tabpanel">
               <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;">
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
                   <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -112,7 +112,7 @@
             <div class="tab-pane" role="tabpanel">
               <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
               <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;">
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
                   <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -149,7 +149,7 @@
           <div class="tab-pane" id="TabContent3" role="tabpanel">
             <div class="tab-pane" role="tabpanel">
               <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;">
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
                   <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -185,7 +185,7 @@
           <div class="tab-pane" id="TabContent4" role="tabpanel">
             <div class="tab-pane" role="tabpanel">
               <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;">
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
                   <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
