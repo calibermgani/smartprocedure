@@ -9,6 +9,7 @@
   border-top: 1px solid #ECECEC;
   position: absolute;
   bottom: 10px;
+  width: 100%;
 }
 
 .nav
@@ -19,7 +20,7 @@
   text-align: center !important;
   display: flex !important;
   flex-wrap: nowrap !important;
-  // justify-content: start;
+  // justify-content:space-between;
   padding: 0px 3px;
 }
 
@@ -35,4 +36,42 @@
 }
 .nav-tabs .nav-link:focus{
   isolation: auto !important;
+}
+
+.accordion-item{
+  border: none !important;
+  margin: 10px 0px ;
+}
+
+::ng-deep  .card-header {
+  padding: 3px 10px 5px 10px !important;
+  background: #F3F4F8 !important;
+}
+
+::ng-deep .card-block
+{
+  overflow: hidden !important;
+}
+
+.verti-timeline
+{
+  border-left: 1px solid #8B8B8B !important;
+  margin: 0 -1px !important;
+  height: 50px ;
+}
+
+::ng-deep .verti-timeline .event-list{
+  padding: 7px 0px 0px 20px !important;
+}
+
+.form-check-input:checked
+{
+  background-color: #27AF2C !important;
+  border-color: #27AF2C !important;;
+}
+
+.verti-timeline .event-list .event-timeline-dot
+{
+  left: -9px !important;
+  top: 10px !important;
 }

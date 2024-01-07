@@ -2,7 +2,7 @@
   {
      "tabs": "Task",
      "id": 1,
-     "template": "TabContent1",
+     "template": "#tabContent1",
      "active":true,
      "content": "Dynamic content 1",
      "imgPath":"assets/images/task_kizin_white.svg",
@@ -13,7 +13,7 @@
   {
      "tabs": "Communication",
      "id": 2,
-     "template": "TabContent2",
+     "template": "#tabContent2",
      "active":false,
      "content": "Dynamic content 2",
      "imgPath":"assets/images/communication_kizin.svg",
@@ -24,7 +24,7 @@
   {
      "tabs": "Timeline",
      "id": 3,
-     "template": "TabContent3",
+     "template": "#tabContent3",
      "active":false,
      "content": "Dynamic content 3",
      "imgPath":"assets/images/timeline_kizin.svg",

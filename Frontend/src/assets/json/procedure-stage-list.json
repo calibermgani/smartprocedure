@@ -3,6 +3,7 @@
     "id": 1,
     "stage": "Vetting",
     "status": "In Progress",
+    "accord_open":true,
     "list": [
       {
         "id":1,
@@ -34,6 +35,7 @@
     "id": 2,
     "stage": "Booking",
     "status": "Yet to start",
+    "accord_open":false,
     "list": [
       {
         "task": "IV access method",
@@ -62,18 +64,21 @@
     "id": 3,
     "stage": "Pre procedure",
     "status": "Yet to start",
+    "accord_open":false,
     "list": []
   },
   {
     "id": 4,
     "stage": "Intra procedure",
     "status": "Yet to start",
+    "accord_open":false,
     "list": []
   },
   {
     "id": 5,
     "stage": "Post procedure",
     "status": "Yet to start",
+    "accord_open":false,
     "list": []
   }
 ]

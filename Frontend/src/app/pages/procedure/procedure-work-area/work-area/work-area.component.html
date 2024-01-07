@@ -9,7 +9,7 @@
       <!-- Filters -->
       <div class="d-flex align-items-center mb-3">
         <div class="position-relative">
-          <select class="form-select" id="idType" aria-label="Default select example" style="width: 134px !important;height: 29px !important;">
+          <select class="form-select" id="idType" aria-label="Default select example" style="height: 29px !important;">
               <option value="all" >Select Status</option>
               <option value="Freelance" >Vetting</option>
               <option value="Full Time" >Booking</option>
@@ -19,7 +19,7 @@
           </select>
       </div>
         <div class="">
-        <input type="text" placeholder="Select Date" class="form-control ms-2" style="width: 128px !important;height: 31px;"
+        <input type="text" placeholder="Select Date" class="form-control ms-2" style="height: 31px;font-size: 0.66rem !important;"
           [bsConfig]="{withTimepicker: true, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
           bsDaterangepicker>
         </div>
@@ -55,8 +55,12 @@
       <div class="card-footer">
         <h4 class="mt-2">Patient Seleced: 0</h4>
         <div class="d-flex justify-content-between align-items-center">
-          <button type="button" class="btn-new me-2" style="background:#F3F4F8 !important;color: #000 !important;width: 130px !important;">Cancel</button>
-          <button type="button" class="btn-new" style="width: 130px !important;">Group</button>
+          <div>
+          <button type="button" class="btn-new me-2" style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        </div>
+        <div>
+          <button type="button" class="btn-new" style="width: auto !important;">Group</button>
+        </div>
         </div>
       </div>
     </div>
@@ -90,7 +94,6 @@
         </div>
       </div>
   </div>
-  <div class="selva">
     <div class="tab-pane" role="tabpanel">
       <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist" >
         <li class="nav-items" role="presentation" *ngFor="let x of kizintabValues;let i = index">
@@ -107,46 +110,59 @@
 
 
       <div class="tab-content mt-1 text-muted">
-        <div class="tab-pane active show" id="TabContent1" role="tabpanel">
-          <div class="accords" style="overflow-x: scroll;height: 507px;display: block !important;">
-            <accordion [closeOthers]="false" class="accordion" [isAnimated]="true" *ngFor="let x of procedureStagelist">
-              <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group >
+        <div class="tab-pane active show" id="tabContent1" role="tabpanel">
+          <div class="accords" style="overflow-x: scroll !important;height: 670px;display: block !important;overflow-y: auto !important;">
+            <accordion [closeOthers]="false" class="accordion" [isAnimated]="true" *ngFor="let x of procedureStagelist;let i = index">
+              <accordion-group [isOpen]="x.accord_open" class="accordion-item" #group >
                 <span accordion-heading class="d-flex">
-                  <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">{{x.stage}}</h4>
-
-                  <div class="float-end">
-                  <img src="assets/images/detailed_view.svg" alt="detailed_view" width="10px" height="10px" class="mb-1 me-2" (click)="open()">
                   <i class="mdi"
                     [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'" style="font-size: 17px;"></i>
+                  <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">{{x.stage}}</h4>
+                  <div class="float-end">
+
+                  <h4 class="mb-0 my-2" style="color: #D62424;">{{x.status}}</h4>
                   </div>
                 </span>
                 <div class="text-muted">
-                  <strong class="text-body-emphasis">This is the first item's accordion body.</strong> It is hidden by
-                  default, until the collapse plugin adds the appropriate classes that we use to style each element.
-                  These classes control the overall appearance, as well as the showing and hiding via CSS
-                  transitions. You can modify any of this with custom CSS or overriding our default variables. It's
-                  also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
-                  the transition does limit overflow.
+                  <ul class="verti-timeline list-unstyled" *ngFor="let y of taskList[i]">
+                    <li class="event-list">
+                        <div class="event-timeline-dot">
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox">
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column  w-100">
+                        <div class="d-flex flex-row align-items-center">
+                          <p style="font-weight: 500 !important;" class="mb-0">{{y.task}}</p><h4 class=" ms-2 mb-0">{{y.completed_date_time}}</h4><h4 style="color: #D62424;" class="ms-2 mb-0">{{y.status}}</h4>
+                          <div class="ms-auto">
+                            <img src="assets/images/edit_task_list.svg" width="12px" height="12px" style="cursor: pointer !important;">
+                          </div>
+                        </div>
+                        <div>
+                          <h4 class="mt-1">{{y.role}},{{y.owner}}</h4>
+                        </div>
+                        </div>
+                    </li>
+                </ul>
                 </div>
               </accordion-group>
             </accordion>
           </div>
         </div>
-        <div class="tab-pane" id="TabContent2" role="tabpanel">
+        <div class="tab-pane" id="tabContent2" role="tabpanel">
           <div class="tab-pane" role="tabpanel">
-
+            2
           </div>
         </div>
-        <div class="tab-pane" id="TabContent3" role="tabpanel">
+        <div class="tab-pane" id="tabContent3" role="tabpanel">
           <div class="tab-pane" role="tabpanel">
-
+            3
           </div>
         </div>
       </div>
 
 
     </div>
-  </div>
 </div>
 </div>
 </div>

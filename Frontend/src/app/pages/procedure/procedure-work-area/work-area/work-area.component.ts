@@ -17,6 +17,7 @@ interface ProcedureStageList{
   "id": number,
   "stage":string,
   "status": string,
+  "accord_open":boolean,
   "list": Task[]
 }
 
@@ -61,6 +62,13 @@ export class WorkAreaComponent implements OnInit{
       console.log('ressa',res);
 
       this.procedureStagelist = res;
+      for(let i=0;i<res.length;i++)
+      {
+        if(res[i].list)
+        {
+          this.taskList.push(res[i].list);
+        }
+      }
     });
   }
 
