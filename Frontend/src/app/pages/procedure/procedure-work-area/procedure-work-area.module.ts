@@ -15,13 +15,15 @@ import { HttpClientModule } from '@angular/common/http';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+
 @NgModule({
   declarations: [
     WorkAreaComponent,
     ProcedureStatusComponent,
     ProcedureDetailsComponent,
     AllProceduresComponent,
-    VettingComponent,
+    VettingComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +35,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
     HttpClientModule,
     AccordionModule.forRoot(),
     CollapseModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    BsDropdownModule.forRoot(),
+    TooltipModule.forRoot()
   ]
 })
 export class ProcedureWorkAreaModule { }

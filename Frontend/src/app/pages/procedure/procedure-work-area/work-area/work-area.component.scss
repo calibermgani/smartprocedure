@@ -36,6 +36,13 @@
 }
 .nav-tabs .nav-link:focus{
   isolation: auto !important;
+  border: none !important;
+}
+
+.nav-tabs .nav-link
+{
+  isolation: auto !important;
+  border: none !important;
 }
 
 .accordion-item{
@@ -74,4 +81,24 @@
 {
   left: -9px !important;
   top: 10px !important;
+}
+.alert_images
+{
+  cursor: pointer;
+  margin: 0px 8px;
+}
+.tooltipClass
+{
+  background: #fff !important;
+  border:1px solid #343434 !important;
+}
+
+.navs{
+  height: 34px !important;
+  border-radius: 0px 0px 0px 0px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  // justify-content:space-between;
+  padding: 0px 3px;
 }

@@ -10,18 +10,19 @@
       <div class="d-flex align-items-center mb-3">
         <div class="position-relative">
           <select class="form-select" id="idType" aria-label="Default select example" style="height: 29px !important;">
-              <option value="all" >Select Status</option>
-              <option value="Freelance" >Vetting</option>
-              <option value="Full Time" >Booking</option>
-              <option value="Part Time" >Pre Procedure</option>
-              <option value="Internship" >Intra Procedure</option>
-              <option value="Internship" >Post Procedure</option>
+            <option value="all">Select Status</option>
+            <option value="Freelance">Vetting</option>
+            <option value="Full Time">Booking</option>
+            <option value="Part Time">Pre Procedure</option>
+            <option value="Internship">Intra Procedure</option>
+            <option value="Internship">Post Procedure</option>
           </select>
-      </div>
+        </div>
         <div class="">
-        <input type="text" placeholder="Select Date" class="form-control ms-2" style="height: 31px;font-size: 0.66rem !important;"
-          [bsConfig]="{withTimepicker: true, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
-          bsDaterangepicker>
+          <input type="text" placeholder="Select Date" class="form-control ms-2"
+            style="height: 31px;font-size: 0.66rem !important;"
+            [bsConfig]="{withTimepicker: true, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+            bsDaterangepicker>
         </div>
       </div>
       <!-- Search Box -->
@@ -56,150 +57,298 @@
         <h4 class="mt-2">Patient Seleced: 0</h4>
         <div class="d-flex justify-content-between align-items-center">
           <div>
-          <button type="button" class="btn-new me-2" style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
-        </div>
-        <div>
-          <button type="button" class="btn-new" style="width: auto !important;">Group</button>
-        </div>
+            <button type="button" class="btn-new me-2"
+              style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+          </div>
+          <div>
+            <button type="button" class="btn-new" style="width: auto !important;">Group</button>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div class="col-lg-7 mb-2" style="padding:0px 8px 0px 8px !important;height: 765px !important;">
-    <div class="cards"  style="height: 765px;overflow-y: scroll;overflow-x: hidden;padding: 10px 10px 0px 10px !important;">
-      <!-- <app-procedure-status></app-procedure-status> -->
+    <div class="cards"
+      style="height: 765px;overflow-y: scroll;overflow-x: hidden;padding: 10px 10px 0px 10px !important;">
       <app-all-procedures></app-all-procedures>
     </div>
   </div>
-  <div class="col-lg-3" style="padding: 0px 8px 0px 8px !important;">
+  <div class="col-lg-3" style="padding: 0px 8px 0px 8px !important;" *ngIf="show_patient_details">
     <div class="cards" style="height: 765px;overflow-y: scroll;overflow-x: hidden;padding: 0px !important;">
-      <div class="d-flex flex-row justify-content-between align-items-center" style="background:#594585;height: 55px;border-radius: 12px 12px 0px 0px;">
+      <div class="d-flex flex-row justify-content-between align-items-center"
+        style="background:#594585;height: 55px;border-radius: 12px 12px 0px 0px;">
         <h1 style="font-size: 16px !important;color: #fff !important;" class="ms-4">KIZIN</h1>
         <div class="me-3">
           <div class="dropdown float-end" dropdown>
-            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" dropdownToggle style="background: none !important;
+            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true"
+              aria-expanded="false" dropdownToggle style="background: none !important;
                 padding: 0px !important;
                 border: none !important;">
-                <img src="assets/images/procedure_alert.svg">
+              <img src="assets/images/procedure_alert.svg">
             </button>
-            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="padding: 0px 0px 10px 0px; border-radius: 8px 8px 0px 0px;">
-                <a class="dropdown-item" href="javascript: void(0);" style="background: #D62424;color: #fff;border-radius: 6px 6px 0px 0px !important;margin-bottom: 10px;">Procedure Alert
-                  <img src="assets/images/Procedure_notification_alert.svg">
-                </a>
-                <a class="dropdown-item" href="javascript: void(0);" *ngFor="let x of procedureAlertsData">
-                  {{x.value}}
-                </a>
+            <div class="dropdown-menu dropdown-menu-end" *dropdownMenu
+              style="padding: 0px 0px 10px 0px; border-radius: 8px 8px 0px 0px;">
+              <a class="dropdown-item" href="javascript: void(0);"
+                style="background: #D62424;color: #fff;border-radius: 6px 6px 0px 0px !important;margin-bottom: 10px;">Procedure
+                Alert
+                <img src="assets/images/Procedure_notification_alert.svg">
+              </a>
+              <a class="dropdown-item" href="javascript: void(0);" *ngFor="let x of procedureAlertsData">
+                {{x.value}}
+              </a>
             </div>
+          </div>
         </div>
       </div>
-  </div>
-    <div class="tab-pane" role="tabpanel">
-      <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist" >
-        <li class="nav-items" role="presentation" *ngFor="let x of kizintabValues;let i = index">
-          <a [class]="x.active == true ?'nav-link active':'nav-link'" data-bs-toggle="tab" [href]="x.template" role="tab"
-            aria-selected="true" (click)="toggleTabIcon(i)">
-            <div class="d-flex align-items-center">
-              <!-- <i class="mdi mdi-18px mdi-account me-2"></i>   -->
-              <img [src]="x.active == true ? x.activeimg : x.imgPath" width="16px" height="16px" class="me-2">
-              <span>{{x.tabs}}</span>
-            </div>
-          </a>
-        </li>
-      </ul>
+      <div class="tab-pane" role="tabpanel">
+        <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist">
+          <li class="nav-items" role="presentation" *ngFor="let x of kizintabValues;let i = index">
+            <a [class]="x.active == true ?'nav-link active':'nav-link'" data-bs-toggle="tab" [href]="x.template"
+              role="tab" aria-selected="true" (click)="toggleTabIcon(i)">
+              <div class="d-flex align-items-center">
+                <img [src]="x.active == true ? x.activeimg : x.imgPath" width="16px" height="16px" class="me-2">
+                <span>{{x.tabs}}</span>
+              </div>
+            </a>
+          </li>
+        </ul>
 
+        <div class="tab-content mt-1 text-muted">
+          <!-- Tab Content 1 -->
+          <div class="tab-pane active show" id="tabContent1" role="tabpanel">
+            <div class="accords"
+              style="overflow-x: scroll !important;height: 670px;display: block !important;overflow-y: auto !important;">
+              <accordion [closeOthers]="false" class="accordion" [isAnimated]="true"
+                *ngFor="let x of procedureStagelist;let i = index">
+                <accordion-group [isOpen]="x.accord_open" class="accordion-item" #group>
+                  <span accordion-heading class="d-flex">
+                    <i class="mdi"
+                      [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+                      style="font-size: 17px;"></i>
+                    <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+                      {{x.stage}}</h4>
+                    <div class="float-end">
 
-      <div class="tab-content mt-1 text-muted">
-        <div class="tab-pane active show" id="tabContent1" role="tabpanel">
-          <div class="accords" style="overflow-x: scroll !important;height: 670px;display: block !important;overflow-y: auto !important;">
-            <accordion [closeOthers]="false" class="accordion" [isAnimated]="true" *ngFor="let x of procedureStagelist;let i = index">
-              <accordion-group [isOpen]="x.accord_open" class="accordion-item" #group >
-                <span accordion-heading class="d-flex">
-                  <i class="mdi"
-                    [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'" style="font-size: 17px;"></i>
-                  <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">{{x.stage}}</h4>
-                  <div class="float-end">
-
-                  <h4 class="mb-0 my-2" style="color: #D62424;">{{x.status}}</h4>
-                  </div>
-                </span>
-                <div class="text-muted">
-                  <ul class="verti-timeline list-unstyled" *ngFor="let y of taskList[i]">
-                    <li class="event-list">
+                      <h4 class="mb-0 my-2" style="color: #D62424;">{{x.status}}</h4>
+                    </div>
+                  </span>
+                  <div class="text-muted">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of taskList[i]">
+                      <li class="event-list">
                         <div class="event-timeline-dot">
                           <div class="form-check font-size-16">
                             <input class="form-check-input" type="checkbox">
                           </div>
                         </div>
                         <div class="d-flex flex-column  w-100">
-                        <div class="d-flex flex-row align-items-center">
-                          <p style="font-weight: 500 !important;" class="mb-0">{{y.task}}</p><h4 class=" ms-2 mb-0">{{y.completed_date_time}}</h4><h4 style="color: #D62424;" class="ms-2 mb-0">{{y.status}}</h4>
-                          <div class="ms-auto">
-                            <img src="assets/images/edit_task_list.svg" width="12px" height="12px" style="cursor: pointer !important;">
+                          <div class="d-flex flex-row align-items-center">
+                            <p style="font-weight: 500 !important;" class="mb-0">{{y.task}}</p>
+                            <h4 class=" ms-2 mb-0">{{y.completed_date_time}}</h4>
+                            <h4 style="color: #D62424;" class="ms-2 mb-0">{{y.status}}</h4>
+                            <div class="ms-auto">
+                              <img src="assets/images/edit_task_list.svg" width="12px" height="12px"
+                                style="cursor: pointer !important;">
+                            </div>
+                          </div>
+                          <div>
+                            <h4 class="mt-1">{{y.role}},{{y.owner}}</h4>
                           </div>
                         </div>
-                        <div>
-                          <h4 class="mt-1">{{y.role}},{{y.owner}}</h4>
-                        </div>
-                        </div>
-                    </li>
-                </ul>
-                </div>
-              </accordion-group>
-            </accordion>
+                      </li>
+                    </ul>
+                  </div>
+                </accordion-group>
+              </accordion>
+            </div>
           </div>
-        </div>
-        <div class="tab-pane" id="tabContent2" role="tabpanel">
-          <div class="tab-pane" role="tabpanel">
-            2
+          <!-- Tab Content 2 -->
+          <div class="tab-pane" id="tabContent2" role="tabpanel">
+            <div class="tab-pane" role="tabpanel">
+              2
+            </div>
           </div>
-        </div>
-        <div class="tab-pane" id="tabContent3" role="tabpanel">
-          <div class="tab-pane" role="tabpanel">
-            <div class="d-flex flex-column" style="margin: 15px 0px; overflow-x: scroll !important;height: 645px;display: block !important;overflow-y: auto !important;">
-              <div class="d-flex" *ngFor="let x of timeline_data">
-                <h4 style="border-right: 1px solid #000;padding:20px 19px 20px 80px" class="mb-0">{{x.date}}<br>{{x.time}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px" style="position: relative;
+          <!-- Tab Content 3 -->
+          <div class="tab-pane" id="tabContent3" role="tabpanel">
+            <div class="tab-pane" role="tabpanel">
+              <div class="d-flex flex-column"
+                style="margin: 15px 0px; overflow-x: scroll !important;height: 645px;display: block !important;overflow-y: auto !important;">
+                <div class="d-flex" *ngFor="let x of timeline_data">
+                  <h4 style="border-right: 1px solid #000;padding:20px 19px 20px 80px" class="mb-0">
+                    {{x.date}}<br>{{x.time}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px"
+                    style="position: relative;
                 right: 2%;
                 margin-top: 20px;">
-                <div class="d-flex flex-column" style="padding:9px 5px 20px 10px">
-                  <h4 style="color: #1B1B1B;" class="mb-1">
-                    {{x.procedure_status}}
-                  </h4>
-                  <h4 style="color: #1B1B1B;"> {{x.description}}</h4>
-                  <h4 style="color: #747474;">{{x.owner}}{{x.role}}</h4>
+                  <div class="d-flex flex-column" style="padding:9px 5px 20px 10px">
+                    <h4 style="color: #1B1B1B;" class="mb-1">
+                      {{x.procedure_status}}
+                    </h4>
+                    <h4 style="color: #1B1B1B;line-height: 14.5px;" class="mb-1"> {{x.description}}</h4>
+                    <h4 style="color: #747474;">{{x.owner}}{{x.role}}</h4>
+                  </div>
                 </div>
-
               </div>
-              <!-- <div class="d-flex">
-                <p style="border-right: 1px solid #000;padding:20px 100px 20px 20px" class="mb-0">HI</p><img src="assets/images/timeline_dot.svg" width="12px" height="12px" style="position: relative;
-                right: 2%;
-                margin-top: 20px;"><p style="padding:20px 5px 20px 100px" class="mb-0">Hi</p>
-              </div> -->
-
             </div>
           </div>
         </div>
       </div>
-
-
     </div>
+  </div>
+  <div class="col-lg-3" style="padding: 0px 8px 0px 8px !important;" *ngIf="!show_patient_details">
+    <div class="cards" style="height: 765px;overflow-y: scroll;overflow-x: hidden;padding: 0px !important;">
+      <div class="d-flex flex-row mx-2 my-2">
+        <div class="flex-grow-1">
+          <img src="assets/images/go_back_kizin.svg" width="9px" height="9px" class="me-2" (click)="go_back_to_Kizin()" style="cursor: pointer;">
+          <span
+            style="width: auto !important;font-size: 10px !important;font-weight: 600 !important; color: #1B1B1B !important;"
+            class="mb-0">Patient Details</span>
+        </div>
+        <div class="flex-shrink-0">
+          <img src="assets/images/go_previous_patient.svg" width="16px" height="16px" class="mx-3">
+          <img src="assets/images/go_next_patient.svg" width="16px" height="16px" class="mx-3">
+        </div>
+      </div>
+      <div class="d-flex flex-row mt-4 mx-3 align-items-center">
+        <div class="flex-shrink-0 align-items-center">
+        <img src="assets/images/patient_details_img.svg" class="rounded-circle avatar-xl" alt="100x100" style="width: 60px !important;height: 60px !important;">
+        <h4 style="border:1px solid #F0EAFF;background: #F0EAFF;padding: 1px 6px 1px 6px !important;border-radius: 38px;position: absolute;
+        top: 6.2rem;">Out patient</h4>
+        </div>
+        <div class="flex-grow-1 ms-3 mt-2 align-items-center">
+          <h1 style="font-size: 14px !important;font-weight: 500 !important;color: #1B1B1B !important;" class="mb-1">Swapnaja Shirode</h1>
+          <p style="color: #747474 !important;">MRN : 519626</p>
+        </div>
+      </div>
+      <div class="row mx-2 mt-4">
+        <div class="col-3">
+          <h4 style="color: #747474;">Gender</h4>
+          <p style="color: #1B1B1B;">Male</p>
+        </div>
+        <div class="col-3">
+          <h4 style="color: #747474;">DOB</h4>
+          <p style="color: #1B1B1B;">02/11/98</p>
+        </div>
+        <div class="col-3">
+          <h4 style="color: #747474;">Patient Type</h4>
+          <p style="color: #1B1B1B;">Adult</p>
+        </div>
+        <div class="col-3">
+          <h4 style="color: #747474;">Language</h4>
+          <p style="color: #1B1B1B;">Arabia</p>
+        </div>
+      </div>
+      <div class="row mx-2 mt-1">
+        <div class="col-3">
+          <h4 style="color: #747474;">Age</h4>
+          <p style="color: #1B1B1B;">22</p>
+        </div>
+        <div class="col-3">
+          <h4 style="color: #747474;">Blood</h4>
+          <p style="color: #1B1B1B;">AB-</p>
+        </div>
+        <div class="col-3">
+          <h4 style="color: #747474;">Height</h4>
+          <p style="color: #1B1B1B;">36 cm</p>
+        </div>
+        <div class="col-3">
+          <h4 style="color: #747474;">Weight</h4>
+          <p style="color: #1B1B1B;">45 kg</p>
+        </div>
+      </div>
+      <div class="row mx-3 mt-2" style="border:1px solid #594585;background: #594585;height: 41px;width: auto;border-radius: 5px;">
+        <div class="col-8">
+          <div class="d-flex justify-content-between mt-1" style="overflow-y: hidden;overflow-x: auto;width: auto;">
+            <img [src]="alert_condition ? 'assets/images/fall_fill.svg' : 'assets/images/fall_outline.svg'" width="32px" height="32px" (click)="changeAlerts('fall')" class="alert_images" tooltip="Fall 12-24" placement="bottom"  [adaptivePosition]="false" containerClass="customClass" >
+            <img [src]="alert_condition ? 'assets/images/isolation_fill.svg' : 'assets/images/isolation_outline.svg'" width="32px" height="32px" (click)="changeAlerts('allergies')" class="alert_images" tooltip="Isolation 12-24" placement="bottom"  [adaptivePosition]="false" >
+            <img [src]="alert_condition ? 'assets/images/pregnant_fill.svg' : 'assets/images/pregnant_outline.svg'" width="32px" height="32px" (click)="changeAlerts('pregnant')" class="alert_images" tooltip="Pregnant" placement="bottom"  [adaptivePosition]="false" >
+            <img [src]="alert_condition ? 'assets/images/covid_fill.svg' : 'assets/images/covid_outline.svg'" width="32px" height="32px" (click)="changeAlerts('covid')" class="alert_images" tooltip="Covid" placement="bottom"  [adaptivePosition]="false" >
+            <!-- <img [src]="alert_condition ? 'assets/images/covid_fill.svg' : 'assets/images/covid_outline.svg'" width="32px" height="32px" (click)="changeAlerts('covid')" class="alert_images">
+            <img [src]="alert_condition ? 'assets/images/covid_fill.svg' : 'assets/images/covid_outline.svg'" width="32px" height="32px" (click)="changeAlerts('covid')" class="alert_images">
+            <img [src]="alert_condition ? 'assets/images/covid_fill.svg' : 'assets/images/covid_outline.svg'" width="32px" height="32px" (click)="changeAlerts('covid')" class="alert_images">
+            <img [src]="alert_condition ? 'assets/images/covid_fill.svg' : 'assets/images/covid_outline.svg'" width="32px" height="32px" (click)="changeAlerts('covid')" class="alert_images"> -->
+          </div>
+        </div>
+        <div class="col-4" >
+          <div class="d-flex justify-content-between mx-1 mt-1" style="border-left: 1px solid #fff;">
+            <div dropdown>
+              <button type="button" class="btn header-item noti-icon" id="page-header-notifications-dropdown" dropdownToggle
+                style="height: 37px !important;">
+                <i class="bx bxs-bell" style="color: #fff !important;font-size: 23px !important;"></i>
+                <span class="badge bg-danger rounded-pill"
+                  style="position: absolute !important;top: 7px !important;right: 58px !important;">3</span>
+              </button>
+              <div class="dropdown-menu dropdown-menu-lg dropdown-menu-end p-0"
+                aria-labelledby="page-header-notifications-dropdown" *dropdownMenu>
+                  <div class="d-flex flex-column">
+
+                  </div>
+              </div>
+            </div>
+            <img src="assets/images/edit_alerts.svg" width="32px" height="32px" style="cursor: pointer;">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex mx-4 mt-3 align-items-center" >
+        <p style="color: #1B1B1B !important;" class="mb-0 me-2">Vitals</p>
+        <button class="btn me-1" style="padding: 0px !important;"><i class="mdi mdi-refresh"></i></button>
+        <h4 style="color: #747474 !important;" class="mb-0">11/2/2023 15.25 by Leslie Alexander</h4>
+        <div class="ms-auto"><i class="mdi mdi-pencil-outline" style="font-size: 12px;color:#594585;"></i></div>
+      </div>
+      <div class="d-flex mt-4">
+        <div class="tab-pane" role="tabpanel">
+          <ul class="nav line-tab px-3 nav-tabs  nav-tabs-custom nav-justified" role="tablist" style="background: #fff !important;">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link active mt-2" data-bs-toggle="tab" href="#clinical_histroy" role="tab" aria-selected="true" style="padding: 0px !important;white-space: nowrap;">
+
+                <p class="d-none d-sm-block mb-0">Clinical History</p>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link mt-2" data-bs-toggle="tab" href="#lab" role="tab" aria-selected="false" tabindex="-1" style="white-space: nowrap;" >
+
+                <p class="d-none d-sm-block mb-0">Lab</p>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link mt-2" data-bs-toggle="tab" href="#medication" role="tab" aria-selected="false" tabindex="-1" style="white-space: nowrap;">
+
+                <p class="d-none d-sm-block mb-0">Mediation</p>
+              </a>
+            </li>
+            <li class="nav-item" role="presentation">
+              <a class="nav-link mt-2" data-bs-toggle="tab" href="care_team" role="tab" aria-selected="false" tabindex="-1" style="white-space: nowrap;">
+
+                <p class="d-none d-sm-block mb-0">Care Team</p>
+              </a>
+            </li>
+          </ul>
+
+          <div class="tab-content p-3 text-muted">
+            <div class="tab-pane active show" id="clinical_histroy" role="tabpanel">
+
+            </div>
+            <div class="tab-pane" id="lab" role="tabpanel">
+
+            </div>
+            <div class="tab-pane" id="medication" role="tabpanel">
+
+            </div>
+            <div class="tab-pane" id="care_team" role="tabpanel">
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<div class="patient_details">
+  <button class="btn-new"
+    style="padding:8px 10px 8px 10px !important;position: absolute;left: 96%;z-index: 1;transform: rotate(90deg);top: 14%;width: 100px !important;"
+    (click)="onPatientDetailsButtonClicked()">
+    <h4 class="mb-0"><img src="assets/images/notification_bell_pd.svg" width="14px" height="14px">patient details</h4>
+  </button>
 </div>
-</div>
 
-
-
-
-
-<!-- <ng-template #TabContent1>
-
-</ng-template>
-
-<ng-template #TabContent2>
-Hi
-</ng-template>
-
-<ng-template #TabContent3>
-Hi
-</ng-template> -->
-
+<!-- <app-patient-details></app-patient-details> -->

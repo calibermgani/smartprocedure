@@ -54,6 +54,8 @@ export class WorkAreaComponent implements OnInit{
   procedureStagelist:any = [];
   timeline_data:any= [];
   isFirstOpen: boolean = true;
+  show_patient_details:boolean = true;
+  alert_condition:boolean = true;
 
   constructor(private http: HttpClient){}
   ngOnInit() {
@@ -94,6 +96,30 @@ export class WorkAreaComponent implements OnInit{
       if(i!=index)
       {
         this.kizintabValues[i].active = false;
+      }
+    }
+  }
+
+  onPatientDetailsButtonClicked() {
+    this.show_patient_details = false;
+  }
+  go_back_to_Kizin(){
+    this.show_patient_details = true;
+  }
+
+  changeAlerts(data:any){
+    switch(data){
+      case 'fall':{
+        this.alert_condition =! this.alert_condition;
+      }
+      case 'allergies':{
+        this.alert_condition =! this.alert_condition;
+      }
+      case 'pregnant':{
+        this.alert_condition =! this.alert_condition;
+      }
+      case 'covid':{
+        this.alert_condition =! this.alert_condition;
       }
     }
   }

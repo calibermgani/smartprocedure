@@ -29,46 +29,6 @@ height: 730px;">
   <app-procedure-details #stepOne  [StageValue]="x.value"></app-procedure-details>
 </cdk-step>
 </ng-stepper>
-<!-- <ng-stepper #cdkStepper [linear]="true">
-  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="false">
-    <ng-template cdkStepLabel>
-      <div class="step-bullet">.</div>
-      <p class="step-title">Vetting</p>
-    </ng-template>
-    <app-procedure-details #stepOne></app-procedure-details>
-  </cdk-step>
-
-  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true">
-    <ng-template cdkStepLabel>
-      <div class="step-bullet">.</div>
-      <p class="step-title">Booking</p>
-    </ng-template>
-    <app-procedure-details #stepOne></app-procedure-details>
-  </cdk-step>
-
-  <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="false">
-    <ng-template cdkStepLabel>
-      <div class="step-bullet">.</div>
-      <p class="step-title">Pre-procedure</p>
-    </ng-template>
-    <app-procedure-details #stepThree></app-procedure-details>
-  </cdk-step>
-
-  <cdk-step [stepControl]="stepFour.stepFourForm" [optional]="true" [state]="stepFour.state">
-    <ng-template cdkStepLabel>
-      <div class="step-bullet">.</div>
-      <p class="step-title">Intra-procedure</p>
-    </ng-template>
-    <app-procedure-details #stepFour></app-procedure-details>
-  </cdk-step>
-  <cdk-step [stepControl]="stepFive.stepFiveForm" [optional]="true" [state]="stepFive.state">
-    <ng-template cdkStepLabel>
-      <div class="step-bullet">.</div>
-      <p class="step-title">Post-procedure</p>
-    </ng-template>
-    <app-procedure-details #stepFive></app-procedure-details>
-  </cdk-step>
-</ng-stepper> -->
 </div>
 <div class="cards me-2" style="position: absolute; bottom: 77% !important;border: 1px solid #F9F7FD;background: #F9F7FD;left:0.6rem;width: 95%;left: 3% !important;right: 0% !important;height: 79px !important;border-radius: 10 !important;padding: 10px 0px !important;">
 <div class="d-flex flex-row justify-content-around align-items-center p-2">
@@ -136,8 +96,6 @@ height: 730px;">
       </button>
       <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="text-align: center !important;">
           <a class="dropdown-item" href="javascript: void(0);" style="padding: 2px 2px;"><button class="btn" style="background: #D62424;color: #fff;">Cancel</button></a>
-          <!-- <a class="dropdown-item" href="javascript: void(0);">Another action</a>
-          <a class="dropdown-item" href="javascript: void(0);">Something else</a> -->
       </div>
   </div>
   </div>
