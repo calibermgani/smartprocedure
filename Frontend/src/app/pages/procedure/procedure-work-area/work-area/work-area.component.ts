@@ -30,6 +30,16 @@ interface Task{
   "owner": string
 }
 
+interface timeline{
+  "id":number,
+  "data":string,
+  "time":string,
+  "procedure_status":string,
+  "description":string,
+  "owner":string,
+  "role":string
+}
+
 @Component({
   selector: 'app-work-area',
   templateUrl: './work-area.component.html',
@@ -42,6 +52,7 @@ export class WorkAreaComponent implements OnInit{
   kizintabValues:any = [];
   taskList:any = [];
   procedureStagelist:any = [];
+  timeline_data:any= [];
   isFirstOpen: boolean = true;
 
   constructor(private http: HttpClient){}
@@ -69,6 +80,10 @@ export class WorkAreaComponent implements OnInit{
           this.taskList.push(res[i].list);
         }
       }
+    });
+
+    this.http.get<timeline>('assets/json/timeline.json').subscribe((res:any)=>{
+      this.timeline_data = res;
     });
   }
 

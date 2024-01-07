@@ -156,7 +156,27 @@
         </div>
         <div class="tab-pane" id="tabContent3" role="tabpanel">
           <div class="tab-pane" role="tabpanel">
-            3
+            <div class="d-flex flex-column" style="margin: 15px 0px; overflow-x: scroll !important;height: 645px;display: block !important;overflow-y: auto !important;">
+              <div class="d-flex" *ngFor="let x of timeline_data">
+                <h4 style="border-right: 1px solid #000;padding:20px 19px 20px 80px" class="mb-0">{{x.date}}<br>{{x.time}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px" style="position: relative;
+                right: 2%;
+                margin-top: 20px;">
+                <div class="d-flex flex-column" style="padding:9px 5px 20px 10px">
+                  <h4 style="color: #1B1B1B;" class="mb-1">
+                    {{x.procedure_status}}
+                  </h4>
+                  <h4 style="color: #1B1B1B;"> {{x.description}}</h4>
+                  <h4 style="color: #747474;">{{x.owner}}{{x.role}}</h4>
+                </div>
+
+              </div>
+              <!-- <div class="d-flex">
+                <p style="border-right: 1px solid #000;padding:20px 100px 20px 20px" class="mb-0">HI</p><img src="assets/images/timeline_dot.svg" width="12px" height="12px" style="position: relative;
+                right: 2%;
+                margin-top: 20px;"><p style="padding:20px 5px 20px 100px" class="mb-0">Hi</p>
+              </div> -->
+
+            </div>
           </div>
         </div>
       </div>
@@ -171,7 +191,7 @@
 
 
 
-<ng-template #TabContent1>
+<!-- <ng-template #TabContent1>
 
 </ng-template>
 
@@ -181,5 +201,5 @@ Hi
 
 <ng-template #TabContent3>
 Hi
-</ng-template>
+</ng-template> -->
 
