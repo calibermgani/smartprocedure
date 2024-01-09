@@ -529,13 +529,14 @@
           </div>
         </div>
         <div class="modal-body">
+          <form [formGroup]="myForm">
           <div class="d-flex">
             <div class="tab-pane" role="tabpanel" style="width: 100% !important;">
               <ul class="nav line-tab px-1 nav-tabs  nav-tabs-custom nav-justified mt-2" role="tablist"
                 style="background: #fff !important;width: 100% !important;white-space: nowrap;">
                 <li class="nav-item" role="presentation">
                   <a [class]="this.active_tabs_clinical_history == true ?'nav-link active':'nav-link'" data-bs-toggle="tab" href="#clinical_histroy" role="tab"
-                    aria-selected="true" style="white-space: nowrap;padding: 7px 7px 0px 7px !important;">
+                    aria-selected="true" style="white-space: nowrap;padding: 7px 7px 0px 7px !important;" [(ngModel)]="active_tabs_clinical_history">
                     <div class="d-flex flex-row">
                       <img src="assets/images/clinical_history.svg" width="16px" height="16px"
                         class="me-1">
@@ -545,7 +546,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                   <a [class]="this.active_tabs_lab == true ?'nav-link active':'nav-link'" data-bs-toggle="tab" href="#lab" role="tab" aria-selected="false" tabindex="-1"
-                    style="white-space: nowrap;" >
+                    style="white-space: nowrap;"[(ngModel)]="active_tabs_lab">
                     <div class="d-flex flex-row">
                       <img src="assets/images/lab.svg" width="16px" height="16px"  class="me-1">
                       <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Lab</h4>
@@ -554,7 +555,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                   <a [class]="this.active_tabs_medication == true ?'nav-link active':'nav-link'" data-bs-toggle="tab" href="#medication" role="tab" aria-selected="false"
-                    tabindex="-1" style="white-space: nowrap;" >
+                    tabindex="-1" style="white-space: nowrap;" [(ngModel)]="active_tabs_medication">
                     <div class="d-flex flex-row">
                       <img src="assets/images/medication.svg" width="16px" height="16px"
                         class="me-1">
@@ -564,7 +565,7 @@
                 </li>
                 <li class="nav-item" role="presentation">
                   <a [class]="this.active_tabs_care_team == true ?'nav-link active':'nav-link'" data-bs-toggle="tab" href="#care_team" role="tab" aria-selected="false"
-                    tabindex="-1" style="white-space: nowrap;" >
+                    tabindex="-1" style="white-space: nowrap;" [(ngModel)]="active_tabs_care_team">
                     <div class="d-flex flex-row">
                       <img src="assets/images/care_team.svg" width="16px" height="16px"
                         class="me-1">
@@ -580,7 +581,7 @@
                       style="background: #F3F4F8 !important;width: 100% !important;white-space: nowrap; border: 1px solid #F3F4F8;border-radius: 12px !important;align-items: center;padding: 0px 5px !important;">
                       <li class="nav-item"  role="presentation">
                         <a [class]="this.active_tabs_pre_diagnosis == true?'navs-links active !important':'navs-links !important'" data-bs-toggle="tab" href="#pre_diagnosis_view" role="tab"
-                          aria-selected="true" style="white-space: nowrap;">
+                          aria-selected="true" style="white-space: nowrap;" [(ngModel)]="active_tabs_pre_diagnosis">
                           <div class="d-flex flex-row">
                             <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Pre Diagnosis</h4>
                           </div>
@@ -588,7 +589,7 @@
                       </li>
                       <li class="nav-item" role="presentation">
                         <a [class]="this.active_tabs_indication == true?'navs-links active !important':'navs-links !important'" data-bs-toggle="tab" href="#indication_view" role="tab"
-                          aria-selected="false" tabindex="-1" style="white-space: nowrap;">
+                          aria-selected="false" tabindex="-1" style="white-space: nowrap;" [(ngModel)]="active_tabs_indication">
                           <div class="d-flex flex-row">
                             <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Indication</h4>
                           </div>
@@ -596,7 +597,7 @@
                       </li>
                       <li class="nav-item" role="presentation">
                         <a [class]="this.active_tabs_post_diagnosis == true?'navs-links active !important':'navs-links !important'" data-bs-toggle="tab" href="#post_diagnosis_view" role="tab"
-                          aria-selected="false" tabindex="-1" style="white-space: nowrap;">
+                          aria-selected="false" tabindex="-1" style="white-space: nowrap;" [(ngModel)]="active_tabs_post_diagnosis">
                           <div class="d-flex flex-row">
                             <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Post Diagnosis</h4>
                           </div>
@@ -779,6 +780,7 @@
               </div>
             </div>
           </div>
+        </form>
         </div>
         <div class="modal_footer my-4 mx-2">
           <div class="d-flex justify-content-end">

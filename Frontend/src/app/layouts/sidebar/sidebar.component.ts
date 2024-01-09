@@ -102,33 +102,33 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     this._removeAllClass('mm-show');
     let links:any  = [];
     links = document.getElementsByClassName('side-nav-link-ref');
-    console.log('Links',links);
+    // console.log('Links',links);
 
     let menuItemEl = null;
     // tslint:disable-next-line: prefer-for-of
     const paths = [];
     for (let i = 0; i < links.length; i++) {
-      console.log(links[i]['pathname']);
+      // console.log(links[i]['pathname']);
       const pathname = new URL(links[i]).hash ;
       const cleanedPath = pathname.startsWith('#') ? pathname.substring(1) : pathname;
       paths.push(cleanedPath);
     }
-    console.log('paths',paths);
+    // console.log('paths',paths);
     var itemIndex = paths.indexOf(window.location.hash.substring(1));
-    console.log('itemindex',itemIndex);
+    // console.log('itemindex',itemIndex);
     if (itemIndex === -1) {
       const strIndex = window.location.pathname.lastIndexOf('/');
       const item = window.location.pathname.substr(0, strIndex).toString();
       menuItemEl = links[paths.indexOf(item)];
     } else {
       menuItemEl = links[itemIndex];
-      console.log('menuItemEl',menuItemEl);
+      // console.log('menuItemEl',menuItemEl);
 
     }
     if (menuItemEl) {
       menuItemEl.classList.add('active');
       const parentEl = menuItemEl.parentElement;
-      console.log('parentEL',parentEl);
+      // console.log('parentEL',parentEl);
 
       if (parentEl) {
         parentEl.classList.add('mm-active');

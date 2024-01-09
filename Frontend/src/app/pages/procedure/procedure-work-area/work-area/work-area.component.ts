@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 
 interface kizintabValues {
@@ -103,6 +103,15 @@ export class WorkAreaComponent implements OnInit {
   @ViewChild(ModalDirective, { static: false }) centerDataModal?: ModalDirective;
 
   constructor(private http: HttpClient, private modalService: BsModalService, private fb: FormBuilder) {
+    this.myForm = this.fb.group({
+      active_tabs_clinical_history: new FormControl(false,[Validators.required]),
+      active_tabs_lab:new FormControl(false,[Validators.required]),
+      active_tabs_medication:new FormControl(false,[Validators.required]),
+      active_tabs_care_team:new FormControl(false,[Validators.required]),
+      active_tabs_pre_diagnosis:new FormControl(false,[Validators.required]),
+      active_tabs_indication:new FormControl(false,[Validators.required]),
+      active_tabs_post_diagnosis:new FormControl(false,[Validators.required]),
+    })
   }
   ngOnInit() {
     this.http.get('assets/json/mini-list.json').subscribe((res: any) => {
@@ -232,23 +241,25 @@ export class WorkAreaComponent implements OnInit {
     this.centerDataModal?.show();
   }
   closeModal() {
+    this.myForm.patchValue({
+      active_tabs_clinical_history : false,
+      active_tabs_lab : false,
+      active_tabs_medication : false,
+      active_tabs_care_team : false,
+      active_tabs_pre_diagnosis : false,
+      active_tabs_indication : false,
+      active_tabs_post_diagnosis : false,
 
+      //Fields
+      pre_diagnosis_editable_field : false,
+      indication_editable_field : false,
+      post_diagnosis_editable_field : false,
+      lab_editable_field : false,
+      medication_editable_field : false,
+      careteam_editable_field : false,
+    })
     //Tabs
-    this.active_tabs_clinical_history = false;
-    this.active_tabs_lab = false;
-    this.active_tabs_medication = false;
-    this.active_tabs_care_team = false;
-    this.active_tabs_pre_diagnosis = false;
-    this.active_tabs_indication = false;
-    this.active_tabs_post_diagnosis = false;
 
-    //Fields
-    this.pre_diagnosis_editable_field = false;
-    this.indication_editable_field = false;
-    this.post_diagnosis_editable_field = false;
-    this.lab_editable_field = false;
-    this.medication_editable_field = false;
-    this.careteam_editable_field = false;
 
     this.centerDataModal?.hide();
   }
