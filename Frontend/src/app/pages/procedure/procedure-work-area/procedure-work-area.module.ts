@@ -16,6 +16,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,10 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     CollapseModule.forRoot(),
     TabsModule.forRoot(),
     BsDropdownModule.forRoot(),
-    TooltipModule.forRoot()
+    TooltipModule.forRoot(),
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ]
 })
 export class ProcedureWorkAreaModule { }

@@ -21,7 +21,7 @@
   display: flex !important;
   flex-wrap: nowrap !important;
   // justify-content:space-between;
-  padding: 0px 3px;
+  padding: 3px 3px;
 }
 
 .nav-pills .nav-link.active
@@ -33,15 +33,17 @@
   {
     color: #000 !important;
   }
+  .details_tab
+  {
+    color: #1B1B1B !important;
+  }
 }
 .nav-tabs .nav-link:focus{
-  isolation: auto !important;
   border: none !important;
 }
 
 .nav-tabs .nav-link
 {
-  isolation: auto !important;
   border: none !important;
 }
 
@@ -93,12 +95,83 @@
   border:1px solid #343434 !important;
 }
 
-.navs{
-  height: 34px !important;
-  border-radius: 0px 0px 0px 0px !important;
-  text-align: center !important;
-  display: flex !important;
-  flex-wrap: nowrap !important;
-  // justify-content:space-between;
-  padding: 0px 3px;
+
+.nav-link:hover
+{
+  background: none !important;
+  border-radius: 0px !important;
+  margin-top: 0rem 0rem !important;
+}
+
+.nav-link.active
+{
+  background:#fff !important;
+  border-radius: 10px 10px 0px 0px !important;
+  // padding: 0px 0px 0px 0px !important;
+  .details_tab
+  {
+    font-size: 10px !important;
+    font-weight: 600 !important;
+    color: #1B1B1B !important;
+  }
+}
+
+.nav-link
+{
+  padding: 5px 20px !important;
+}
+
+.navs-links
+{
+  display: block;
+  color: #fff !important;
+  transition: none !important;
+  transform: none !important;
+  padding: 5px 30px !important;
+  opacity: 1;
+}
+
+.navs-links.active{
+background: #855EDB;
+border-radius: 12px !important;
+  .details_tab{
+    color: #fff !important;
+  }
+}
+
+.table th
+{
+background:#F3F4F8 !important;
+border-color: none !important;
+}
+.table-light{
+  border-color:#fff !important;
+}
+
+.care_btn:hover{
+  border: 1px solid #1B1B1B !important;
+  background: #fff !important;
+  padding: 4px 10px !important;
+}
+
+
+.nav-tabs-custom .nav-item .nav-link::after
+{
+  bottom: -5px !important;
+  background: #654e98 !important;
+}
+.mrp
+{
+  color: #F6AA36 !important;
+  font-size: 7px !important;
+}
+.house
+{
+  color: #22C833 !important;
+  font-size: 7px !important;
+}
+.escort
+{
+  color: #747474 !important;
+  font-size: 7px !important;
 }

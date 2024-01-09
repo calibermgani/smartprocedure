@@ -1,0 +1,47 @@
+[
+  {
+    "id":1,
+    "headername": "Test name",
+    "header_data": [
+      {
+        "data": "INR"
+      },
+      {
+        "data": "HBT"
+      },
+      {
+        "data": "PLT"
+      }
+    ]
+  },
+  {
+    "id":2,
+    "headername": "Result",
+    "header_data": [
+      {
+        "data": "100"
+      },
+      {
+        "data": "79"
+      },
+      {
+        "data": "100"
+      }
+    ]
+  },
+  {
+    "id":3,
+    "headername": "Date",
+    "header_data": [
+      {
+        "data": "12/5/2023 14:10"
+      },
+      {
+        "data": "02/02/2023 06:14"
+      },
+      {
+        "data": "11/2/2023 15:25"
+      }
+    ]
+  }
+]
