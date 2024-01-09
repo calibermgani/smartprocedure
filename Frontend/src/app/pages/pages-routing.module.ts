@@ -18,7 +18,8 @@ const routes: Routes = [
   { path: 'chat', loadChildren: () => import('./chat/chat.module').then(m => m.ChatModule),canActivate:[AuthGuard] },
   { path: 'checklist', loadChildren: () => import('./checklist/checklist.module').then(m => m.ChecklistModule),canActivate:[AuthGuard] },
   { path: 'settings', loadChildren: () => import('./settings/settings.module').then(m => m.SettingsModule),canActivate:[AuthGuard] },
-  { path: 'workarea', loadChildren: () => import('./procedure/procedure-work-area/procedure-work-area.module').then(m => m.ProcedureWorkAreaModule),canActivate:[AuthGuard] }
+  { path: 'staff-management', loadChildren: () => import('./staff-management/staff-management.module').then(m => m.StaffManagementModule),canActivate:[AuthGuard] },
+  { path: 'material-management', loadChildren: () => import('./material-management/material-management.module').then(m => m.MaterialManagementModule),canActivate:[AuthGuard] }
 ];
 
 @NgModule({

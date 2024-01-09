@@ -51,13 +51,13 @@ export const SIDEMENU: MenuItem[] = [
     id: 8,
     label: 'STAFF',
     icon: 'mdi mdi-24px mdi-account',
-    link: 'staff',
+    link: 'staff-management',
   },
   {
     id: 9,
     label: 'MATERIAL',
     icon: 'mdi mdi-archive-outline',
-    link: 'staff',
+    link: 'material-management',
   },
   {
     id: 10,
