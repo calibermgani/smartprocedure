@@ -2,7 +2,7 @@ import { AuthfakeauthenticationService } from './../../core/services/authfake.se
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Input, OnChanges } from '@angular/core';
 import MetisMenu from 'metismenujs';
 import { EventService } from '../../core/services/event.service';
-import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute, NavigationStart, NavigationCancel } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
 
@@ -34,8 +34,11 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient, public authfakeauthenticationService:AuthfakeauthenticationService,public activatedRoute : ActivatedRoute) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        this._activateMenuDropdown();
-        this._scrollElement();
+        setTimeout(() =>{
+          this._activateMenuDropdown();
+          this._scrollElement();
+        },100)
+
       }
     });
   }
@@ -94,24 +97,36 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   _activateMenuDropdown() {
     this._removeAllClass('mm-active');
     this._removeAllClass('mm-show');
-    const links = document.getElementsByClassName('side-nav-link-ref');
+    let links:any  = [];
+    links = document.getElementsByClassName('side-nav-link-ref');
+
+    console.log('LInks',links);
+
     let menuItemEl = null;
     // tslint:disable-next-line: prefer-for-of
     const paths = [];
     for (let i = 0; i < links.length; i++) {
       paths.push(links[i]['pathname']);
     }
+    console.log('paths',paths);
+
     var itemIndex = paths.indexOf(window.location.pathname);
+    console.log('itemindex',itemIndex);
+
     if (itemIndex === -1) {
       const strIndex = window.location.pathname.lastIndexOf('/');
       const item = window.location.pathname.substr(0, strIndex).toString();
       menuItemEl = links[paths.indexOf(item)];
     } else {
       menuItemEl = links[itemIndex];
+      console.log('menuItemEl',menuItemEl);
+
     }
     if (menuItemEl) {
       menuItemEl.classList.add('active');
       const parentEl = menuItemEl.parentElement;
+      console.log('parentEL',parentEl);
+
       if (parentEl) {
         parentEl.classList.add('mm-active');
         const parent2El = parentEl.parentElement.closest('ul');

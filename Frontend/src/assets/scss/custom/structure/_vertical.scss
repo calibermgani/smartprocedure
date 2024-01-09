@@ -172,11 +172,11 @@
 
 @media (max-width: 992px) {
   .vertical-menu {
-    display: none;
+    display: block;
   }
 
   .main-content {
-    margin-left: 0 !important;
+    margin-left: 70px !important;
   }
 
   body.sidebar-enable {
