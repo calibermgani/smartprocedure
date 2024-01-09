@@ -1,12 +1,14 @@
+import { AuthfakeauthenticationService } from './../../core/services/authfake.service';
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Input, OnChanges } from '@angular/core';
 import MetisMenu from 'metismenujs';
 import { EventService } from '../../core/services/event.service';
-import { Router, NavigationEnd } from '@angular/router';
+import { Router, NavigationEnd, ActivatedRoute } from '@angular/router';
 
 import { HttpClient } from '@angular/common/http';
 
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
+import { MATERIALMANAGEMENTMENU } from './material-management-sidemenu';
 import { TranslateService } from '@ngx-translate/core';
 import { SIDEMENU } from './side-menu';
 
@@ -29,7 +31,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('sideMenu') sideMenu: ElementRef;
 
-  constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient) {
+  constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient, public authfakeauthenticationService:AuthfakeauthenticationService,public activatedRoute : ActivatedRoute) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
         this._activateMenuDropdown();
@@ -39,7 +41,10 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit() {
-    this.initialize();
+    this.authfakeauthenticationService.currentSideMenu.subscribe((res:any) => {
+      this.initialize(res);
+    })
+
     this._scrollElement();
   }
 
@@ -139,9 +144,19 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   /**
    * Initialize
    */
-  initialize(): void {
+  initialize(data:any): void {
     // this.menuItems = MENU;
-    this.menuItems = SIDEMENU
+    switch(data){
+      case 'sidemenu':{
+        this.menuItems = SIDEMENU;
+        break;
+      }
+      case 'material-management':{
+        this.menuItems = MATERIALMANAGEMENTMENU;
+        break;
+      }
+    }
+
   }
 
   /**
@@ -150,5 +165,12 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
    */
   hasItems(item: MenuItem) {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
+  }
+
+  navigateBack(data:any){
+    if(data == 'home'){
+      this.authfakeauthenticationService.changeSideMenu('sidemenu');
+      this.router.navigate(['/procedure']);
+    }
   }
 }

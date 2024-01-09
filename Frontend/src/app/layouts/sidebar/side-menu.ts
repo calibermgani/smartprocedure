@@ -41,23 +41,17 @@ export const SIDEMENU: MenuItem[] = [
     icon: 'mdi mdi-format-list-checkbox',
     link: 'checklist',
   },
-  // {
-  //   id: 8,
-  //   label: 'HOME',
-  //   icon: 'mdi mdi-home',
-  //   link: 'dashboards',
-  // },
   {
     id: 8,
     label: 'STAFF',
-    icon: 'mdi mdi-24px mdi-account',
+    icon: 'mdi mdi-account-multiple',
     link: 'staff-management',
   },
   {
     id: 9,
     label: 'MATERIAL',
     icon: 'mdi mdi-archive-outline',
-    link: 'material-management',
+    link: 'material-management/dashboard',
   },
   {
     id: 10,
