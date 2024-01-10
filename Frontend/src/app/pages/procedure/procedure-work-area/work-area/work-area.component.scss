@@ -89,6 +89,12 @@
   cursor: pointer;
   margin: 0px 8px;
 }
+.alert_images_dull{
+  cursor: pointer;
+  margin: 0px 8px;
+  opacity: 0.2;
+}
+
 .tooltipClass
 {
   background: #fff !important;
@@ -174,4 +180,25 @@ border-color: none !important;
 {
   color: #747474 !important;
   font-size: 7px !important;
+}
+
+::ng-deep .carousel-control-prev
+{
+left: -9px !important;
+height: 36px !important;
+width: 17px !important;
+}
+
+::ng-deep .carousel-control-next
+{
+right: -28px !important;
+width: 17px !important;
+height: 37px !important;
+}
+
+::ng-deep.carousel-inner
+{
+  margin-left: 1rem !important;
+  margin-top: 0.25rem !important;
+  margin-bottom: 0.25rem !important;
 }
