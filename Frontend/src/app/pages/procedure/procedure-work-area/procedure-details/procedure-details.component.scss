@@ -9,6 +9,10 @@
   opacity: 1;
 }
 
+.nav-tabs .nav-link{
+  border: 0px solid !important;
+}
+
 ::ng-deep .nav{
   background: #594585 !important;
   height: 34px !important;
@@ -16,7 +20,6 @@
   text-align: center !important;
   display: flex !important;
   flex-wrap: nowrap !important;
-  // justify-content: start;
 }
 
 
@@ -24,14 +27,14 @@
   border: none !important;
   background: none !important;
   border-radius: 0px !important;
-  margin: 0 !important;
+  height: 32px !important;
 }
 
 ::ng-deep .nav-link{
   color: #fff !important;
   transition: none !important;
   transform: none !important;
-  padding: 5px 30px !important;
+  padding: 6px 30px !important;
   opacity: 1;
 }
 
