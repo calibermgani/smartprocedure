@@ -100,6 +100,7 @@ export class WorkAreaComponent implements OnInit {
   Alert_data: any = [];
   Alert_dropdown_values:any = [];
   tasklist_notes:any = [];
+  comments_for_tasklist :any = [];
   isFirstOpen: boolean = true;
   show_patient_details: boolean = false;
   fall_alert: string = '';
@@ -207,6 +208,7 @@ export class WorkAreaComponent implements OnInit {
 
     this.http.get<TaskNotes>('assets/json/task_notes.json').subscribe((res: any) => {
       this.tasklist_notes = res;
+      this.comments_for_tasklist = res[0].comments;
     });
 
   }
@@ -370,9 +372,19 @@ export class WorkAreaComponent implements OnInit {
     else { this.Alert_name = '' }
   }
 
-  AddNotes(stage:any)
-  {
+  AddNotes(stage: any) {
     this.addNotesModal?.show();
+  }
+
+  reply_id:number;
+  hide_comment_field:boolean = true;
+  reply_notes(id:number){
+    this.reply_id  = id;
+    this.hide_comment_field = false;
+  }
+  SaveNotes(){
+    this.reply_id = null;
+    this.hide_comment_field = true
   }
 }
 

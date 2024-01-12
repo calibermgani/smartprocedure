@@ -6,6 +6,7 @@
     "comments": [
       {
         "Author": "Miles Esther",
+        "roles":"Nurse",
         "Notes":"Please note that this is a preliminary diagnosis, and further tests or evaluation may be required for a comprehensive assessment.",
         "attachment":true,
         "attachment_img":"assets/images/attachment.svg",
@@ -15,6 +16,7 @@
       },
       {
         "Author": "Cooper kristin",
+        "roles":"IR Doctor",
         "Notes":"Integer nec ante in nunc interdum eleifend.",
         "attachment":false,
         "attachment_img":"",
@@ -24,6 +26,7 @@
       },
       {
         "Author": "Partic Markes",
+        "roles":"IR Booking",
         "Notes":"Please note that this is a preliminary diagnosis, and further tests or evaluation may be required for a comprehensive assessment.",
         "attachment":false,
         "attachment_img":"",
