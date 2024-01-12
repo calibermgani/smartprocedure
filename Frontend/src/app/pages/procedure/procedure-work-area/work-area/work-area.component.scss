@@ -79,6 +79,11 @@
   border-color: #27AF2C !important;;
 }
 
+.form-check-inputs:checked{
+  background-color: #855EDB !important;
+  border-color: #855EDB !important;
+}
+
 .verti-timeline .event-list .event-timeline-dot
 {
   left: -9px !important;
@@ -97,6 +102,7 @@
 
 .tooltipClass
 {
+  z-index: 10000 !important;
   background: #fff !important;
   border:1px solid #343434 !important;
 }
@@ -201,4 +207,34 @@ height: 37px !important;
   margin-left: 1rem !important;
   margin-top: 0.25rem !important;
   margin-bottom: 0.25rem !important;
+}
+
+::ng-deep .card-header
+{
+  padding: 3px 10px 3px 10px !important;
+    background: #F3F4F8 !important;
+}
+
+::ng-deep .ngx-slider .ngx-slider-selection
+{
+  // z-index: 2 !important;
+  background: #855EDB !important;
+  border-radius: 2px !important;
+}
+
+::ng-deep .ngx-slider .ngx-slider-pointer.ngx-slider-active:after
+{
+  background-color: #855EDB !important;
+}
+
+.editAlertData
+{
+  padding: 10px 20px ;
+}
+
+.bg-active
+{
+  background: #F3F4F8 !important;
+  border-radius: 6px !important;
+  margin: 10px 5px;
 }

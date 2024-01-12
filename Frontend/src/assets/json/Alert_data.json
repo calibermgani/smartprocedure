@@ -1,0 +1,30 @@
+[
+  {
+    "id":1,
+    "path_img":"assets/images/fall_black.svg",
+    "alert_name":"Fall",
+    "accord_open":false,
+    "input_value":"20"
+  },
+  {
+    "id":2,
+    "path_img":"assets/images/Isolation.svg",
+    "alert_name":"Isolation",
+    "accord_open":false,
+    "input_value":"20"
+  },
+  {
+    "id":2,
+    "path_img":"assets/images/pergnant_black.svg",
+    "alert_name":"Pregnant",
+    "accord_open":false,
+    "input_value":"20"
+  },
+  {
+    "id":2,
+    "path_img":"assets/images/covid_black.svg",
+    "alert_name":"Covid",
+    "accord_open":false,
+    "input_value":"20"
+  }
+]

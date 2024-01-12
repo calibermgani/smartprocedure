@@ -19,6 +19,7 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { NgxSliderModule } from 'ngx-slider-v2';
 @NgModule({
   declarations: [
     WorkAreaComponent,
@@ -42,7 +43,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     CarouselModule.forRoot(),
-    FormsModule
+    FormsModule,
+    NgxSliderModule
   ]
 })
 export class ProcedureWorkAreaModule { }

@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
+import { Options } from 'ngx-slider-v2';
 
 interface kizintabValues {
   "tabs": string,
@@ -50,10 +51,33 @@ interface tableData {
   "data": string
 }
 interface careteam {
-  "id": 1,
+  "id": number,
   "owner": string,
   "role": string,
   "icon": string
+}
+interface AlertData {
+  "id": number,
+  "path_img": string,
+  "alert_name": string,
+  "accord_open": boolean
+  "input_value": string,
+}
+interface AlertValueDropDown
+{
+  value:string;
+}
+
+interface TaskNotes{
+  "id":number,
+  "Procedure_Stage":string,
+  "order_by":string,
+  "comments":Comments[]
+}
+interface Comments
+{
+  "Author":string,
+  "comments":string
 }
 
 @Component({
@@ -73,12 +97,15 @@ export class WorkAreaComponent implements OnInit {
   clinical_history: any = [];
   lab_data: any = [];
   careteam_data: any = [];
+  Alert_data: any = [];
+  Alert_dropdown_values:any = [];
+  tasklist_notes:any = [];
   isFirstOpen: boolean = true;
   show_patient_details: boolean = false;
-  fall_alert:string= '';
-  isolation_alert:string = '';
-  pregnant_alert:string = '';
-  covid_alert:string = '';
+  fall_alert: string = '';
+  isolation_alert: string = '';
+  pregnant_alert: string = '';
+  covid_alert: string = '';
   // Editable Field
   pre_diagnosis_editable_field: boolean = false;
   indication_editable_field: boolean = false;
@@ -108,27 +135,35 @@ export class WorkAreaComponent implements OnInit {
   singleSlideOffset = true;
 
   slides = [
-    {image: 'assets/images/fall_fill.svg'},
-    {image: 'assets/images/isolation_fill.svg'},
-    {image: 'assets/images/pregnant_fill.svg'},
-    {image: 'assets/images/covid_fill.svg'},
-    {image: 'assets/images/fall_fill.svg'},
-    {image: 'assets/images/fall_fill.svg'},
-    {image: 'assets/images/fall_fill.svg'},
-    {image: 'assets/images/fall_fill.svg'},
-    {image: 'assets/images/fall_fill.svg'},
-    {image: 'assets/images/fall_fill.svg'},
-
-
+    { "image": 'assets/images/fall_fill.svg',"name":'Fall',"tooltip":'Fall 19-25' },
+    { "image": 'assets/images/isolation_fill.svg',"name":'Isolation',"tooltip":'Isolation 14-23' },
+    { "image": 'assets/images/pregnant_fill.svg',"name":'Pregnant',"tooltip":'Pregnant 10-20' },
+    { "image": 'assets/images/covid_fill.svg',"name":'Covid',"tooltip":'Covid 16-25' },
   ];
 
+  //slider variables
+  edit_alert_range_value: number = 0;
+  options: Options = {
+    floor: 0,
+    ceil: 100,
+    showSelectionBar: true,
+    getPointerColor: (value: number): string => {
+      return '#855EDB';
+    }
+  };
 
-  @ViewChild(ModalDirective, { static: false }) centerDataModal?: ModalDirective;
+  Alert_name: any;
+
+
+  @ViewChild('centerDataModal', { static: false }) centerDataModal?: ModalDirective;
+  @ViewChild('addNotesModal', { static: false }) addNotesModal?: ModalDirective;
 
   constructor(private http: HttpClient, private modalService: BsModalService,) {
   }
 
   ngOnInit() {
+    this.addNotesModal?.show();
+
     this.http.get('assets/json/mini-list.json').subscribe((res: any) => {
       this.miniList_details = res;
     });
@@ -162,6 +197,18 @@ export class WorkAreaComponent implements OnInit {
     this.http.get<careteam>('assets/json/care_team_member.json').subscribe((res: any) => {
       this.careteam_data = res;
     });
+    this.http.get<AlertData>('assets/json/Alert_data.json').subscribe((res: any) => {
+      this.Alert_data = res;
+    });
+
+    this.http.get<AlertValueDropDown>('assets/json/Alerts_dropdown.json').subscribe((res: any) => {
+      this.Alert_dropdown_values = res;
+    });
+
+    this.http.get<TaskNotes>('assets/json/task_notes.json').subscribe((res: any) => {
+      this.tasklist_notes = res;
+    });
+
   }
 
   toggleTabIcon(index: number) {
@@ -314,9 +361,18 @@ export class WorkAreaComponent implements OnInit {
     this.active_sub_status = data;
   }
 
-  showEditAlertModal(){
-    console.log('2');
+  customHeaderClick(event: Event) {
+    event.stopPropagation();
+  }
 
+  enableAlert(name: any, event: any) {
+    if (event.target.checked) { this.Alert_name = name; }
+    else { this.Alert_name = '' }
+  }
 
+  AddNotes(stage:any)
+  {
+    this.addNotesModal?.show();
   }
 }
+
