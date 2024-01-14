@@ -1,8 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { ProcedureRoutingModule } from './procedure-routing.module';
 import { ProcedureComponent } from './procedure/procedure.component';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { FormsModule } from '@angular/forms';
+import { AgGridModule } from 'ag-grid-angular';
 
 
 @NgModule({
@@ -11,7 +16,13 @@ import { ProcedureComponent } from './procedure/procedure.component';
   ],
   imports: [
     CommonModule,
-    ProcedureRoutingModule
+    FormsModule,
+    ProcedureRoutingModule,
+    TooltipModule,
+    NgSelectModule,
+    AgGridModule,
+    BsDropdownModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ]
 })
 export class ProcedureModule { }

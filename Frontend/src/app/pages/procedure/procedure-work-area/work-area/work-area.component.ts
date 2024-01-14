@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { Route, Router } from '@angular/router';
 import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 import { Options } from 'ngx-slider-v2';
 
@@ -159,7 +160,7 @@ export class WorkAreaComponent implements OnInit {
   @ViewChild('centerDataModal', { static: false }) centerDataModal?: ModalDirective;
   @ViewChild('addNotesModal', { static: false }) addNotesModal?: ModalDirective;
 
-  constructor(private http: HttpClient, private modalService: BsModalService,) {
+  constructor(private http: HttpClient, private modalService: BsModalService,private router : Router) {
   }
 
   ngOnInit() {
@@ -385,6 +386,11 @@ export class WorkAreaComponent implements OnInit {
   SaveNotes(){
     this.reply_id = null;
     this.hide_comment_field = true
+  }
+
+  GoBackToProcedureList()
+  {
+    this.router.navigateByUrl('/procedure');
   }
 }
 

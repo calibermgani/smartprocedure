@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 import { ProcedureWorkAreaRoutingModule } from './procedure-work-area-routing.module';
 import { WorkAreaComponent } from './work-area/work-area.component';
-import { ProcedureStatusComponent } from './procedure-status/procedure-status.component';
 import { ProcedureDetailsComponent } from './procedure-details/procedure-details.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
@@ -23,7 +22,6 @@ import { NgxSliderModule } from 'ngx-slider-v2';
 @NgModule({
   declarations: [
     WorkAreaComponent,
-    ProcedureStatusComponent,
     ProcedureDetailsComponent,
     AllProceduresComponent,
     VettingComponent
@@ -39,7 +37,6 @@ import { NgxSliderModule } from 'ngx-slider-v2';
     AccordionModule.forRoot(),
     CollapseModule.forRoot(),
     TabsModule.forRoot(),
-    BsDropdownModule.forRoot(),
     TooltipModule.forRoot(),
     ModalModule.forRoot(),
     CarouselModule.forRoot(),

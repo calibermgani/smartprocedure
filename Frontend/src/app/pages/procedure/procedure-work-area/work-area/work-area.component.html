@@ -2,7 +2,7 @@
   <div class="col-lg-2 mb-2" style="padding: 0px 4px !important;height: 765px !important">
     <div class="cards" style="height: 765px;overflow-y: hidden;overflow-x: hidden;">
       <!-- Back button -->
-      <div class="d-flex justify-content-start align-items-center mb-3">
+      <div class="d-flex justify-content-start align-items-center mb-3" style="cursor: pointer;" (click)="GoBackToProcedureList()">
         <img src="assets/images/back_arrow.svg" class="me-2">
         <h1>Back</h1>
       </div>
@@ -19,7 +19,7 @@
           </select>
         </div>
         <div class="">
-          <input type="text" placeholder="Select Date" class="form-control ms-2"
+          <input type="text" placeholder="Select Date" class="form-control-new ms-2"
             style="height: 31px;font-size: 0.66rem !important;"
             [bsConfig]="{withTimepicker: true, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
             bsDaterangepicker>
@@ -29,7 +29,7 @@
       <div class="search-box mb-3">
         <div class="position-relative">
           <!-- <img src="assets/images/magnifying_glass.svg" class="searchs-icon"> -->
-          <input type="text" class="form-control rounded bg-light border-light" placeholder="Search...">
+          <input type="text" class="form-control-new rounded bg-light border-light" placeholder="Search...">
         </div>
       </div>
       <!-- MiniList -->
@@ -673,7 +673,7 @@
                             <td *ngFor="let y of x.header_data;let j = index">
                               <h1 style="font-weight: 400 !important;color: #1B1B1B !important;"
                                 *ngIf="!pre_diagnosis_editable_field">{{y.data}}</h1>
-                              <input class="form-control form-control-sm" type="text" [(ngModel)]="y.data"
+                              <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="y.data"
                                 *ngIf="pre_diagnosis_editable_field">
                             </td>
                           </tr>
@@ -703,7 +703,7 @@
                             <td *ngFor="let y of x.header_data">
                               <h1 style="font-weight: 400 !important;color: #1B1B1B !important;"
                                 *ngIf="!indication_editable_field">{{y.data}}</h1>
-                              <input class="form-control form-control-sm" type="text" [(ngModel)]="y.data"
+                              <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="y.data"
                                 *ngIf="indication_editable_field">
                             </td>
                           </tr>
@@ -733,7 +733,7 @@
                             <td *ngFor="let y of x.header_data">
                               <h1 style="font-weight: 400 !important;color: #1B1B1B !important;"
                                 *ngIf="!post_diagnosis_editable_field">{{y.data}}</h1>
-                              <input class="form-control form-control-sm" type="text" [(ngModel)]="y.data"
+                              <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="y.data"
                                 *ngIf="post_diagnosis_editable_field">
                             </td>
                           </tr>
@@ -765,7 +765,7 @@
                           <h1 style="font-weight: 400 !important;color: #1B1B1B !important;"
                             *ngIf="!lab_editable_field">
                             {{y.data}}</h1>
-                          <input class="form-control form-control-sm" type="text" [(ngModel)]="y.data"
+                          <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="y.data"
                             *ngIf="lab_editable_field">
                         </td>
                       </tr>
@@ -795,7 +795,7 @@
                           <h1 style="font-weight: 400 !important;color: #1B1B1B !important;"
                             *ngIf="!medication_editable_field">
                             {{y.data}}</h1>
-                          <input class="form-control form-control-sm" type="text" [(ngModel)]="y.data"
+                          <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="y.data"
                             *ngIf="medication_editable_field">
                         </td>
                       </tr>
@@ -815,11 +815,11 @@
                 </div>
                 <div class="d-flex my-2 mx-2 align-items-center" *ngFor="let x of careteam_data;let i = index">
                   <p class="me-2 mb-0" *ngIf="!careteam_editable_field">{{x.owner}}</p>
-                  <input class="form-control form-control-sm" type="text" [(ngModel)]="x.owner"
+                  <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="x.owner"
                     *ngIf="careteam_editable_field">
                   <p style="font-weight: 400 !important;" class="mb-0 me-1" *ngIf="!careteam_editable_field">{{x.role}}
                   </p>
-                  <input class="form-control form-control-sm" type="text" [(ngModel)]="x.role"
+                  <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="x.role"
                     *ngIf="careteam_editable_field">
                   <i [class]="x.icon"
                     [ngStyle]="{'mrp':x.role === 'MRP Doctor', 'house':x.role === 'House keeping', 'escort':x.role === 'Patient Escor'}"
@@ -870,7 +870,7 @@
                 </span>
               </div>
               <div class="col-4">
-                <input class="form-control form-control-sm" type="text" id="example-text-input"
+                <input class="form-control-new form-control-new-sm" type="text" id="example-text-input"
                   style="width: 150px !important;" [value]="x.input_value" [(ngModel)]="edit_alert_range_value">
               </div>
               <div class="col-4">
@@ -916,7 +916,7 @@
         </div>
       </div>
       <div class="modal-body" *ngFor="let x of tasklist_notes;let i = index"
-        style="height: 450px !important;overflow-y: scroll;">
+        style="height: 450px !important;overflow-y: scroll;overflow-x: hidden;">
         <div class="d-flex flex-column pb-4" style="border-bottom: 1px solid #D9D9D9 !important;">
           <div class="mb-3">
             <h1 style="font-size: 15px !important;font-weight: 500 !important;color: #1B1B1B;">{{x.Procedure_Stage}}
@@ -937,7 +937,7 @@
                 style="background: #855EDB;padding: 0px 8px 0px 8px !important;border: 1px solid #855EDB;border-radius: 24px;color: #fff;">{{y.owner}}</span>
             </div>
             <div class="mt-3 ms-1">
-              <h1 style="font-weight: 400 !important;">{{y.Notes}}</h1>
+              <h1 style="font-weight: 400 !important;white-space:break-spaces !important">{{y.Notes}}</h1>
             </div>
             <div class="mt-3" *ngIf="y.attachment">
               <a
@@ -959,7 +959,7 @@
               </div>
               <div>
                 <!-- <h1 style="font-weight: 400 !important;" class="py-2 px-1">{{y.Reply}}</h1> -->
-                <input class="form-control" type="text" style="background: #fff !important;">
+                <input class="form-control-new" type="text" style="background: #fff !important;">
               </div>
             </div>
           </div>
@@ -970,7 +970,7 @@
       </div>
       <div class="modal-footer" >
         <div class="mt-3 ms-1" style="width: 100% !important;" *ngIf="hide_comment_field">
-          <input class="form-control" type="text" style="height: 65px !important;">
+          <input class="form-control-new" type="text" style="height: 65px !important;">
         </div>
         <div class="d-flex justify-content-end">
           <div>

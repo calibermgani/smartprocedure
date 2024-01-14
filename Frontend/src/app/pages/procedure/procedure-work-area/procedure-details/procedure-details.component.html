@@ -14,18 +14,22 @@
         <img src="assets/images/ViewOnlyModeleft.svg" style="position: absolute;
       top: 50%;
       right:-3%;
-      bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" (click)="CloseViewOnlyMode()" class="leftexpand">
+      bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" (click)="CloseViewOnlyMode()"
+          class="leftexpand">
 
         <div class="accords" style="overflow-x: scroll;height: 507px;">
-          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true" >
+          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
             <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode">
               <span accordion-heading class="d-flex">
-                <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">{{x.headername}}</h4>
+                <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+                  {{x.headername}}</h4>
 
                 <div class="float-end">
-                <img src="assets/images/detailed_view.svg" alt="detailed_view" width="10px" height="10px" class="mb-1 me-2" (click)="open()">
-                <i class="mdi"
-                  [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'" style="font-size: 17px;"></i>
+                  <img src="assets/images/detailed_view.svg" alt="detailed_view" width="10px" height="10px"
+                    class="mb-1 me-2" (click)="open()">
+                  <i class="mdi"
+                    [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+                    style="font-size: 17px;"></i>
                 </div>
               </span>
               <div class="text-muted">
@@ -44,7 +48,7 @@
     </div>
     <div class="col-9" style="padding: 0px 0px !important;">
       <div class="expandable_workarea">
-         <!-- <tabset [justified]="true" class="nav-pills nav-justified">
+        <!-- <tabset [justified]="true" class="nav-pills nav-justified">
           <tab *ngFor="let x of mainTabsValue" (selectTab)="onSelect($event)">
             <ng-template tabHeading>
               <div class="d-flex align-items-center">
@@ -57,27 +61,28 @@
 
         </tabset> -->
         <div class="tab-pane" role="tabpanel">
-        <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist" >
-          <li class="nav-items" role="presentation" *ngFor="let x of mainTabsValue">
-            <a [class]="'nav-link '+x.active" data-bs-toggle="tab" [href]="x.template" role="tab"
-              aria-selected="true">
-              <div class="d-flex align-items-center">
-                <!-- <i class="mdi mdi-18px mdi-account me-2"></i> -->
-                <img [src]="x.imgPath" width="16px" height="16px" class="me-2">
-                <span>{{x.tabs}}</span>
-              </div>
-            </a>
-          </li>
-        </ul>
+          <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist">
+            <li class="nav-items" role="presentation" *ngFor="let x of mainTabsValue">
+              <a [class]="'nav-link '+x.active" data-bs-toggle="tab" [href]="x.template" role="tab"
+                aria-selected="true">
+                <div class="d-flex align-items-center">
+                  <!-- <i class="mdi mdi-18px mdi-account me-2"></i> -->
+                  <img [src]="x.imgPath" width="16px" height="16px" class="me-2">
+                  <span>{{x.tabs}}</span>
+                </div>
+              </a>
+            </li>
+          </ul>
 
 
-        <div class="tab-content mt-1 text-muted">
-          <div class="tab-pane active" id="TabContent1" role="tabpanel">
-            <!-- <div class="tab-pane" role="tabpanel"> -->
+          <div class="tab-content mt-1 text-muted">
+            <div class="tab-pane active" id="TabContent1" role="tabpanel">
+              <!-- <div class="tab-pane" role="tabpanel"> -->
               <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
                 style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
-                  <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                  <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab"
+                    aria-selected="true">
                     <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                     <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
                   </a>
@@ -106,123 +111,123 @@
                   <h1>Radiation dose info</h1>
                 </div>
               </div>
-            <!-- </div> -->
-          </div>
-          <div class="tab-pane" id="TabContent2" role="tabpanel">
-            <div class="tab-pane" role="tabpanel">
-              <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
-              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
-                <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
-                  <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
-                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
-                  </a>
-                </li>
-              </ul>
-              <div class="tab-content ms-2 mt-2 text-muted mt-2">
-                <div class="tab-pane" id="request_infos" role="tabpanel">
-                  <h1>Request Info</h1>
-                </div>
-                <div class="tab-pane" id="admission_infos" role="tabpanel">
-                  <h1>Admission Info</h1>
-                </div>
-                <div class="tab-pane" id="bookings" role="tabpanel">
-                  <h1>Booking</h1>
-                </div>
-                <div class="tab-pane" id="vettingandprotocoling" role="tabpanel">
-                  <h1>Vetting & Protocoling</h1>
-                </div>
-                <div class="tab-pane" id="materials" role="tabpanel">
-                  <h1>Materials</h1>
-                </div>
-                <div class="tab-pane" id="iv_accusses" role="tabpanel">
-                  <h1>IV accusses & closure</h1>
-                </div>
-                <div class="tab-pane" id="radiation_dose" role="tabpanel">
-                  <h1>Radiation dose info</h1>
-                </div>
-              </div>
-            <!-- </div> -->
+              <!-- </div> -->
             </div>
-          </div>
-          <div class="tab-pane" id="TabContent3" role="tabpanel">
-            <div class="tab-pane" role="tabpanel">
-              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
-                <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
-                  <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
-                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
-                  </a>
-                </li>
-              </ul>
-              <div class="tab-content ms-2 mt-2 text-muted">
-                <div class="tab-pane" id="request_info" role="tabpanel">
-                  <h1>Request Info</h1>
+            <div class="tab-pane" id="TabContent2" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
+                    <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted mt-2">
+                  <div class="tab-pane" id="request_infos" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+                  <div class="tab-pane" id="admission_infos" role="tabpanel">
+                    <h1>Admission Info</h1>
+                  </div>
+                  <div class="tab-pane" id="bookings" role="tabpanel">
+                    <h1>Booking</h1>
+                  </div>
+                  <div class="tab-pane" id="vettingandprotocoling" role="tabpanel">
+                    <h1>Vetting & Protocoling</h1>
+                  </div>
+                  <div class="tab-pane" id="materials" role="tabpanel">
+                    <h1>Materials</h1>
+                  </div>
+                  <div class="tab-pane" id="iv_accusses" role="tabpanel">
+                    <h1>IV accusses & closure</h1>
+                  </div>
+                  <div class="tab-pane" id="radiation_dose" role="tabpanel">
+                    <h1>Radiation dose info</h1>
+                  </div>
                 </div>
-                <div class="tab-pane" id="admission_info" role="tabpanel">
-                  <h1>Admission Info</h1>
-                </div>
-                <div class="tab-pane" id="booking" role="tabpanel">
-                  <h1>Booking</h1>
-                </div>
-                <div class="tab-pane" id="vettingandprotocoling" role="tabpanel">
-                  <h1>Vetting & Protocoling</h1>
-                </div>
-                <div class="tab-pane" id="materials" role="tabpanel">
-                  <h1>Materials</h1>
-                </div>
-                <div class="tab-pane" id="iv_accusses" role="tabpanel">
-                  <h1>IV accusses & closure</h1>
-                </div>
-                <div class="tab-pane" id="radiation_dose" role="tabpanel">
-                  <h1>Radiation dose info</h1>
-                </div>
+                <!-- </div> -->
               </div>
             </div>
-          </div>
-          <div class="tab-pane" id="TabContent4" role="tabpanel">
-            <div class="tab-pane" role="tabpanel">
-              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
-                <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
-                  <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
-                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
-                  </a>
-                </li>
-              </ul>
-              <div class="tab-content ms-2 mt-2 text-muted">
-                <div class="tab-pane" id="request_info" role="tabpanel">
-                  <h1>Request Info</h1>
-                </div>
-                <div class="tab-pane" id="admission_info" role="tabpanel">
-                  <h1>Admission Info</h1>
-                </div>
-                <div class="tab-pane" id="booking" role="tabpanel">
-                  <h1>Booking</h1>
-                </div>
-                <div class="tab-pane" id="vettingandprotocoling" role="tabpanel">
-                  <h1>Vetting & Protocoling</h1>
-                </div>
-                <div class="tab-pane" id="materials" role="tabpanel">
-                  <h1>Materials</h1>
-                </div>
-                <div class="tab-pane" id="iv_accusses" role="tabpanel">
-                  <h1>IV accusses & closure</h1>
-                </div>
-                <div class="tab-pane" id="radiation_dose" role="tabpanel">
-                  <h1>Radiation dose info</h1>
+            <div class="tab-pane" id="TabContent3" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
+                    <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted">
+                  <div class="tab-pane" id="request_info" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+                  <div class="tab-pane" id="admission_info" role="tabpanel">
+                    <h1>Admission Info</h1>
+                  </div>
+                  <div class="tab-pane" id="booking" role="tabpanel">
+                    <h1>Booking</h1>
+                  </div>
+                  <div class="tab-pane" id="vettingandprotocoling" role="tabpanel">
+                    <h1>Vetting & Protocoling</h1>
+                  </div>
+                  <div class="tab-pane" id="materials" role="tabpanel">
+                    <h1>Materials</h1>
+                  </div>
+                  <div class="tab-pane" id="iv_accusses" role="tabpanel">
+                    <h1>IV accusses & closure</h1>
+                  </div>
+                  <div class="tab-pane" id="radiation_dose" role="tabpanel">
+                    <h1>Radiation dose info</h1>
+                  </div>
                 </div>
               </div>
             </div>
+            <div class="tab-pane" id="TabContent4" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
+                    <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted">
+                  <div class="tab-pane" id="request_info" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+                  <div class="tab-pane" id="admission_info" role="tabpanel">
+                    <h1>Admission Info</h1>
+                  </div>
+                  <div class="tab-pane" id="booking" role="tabpanel">
+                    <h1>Booking</h1>
+                  </div>
+                  <div class="tab-pane" id="vettingandprotocoling" role="tabpanel">
+                    <h1>Vetting & Protocoling</h1>
+                  </div>
+                  <div class="tab-pane" id="materials" role="tabpanel">
+                    <h1>Materials</h1>
+                  </div>
+                  <div class="tab-pane" id="iv_accusses" role="tabpanel">
+                    <h1>IV accusses & closure</h1>
+                  </div>
+                  <div class="tab-pane" id="radiation_dose" role="tabpanel">
+                    <h1>Radiation dose info</h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </div>
+
 
         </div>
-
-
-      </div>
       </div>
     </div>
   </div>
@@ -240,42 +245,39 @@
 
 <!-- Tab Content2 -->
 <ng-template #TabContent2>
-    <p class="p-3 mb-0">
-      2Food truck fixie locavore, accusamus mcsweeney's marfa nulla
-      single-origin coffee squid. Exercitation +1 labore velit, blog
-      sartorial PBR leggings next level wes anderson artisan four loko
-      farm-to-table craft beer twee. Qui photo booth letterpress,
-      commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-      vinyl cillum PBR. Homo nostrud organic, assumenda labore
-      aesthetic magna delectus.
-    </p>
-  </ng-template>
+  <p class="p-3 mb-0">
+    2Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+    single-origin coffee squid. Exercitation +1 labore velit, blog
+    sartorial PBR leggings next level wes anderson artisan four loko
+    farm-to-table craft beer twee. Qui photo booth letterpress,
+    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+    vinyl cillum PBR. Homo nostrud organic, assumenda labore
+    aesthetic magna delectus.
+  </p>
+</ng-template>
 
 <!-- Tab Content3 -->
-  <ng-template #TabContent3>
-    <p class="p-3 mb-0">
-      3Food truck fixie locavore, accusamus mcsweeney's marfa nulla
-      single-origin coffee squid. Exercitation +1 labore velit, blog
-      sartorial PBR leggings next level wes anderson artisan four loko
-      farm-to-table craft beer twee. Qui photo booth letterpress,
-      commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-      vinyl cillum PBR. Homo nostrud organic, assumenda labore
-      aesthetic magna delectus.
-    </p>
-  </ng-template>
+<ng-template #TabContent3>
+  <p class="p-3 mb-0">
+    3Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+    single-origin coffee squid. Exercitation +1 labore velit, blog
+    sartorial PBR leggings next level wes anderson artisan four loko
+    farm-to-table craft beer twee. Qui photo booth letterpress,
+    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+    vinyl cillum PBR. Homo nostrud organic, assumenda labore
+    aesthetic magna delectus.
+  </p>
+</ng-template>
 
 <!-- Tab Content4 -->
-  <ng-template #TabContent4>
-    <p class="p-3 mb-0">
-      4Food truck fixie locavore, accusamus mcsweeney's marfa nulla
-      single-origin coffee squid. Exercitation +1 labore velit, blog
-      sartorial PBR leggings next level wes anderson artisan four loko
-      farm-to-table craft beer twee. Qui photo booth letterpress,
-      commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-      vinyl cillum PBR. Homo nostrud organic, assumenda labore
-      aesthetic magna delectus.
-    </p>
-  </ng-template>
-
-
-
+<ng-template #TabContent4>
+  <p class="p-3 mb-0">
+    4Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+    single-origin coffee squid. Exercitation +1 labore velit, blog
+    sartorial PBR leggings next level wes anderson artisan four loko
+    farm-to-table craft beer twee. Qui photo booth letterpress,
+    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+    vinyl cillum PBR. Homo nostrud organic, assumenda labore
+    aesthetic magna delectus.
+  </p>
+</ng-template>

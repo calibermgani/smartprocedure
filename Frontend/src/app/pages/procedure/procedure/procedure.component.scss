@@ -1,0 +1,87 @@
+.main_active{
+  background: #855EDB;
+  border: 1px solid #855EDB;
+  color: #fff !important;
+  border-radius: 6px;
+}
+.tab_filter_img
+{
+  background: #F3F4F8;
+  padding: 8px;
+  cursor: pointer;
+}
+::ng-deep .ng-dropdown-panel
+{
+  background: #fff;
+  height: 110px;
+  overflow-y: scroll;
+}
+.form-check-input:checked
+{
+  background-color: #855EDB !important;
+    border-color: #855EDB !important;
+}
+
+::ng-deep .ag-root ::-webkit-scrollbar {
+  width: 2em;
+  height: 2em
+}
+::ng-deep .ag-root ::-webkit-scrollbar-button {
+  background: #ccc
+}
+::ng-deep .ag-root ::-webkit-scrollbar-track-piece {
+  background: #ECECEC
+}
+::ng-deep  .ag-root ::-webkit-scrollbar-thumb {
+  background: #747474
+}
+
+::ng-deep .ag-row{
+  border-bottom : none !important
+}
+
+::ng-deep .ag-row-odd{
+  margin: 10px 0px !important;
+  background: none !important;
+  z-index: 2 ;
+}
+
+::ng-deep .ag-row-even{
+  margin: 10px 0px !important;
+}
+
+::ng-deep .ag-header-viewport
+{
+  background: #F3F4F8 !important;
+  border: 1px solid #C9C9C9;;
+}
+
+::ng-deep .ag-header-cell-text
+{
+  font-size: 12px;
+  font-weight: 500;
+}
+
+::ng-deep .ag-cell-value
+{
+  font-size: 10px;
+  font-weight: 400;
+}
+
+::ng-deep .ag-checkbox-input-wrapper
+{
+  width: 13px !important;
+  height: 13px !important;
+}
+
+.show_filters
+{
+  display: block !important;
+  height: 100% !important;
+}
+.reduce_grid_size
+{
+  width: 66%;
+  position: relative;
+  left: 0%;
+}
