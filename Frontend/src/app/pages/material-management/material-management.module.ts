@@ -7,19 +7,27 @@ import { DashboardMaterialManagementComponent } from './dashboard-material-manag
 import { AgGridModule } from 'ag-grid-angular';
 import { ViewFullGridComponent } from './view-full-grid/view-full-grid.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { VendorListComponent } from './vendor-list/vendor-list.component';
+import { LowStockComponent } from './low-stock/low-stock.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { TooltipModule } from 'ngx-bootstrap/tooltip';
 
 
 @NgModule({
   declarations: [
     AllItemsComponent,
     DashboardMaterialManagementComponent,
-    ViewFullGridComponent
+    ViewFullGridComponent,
+    VendorListComponent,
+    LowStockComponent
   ],
   imports: [
     CommonModule,
     MaterialManagementRoutingModule,
     AgGridModule,
-    NgSelectModule
+    NgSelectModule,
+    BsDropdownModule.forRoot(),
+    TooltipModule
   ],
   providers:[
 

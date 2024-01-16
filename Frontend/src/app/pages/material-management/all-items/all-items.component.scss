@@ -1,0 +1,131 @@
+::ng-deep .nav{
+  background: #ECECEC !important;
+  height: 34px !important;
+  border-radius: 16px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+}
+
+.nav-link{
+  background: none;
+  display: block;
+  transition: none !important;
+  transform: none !important;
+  padding: 10px 12px 4px 12px !important;
+  opacity: 0.6;
+  width: 125px !important;
+  font-weight: normal !important;
+  white-space: nowrap;
+  .name{
+    color: #000 ;
+    font-weight: 400 !important;
+  }
+}
+
+.nav-tabs-custom .nav-item .nav-link{
+  border: none;
+}
+
+::ng-deep  .nav-link.active
+{
+  color: #fff !important;
+  background-color: #855EDB !important;
+  border: 1px solid #855EDB !important;
+  border-radius: 16px !important;
+  height: 34px !important;
+  padding:8px 12px 4px 12px !important;
+  opacity: 1;
+  width: 125px !important;
+  font-weight: bolder !important;
+
+  .name{
+    color: #fff !important;
+  }
+}
+
+.nav-tabs-custom .nav-item .nav-link::after
+{
+  background: none !important;
+}
+
+.tab_filter_img
+{
+  background: #F3F4F8;
+  padding: 8px;
+  cursor: pointer;
+}
+
+.dropdown-item:hover
+{
+  background: #F3F4F8 !important;
+}
+
+
+
+::ng-deep .ag-row{
+  border-bottom : none !important
+}
+
+::ng-deep .ag-row-odd{
+  margin: 10px 0px !important;
+  background:#F3F4F8 !important;
+  z-index: 2 ;
+}
+
+::ng-deep .ag-row-even{
+  margin: 10px 0px !important;
+  background: none !important;
+}
+
+::ng-deep .ag-header-viewport
+{
+  background: #F3F4F8 !important;
+  border: none !important;
+}
+
+::ng-deep .ag-header{
+border-bottom: none !important;
+}
+
+::ng-deep .ag-header-cell-text
+{
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+::ng-deep .ag-cell-value
+{
+  font-size: 10px !important;
+  font-weight: 400 !important;
+}
+
+::ng-deep .ag-root-wrapper
+{
+  border: 1px solid #C9C9C9 !important;
+  border-radius: 15px;
+}
+::ng-deep .ag-header
+{
+  border-bottom: none !important;
+}
+
+.hide0veralllist
+{
+  .overAlllist
+  {
+    width: 0% !important;
+    display: none;
+  }
+}
+
+.showfullgrid
+{
+  width: 100% !important;
+  border-left: 1px solid #747474;
+  .rightexpand
+  {
+    display: block !important;
+    width: 20px;height: 20px;
+  }
+}

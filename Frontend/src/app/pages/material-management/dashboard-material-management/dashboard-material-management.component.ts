@@ -394,6 +394,11 @@ export class DashboardMaterialManagementComponent implements OnInit {
     this.router.navigate(['/material-management/viewfullgrid'])
   }
 
+  navigateToLowStock()
+  {
+    this.router.navigate(['/material-management/all-item']);
+  }
+
   ngOnDestroy() {
     // Clean up the AG-Grid instance
     // if (this.gridOptions1.api) {

@@ -14,10 +14,15 @@
   background: none !important;
 }
 
+::ng-deep .ag-header
+{
+border-bottom: none !important;
+}
+
 ::ng-deep .ag-header-viewport
 {
   background: #F3F4F8 !important;
-  border: 1px solid #C9C9C9;
+  border: none;
 }
 
 ::ng-deep .ag-header-cell-text
