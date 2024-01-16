@@ -1,0 +1,69 @@
+[
+  {
+    "id": 1,
+    "item_no":"853721",
+    "item_name":"Juice",
+    "expire_date":"11/05/2020",
+    "procedure":"Cardiology",
+    "lot_no":"454",
+    "quantity":"55"
+  },
+  {
+    "id": 2,
+    "item_no":"654524",
+    "item_name":"Curabitur",
+    "expire_date":"10/05/2020",
+    "procedure":"Anesthesia",
+    "lot_no":"454",
+    "quantity":"25"
+  },{
+    "id": 1,
+    "item_no":"654432",
+    "item_name":"Nunc volupat",
+    "expire_date":"03/05/2020",
+    "procedure":"Diagnostic",
+    "lot_no":"454",
+    "quantity":"15"
+  },{
+    "id": 1,
+    "item_no":"956654",
+    "item_name":"Congue",
+    "expire_date":"10/01/2020",
+    "procedure":"cardiology",
+    "lot_no":"454",
+    "quantity":"30"
+  },{
+    "id": 1,
+    "item_no":"989909",
+    "item_name":"Hendreit",
+    "expire_date":"09/05/2020",
+    "procedure":"Neurology",
+    "lot_no":"454",
+    "quantity":"80"
+  },{
+    "id": 1,
+    "item_no":"85372",
+    "item_name":"Juice",
+    "expire_date":"11/05/2020",
+    "procedure":"cardiology",
+    "lot_no":"454",
+    "quantity":"55"
+  },{
+    "id": 1,
+    "item_no":"85372",
+    "item_name":"Juice",
+    "expire_date":"11/05/2020",
+    "procedure":"cardiology",
+    "lot_no":"454",
+    "quantity":"55"
+  },{
+    "id": 1,
+    "item_no":"85372",
+    "item_name":"Juice",
+    "expire_date":"11/05/2020",
+    "procedure":"cardiology",
+    "lot_no":"454",
+    "quantity":"45"
+  }
+
+]

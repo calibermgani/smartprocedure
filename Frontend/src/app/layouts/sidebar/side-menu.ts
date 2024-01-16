@@ -51,7 +51,7 @@ export const SIDEMENU: MenuItem[] = [
     id: 9,
     label: 'MATERIAL',
     icon: 'mdi mdi-archive-outline',
-    link: 'material-management/all-item',
+    link: 'material-management/dashboard',
   },
   {
     id: 10,

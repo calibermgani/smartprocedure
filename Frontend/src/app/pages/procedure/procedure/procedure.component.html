@@ -16,8 +16,8 @@
     </div>
     <div class="col-4">
       <div class="d-flex justify-centent-between align-items-center float-end" style="flex-wrap: wrap;">
-        <div style="background: #8B8B8B;border-radius: 3px;" class="me-2">
-          <button class="btn" style="color: #fff !important;">Action</button>
+        <div class="me-2">
+          <button class="btn-diasble" >Action</button>
         </div>
         <div class="tab_filter_img me-2">
           <img src="assets/images/reload.svg" width="20px" height="20px" tooltip="Reload" placement="bottom">
@@ -41,7 +41,7 @@
         <div class="d-flex justify-centent-between align-items-center ps-0">
           <div style="width: 30%;">
             <ng-select [items]="Saved_filter_options" (change)="changeSavedfilter(CurrentSavedFilter)"
-              [(ngModel)]="CurrentSavedFilter"></ng-select>
+              [(ngModel)]="CurrentSavedFilter" placeholder="Select the Saved Filter"></ng-select>
           </div>
           <div style="width: 30%;" class="ms-2">
             <input type="text" placeholder="Select Date" class="form-control"
@@ -50,7 +50,7 @@
               bsDaterangepicker>
           </div>
           <div style="width: 30%;" class="ms-2">
-            <ng-select [items]="current_Procedure_filters"></ng-select>
+            <ng-select [items]="current_Procedure_filters" placeholder="Select the Sub-status"></ng-select>
           </div>
           <div class="ms-3">
             <div class="form-check form-switch form-switch-md d-flex justify-centent-between align-items-center ps-0">
@@ -104,7 +104,7 @@
               as</button>
           </div>
           <div *ngIf="!enabled_edit_btn">
-            <button type="button" class="btn-diable me-2">Save</button>
+            <button type="button" class="btn-diasble me-2">Save</button>
           </div>
         </div>
       </div>
@@ -188,13 +188,13 @@
                   <ng-select [items]="current_Procedure_filters" placeholder="Select"></ng-select>
                 </div>
               </div>
-              <div class="d-flex" style="border-top: 1px solid #ECECEC;    flex-direction: row-reverse;
+              <div class="d-flex" style="border-top: 1px solid #ECECEC;flex-direction: row-reverse;
               margin-top: 32%">
-                <div class="float-end mt-2">
+                <div class="mt-2">
                   <button class="btn-2">Cancel</button>
                 </div>
-                <div class="float-end mt-2">
-                  <button class="btn-diable me-2">Apply</button>
+                <div class="mt-2">
+                  <button class="btn-diasble me-2">Apply</button>
                 </div>
               </div>
             </div>

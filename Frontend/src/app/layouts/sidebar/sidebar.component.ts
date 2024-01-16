@@ -31,20 +31,20 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 
   @ViewChild('sideMenu') sideMenu: ElementRef;
 
-  constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient, public authfakeauthenticationService:AuthfakeauthenticationService,public activatedRoute : ActivatedRoute) {
+  constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient, public authfakeauthenticationService: AuthfakeauthenticationService, public activatedRoute: ActivatedRoute) {
     router.events.forEach((event) => {
       if (event instanceof NavigationEnd) {
-        setTimeout(() =>{
+        setTimeout(() => {
           this._activateMenuDropdown();
           this._scrollElement();
-        },100)
+        }, 100)
 
       }
     });
   }
 
   ngOnInit() {
-    this.authfakeauthenticationService.currentSideMenu.subscribe((res:any) => {
+    this.authfakeauthenticationService.currentSideMenu.subscribe((res: any) => {
       this.initialize(res);
     })
 
@@ -53,9 +53,9 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
 
   ngAfterViewInit() {
     this.menu = new MetisMenu(this.sideMenu.nativeElement);
-    setTimeout(() =>{
+    setTimeout(() => {
       this._activateMenuDropdown();
-    },100)
+    }, 100)
 
   }
 
@@ -77,9 +77,9 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
       if (document.getElementsByClassName("mm-active").length > 0) {
         const currentPosition = document.getElementsByClassName("mm-active")[0]['offsetTop'];
         if (currentPosition > 500)
-        if(this.scrollRef.SimpleBar !== null)
-          this.scrollRef.SimpleBar.getScrollElement().scrollTop =
-            currentPosition + 300;
+          if (this.scrollRef.SimpleBar !== null)
+            this.scrollRef.SimpleBar.getScrollElement().scrollTop =
+              currentPosition + 300;
       }
     }, 300);
   }
@@ -100,7 +100,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   _activateMenuDropdown() {
     this._removeAllClass('mm-active');
     this._removeAllClass('mm-show');
-    let links:any  = [];
+    let links: any = [];
     links = document.getElementsByClassName('side-nav-link-ref');
     // console.log('Links',links);
 
@@ -109,12 +109,19 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     const paths = [];
     for (let i = 0; i < links.length; i++) {
       // console.log(links[i]['pathname']);
-      const pathname = new URL(links[i]).hash ;
+      const pathname = new URL(links[i]).hash;
       const cleanedPath = pathname.startsWith('#') ? pathname.substring(1) : pathname;
       paths.push(cleanedPath);
     }
-    // console.log('paths',paths);
-    var itemIndex = paths.indexOf(window.location.hash.substring(1));
+    console.log('paths', paths);
+    let x = this.router.url;
+      if (x == '/material-management/viewfullgrid') {
+        var itemIndex = 1;
+      }
+      else
+      {
+        var itemIndex = paths.indexOf(window.location.hash.substring(1));
+      }
     // console.log('itemindex',itemIndex);
     if (itemIndex === -1) {
       const strIndex = window.location.pathname.lastIndexOf('/');
@@ -162,14 +169,14 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   /**
    * Initialize
    */
-  initialize(data:any): void {
+  initialize(data: any): void {
     // this.menuItems = MENU;
-    switch(data){
-      case 'sidemenu':{
+    switch (data) {
+      case 'sidemenu': {
         this.menuItems = SIDEMENU;
         break;
       }
-      case 'material-management':{
+      case 'material-management': {
         this.menuItems = MATERIALMANAGEMENTMENU;
         break;
       }
@@ -185,8 +192,8 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     return item.subItems !== undefined ? item.subItems.length > 0 : false;
   }
 
-  navigateBack(data:any){
-    if(data == 'home'){
+  navigateBack(data: any) {
+    if (data == 'home') {
       this.authfakeauthenticationService.changeSideMenu('sidemenu');
       this.router.navigate(['/procedure']);
     }
