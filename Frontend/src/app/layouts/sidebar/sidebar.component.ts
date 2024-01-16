@@ -115,7 +115,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     }
     console.log('paths', paths);
     let x = this.router.url;
-      if (x == '/material-management/viewfullgrid') {
+      if (x == '/material-management/viewfullgrid' || x =='/workarea') {
         var itemIndex = 1;
       }
       else

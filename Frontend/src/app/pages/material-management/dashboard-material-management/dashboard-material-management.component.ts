@@ -165,6 +165,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
        ]
         this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
           this.myGrid_1.api.setRowData(res);
+          this.gridOptions1.api?.sizeColumnsToFit();
         });
         console.log(this.columnDefs1);
 
@@ -204,7 +205,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
           },
          ]
         this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
-          this.myGrid_1.api.setRowData(res);
+          this.myGrid_1.api.setRowData(res);this.gridOptions1.api?.sizeColumnsToFit();
         });
         break;
       }
@@ -243,6 +244,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
          ]
         this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
           this.myGrid_1.api.setRowData(res);
+          this.gridOptions1.api?.sizeColumnsToFit();
         });
         break;
       }
@@ -281,6 +283,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
          ]
         this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
           this.myGrid_1.api.setRowData(res);
+          this.gridOptions1.api?.sizeColumnsToFit();
         });
         break;
       }
@@ -325,6 +328,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
         ];
         this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
           this.myGrid_1.api.setRowData(res);
+          this.gridOptions1.api?.sizeColumnsToFit();
         });
         break;
       }
@@ -363,6 +367,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
          ]
         this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
           this.myGrid_1.api.setRowData(res);
+          this.gridOptions1.api?.sizeColumnsToFit();
         });
         break;
       }
