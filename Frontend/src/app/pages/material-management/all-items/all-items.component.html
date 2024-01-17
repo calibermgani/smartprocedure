@@ -59,8 +59,8 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
                 <div class="d-flex flex-column">
-                  <a class="dropdown-item pb-2" style="color: #000 !important;"><img src="assets/images/add_item.svg"
-                      width="16px" height="16px" class="me-2">Add Item</a>
+                  <a class="dropdown-item pb-2" style="color: #000 !important; cursor: pointer;"><img src="assets/images/add_item.svg"
+                      width="16px" height="16px" class="me-2" (click)="additem?.show()">Add Item</a>
                   <a class="dropdown-item pb-2" style="color: #000 !important;"><img src="assets/images/add_category.svg"
                       width="16px" height="16px" class="me-2">Add Category</a>
                   <a class="dropdown-item pb-2" style="color: #000 !important;"><img src="assets/images/add_vendor.svg"
@@ -136,6 +136,154 @@
         </div>
         <div class="tab-pane" id="low_stock" role="tabpanel">
           <app-low-stock></app-low-stock>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="cards">
+  <div>
+
+    <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
+      data-bs-target=".bs-example-modal-center" (click)="additem.show()">Center modal</button>
+
+    <div bsModal #additem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+      <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
+        <div class="modal-content">
+          <div class="d-flex justify-content-between align-items-center p-3 m-2" style="background: #F3F4F8;">
+            <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Item
+            </h1>
+            <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="additem?.hide()">
+          </div>
+          <div class="row p-3">
+            <div class="col-4">
+              <div class="mb-3">
+                <label for="images" style="font-size: 10px; color: #747474;">Images</label>
+                <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
+                <!-- <input type="file" class="form-control-new" id="inputGroupFile01" style="height: 151px;"> -->
+                <form>
+                  <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'">
+                    <ngx-dropzone-label class="dz-message needsclick">
+                        <div class="mb-3">
+                            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+                        </div>
+
+                        <h5>Drop files here or click to upload.</h5>
+                    </ngx-dropzone-label>
+                </ngx-dropzone>
+                <ngx-dropzone-preview *ngIf="imageURL" class="border rounded" [removable]="true" (removed)="onRemove()">
+                    <ngx-dropzone-label>
+                        <div class="d-flex p-2">
+                            <div class="flex-shrink-0 me-3">
+                                <div class="avatar-sm bg-light rounded">
+                                    <img class="img-fluid rounded d-block" src="{{imageURL}}" alt="Dropzone-Image">
+                                </div>
+                            </div>
+                            <div class="flex-grow-1">
+                                <div class="pt-1">
+                                    <strong class="error text-danger"></strong>
+                                </div>
+                            </div>
+                        </div>
+                    </ngx-dropzone-label>
+                </ngx-dropzone-preview>
+                <!-- end dropzon-preview -->
+                </form>
+              </div>
+              <div class="">
+                <label for="items_status" style="font-size: 10px; color: #747474;">Item Status</label>
+                <!-- <input class="form-control-new"> -->
+                <ng-select [items]="" placeholder="Select Status"></ng-select>
+              </div>
+            </div>
+            <div class="col-8">
+              <div class="d-flex">
+                <div class="mb-3" style="width: 50%;">
+                  <label for="items_category" style="font-size: 10px; color: #747474;">Items Category</label>
+                  <!-- <input class="form-control-new"> -->
+                  <ng-select [items]="" placeholder="Select Status"></ng-select>
+                </div>
+                <div class="mt-4 mx-3">
+                  <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+                </div>
+                <div class="mb-3" style="width: 50%;">
+                  <label for="items_name" style="font-size: 10px; color: #747474;">Items Name</label>
+                  <input class="form-control-new">
+                </div>
+              </div>
+              <div class="mb-5">
+                <label for="items_descrption" style="font-size: 10px; color: #747474;">Item Descrption</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mt-4" style="margin-top: 60px !important;">
+                <label for="notes" style="font-size: 10px; color: #747474;">Notes</label>
+                <input class="form-control-new">
+              </div>
+            </div>
+          </div>
+          <div class="row p-3">
+            <div class="col-4">
+              <div class="mb-3">
+                <label for="items_no" style="font-size: 10px; color: #747474;">Item No</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="size" style="font-size: 10px; color: #747474;">Size</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="unit" style="font-size: 10px; color: #747474;">Unit</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="min_level" style="font-size: 10px; color: #747474;">Min Level</label>
+                <input class="form-control-new">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label for="cat_no" style="font-size: 10px; color: #747474;">Cat No</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="vendor" style="font-size: 10px; color: #747474;">Vendor</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="expiry_date" style="font-size: 10px; color: #747474;">Expiry Date</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="tags" style="font-size: 10px; color: #747474;">Tags</label>
+                <input class="form-control-new">
+              </div>
+            </div>
+            <div class="col-4">
+              <div class="mb-3">
+                <label for="lot_no" style="font-size: 10px; color: #747474;">Lot No</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="price" style="font-size: 10px; color: #747474;">Price</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="on_hand_qty" style="font-size: 10px; color: #747474;">On Hand Qty</label>
+                <input class="form-control-new">
+              </div>
+              <div class="mb-3">
+                <label for="procedure" style="font-size: 10px; color: #747474;">Procedure</label>
+                <input class="form-control-new">
+              </div>
+            </div>
+          </div>
+          <div class="d-flex justify-content-end p-3">
+            <button type="button" class="btn-new me-2"
+              style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+            <button type="button" class="btn-new" style="width: auto !important;">Add</button>
+          </div>
         </div>
       </div>
     </div>

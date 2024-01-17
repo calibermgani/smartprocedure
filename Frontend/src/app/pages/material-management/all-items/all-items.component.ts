@@ -3,6 +3,7 @@ import { AuthfakeauthenticationService } from './../../../core/services/authfake
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 interface AllItems{
   id:number,
@@ -40,6 +41,8 @@ export class AllItemsComponent implements OnInit {
   hide_Overall_list:boolean = false;
   change_action_btn:boolean = false;
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
+  @ViewChild('additem', { static: false }) additem?: ModalDirective;
+
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -299,7 +302,27 @@ export class AllItemsComponent implements OnInit {
       }
     }
   }
+  files: File[] = [];
+  imageURL: any;
+  onSelect(event: any) {
+    this.files.push(...event.addedFiles);
+    let file: File = event.addedFiles[0];
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.imageURL = reader.result as string;
+      setTimeout(() => {
+        // this.profile.push(this.imageURL)
+      }, 100);
+    }
+    reader.readAsDataURL(file)
+  }
 
+  openModal()
+  {
+console.log('1');
+
+    // this.centerDataModal.show();
+  }
   ngAfterViewInit(): void {
 
   }

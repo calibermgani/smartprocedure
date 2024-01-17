@@ -129,3 +129,17 @@ border-bottom: none !important;
     width: 20px;height: 20px;
   }
 }
+
+.dropzone
+{
+  min-height: 155px !important;
+  height: 155px !important;
+  border: 2px dotted #855EDB !important ;
+  overflow-x: clip !important;
+}
+
+::ng-deep .ng-select-container
+{
+  background: #F3F4F8 !important;
+  border: 0.5px solid #F3F4F8 !important;
+}

@@ -11,7 +11,8 @@ import { VendorListComponent } from './vendor-list/vendor-list.component';
 import { LowStockComponent } from './low-stock/low-stock.component';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
-
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,9 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
     AgGridModule,
     NgSelectModule,
     BsDropdownModule.forRoot(),
-    TooltipModule
+    TooltipModule,
+    NgxDropzoneModule,
+    ModalModule.forRoot()
   ],
   providers:[
 
