@@ -109,13 +109,14 @@ h4{
   appearance: none !important;
   background: #F3F4F8 !important;
   background-clip: padding-box !important;
-  border: 0px solid #BEBEBF !important;
+  border: 0.5px solid #BEBEBF !important;
   border-radius: 4px !important;
   transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
 }
 
 .form-control-new:focus-visible
 {
+  outline: none;
   border: 0.2px solid #8B8B8B !important;
 }
 
@@ -210,3 +211,15 @@ border: none;
   -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
 }
 
+input{
+  outline: none !important;
+}
+
+input:focus-visible{
+  outline:none !important;
+}
+
+.dropdown-item
+{
+  cursor: pointer !important;
+}

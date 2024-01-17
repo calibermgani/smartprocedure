@@ -387,7 +387,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
     this.reduceTableSize = false;
   }
 
-  go()
+  navigateTodetailedView()
   {
     this.authFakeService.UpdatingMaterialfn(this.material_type_name);
     this.authFakeService.UpdatingColumnDeffn(this.columnDefs1);

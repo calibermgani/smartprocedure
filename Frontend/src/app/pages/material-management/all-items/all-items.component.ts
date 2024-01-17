@@ -38,10 +38,18 @@ export class AllItemsComponent implements OnInit {
   category: string[];
   procedure: string[];
   all_Items_gridData:any[];
+  format_value:string[];
   hide_Overall_list:boolean = false;
-  change_action_btn:boolean = false;
+  all_items_dropbtn:boolean = true;
+  vendor_list_dropbtn:boolean = false;
+  low_stock_dropbtn:boolean = false;
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
   @ViewChild('additem', { static: false }) additem?: ModalDirective;
+  @ViewChild('addcategory', { static: false }) addcategory?: ModalDirective;
+  @ViewChild('addvendor', { static: false }) addvendor?: ModalDirective;
+  @ViewChild('addtag', { static: false }) addtag?: ModalDirective;
+  @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
+  @ViewChild('notify', { static: false }) notify?: ModalDirective;
 
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
@@ -87,7 +95,7 @@ export class AllItemsComponent implements OnInit {
   };
 
   constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient) {
-    this.category = []; this.procedure = [];
+    this.category = []; this.procedure = [];this.format_value = ['KG'];
   }
 
   ngOnInit(): void {
@@ -196,6 +204,7 @@ export class AllItemsComponent implements OnInit {
     {
       field: 'action',
       headerName: 'Action',
+      pinned:"right",
       cellRenderer: this.cellrendered.bind(this, 'action')
 
     },
@@ -270,14 +279,16 @@ export class AllItemsComponent implements OnInit {
     }
   }
 
-  CellClicked(headerName: any, params: any) {}
+  CellClicked(headerName: any, params: any) {
+    switch(headerName){
+      case 'item_no':{
+        this.viewitem?.show();
+      }
+    }
+  }
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-    this.http.get('assets/json/all-items.json').subscribe((res:any)=>{
-      this.all_Items_gridData = res;
-      this.myGrid_1.api?.setRowData(this.all_Items_gridData);
-    })
   }
 
 
@@ -289,15 +300,21 @@ export class AllItemsComponent implements OnInit {
   {
     switch(data){
       case 'allitems':{
-        this.change_action_btn = false;
+        this.all_items_dropbtn = true;
+        this.vendor_list_dropbtn = false;
+        this.low_stock_dropbtn = false;
         break;
       }
       case 'vendor_list':{
-        this.change_action_btn = false;
+        this.vendor_list_dropbtn = true;
+        this.all_items_dropbtn=false;
+        this.low_stock_dropbtn=false;
         break;
       }
       case 'low_stock':{
-        this.change_action_btn = true;
+        this.all_items_dropbtn = false;
+        this.vendor_list_dropbtn = false;
+        this.low_stock_dropbtn = true;
         break;
       }
     }
@@ -319,11 +336,13 @@ export class AllItemsComponent implements OnInit {
 
   openModal()
   {
-console.log('1');
+    console.log('1');
 
-    // this.centerDataModal.show();
   }
   ngAfterViewInit(): void {
-
+    this.http.get('assets/json/all-items.json').subscribe((res:any)=>{
+      this.all_Items_gridData = res;
+      this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+    })
   }
 }

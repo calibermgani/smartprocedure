@@ -74,6 +74,12 @@
   height: 13px !important;
 }
 
+::ng-deep .ag-root-wrapper
+{
+  border: 1px solid #747474 !important;
+  font-family: poppins !important;
+}
+
 .show_filters
 {
   display: block !important;
@@ -84,4 +90,10 @@
   width: 66%;
   position: relative;
   left: 0%;
+}
+
+::ng-deep .ng-select-container
+{
+  background: #fff;
+  border:1px solid #BEBEBF !important;
 }

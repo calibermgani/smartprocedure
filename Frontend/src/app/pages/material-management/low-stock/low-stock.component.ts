@@ -124,6 +124,10 @@ export class LowStockComponent implements OnInit{
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
+
+  }
+
+  ngAfterViewInit(): void {
     this.http.get('assets/json/low-stock.json').subscribe((res:any)=>{
       this.lowStock = res;
       this.gridOptions1.api?.sizeColumnsToFit();

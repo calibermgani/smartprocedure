@@ -163,7 +163,11 @@ export class VendorListComponent implements OnInit {
     this.gridApi_1 = params.api;
     this.http.get('assets/json/vendor-list.json').subscribe((res:any)=>{
       this.vendorList = res;
+      this.gridOptions1.api?.sizeColumnsToFit();
       this.myGrid_1.api?.setRowData(this.vendorList);
     })
+  }
+
+  ngAfterViewInit(): void {
   }
 }

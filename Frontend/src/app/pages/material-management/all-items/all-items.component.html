@@ -1,7 +1,7 @@
 <div class="cards">
   <div class="row">
     <div class="col-2" [ngClass]="{'hide0veralllist':hide_Overall_list == true}">
-      <div style="border:1px solid #747474;border-radius: 4px;width: 100%;height: auto;" class="overAlllist p-2">
+      <div style="border:1px solid #1B1B1B;border-radius: 4px;width: 100%;height: auto;" class="overAlllist p-2">
         <div class="mt-1">
           <h1 class="header_name">Overall List</h1>
         </div>
@@ -25,30 +25,33 @@
     </div>
     <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}">
       <img src="assets/images/ViewOnlyModeright.svg"
-        style="position: absolute;top: 50%;margin-left: -20px;z-index: 1;display: none;cursor: pointer;" class="rightexpand"
-        (click)="HideOverAllList()">
+        style="position: absolute;top: 50%;margin-left: -20px;z-index: 1;display: none;cursor: pointer;"
+        class="rightexpand" (click)="HideOverAllList()">
       <div class="d-flex flex-row justify-content-between align-items-center pb-4"
-        style="border-bottom: 0.5px solid #747474;">
+        style="border-bottom: 0.5px solid #1B1B1B;">
         <div>
           <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist">
             <li class="nav-item" role="presentation">
-              <a class="nav-link active" data-bs-toggle="tab" href="#allitems" role="tab" aria-selected="true"  (click)="SelectedTab('allitems')">
+              <a class="nav-link active" data-bs-toggle="tab" href="#allitems" role="tab" aria-selected="true"
+                (click)="SelectedTab('allitems')">
                 <h1 class="d-none d-sm-block name">All Items</h1>
               </a>
             </li>
-            <li class="nav-item" role="presentation" >
-              <a class="nav-link" data-bs-toggle="tab" href="#vendor_list" role="tab" aria-selected="false" tabindex="-1" (click)="SelectedTab('vendor_list')">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#vendor_list" role="tab" aria-selected="false"
+                tabindex="-1" (click)="SelectedTab('vendor_list')">
                 <h1 class="d-none d-sm-block name">Vendor list</h1>
               </a>
             </li>
-            <li class="nav-item" role="presentation" >
-              <a class="nav-link" data-bs-toggle="tab" href="#low_stock" role="tab" aria-selected="false" tabindex="-1" (click)="SelectedTab('low_stock')">
+            <li class="nav-item" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#low_stock" role="tab" aria-selected="false" tabindex="-1"
+                (click)="SelectedTab('low_stock')">
                 <h1 class="d-none d-sm-block name">Low Stock</h1>
               </a>
             </li>
           </ul>
         </div>
-        <div *ngIf="change_action_btn == false">
+        <div *ngIf="all_items_dropbtn == true">
           <div class="d-flex justify-centent-between align-items-center float-end" style="flex-wrap: wrap;">
             <div class="dropdown d-inline-block me-3" dropdown>
               <button type="button" class="btn-new header-item noti-icon" id="page-header-notifications-dropdown"
@@ -59,14 +62,14 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
                 <div class="d-flex flex-column">
-                  <a class="dropdown-item pb-2" style="color: #000 !important; cursor: pointer;"><img src="assets/images/add_item.svg"
-                      width="16px" height="16px" class="me-2" (click)="additem?.show()">Add Item</a>
-                  <a class="dropdown-item pb-2" style="color: #000 !important;"><img src="assets/images/add_category.svg"
-                      width="16px" height="16px" class="me-2">Add Category</a>
-                  <a class="dropdown-item pb-2" style="color: #000 !important;"><img src="assets/images/add_vendor.svg"
-                      width="16px" height="16px" class="me-2">Add vendor</a>
-                  <a class="dropdown-item pb-2" style="color: #000 !important;"><img src="assets/images/add_tag.svg"
-                      width="16px" height="16px" class="me-2">Add Tag</a>
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="additem?.show();"><img
+                      src="assets/images/add_item.svg" width="16px" height="16px" class="me-2">Add Item</a>
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addcategory?.show()"><img
+                      src="assets/images/add_category.svg" width="16px" height="16px" class="me-2">Add Category</a>
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addvendor?.show()"><img
+                      src="assets/images/add_vendor.svg" width="16px" height="16px" class="me-2">Add vendor</a>
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addtag?.show()"><img
+                      src="assets/images/add_tag.svg" width="16px" height="16px" class="me-2">Add Tag</a>
                 </div>
               </div>
             </div>
@@ -81,12 +84,45 @@
             </div>
           </div>
         </div>
-        <div *ngIf="change_action_btn == true">
-            <button type="button" class="btn-new header-item noti-icon" id="page-header-notifications-dropdown"
-              style="height:auto !important;width: 100px !important;padding: 6px 12px 6px 12px !important;background: #855EDB !important;">
-              <i class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i>
-              Notify
-            </button>
+        <div *ngIf="low_stock_dropbtn == true">
+          <button type="button" class="btn-new header-item noti-icon" id="page-header-notifications-dropdown" (click)="notify.show()"
+            style="height:auto !important;width: 100px !important;padding: 6px 12px 6px 12px !important;background: #855EDB !important;">
+            <i class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i>
+            Notify
+          </button>
+        </div>
+        <div *ngIf="vendor_list_dropbtn == true">
+          <div class="d-flex justify-centent-between align-items-center float-end" style="flex-wrap: wrap;">
+            <div class="dropdown d-inline-block me-3">
+              <button type="button" class="btn-new header-item noti-icon" id="page-header-notifications-dropdown"
+                (click)="addvendor?.show()"
+                style="height:auto !important;width: auto !important;padding: 6px 12px 6px 12px !important;background: #855EDB !important;">
+                <i class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i>
+                Add vendor
+              </button>
+              <!-- <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
+                <div class="d-flex flex-column">
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="additem?.show();"><img
+                      src="assets/images/add_item.svg" width="16px" height="16px" class="me-2">Add Item</a>
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addcategory?.show()"><img
+                      src="assets/images/add_category.svg" width="16px" height="16px" class="me-2">Add Category</a>
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addvendor?.show()"><img
+                      src="assets/images/add_vendor.svg" width="16px" height="16px" class="me-2">Add vendor</a>
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addtag?.show()"><img
+                      src="assets/images/add_tag.svg" width="16px" height="16px" class="me-2">Add Tag</a>
+                </div>
+              </div> -->
+            </div>
+            <div class="tab_filter_img me-3">
+              <img src="assets/images/reload.svg" width="20px" height="20px" tooltip="Reload" placement="bottom">
+            </div>
+            <div class="tab_filter_img me-3">
+              <img src="assets/images/Download.svg" width="20px" height="20px" tooltip="Download" placement="bottom">
+            </div>
+            <div class="tab_filter_img me-3">
+              <img src="assets/images/print.svg" width="20px" height="20px" tooltip="Print" placement="bottom">
+            </div>
+          </div>
         </div>
       </div>
       <div class="tab-content py-2 text-muted">
@@ -143,148 +179,466 @@
 </div>
 
 
-<div class="cards">
-  <div>
 
-    <button type="button" class="btn btn-primary waves-effect waves-light" data-bs-toggle="modal"
-      data-bs-target=".bs-example-modal-center" (click)="additem.show()">Center modal</button>
 
-    <div bsModal #additem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
-      <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
-        <div class="modal-content">
-          <div class="d-flex justify-content-between align-items-center p-3 m-2" style="background: #F3F4F8;">
-            <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Item
-            </h1>
-            <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="additem?.hide()">
-          </div>
-          <div class="row p-3">
-            <div class="col-4">
-              <div class="mb-3">
-                <label for="images" style="font-size: 10px; color: #747474;">Images</label>
-                <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
-                <!-- <input type="file" class="form-control-new" id="inputGroupFile01" style="height: 151px;"> -->
-                <form>
-                  <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'">
-                    <ngx-dropzone-label class="dz-message needsclick">
-                        <div class="mb-3">
-                            <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                        </div>
+<div bsModal #additem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-3 m-2" style="background: #F3F4F8;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Item
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="additem?.hide()"
+          style="cursor: pointer;">
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="images" style="font-size: 10px; color: #1B1B1B;">Images</label>
+            <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
+            <form>
+              <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'">
+                <ngx-dropzone-label class="dz-message needsclick">
+                  <div class="mb-3">
+                    <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+                  </div>
 
-                        <h5>Drop files here or click to upload.</h5>
-                    </ngx-dropzone-label>
-                </ngx-dropzone>
-                <ngx-dropzone-preview *ngIf="imageURL" class="border rounded" [removable]="true" (removed)="onRemove()">
-                    <ngx-dropzone-label>
-                        <div class="d-flex p-2">
-                            <div class="flex-shrink-0 me-3">
-                                <div class="avatar-sm bg-light rounded">
-                                    <img class="img-fluid rounded d-block" src="{{imageURL}}" alt="Dropzone-Image">
-                                </div>
-                            </div>
-                            <div class="flex-grow-1">
-                                <div class="pt-1">
-                                    <strong class="error text-danger"></strong>
-                                </div>
-                            </div>
-                        </div>
-                    </ngx-dropzone-label>
-                </ngx-dropzone-preview>
-                <!-- end dropzon-preview -->
-                </form>
-              </div>
-              <div class="">
-                <label for="items_status" style="font-size: 10px; color: #747474;">Item Status</label>
-                <!-- <input class="form-control-new"> -->
-                <ng-select [items]="" placeholder="Select Status"></ng-select>
-              </div>
-            </div>
-            <div class="col-8">
-              <div class="d-flex">
-                <div class="mb-3" style="width: 50%;">
-                  <label for="items_category" style="font-size: 10px; color: #747474;">Items Category</label>
-                  <!-- <input class="form-control-new"> -->
-                  <ng-select [items]="" placeholder="Select Status"></ng-select>
-                </div>
-                <div class="mt-4 mx-3">
-                  <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
-                </div>
-                <div class="mb-3" style="width: 50%;">
-                  <label for="items_name" style="font-size: 10px; color: #747474;">Items Name</label>
-                  <input class="form-control-new">
-                </div>
-              </div>
-              <div class="mb-5">
-                <label for="items_descrption" style="font-size: 10px; color: #747474;">Item Descrption</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mt-4" style="margin-top: 60px !important;">
-                <label for="notes" style="font-size: 10px; color: #747474;">Notes</label>
-                <input class="form-control-new">
-              </div>
-            </div>
+                  <h5>Drop files here or click to upload.</h5>
+                </ngx-dropzone-label>
+              </ngx-dropzone>
+              <ngx-dropzone-preview *ngIf="imageURL" class="border rounded" [removable]="true" (removed)="onRemove()">
+                <ngx-dropzone-label>
+                  <div class="d-flex p-2">
+                    <div class="flex-shrink-0 me-3">
+                      <div class="avatar-sm bg-light rounded">
+                        <img class="img-fluid rounded d-block" src="{{imageURL}}" alt="Dropzone-Image">
+                      </div>
+                    </div>
+                    <div class="flex-grow-1">
+                      <div class="pt-1">
+                        <strong class="error text-danger"></strong>
+                      </div>
+                    </div>
+                  </div>
+                </ngx-dropzone-label>
+              </ngx-dropzone-preview>
+              <!-- end dropzon-preview -->
+            </form>
           </div>
-          <div class="row p-3">
-            <div class="col-4">
-              <div class="mb-3">
-                <label for="items_no" style="font-size: 10px; color: #747474;">Item No</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="size" style="font-size: 10px; color: #747474;">Size</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="unit" style="font-size: 10px; color: #747474;">Unit</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="min_level" style="font-size: 10px; color: #747474;">Min Level</label>
-                <input class="form-control-new">
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="mb-3">
-                <label for="cat_no" style="font-size: 10px; color: #747474;">Cat No</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="vendor" style="font-size: 10px; color: #747474;">Vendor</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="expiry_date" style="font-size: 10px; color: #747474;">Expiry Date</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="tags" style="font-size: 10px; color: #747474;">Tags</label>
-                <input class="form-control-new">
-              </div>
-            </div>
-            <div class="col-4">
-              <div class="mb-3">
-                <label for="lot_no" style="font-size: 10px; color: #747474;">Lot No</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="price" style="font-size: 10px; color: #747474;">Price</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="on_hand_qty" style="font-size: 10px; color: #747474;">On Hand Qty</label>
-                <input class="form-control-new">
-              </div>
-              <div class="mb-3">
-                <label for="procedure" style="font-size: 10px; color: #747474;">Procedure</label>
-                <input class="form-control-new">
-              </div>
-            </div>
-          </div>
-          <div class="d-flex justify-content-end p-3">
-            <button type="button" class="btn-new me-2"
-              style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
-            <button type="button" class="btn-new" style="width: auto !important;">Add</button>
+          <div class="">
+            <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Item Status</label>
+            <ng-select [items]="" placeholder="Select Status"></ng-select>
           </div>
         </div>
+        <div class="col-8">
+          <div class="d-flex">
+            <div class="mb-3" style="width: 50%;">
+              <label for="items_category" style="font-size: 10px; color: #1B1B1B;">Items Category<span
+                  style="color: red;">*</span></label>
+              <ng-select [items]="" placeholder="Select Status"></ng-select>
+            </div>
+            <div class="mt-4 mx-3">
+              <button class="btn-new"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+            <div class="mb-3" style="width: 50%;">
+              <label for="items_name" style="font-size: 10px; color: #1B1B1B;">Items Name<span
+                  style="color: red;">*</span></label>
+              <input class="form-control-new" type="text">
+            </div>
+          </div>
+          <div class="mb-5">
+            <label for="items_descrption" style="font-size: 10px; color: #1B1B1B;">Item Descrption</label>
+            <input class="form-control-new">
+          </div>
+          <div class="mt-4" style="margin-top: 60px !important;">
+            <label for="notes" style="font-size: 10px; color: #1B1B1B;">Notes</label>
+            <input class="form-control-new" type="text">
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Item No<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new" type="number">
+          </div>
+          <div class="mb-3">
+            <label for="size" style="font-size: 10px; color: #1B1B1B;">Size<span style="color: red;">*</span></label>
+            <div class="d-flex flex-row">
+              <input class="form-control-new me-2" type="number">
+              <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-2"></ng-select>
+              <button class="btn-new"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="unit" style="font-size: 10px; color: #1B1B1B;">Unit<span style="color: red;">*</span></label>
+            <input class="form-control-new" type="number">
+          </div>
+          <div class="mb-3">
+            <label for="min_level" style="font-size: 10px; color: #1B1B1B;">Min Level<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new" type="number">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="cat_no" style="font-size: 10px; color: #1B1B1B;">Cat No</label>
+            <input class="form-control-new" type="number">
+          </div>
+          <div class="mb-3">
+            <label for="vendor" style="font-size: 10px; color: #1B1B1B;">Vendor</label>
+            <div class="d-flex flex-row">
+              <ng-select [items]="" placeholder="Choose Option" style="width: 90%;" class="me-2"></ng-select>
+              <button class="btn-new"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="expiry_date" style="font-size: 10px; color: #1B1B1B;">Expiry Date<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new">
+          </div>
+          <div class="mb-3">
+            <label for="tags" style="font-size: 10px; color: #1B1B1B;">Tags</label>
+            <input class="form-control-new" type="text">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="lot_no" style="font-size: 10px; color: #1B1B1B;">Lot No</label>
+            <input class="form-control-new" type="number">
+          </div>
+          <div class="mb-3">
+            <label for="price" style="font-size: 10px; color: #1B1B1B;">Price<span style="color: red;">*</span></label>
+            <input class="form-control-new" type="number">
+          </div>
+          <div class="mb-3">
+            <label for="on_hand_qty" style="font-size: 10px; color: #1B1B1B;">Qty<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new" type="number">
+          </div>
+          <div class="mb-3">
+            <label for="procedure" style="font-size: 10px; color: #1B1B1B;">Procedure</label>
+            <div class="d-flex flex-row">
+              <ng-select [items]="" placeholder="Choose Option" style="width: 90%;" class="me-2"></ng-select>
+              <button class="btn-new"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+            width="24px" height="24px" class="me-2">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #addcategory="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Category
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addcategory?.hide()"
+          style="cursor: pointer;">
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Category Name<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="cat_no" style="font-size: 10px; color: #1B1B1B;">Category short Code<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="lot_no" style="font-size: 10px; color: #1B1B1B;">Status</label>
+            <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+            width="24px" height="24px" class="me-2">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #addvendor="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add vendor
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addvendor?.hide()"
+          style="cursor: pointer;">
+      </div>
+      <div class="row p-3">
+        <div class="col-8">
+          <div class="d-flex justify-content-between">
+            <div class="mb-3" style="width: 270px">
+              <label for="items_category" style="font-size: 10px; color: #1B1B1B;">Vendor Name<span
+                  style="color: red;">*</span></label>
+              <input class="form-control-new">
+            </div>
+            <div class="mb-3" style="width: 270px">
+              <label for="items_name" style="font-size: 10px; color: #1B1B1B;">Vendor Email<span
+                  style="color: red;">*</span></label>
+              <input class="form-control-new">
+            </div>
+          </div>
+          <div class="">
+            <label for="notes" style="font-size: 10px; color: #1B1B1B;">Vendor contact no</label>
+            <input class="form-control-new">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Vendor Address<span
+                style="color: red;">*</span></label>
+
+            <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
+          </div>
+          <div class="mb-3">
+            <label for="size" style="font-size: 10px; color: #1B1B1B;">Status</label>
+            <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+            width="24px" height="24px" class="me-2">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #addtag="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 389px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Tag
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addtag?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="row">
+        <div class="col-12 p-3 mx-2">
+          <div class="mb-3 mx-2">
+            <label for="items_category" style="font-size: 10px; color: #747474;">Tag Name<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+            width="24px" height="24px" class="me-2">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div bsModal #notify="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 389px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Tag
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addtag?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="row">
+        <div class="col-12 p-3 mx-2">
+          <div class="mb-3 mx-2">
+            <label for="items_category" style="font-size: 10px; color: #747474;">Tag Name<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+            width="24px" height="24px" class="me-2">Add</button>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">View Item
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="viewitem?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="row mx-2 my-3" style="flex-wrap: nowrap !important">
+        <div class="col-3 px-2">
+          <div class="d-flex flex-column justify-centent-between">
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;">Item:</label>
+              <img src="assets/images/item_image.svg" width="207px" height="104px">
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;">Status</label>
+              <h1
+                style="color:#17B927 !important;background: #F3FBF4;border-radius:12px;padding:6px 6px 6px 6px !important;text-align: center;width: 30% !important;">
+                Active</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-9" style="padding: 0px 84px;">
+            <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
+              <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Item Category</label>
+                <h1 class="">Neurology</h1>
+              </div>
+              <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item Name</label>
+               <h1>ORS juice</h1>
+              </div>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item Description</label>
+              <h1 style="white-space:pre-wrap !important;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1 pt-2">Notes</label>
+              <h1 style="white-space:pre-wrap !important;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</h1>
+            </div>
+        </div>
+      </div>
+      <div class="row mx-2 my-3">
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item No</label>
+              <h1>12345</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Size</label>
+              <h1>300ml</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Unit</label>
+              <h1>10</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Min level</label>
+              <h1>05</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Cat No</label>
+              <h1>CAT245</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Vendor</label>
+              <h1>Flores Junita</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Expire Date</label>
+              <h1>02/11/2023</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Tags</label>
+              <h1>#energy #ORS</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Lot No</label>
+              <h1>LOT9865</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Price</label>
+              <h1>60.00</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Qty</label>
+              <h1>24565</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Procedure</label>
+              <h1>Cardiology</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Edit</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #notify="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:400px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Send Remainder
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="notify?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="d=flex flex-column p-3">
+        <div class="mb-3 mt-1" style="width: 100%;">
+          <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Vendor Name</label>
+          <h1 class="">Ralph Edwards</h1>
+        </div>
+        <div class="mb-3 mt-1" style="width: 100%;">
+          <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Contact Person</label>
+          <h1 class="">Nguyen shane</h1>
+        </div>
+        <div class="mb-3 mt-1" style="width: 100%;">
+          <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Comment</label>
+          <textarea class="form-control-new" style="font-size: 10px !important;font-weight: 400 !important;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</textarea>
+        </div>
+      </div>
+
+
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Send</button>
       </div>
     </div>
   </div>
