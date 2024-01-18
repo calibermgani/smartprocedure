@@ -32,12 +32,12 @@
                 <alert type="danger" *ngIf="error" [dismissible]="false">{{ error }}</alert>
 
                 <div class="mb-3">
-                  <label for="email">Email</label>
-                  <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email"
+                  <label for="email">Name</label>
+                  <input type="text" formControlName="email" class="form-control" id="email" placeholder="Email"
                     [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
                   <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
-                    <div *ngIf="f.email.errors.required">Email is required</div>
-                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                    <div *ngIf="f.email.errors.required">Name is required</div>
+                    <!-- <div *ngIf="f.email.errors.email"> must be a valid email address</div> -->
                   </div>
                 </div>
 

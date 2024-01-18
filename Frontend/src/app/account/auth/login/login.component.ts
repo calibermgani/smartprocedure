@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['IR Doctor', [Validators.required, Validators.email]],
+      email: ['IR Doctor', [Validators.required]],
       password: ['123456', [Validators.required]],
     });
 
@@ -67,16 +67,32 @@ export class LoginComponent implements OnInit {
       //     });
       // }
       // else {
-        this.authFackservice.login(this.f.email.value, this.f.password.value)
-          .pipe(first())
-          .subscribe(
-            data => {
-              this.router.navigate(['/procedure']);
-            },
-            error => {
-              this.error = error ? error : '';
-            });
+        // this.authFackservice.login(this.f.email.value, this.f.password.value).subscribe((res:any)=>{
+        //   console.log(res);
+
+        // })
+        let user: any = {
+          email:"admin@themesbrand.com",
+          token:"fake-jwt-token",
+          username:"admin",
+        }
+        localStorage.setItem('currentUser', JSON.stringify(user));
+                      // this.currentUserSubject.next(user);
+                      this.authFackservice.passingemail(user);
+                      this.router.navigate(['/procedure']);
+                      // return user;
+
+          // .pipe()
+          // .subscribe(
+          //   data => {
+          //     this.router.navigate(['/procedure']);
+          //   },
+          //   error => {
+          //     this.error = error ? error : '';
+          //   });
       // }
+
+
     }
   }
 }
