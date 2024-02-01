@@ -33,32 +33,18 @@ export class AuthfakeauthenticationService {
     }
 
     login(email: string, password: string) {
-        // return this.http.post<any>(`/users/authenticate`, { email, password })
-        //     .pipe(map(user => {
-        //       console.log(user);
+        return this.http.post<any>(`/users/authenticate`, { email, password })
+            .pipe(map(user => {
+              console.log(user);
 
-        //         // login successful if there's a jwt token in the response
-        //         if (user && user.token) {
-        //             // store user details and jwt token in local storage to keep user logged in between page refreshes
-        //             localStorage.setItem('currentUser', JSON.stringify(user));
-        //             this.currentUserSubject.next(user);
-        //         }
-        //         return user;
-        //     }));
-
-        if(email)
-        {
-          let user: any = {
-            email:"admin@themesbrand.com",
-            token:"fake-jwt-token",
-            username:"admin",
-          }
-          localStorage.setItem('currentUser', JSON.stringify(user));
-                        this.currentUserSubject.next(user);
-                        this.currentUserSubject.next(user);
-                        return user;
-        }
-
+                // login successful if there's a jwt token in the response
+                if (user && user.token) {
+                    // store user details and jwt token in local storage to keep user logged in between page refreshes
+                    localStorage.setItem('currentUser', JSON.stringify(user));
+                    this.currentUserSubject.next(user);
+                }
+                return user;
+            }));
     }
 
     logout() {
