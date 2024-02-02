@@ -39,6 +39,7 @@ export class AllItemsComponent implements OnInit {
   procedure: string[];
   all_Items_gridData:any[];
   format_value:string[];
+  folder_structure_value:any[];
   hide_Overall_list:boolean = false;
   all_items_dropbtn:boolean = true;
   vendor_list_dropbtn:boolean = false;
@@ -100,6 +101,10 @@ export class AllItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.authfakeauthenticationService.changeSideMenu('material-management');
+    this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
+      this.folder_structure_value = res;
+      console.log('response',this.folder_structure_value);
+    });
   }
 
 

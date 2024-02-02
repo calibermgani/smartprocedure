@@ -1,0 +1,25 @@
+[
+  {
+    "foldername":"Protective Headwear"
+  },
+  {
+    "foldername":"urology",
+    "sub":[
+      {
+        "subfoldername":"Sub category 1"
+      },
+      {
+        "subfoldername":"Sub category 2"
+      },
+      {
+        "subfoldername":"Sub category 3"
+      }
+    ]
+  },
+  {
+    "foldername":"Medication Aid & Dispensers"
+  },
+  {
+    "foldername":"Protective Apparel"
+  }
+]
