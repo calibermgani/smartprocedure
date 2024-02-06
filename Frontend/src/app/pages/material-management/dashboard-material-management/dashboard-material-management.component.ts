@@ -2,8 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams } from 'ag-grid-community';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
+
+interface MainData {
+  mrn_no:string,
+  accession_no:string,
+  procedure_code:string,
+  procedure_date:string,
+  sub:SubData[]
+}
+interface SubData {
+  "item_no":string,
+  "item_name":string,
+  "size":string,
+  "qty":string
+}
 
 @Component({
   selector: 'app-dashboard-material-management',
@@ -13,11 +27,10 @@ import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.se
 export class DashboardMaterialManagementComponent implements OnInit {
 
   material_summary_data: any = [];
-  recent_activities: any = [];
-  stock_levels: any = [];
-  materialUsed:any = [];
+  filter_daily_consumed: any = [];
+  DailyConsumedGridData:any = [];
+  MaterialUtilizedGridData:any = [];
   columnDefs1: ColDef[];
-
   showMiniGrid:boolean = false;
   reduceTableSize:boolean = false;
   hideOtherColumns:boolean = false;
@@ -45,23 +58,80 @@ export class DashboardMaterialManagementComponent implements OnInit {
     suppressContextMenu: false,
   };
 
-  constructor(private authfakeauthenticationService: AuthfakeauthenticationService, private Http: HttpClient,private router : Router,private authFakeService : AuthfakeauthenticationService) { }
+  public gridOptionsDailyConsumed:GridOptions = {};
+  public gridOptionsMaterialUtilized:GridOptions = {};
+  // Nested Detailed Grid
+
+
+  public themeClass: string ="ag-theme-quartz";
+  public daily_consumed_columnDef: ColDef[] = [
+    // group cell renderer needed for expand / collapse icons
+    { field: 'mrn_no', headerName:'MRN No', cellRenderer: 'agGroupCellRenderer' },
+    { field: 'accession_no',headerName:'Accession No' },
+    { field: 'procedure_code', headerName:'Procedure code' },
+    { field: 'procedure_date',headerName:'Procedure date'},
+  ];
+  public detailCellRendererParams: any = {
+    detailGridOptions: {
+      rowSelection: 'multiple',
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      pagination: false,
+      paginationAutoPageSize: false,
+      columnDefs: [
+        { field: 'item_no',headerName:'Item No'},
+        { field: 'item_name',headerName:'Item Name' },
+        { field: 'size',headerName:'Size' },
+        { field: 'qty',headerName:'QTY'}
+      ],
+      defaultColDef: {
+        flex: 1,
+      },
+    },
+    getDetailRowData: (params) => {
+      params.successCallback(params.data.sub);
+    },
+  } as IDetailCellRendererParams<MainData, SubData>;
+
+  public Material_utilized_columnDef : ColDef[] = [
+    { field: 'mrn_no', headerName:'MRN No', cellRenderer: 'agGroupCellRenderer' },
+    { field: 'accession_no',headerName:'Accession No' },
+    { field: 'procedure_code', headerName:'Procedure code' },
+    { field: 'procedure_date',headerName:'Procedure date'},
+  ]
+  public detailCellRendererParams_MaterialUtilized: any = {
+    detailGridOptions: {
+      rowSelection: 'multiple',
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      pagination: false,
+      paginationAutoPageSize: false,
+      columnDefs: [
+        { field: 'item_name',headerName:'Item Name'},
+        { field: 'booking',headerName:'Booking' },
+        { field: 'intra_procedure',headerName:'Intra procedure' },
+        { field: 'post_procedure',headerName:'Post procedure'}
+      ],
+      defaultColDef: {
+        flex: 1,
+      },
+    },
+    getDetailRowData: (params) => {
+      params.successCallback(params.data.sub);
+    },
+  } as IDetailCellRendererParams<MainData, SubData>;
+
+  constructor(private authfakeauthenticationService: AuthfakeauthenticationService, private Http: HttpClient,private router : Router,private authFakeService : AuthfakeauthenticationService) {
+    this.filter_daily_consumed = ['Used','Back to Cabinet','Damaged'];
+  }
 
   ngOnInit(): void {
     this.authfakeauthenticationService.changeSideMenu('material-management');
     this.Http.get('assets/json/material_summary_data.json').subscribe((res: any) => {
       this.material_summary_data = res;
-    })
-    this.Http.get('assets/json/recent_activities.json').subscribe((res: any) => {
-      this.recent_activities = res;
     });
-    this.Http.get('assets/json/stock_levels.json').subscribe((res: any) => {
-      this.stock_levels = res;
-    })
-    this.Http.get('assets/json/material_used.json').subscribe((res: any) => {
-      console.log('Response Grid', res)
-      this.materialUsed = res;
-    })
+    this.ChangeGrid('Daily consumed');
+
   }
 
   cellRendered(headername: any, params: any):string {
@@ -131,44 +201,42 @@ export class DashboardMaterialManagementComponent implements OnInit {
     switch(this.material_type_name)
     {
       case 'Daily consumed':{
-       this.columnDefs1 = [
-        {
-          field: 'item_no',
-          headerName:'Item No',
-          suppressMenu: false,
-          cellRenderer: this.cellRendered.bind(this, 'item_no')
-        },
-        {
-          field: 'item_name',
-          headerName:'Item Name',
-          filter: "agTextColumnFilter",suppressMenu: false,
-          cellRenderer: this.cellRendered.bind(this, 'item_name')
-        },
-        {
-          field: 'expire_date',
-          headerName:'Expiry Date',
-          filter: "agDateColumnFilter",suppressMenu: false,
-          cellRenderer: this.cellRendered.bind(this, 'expire_date')
-        },
-        {
-          field: 'procedure',
-          headerName:'Procedure',
-          filter: "agTextColumnFilter",suppressMenu: false,
-          cellRenderer: this.cellRendered.bind(this, 'procedure')
-        },
-        {
-          field: 'quantity',
-          headerName:'Quantity',
-          filter: "agTextColumnFilter",suppressMenu: false,
-          cellRenderer: this.cellRendered.bind(this, 'quantity')
-        },
-       ]
-        this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
-          this.myGrid_1.api.setRowData(res);
-          this.gridOptions1.api?.sizeColumnsToFit();
-        });
-        console.log(this.columnDefs1);
-
+      //  this.columnDefs1 = [
+      //   {
+      //     field: 'item_no',
+      //     headerName:'Item No',
+      //     suppressMenu: false,
+      //     cellRenderer: this.cellRendered.bind(this, 'item_no')
+      //   },
+      //   {
+      //     field: 'item_name',
+      //     headerName:'Item Name',
+      //     filter: "agTextColumnFilter",suppressMenu: false,
+      //     cellRenderer: this.cellRendered.bind(this, 'item_name')
+      //   },
+      //   {
+      //     field: 'expire_date',
+      //     headerName:'Expiry Date',
+      //     filter: "agDateColumnFilter",suppressMenu: false,
+      //     cellRenderer: this.cellRendered.bind(this, 'expire_date')
+      //   },
+      //   {
+      //     field: 'procedure',
+      //     headerName:'Procedure',
+      //     filter: "agTextColumnFilter",suppressMenu: false,
+      //     cellRenderer: this.cellRendered.bind(this, 'procedure')
+      //   },
+      //   {
+      //     field: 'quantity',
+      //     headerName:'Quantity',
+      //     filter: "agTextColumnFilter",suppressMenu: false,
+      //     cellRenderer: this.cellRendered.bind(this, 'quantity')
+      //   },
+      //  ]
+      //   this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
+      //     this.myGrid_1.api.setRowData(res);
+      //     this.gridOptions1.api?.sizeColumnsToFit();
+      //   });
         break;
       }
       case 'Damaged':{
@@ -376,10 +444,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
     this.reduceTableSize = true;
   }
 
-  onGridReady_1(params: GridReadyEvent) {
-    this.gridApi_1 = params.api;
-    console.log('event', params);
-  }
+
 
   ClosematerialGrid()
   {
@@ -394,19 +459,37 @@ export class DashboardMaterialManagementComponent implements OnInit {
     this.router.navigate(['/material-management/viewfullgrid'])
   }
 
-  navigateToLowStock()
-  {
-    this.router.navigate(['/material-management/all-item']);
+  onGridReady_1(params: GridReadyEvent) {
+    this.gridApi_1 = params.api;
+    console.log('event', params);
   }
 
-  ngOnDestroy() {
-    // Clean up the AG-Grid instance
-    // if (this.gridOptions1.api) {
-    //   this.gridOptions1.api.destroy();
-    // }
-    // if (this.myGrid_1) {
-    //   this.gridApi_1.destroy();
-    //   this.gridApi_1 = null; // Ensure to clear the reference
-    // }
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    // arbitrarily expand a row for presentational purposes
+    // setTimeout(() => {
+    //   params.api.getDisplayedRowAtIndex(1)!.setExpanded(true);
+    // }, 0);
   }
+  onGridReady_dailyconsumedgrid(params: GridReadyEvent) {
+    this.gridOptionsDailyConsumed = params;
+    this.Http.get<MainData[]>(
+        'assets/json/daily_consumed_grid.json'
+      )
+      .subscribe((data) => {
+        this.DailyConsumedGridData = data;
+        this.gridOptionsDailyConsumed.api?.sizeColumnsToFit();
+      });
+  }
+
+  onGridReady_materialUtilizedGrid(params: GridReadyEvent) {
+    this.gridOptionsMaterialUtilized = params;
+    this.Http.get<MainData[]>(
+        'assets/json/material_utilized_grid.json'
+      )
+      .subscribe((data) => {
+        this.MaterialUtilizedGridData = data;
+        this.gridOptionsMaterialUtilized.api?.sizeColumnsToFit();
+      });
+  }
+
 }

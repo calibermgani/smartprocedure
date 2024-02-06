@@ -62,3 +62,66 @@ border-bottom: none !important;
     max-height: 250px !important;
   }
 }
+
+.top-cards
+{
+  .d-flex{
+    .flex-grow-1
+    {
+      .header_name_bold
+      {
+        text-wrap: wrap !important;
+        word-break: break-all !important;
+      }
+    }
+  }
+}
+
+// ::ng-deep .ng-select-container
+// {
+//   background: #fff !important;
+//   border:1px solid #BEBEBF !important;
+//   min-height: 26px !important;
+//   height: 26px !important;
+//   width: 200px  !important;
+// }
+
+::ng-deep .ng-dropdown-panel.ng-select-bottom
+{
+  background: #fff !important;
+}
+
+@media  (min-width: 769px) and (min-height: 451px) and (max-width: 1440px) and (max-height: 460px) {
+  .top-cards {
+    width: 100% !important;
+
+    .flex-grow-1
+    {
+      margin-left: 1px !important ;
+    }
+    .material_summary_image
+    {
+      width: 20px !important;
+      height: 20px !important;
+    }
+    .quantity_size
+    {
+      font-size: 10px !important;
+      font-weight: 900 !important;
+    }
+    .header_name_bold
+    {
+
+      font-size: 7px !important;
+      line-height: 12px !important;
+    }
+  }
+
+  .top-cards .each_cards {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 5px !important;
+  }
+
+}

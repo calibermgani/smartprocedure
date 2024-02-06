@@ -1,107 +1,98 @@
 <div class="cards">
   <h1 class="header_name_bold mb-2" style="text-align: left !important;">Material Summary</h1>
   <div class="row mb-2">
-    <div class="col-2" *ngFor="let x of material_summary_data">
-      <div class="d-flex align-items-center"
-        style="border: 0.5px solid #C9C9C9;border-radius: 10px; padding: 20px;cursor: pointer;flex-wrap: wrap;"
+    <div class="top-cards col" *ngFor="let x of material_summary_data" style="width: 14.10% ;height:auto !important">
+      <div class="each_cards d-flex flex-row align-items-center"
+        style="border: 0.5px solid #C9C9C9;border-radius: 10px; padding: 10px;cursor: pointer;flex-wrap: wrap;"
         (click)="ChangeGrid(x.type)">
         <div class="flex-shrink-0">
-          <img [src]="x.imgPath" width="40px" height="40px">
+          <img [src]="x.imgPath" width="40px" height="40px" class="material_summary_image">
         </div>
-        <div class="flex-grow-1 ms-3">
-          <h1 style="font-size: 28px !important; font-weight: 600 !important;" class="mb-1">{{x.quantity}}</h1>
-          <h1 class="header_name">{{x.type}}</h1>
+        <div class="flex-grow-0 ms-2">
+          <a style="font-size: 28px; font-weight: 600 ;color: #000 !important;"
+            class="mb-1 quantity_size">{{x.quantity}}</a>
+          <h1 class="header_name_bold">{{x.type}}</h1>
         </div>
       </div>
     </div>
   </div>
-  <div class="row">
-    <div class="col-8 mt-1">
-      <div [ngClass]="{'showMiniGrid':showMiniGrid == true}" style="display: none;height: 48% !important;">
-        <div class="d-flex flex-row justify-content-between align-items-center" style="flex-wrap: wrap;">
-          <div><h1 class="header_name_bold mb-2" style="text-align: left !important;">Material details - {{material_type_name}} </h1></div>
-          <div>
-            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;color: #000;cursor: pointer;" class="me-2"  (click)="navigateTodetailedView()"><img
-            src="assets/images/detailed_view.svg" width="16px" height="16px" class="me-2">View all</a>
-            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;cursor: pointer;" (click)="ClosematerialGrid()"><img
-              src="assets/images/close_materials_grid.svg" width="30px" height="30px"></a>
-            </div>
-        </div>
+</div>
 
-        <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
-          style="width: 100%;height:45%;display: none;"  [defaultColDef]="defaultColDef"
-          ></ag-grid-angular>
-      </div>
-      <div [ngClass]="{'reduceSize':reduceTableSize == true}">
-        <h1 class="header_name_bold mb-2" style="text-align: left !important;">Material used</h1>
-        <div class="table-responsive"
-          style="border: 1px solid #747474;border-radius: 15px;max-height: 600px;overflow-y: scroll;">
-          <table class="table table-borderless mb-0">
-            <thead>
-              <tr>
-                <th style="background: #855EDB !important;color: #fff;">Item Name</th>
-                <th style="background: #855EDB !important;color: #fff;">Booking<span
-                    style="padding: 2px 6px 2px 6px;color: #fff;font-size: 10px;font-weight: 600;background: #9372DB;border-radius: 20px;"
-                    class="ms-1">Planned</span></th>
-                <th style="background: #855EDB !important;color: #fff;">Intra-procedure<span
-                    style="padding: 2px 6px 2px 6px;color: #fff;font-size: 10px;font-weight: 600;background: #9372DB;border-radius: 20px;"
-                    class="ms-1">Used</span></th>
-                <th style="background: #855EDB !important;color: #fff;">Post-procedure<span
-                    style="padding: 2px 6px 2px 6px;color: #fff;font-size: 10px;font-weight: 600;background: #9372DB;border-radius: 20px;"
-                    class="ms-1">Reconcile</span></th>
-              </tr>
-            </thead>
-            <tbody style="max-height: 597px;overflow-x: scroll;">
-              <tr *ngFor="let x of materialUsed">
-                <th style="font-size: 14px;">{{x.Item_Name}}</th>
-                <td style="font-size: 12px;font-weight: 500;">{{x.booking}}</td>
-                <td style="font-size: 12px;font-weight: 500;">{{x.intra_procedure}}</td>
-                <td style="font-size: 12px;font-weight: 500;">{{x.post_procedure}}</td>
-              </tr>
-            </tbody>
-          </table>
+<div class="row">
+  <div class="col-6" style="padding: 8px 0px;">
+    <div class="cards" style="margin: 15px 6px;">
+      <div style="display: block;" *ngIf="material_type_name == 'Daily consumed'">
+        <div class="d-flex flex-row justify-content-between align-items-center p-2" style="flex-wrap: wrap;">
+          <div class="me-5">
+            <h1 class="header_name_bold mb-2" style="text-align: left !important;">{{material_type_name}}</h1>
+          </div>
+          <div class="d-flex flex-row align-items-center">
+            <div class="me-2">
+              <input type="text" class="form-control-new-sm" placeholder="Search">
+            </div>
+            <div class="me-2" style="height: 26px;">
+              <ng-select [items]="filter_daily_consumed" placeholder="Select Status"></ng-select>
+            </div>
+            <div class="me-2">
+              <input type="text" placeholder="Select Date" class="form-control-new "
+                style="height: 26px;font-size: 0.66rem !important;"
+                [bsConfig]="{withTimepicker: false, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+                bsDaterangepicker>
+            </div>
+            <div>
+              <a style="cursor: pointer;"
+              (click)="navigateTodetailedView()"><img src="assets/images/detailed_view.svg" width="16px"
+                  height="16px"></a>
+            </div>
+          </div>
         </div>
+        <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1 *ngIf="material_type_name != 'Daily consumed'"
+          style="width: 100%;height:630px;" [defaultColDef]="defaultColDef"></ag-grid-angular>
+
+          <ag-grid-angular style="width: 100%;height:630px;" [columnDefs]="daily_consumed_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsDailyConsumed" *ngIf="material_type_name == 'Daily consumed'"
+            [masterDetail]="true" [embedFullWidthRows]="true" [detailCellRendererParams]="detailCellRendererParams"
+            [rowData]="DailyConsumedGridData" class="ag-theme-alpine" (firstDataRendered)="onFirstDataRendered($event)"
+            (gridReady)="onGridReady_dailyconsumedgrid($event)"></ag-grid-angular>
+      </div>
+      <div style="display: block;" *ngIf="material_type_name != 'Daily consumed'">
+        <div class="d-flex flex-row justify-content-between align-items-center p-2" style="flex-wrap: wrap;">
+          <div>
+            <h1 class="header_name_bold mb-2" style="text-align: left !important;">{{material_type_name}}</h1>
+          </div>
+          <div>
+            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;color: #000;cursor: pointer;"
+              class="me-2" (click)="navigateTodetailedView()"><img src="assets/images/detailed_view.svg" width="16px"
+                height="16px" class="me-2">View all</a>
+            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;cursor: pointer;"
+              (click)="ClosematerialGrid()"><img src="assets/images/close_materials_grid.svg" width="30px"
+                height="30px"></a>
+          </div>
+        </div>
+        <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
+          style="width: 100%;height:630px;display: block;" [defaultColDef]="defaultColDef"></ag-grid-angular>
       </div>
     </div>
-    <div class="col-4 mt-1">
-      <div class="d-flex align-items-center flex-row justify-content-between mb-2">
-        <h1 class="header_name_bold" style="text-align: left !important;">Recent activities</h1>
-        <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;"><img
-            src="assets/images/calender.svg" width="16px" height="16px" class="me-2">This week</a>
-      </div>
-      <div class="d-flex flex-column p-3"
-        style="border: 1px solid #747474;border-radius: 12px;height: 271px;overflow-y: scroll;">
-        <div *ngFor="let x of recent_activities" class="mb-3" style="border-bottom: 1px solid #ECECEC;">
-          <h1 class="mb-3" style="font-weight: 500 !important;">{{x.activity}}</h1>
-          <div class="d-flex justify-content-between mb-3">
-            <div>
-              <h1 style="font-weight: 400 !important;">By{{x.owner}}</h1>
-            </div>
-            <div>
-              <h1 style="font-weight: 400 !important;">{{x.date}}</h1>
-            </div>
+  </div>
+  <div class="col-6" style="padding: 8px 0px;">
+    <div class="cards" style="margin: 15px 6px;">
+      <div style="display: block;">
+        <div class="d-flex flex-row justify-content-between align-items-center p-2" style="flex-wrap: wrap;">
+          <div>
+            <h1 class="header_name_bold mb-2" style="text-align: left !important;">Material utilized - Procedure list </h1>
           </div>
-
+          <!-- <div>
+            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;color: #000;cursor: pointer;"
+              class="me-2" (click)="navigateTodetailedView()"><img src="assets/images/detailed_view.svg" width="16px"
+                height="16px" class="me-2">View all</a>
+            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;cursor: pointer;"
+              (click)="ClosematerialGrid()"><img src="assets/images/close_materials_grid.svg" width="30px"
+                height="30px"></a>
+          </div> -->
         </div>
-      </div>
-      <div class="d-flex flex-row align-items-center justify-content-between mt-3 mb-2">
-        <h1 class="header_name_bold" style="text-align: left !important;">Stock levels</h1>
-        <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;cursor: pointer;" (click)="navigateToLowStock()"><img
-            src="assets/images/detailed_view.svg" width="16px" height="16px" class="me-2">View all</a>
-      </div>
-      <div class="d-flex flex-column p-3"
-        style="border: 1px solid #747474;border-radius: 12px;height: 271px;overflow-y: scroll;">
-        <div *ngFor="let x of stock_levels" class="mb-3" style="border-bottom: 1px solid #ECECEC;">
-          <div class="d-flex justify-content-between mb-3">
-            <div>
-              <h1 style="font-weight: 500 !important;">{{x.values}}</h1>
-            </div>
-            <div>
-              <h1 style="font-weight: 500 !important;color: #D62424 !important;">{{x.unit + ' '}}unit</h1>
-            </div>
-          </div>
-
-        </div>
+        <ag-grid-angular style="width: 100%;height:630px;" [columnDefs]="Material_utilized_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsMaterialUtilized"
+        [masterDetail]="true" [embedFullWidthRows]="true" [detailCellRendererParams]="detailCellRendererParams_MaterialUtilized"
+        [rowData]="MaterialUtilizedGridData" class="ag-theme-alpine" (firstDataRendered)="onFirstDataRendered($event)"
+        (gridReady)="onGridReady_materialUtilizedGrid($event)"></ag-grid-angular>
       </div>
     </div>
   </div>

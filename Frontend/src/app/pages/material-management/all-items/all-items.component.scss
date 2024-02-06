@@ -144,3 +144,8 @@ border-bottom: none !important;
   background: #fff !important;
   border:1px solid #BEBEBF !important;
 }
+
+::ng-deep .ng-dropdown-panel.ng-select-bottom
+{
+  background: #fff !important;
+}

@@ -83,10 +83,13 @@ h4{
   font-weight:400 !important;
 }
 
+
 .header_name
 {
   font-size: 14px !important;
   font-weight: 500 !important;
+  text-wrap: wrap !important;
+  word-break: break-all;
 }
 .header_name_bold
 {
@@ -94,7 +97,9 @@ h4{
   font-weight: 600 !important;
   line-height: 24px !important;
   // white-space: wrap !important;
-  text-align: center !important;
+  text-align: left !important;
+  text-wrap: wrap !important;
+  word-break: break-all;
 }
 
 .form-control-new{
@@ -115,6 +120,29 @@ h4{
 }
 
 .form-control-new:focus-visible
+{
+  outline: none;
+  border: 0.2px solid #8B8B8B !important;
+}
+.form-control-new-sm{
+  display: block !important;
+  width: 100% !important;
+  height: 26px !important;
+  padding: 0.47rem 0.75rem !important;
+  font-size: 0.6625rem !important;
+  font-weight: 400 !important;
+  line-height: 1.5 !important;
+  color: #1B1B1B !important;
+  -webkit-appearance: none !important;
+  appearance: none !important;
+  background: #F3F4F8 !important;
+  background-clip: padding-box !important;
+  border: 0.5px solid #BEBEBF !important;
+  border-radius: 4px !important;
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out !important;
+}
+
+.form-control-new-sm:focus-visible
 {
   outline: none;
   border: 0.2px solid #8B8B8B !important;

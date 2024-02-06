@@ -10,25 +10,35 @@
     "type":"Damaged",
     "imgPath":"assets/images/damaged.svg",
     "quantity":"32"
-  }, {
+  },
+  {
     "id":3,
-    "type":"Expiry",
+    "type":"Back to cabinet",
+    "imgPath":"assets/images/back_to_cabinet.svg",
+    "quantity":"16"
+  },
+  {
+    "id":4,
+    "type":"Near expired",
     "imgPath":"assets/images/expiry.svg",
     "quantity":"12"
-  }, {
-    "id":4,
-    "type":"Returned",
-    "imgPath":"assets/images/returned.svg",
-    "quantity":"16"
-  }, {
+  },
+  {
     "id":5,
-    "type":"Recall",
-    "imgPath":"assets/images/recall.svg",
-    "quantity":"05"
-  }, {
-    "id":6,
     "type":"Low Stock",
     "imgPath":"assets/images/low_stock.svg",
     "quantity":"08"
+  },
+  {
+    "id":6,
+    "type":"Refill to Cabinet",
+    "imgPath":"assets/images/refill_to_cabinet.svg",
+    "quantity":"16"
+  },
+  {
+    "id":7,
+    "type":"Recall",
+    "imgPath":"assets/images/recall.svg",
+    "quantity":"05"
   }
 ]

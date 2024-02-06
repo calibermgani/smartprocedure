@@ -13,6 +13,7 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     BsDropdownModule.forRoot(),
     TooltipModule,
     NgxDropzoneModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
   ],
   providers:[
 
