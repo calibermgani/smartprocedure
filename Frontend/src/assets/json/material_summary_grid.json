@@ -6,7 +6,8 @@
     "expire_date":"11/05/2020",
     "procedure":"Cardiology",
     "lot_no":"454",
-    "quantity":"55"
+    "quantity":"55",
+    "store":"24"
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "expire_date":"10/05/2020",
     "procedure":"Anesthesia",
     "lot_no":"454",
-    "quantity":"25"
+    "quantity":"25",
+    "store":"240"
   },{
     "id": 1,
     "item_no":"654432",
@@ -23,7 +25,8 @@
     "expire_date":"03/05/2020",
     "procedure":"Diagnostic",
     "lot_no":"454",
-    "quantity":"15"
+    "quantity":"15",
+    "store":"100"
   },{
     "id": 1,
     "item_no":"956654",
@@ -31,7 +34,8 @@
     "expire_date":"10/01/2020",
     "procedure":"cardiology",
     "lot_no":"454",
-    "quantity":"30"
+    "quantity":"30",
+    "store":"140"
   },{
     "id": 1,
     "item_no":"989909",
@@ -39,7 +43,8 @@
     "expire_date":"09/05/2020",
     "procedure":"Neurology",
     "lot_no":"454",
-    "quantity":"80"
+    "quantity":"80",
+    "store":"300"
   },{
     "id": 1,
     "item_no":"85372",
@@ -47,7 +52,8 @@
     "expire_date":"11/05/2020",
     "procedure":"cardiology",
     "lot_no":"454",
-    "quantity":"55"
+    "quantity":"55",
+    "store":"90"
   },{
     "id": 1,
     "item_no":"85372",
@@ -55,7 +61,8 @@
     "expire_date":"11/05/2020",
     "procedure":"cardiology",
     "lot_no":"454",
-    "quantity":"55"
+    "quantity":"55",
+    "store":"14"
   },{
     "id": 1,
     "item_no":"85372",
@@ -63,7 +70,8 @@
     "expire_date":"11/05/2020",
     "procedure":"cardiology",
     "lot_no":"454",
-    "quantity":"45"
+    "quantity":"45",
+    "store":"09"
   }
 
 ]

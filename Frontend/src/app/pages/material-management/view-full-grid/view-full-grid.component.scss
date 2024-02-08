@@ -1,6 +1,19 @@
-
+.ag-theme-alpine
+{
+  --ag-row-hover-color: transparent !important;
+  --ag-header-background-color : #594585 !important;
+  --ag-selected-row-background-color : transparent !important
+}
 ::ng-deep .ag-row{
   border-bottom : none !important
+}
+
+// ::ng-deep .ag-row :hover{
+//   // background: none !important;
+// }
+::ng-deep .ag-row-selected::before
+{
+  background-color: transparent !important
 }
 
 ::ng-deep .ag-row-odd{
@@ -9,26 +22,37 @@
   z-index: 2 ;
 }
 
+::ng-deep .ag-checkbox-input-wrapper
+{
+  width: 15px !important;
+  height: 15px !important;
+}
+
+
 ::ng-deep .ag-row-even{
   margin: 10px 0px !important;
   background: none !important;
 }
 
-::ng-deep .ag-header
-{
-border-bottom: none !important;
-}
-
 ::ng-deep .ag-header-viewport
 {
-  background: #F3F4F8 !important;
-  border: none;
+  background: #594585 !important;
+  border: none !important;
+}
+
+::ng-deep .ag-header-viewport:hover{
+  background: #594585 !important;
+}
+
+::ng-deep .ag-header{
+border-bottom: none !important;
 }
 
 ::ng-deep .ag-header-cell-text
 {
   font-size: 14px !important;
   font-weight: 500 !important;
+  color: #fff !important;
 }
 
 ::ng-deep .ag-cell-value
@@ -41,5 +65,49 @@ border-bottom: none !important;
 {
   border: 1px solid #747474 !important;
   border-radius: 15px;
+  font-family: poppins !important;
+}
+::ng-deep .ag-row-group-expanded
+{
+  background: #8B8B8B !important;
+
+.ag-cell-value{
+  color: #fff !important;
+}
+.ag-icon-tree-open{
+  color: #fff !important;
+}
 }
 
+::ng-deep .ag-theme-alpine .ag-group-contracted .ag-icon:hover{
+  color: #181d1f !important;
+}
+
+::ng-deep .ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within
+{
+  border: none !important;
+}
+
+::ng-deep .ag-icon-menu{
+  color: #fff !important;
+}
+
+::ng-deep .ag-details-grid .ag-theme-alpine{
+//  .ag-root-wrapper .ag-layout-normal .ag-ltr .ag-theme-alpine{
+  --ag-row-hover-color: transparent !important;
+  // .ag-row :hover{
+  //   background: transparent !important;
+  // }
+}
+
+::ng-deep .ag-ltr .ag-cell-range-single-cell
+{
+  border: none !important;
+  background: transparent !important;
+  --ag-row-hover-color: transparent !important;
+}
+
+::ng-deep .ng-dropdown-panel.ng-select-bottom
+{
+  background: #fff !important;
+}

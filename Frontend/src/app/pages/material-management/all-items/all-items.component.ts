@@ -4,6 +4,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { Options } from 'ngx-slider-v2';
 
 interface AllItems{
   id:number,
@@ -44,6 +45,8 @@ export class AllItemsComponent implements OnInit {
   all_items_dropbtn:boolean = true;
   vendor_list_dropbtn:boolean = false;
   low_stock_dropbtn:boolean = false;
+  files: File[] = [];
+  imageURL: any;
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
   @ViewChild('additem', { static: false }) additem?: ModalDirective;
   @ViewChild('addcategory', { static: false }) addcategory?: ModalDirective;
@@ -51,6 +54,15 @@ export class AllItemsComponent implements OnInit {
   @ViewChild('addtag', { static: false }) addtag?: ModalDirective;
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @ViewChild('notify', { static: false }) notify?: ModalDirective;
+
+  options: Options = {
+    floor: 0,
+    ceil: 250
+  };
+  QuantityminValue: number = 10;
+  QuantitymaxValue: number = 20;
+  PriceminValue:number = 10;
+  PricemaxValue:number = 40;
 
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
@@ -112,6 +124,7 @@ export class AllItemsComponent implements OnInit {
     {
       field: '',
       checkboxSelection: true,
+      resizable:false,
       headerCheckboxSelection: true,
       width:10
     },
@@ -322,10 +335,57 @@ export class AllItemsComponent implements OnInit {
         this.low_stock_dropbtn = true;
         break;
       }
+      case 'daily_consumed':{
+        this.all_items_dropbtn = false;
+        this.vendor_list_dropbtn = false;
+        this.low_stock_dropbtn = false;
+        break;
+      }
+      case 'damaged':{
+        this.all_items_dropbtn = false;
+        this.vendor_list_dropbtn = false;
+        this.low_stock_dropbtn = false;
+        break;
+      }
+      case 'backtocabinet':{
+        this.all_items_dropbtn = false;
+        this.vendor_list_dropbtn = false;
+        this.low_stock_dropbtn = true;
+        break;
+      }
+      case 'near_expired':{
+        this.all_items_dropbtn = false;
+        this.vendor_list_dropbtn = false;
+        this.low_stock_dropbtn = false;
+        break;
+      }
+      case 'refilltocabinet':{
+        this.all_items_dropbtn = false;
+        this.vendor_list_dropbtn = false;
+        this.low_stock_dropbtn = false;
+        break;
+      }
+      case 'recall':{
+        this.all_items_dropbtn = false;
+        this.vendor_list_dropbtn = false;
+        this.low_stock_dropbtn = false;
+        break;
+      }
     }
   }
-  files: File[] = [];
-  imageURL: any;
+
+  selected_row_data:any[];
+  selected_row_data_length:any;
+  showEditablefields:boolean = false;
+  onSelectionChanged(params:any){
+     this.selected_row_data = [];
+    this.gridApi_1.getSelectedNodes().forEach(element => {
+      this.selected_row_data.push(element.data);
+    });
+    this.selected_row_data_length = this.selected_row_data.length;
+    this.showEditablefields =! this.showEditablefields;
+  }
+
   onSelect(event: any) {
     this.files.push(...event.addedFiles);
     let file: File = event.addedFiles[0];
@@ -338,16 +398,76 @@ export class AllItemsComponent implements OnInit {
     }
     reader.readAsDataURL(file)
   }
+  textcontent:any;
+  select_folder(data:any){
+    console.log('Selected Folder',data);
+    this.textcontent = '';
+    let elements = document.querySelector('.folder_img');
+    console.log('elements',elements);
+    this.textcontent = elements.nextSibling.textContent.trim();
+    if(data == this.textcontent)
+    {
+      this.textcontent = data;
+    }
+    else
+    {
+      this.textcontent=''
+    }
+    console.log('clicked Folder',this.textcontent);
+  }
 
   openModal()
   {
     console.log('1');
-
   }
   ngAfterViewInit(): void {
     this.http.get('assets/json/all-items.json').subscribe((res:any)=>{
       this.all_Items_gridData = res;
       this.myGrid_1.api?.setRowData(this.all_Items_gridData);
-    })
+    });
+  }
+
+  enableTab:any = '';
+  changeTab(tabs:any){
+    switch(tabs)
+    {
+      case 'vendor_list':{
+        this.enableTab = 'vendor_list';
+        break;
+      }
+      case 'daily_consumed':{
+        this.enableTab = 'daily_consumed';
+        break;
+      }
+      case 'damaged':{
+        this.enableTab = 'damaged';
+        break;
+      }
+      case 'backtocabinet':{
+        this.enableTab = 'backtocabinet';
+        break;
+      }
+      case 'near_expired':{
+        this.enableTab = 'near_expired';
+        break;
+      }
+      case 'low_stock':{
+        this.enableTab = 'low_stock';
+        break;
+      }
+      case 'refilltocabinet':{
+        this.enableTab = 'refilltocabinet';
+        break;
+      }
+      case 'recall':{
+        this.enableTab = 'recall';
+        break;
+      }
+    }
+  }
+
+  resize:boolean = false;
+  hideAdvancedFilters(){
+    this.resize =! this.resize;
   }
 }

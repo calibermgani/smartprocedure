@@ -16,12 +16,6 @@ export class AuthfakeauthenticationService {
     public currentMenu = new BehaviorSubject('sidemenu');
     currentSideMenu = this.currentMenu.asObservable();
 
-    public columnDef = new BehaviorSubject<ColDef[]>([]);
-    // public columnDef: BehaviorSubject<ColDef[]> = new BehaviorSubject<ColDef[]>([]);
-    UpdatedColumnDef = this.columnDef.asObservable();
-
-    public materialSummaryType = new BehaviorSubject<any>('');
-    UpdatedMaterialValue = this.materialSummaryType.asObservable();
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -56,17 +50,6 @@ export class AuthfakeauthenticationService {
     changeSideMenu(data:any){
       this.currentMenu.next(data);
     }
-
-    UpdatingColumnDeffn(data:any)
-    {
-      this.columnDef.next(data);
-    }
-
-    UpdatingMaterialfn(data:any)
-    {
-      this.materialSummaryType.next(data);
-    }
-
     passingemail(data:any)
     {
       this.currentUserSubject.next(data);

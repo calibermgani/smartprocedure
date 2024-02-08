@@ -48,7 +48,7 @@ export class ProcedureComponent implements OnInit {
     enablePivot: true,
     enableValue: true,
     sortable: true,
-    resizable: false,
+    resizable: true,
     filter: true,
   };
   columnDefs1: ColDef[] = [];

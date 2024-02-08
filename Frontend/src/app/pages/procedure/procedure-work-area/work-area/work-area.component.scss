@@ -130,7 +130,7 @@
 
 .nav-link
 {
-  padding: 5px 20px !important;
+  padding: 5px 15px !important;
 }
 
 .navs-links
@@ -225,6 +225,25 @@ height: 37px !important;
 ::ng-deep .ngx-slider .ngx-slider-pointer.ngx-slider-active:after
 {
   background-color: #855EDB !important;
+}
+::ng-deep .ngx-slider .ngx-slider-bubble
+{
+  font-size: 10px !important;
+}
+
+::ng-deep .ngx-slider .ngx-slider-pointer
+{
+  cursor: pointer;
+  width: 15px !important;
+  height: 15px !important;
+  top: -6px !important;
+  background-color: #0db9f0;
+  z-index: 3;
+  border-radius: 16px;
+}
+::ng-deep .ngx-slider .ngx-slider-pointer:after
+{
+  display: none !important;
 }
 
 .editAlertData

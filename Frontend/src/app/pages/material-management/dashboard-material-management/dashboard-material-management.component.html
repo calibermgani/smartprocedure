@@ -2,15 +2,25 @@
   <h1 class="header_name_bold mb-2" style="text-align: left !important;">Material Summary</h1>
   <div class="row mb-2">
     <div class="top-cards col" *ngFor="let x of material_summary_data" style="width: 14.10% ;height:auto !important">
-      <div class="each_cards d-flex flex-row align-items-center"
-        style="border: 0.5px solid #C9C9C9;border-radius: 10px; padding: 10px;cursor: pointer;flex-wrap: wrap;"
-        (click)="ChangeGrid(x.type)">
+      <div class="material_sum_card d-flex flex-row align-items-center"
+        (click)="ChangeGrid(x.type)" [ngClass]="material_type_name == x.type ? 'material_sum_card':'disable_cards'">
         <div class="flex-shrink-0">
           <img [src]="x.imgPath" width="40px" height="40px" class="material_summary_image">
         </div>
-        <div class="flex-grow-0 ms-2">
+        <div class="flex-grow-1 ms-1">
           <a style="font-size: 28px; font-weight: 600 ;color: #000 !important;"
             class="mb-1 quantity_size">{{x.quantity}}</a>
+            <div class="float-end">
+            <button type="button" class="btn"  placement="bottom" [tooltip]="tolTemplate"  *ngIf="x.alert" style="background: none !important;
+            padding: 0px !important;
+            border: none !important;">
+              <img src="assets/images/procedure_alert.svg">
+          </button>
+          <ng-template #tolTemplate style="background: transparent !important;">
+            <a class="dropdown-item mb-0" href="javascript: void(0);" style="background: #D62424;color: #fff;border-radius: 6px 6px 0px 0px !important;margin-bottom: 10px;"> <img src="assets/images/Procedure_notification_alert.svg" class="me-2">{{x.alert_data}}
+            </a>
+          </ng-template>
+        </div>
           <h1 class="header_name_bold">{{x.type}}</h1>
         </div>
       </div>
@@ -46,30 +56,36 @@
             </div>
           </div>
         </div>
-        <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1 *ngIf="material_type_name != 'Daily consumed'"
-          style="width: 100%;height:630px;" [defaultColDef]="defaultColDef"></ag-grid-angular>
+        <!-- <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1 *ngIf="material_type_name != 'Daily consumed'"
+          style="width: 100%;height:550px;" [defaultColDef]="defaultColDef"></ag-grid-angular> -->
 
-          <ag-grid-angular style="width: 100%;height:630px;" [columnDefs]="daily_consumed_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsDailyConsumed" *ngIf="material_type_name == 'Daily consumed'"
+          <ag-grid-angular style="width: 100%;height:550px;" [columnDefs]="daily_consumed_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsDailyConsumed" *ngIf="material_type_name == 'Daily consumed'"
             [masterDetail]="true" [embedFullWidthRows]="true" [detailCellRendererParams]="detailCellRendererParams"
             [rowData]="DailyConsumedGridData" class="ag-theme-alpine" (firstDataRendered)="onFirstDataRendered($event)"
             (gridReady)="onGridReady_dailyconsumedgrid($event)"></ag-grid-angular>
       </div>
       <div style="display: block;" *ngIf="material_type_name != 'Daily consumed'">
         <div class="d-flex flex-row justify-content-between align-items-center p-2" style="flex-wrap: wrap;">
-          <div>
+          <div class="me-5">
             <h1 class="header_name_bold mb-2" style="text-align: left !important;">{{material_type_name}}</h1>
           </div>
-          <div>
-            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;color: #000;cursor: pointer;"
-              class="me-2" (click)="navigateTodetailedView()"><img src="assets/images/detailed_view.svg" width="16px"
-                height="16px" class="me-2">View all</a>
-            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;cursor: pointer;"
-              (click)="ClosematerialGrid()"><img src="assets/images/close_materials_grid.svg" width="30px"
-                height="30px"></a>
+          <div class="d-flex flex-row align-items-center">
+            <div class="me-2">
+              <input type="text" placeholder="Select Date" class="form-control-new "
+                style="height: 26px;font-size: 0.66rem !important;"
+                [bsConfig]="{withTimepicker: false, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+                bsDaterangepicker>
+            </div>
+            <div class="me-2" style="height: 26px;">
+              <ng-select [items]="procedure_list" placeholder="Select Procedure"></ng-select>
+            </div>
+            <div class="me-2" style="height: 26px;">
+              <ng-select [items]="items_list" placeholder="Select Items"></ng-select>
+            </div>
           </div>
         </div>
         <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
-          style="width: 100%;height:630px;display: block;" [defaultColDef]="defaultColDef"></ag-grid-angular>
+          style="width: 100%;height:550px;display: block;" [defaultColDef]="defaultColDef"></ag-grid-angular>
       </div>
     </div>
   </div>
@@ -89,11 +105,137 @@
                 height="30px"></a>
           </div> -->
         </div>
-        <ag-grid-angular style="width: 100%;height:630px;" [columnDefs]="Material_utilized_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsMaterialUtilized"
+        <ag-grid-angular style="width: 100%;height:550px;" [columnDefs]="Material_utilized_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsMaterialUtilized"
         [masterDetail]="true" [embedFullWidthRows]="true" [detailCellRendererParams]="detailCellRendererParams_MaterialUtilized"
         [rowData]="MaterialUtilizedGridData" class="ag-theme-alpine" (firstDataRendered)="onFirstDataRendered($event)"
         (gridReady)="onGridReady_materialUtilizedGrid($event)"></ag-grid-angular>
       </div>
     </div>
+  </div>
+</div>
+
+
+<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Material Details - {{material_type_name}}
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="viewitem?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="row mx-2 mt-3" style="flex-wrap: nowrap !important">
+        <div class="col-3 px-2">
+          <div class="d-flex flex-column justify-centent-between">
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;">Item:</label>
+              <img src="assets/images/item_image_sample.svg" width="207px" height="104px"><span class="item_category_label" [ngClass]="{'bg_daily' : material_type_name === 'Daily consumed','bg_damaged' : material_type_name === 'Damaged','bg_backtocabinet' : material_type_name === 'Back to cabinet','bg_nearexpired' : material_type_name === 'Near expired','bg_lowstock' : material_type_name === 'Low Stock','bg_refilltocabinet' : material_type_name === 'Refill to Cabinet','bg_recall' : material_type_name === 'Recall'}">{{material_type_name}}</span>
+            </div>
+          </div>
+        </div>
+        <div class="col-9" style="padding: 0px 0px 0px 84px;">
+            <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
+              <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Item number</label>
+                <h1 class="modal_value">Neurology</h1>
+              </div>
+              <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item name</label>
+               <h1 class="modal_value">ORS juice</h1>
+              </div>
+            </div>
+            <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
+              <div class="" style="width: 100%;margin-bottom: 2.3rem;">
+                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item category</label>
+                <h1 class="modal_value">ORS Juice</h1>
+              </div>
+              <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Barcodes</label>
+                <h1><img src="assets/images/barcode_view.svg" width="100px" height="45px" style="display: inline-flex;"></h1>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="row mx-2 mb-3">
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Procedure </label>
+              <h1 class="modal_value">Cardiology</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Price</label>
+              <h1 class="modal_value">100.00</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Expire date</label>
+              <h1 class="modal_value">07-02-2024</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Tags</label>
+              <h1 class="modal_value">#energy #ORS</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item Status</label>
+              <h1 class="modal_value">In Stock</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Size</label>
+              <h1 class="modal_value">300ml</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">On hand Qty</label>
+              <h1 class="modal_value">50</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Cat No</label>
+              <h1 class="modal_value">01-09-2023</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Vendor</label>
+              <h1 class="modal_value">Flores Junita</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Unit</label>
+              <h1 class="modal_value">60</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Min Level</label>
+              <h1 class="modal_value">24565</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Lot No</label>
+              <h1 class="modal_value">14454</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+      <div class="row mx-2 mb-3">
+        <div class="col-12">
+          <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Notes</label>
+          <h1 class="modal_value">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+        </div>
+      </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2" style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="viewitem?.hide()">Close</button>
+      </div>
+    </div>
+  </div>
+  <div style="position: absolute;left: 20%;top: 50%;cursor: pointer;">
+    <img src="assets/images/go_previous_patient.svg" width="30px" height="30px">
+  </div>
+  <div style="position: absolute;right:20%;top: 50%;cursor: pointer;">
+    <img src="assets/images/go_next_patient.svg" width="30px" height="30px">
   </div>
 </div>

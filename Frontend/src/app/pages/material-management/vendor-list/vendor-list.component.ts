@@ -69,6 +69,7 @@ export class VendorListComponent implements OnInit {
     {
       field: '',
       checkboxSelection: true,
+      resizable:false,
       headerCheckboxSelection: true,
       width:10
     },
@@ -86,7 +87,7 @@ export class VendorListComponent implements OnInit {
     },
     {
       field: 'vendor_email',
-      headerName: 'Items Email',
+      headerName: 'Vendor Email',
       cellRenderer: this.cellrendered.bind(this, 'vendor_email')
     },
     {
@@ -113,6 +114,12 @@ export class VendorListComponent implements OnInit {
       field: 'added_by',
       headerName: 'Added By',
       cellRenderer: this.cellrendered.bind(this, 'added_by')
+    },
+    {
+      field: 'action',
+      headerName: 'Action',
+      cellRenderer: this.cellrendered.bind(this, 'action')
+
     }
   ];
 
@@ -154,6 +161,15 @@ export class VendorListComponent implements OnInit {
       case 'added_by': {
         return params.value;
       }
+      case 'action': {
+        if(params.value)
+        {
+          return `<div class="d-flex flex-row">
+          <i class="mdi mdi-pencil-outline me-3" style="color:#000;font-size:18px"></i>
+          <i class="mdi mdi-trash-can-outline me-3" style="color:red;font-size:18px"></i>
+          </div>`
+        }
+      }
     }
   }
 
@@ -163,11 +179,7 @@ export class VendorListComponent implements OnInit {
     this.gridApi_1 = params.api;
     this.http.get('assets/json/vendor-list.json').subscribe((res:any)=>{
       this.vendorList = res;
-      this.gridOptions1.api?.sizeColumnsToFit();
       this.myGrid_1.api?.setRowData(this.vendorList);
     })
-  }
-
-  ngAfterViewInit(): void {
   }
 }

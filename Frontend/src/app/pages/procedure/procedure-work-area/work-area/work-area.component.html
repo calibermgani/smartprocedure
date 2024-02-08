@@ -107,7 +107,7 @@
               role="tab" aria-selected="true" (click)="toggleTabIcon(i)">
               <div class="d-flex align-items-center">
                 <img [src]="x.active == true ? x.activeimg : x.imgPath" width="16px" height="16px" class="me-2">
-                <span>{{x.tabs}}</span>
+                <span style="color: #fff">{{x.tabs}}</span>
               </div>
             </a>
           </li>
@@ -860,7 +860,7 @@
       </div>
       <div class="modal-body">
         <div class="edit_alerts_body">
-          <div *ngFor="let x of Alert_data;let i = index" class="p-2"
+          <div *ngFor="let x of Alert_data;let i = index" class="p-3"
             [ngClass]="{ 'bg-active': Alert_name == x.alert_name }" style="margin: 10px 5px;">
             <div class="row" style="align-items: center;">
               <div class="col-4">

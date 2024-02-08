@@ -14,6 +14,15 @@ import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { DailyConsumedComponent } from './daily-consumed/daily-consumed.component';
+import { DamagedComponent } from './damaged/damaged.component';
+import { BackToCabinetComponent } from './back-to-cabinet/back-to-cabinet.component';
+import { NearExpiredComponent } from './near-expired/near-expired.component';
+import { RefillToCabinetComponent } from './refill-to-cabinet/refill-to-cabinet.component';
+import { RecallComponent } from './recall/recall.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { NgxSliderModule } from 'ngx-slider-v2';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -21,10 +30,17 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     DashboardMaterialManagementComponent,
     ViewFullGridComponent,
     VendorListComponent,
-    LowStockComponent
+    LowStockComponent,
+    DailyConsumedComponent,
+    DamagedComponent,
+    BackToCabinetComponent,
+    NearExpiredComponent,
+    RefillToCabinetComponent,
+    RecallComponent
   ],
   imports: [
     CommonModule,
+    FormsModule,
     MaterialManagementRoutingModule,
     AgGridModule,
     NgSelectModule,
@@ -33,6 +49,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     NgxDropzoneModule,
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
+    AccordionModule.forRoot(),
+    NgxSliderModule
   ],
   providers:[
 

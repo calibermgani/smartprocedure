@@ -36,30 +36,49 @@
   background: #747474
 }
 
+.ag-theme-alpine
+{
+  --ag-row-hover-color: none !important;
+  --ag-header-background-color : #594585 !important;
+  --ag-selected-row-background-color : transparent !important
+}
 ::ng-deep .ag-row{
   border-bottom : none !important
 }
 
+// ::ng-deep .ag-row :hover{
+//   // background: none !important;
+// }
+
+::ng-deep .ag-row-selected::before
+{
+  background-color: transparent !important
+}
+
 ::ng-deep .ag-row-odd{
   margin: 10px 0px !important;
-  background: none !important;
+  background:#F3F4F8 !important;
   z-index: 2 ;
 }
 
 ::ng-deep .ag-row-even{
   margin: 10px 0px !important;
+  background: none !important;
 }
+
+
 
 ::ng-deep .ag-header-viewport
 {
-  background: #F3F4F8;
-  border: 1px solid #C9C9C9;
+  background: #594585;
+  // border: 1px solid #C9C9C9;
 }
 
 ::ng-deep .ag-header-cell-text
 {
   font-size: 12px !important;
   font-weight: 500 !important;
+  color: #fff !important;
 }
 
 ::ng-deep .ag-cell-value
@@ -70,8 +89,8 @@
 
 ::ng-deep .ag-checkbox-input-wrapper
 {
-  width: 13px !important;
-  height: 13px !important;
+  width: 15px !important;
+  height: 15px !important;
 }
 
 ::ng-deep .ag-root-wrapper
@@ -79,6 +98,26 @@
   border: 1px solid #747474 !important;
   font-family: poppins !important;
 }
+
+::ng-deep .ag-root-wrapper
+{
+  border: 1px solid #747474 !important;
+  border-radius: 15px;
+  font-family: poppins !important;
+}
+::ng-deep .ag-row-group-expanded
+{
+  background: #8B8B8B !important;
+
+.ag-cell-value{
+  color: #fff !important;
+}
+.ag-icon-tree-open{
+  color: #fff !important;
+}
+}
+
+
 
 .show_filters
 {

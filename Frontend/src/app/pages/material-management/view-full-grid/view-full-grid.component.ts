@@ -2,10 +2,22 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
-import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
-import { AgGridAngular } from 'ag-grid-angular';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import 'ag-grid-enterprise';
 
+interface MainData {
+  mrn_no:string,
+  accession_no:string,
+  procedure_code:string,
+  procedure_date:string,
+  sub:SubData[]
+}
+interface SubData {
+  "item_no":string,
+  "item_name":string,
+  "size":string,
+  "qty":string
+}
 @Component({
   selector: 'app-view-full-grid',
   templateUrl: './view-full-grid.component.html',
@@ -14,23 +26,28 @@ import 'ag-grid-enterprise';
 export class ViewFullGridComponent implements OnInit {
 
   current_Procedure_filters: string[];
+  filter_daily_consumed : string[];
+  DailyConsumedGridData : any = [];
   columnDefs1:ColDef[];
   UpdatedMaterialValue:any;
 
-  @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
     sortable: true,
     resizable: true,
     filter: true,
-    // floatingFilter: true,
   };
-  gridOptions1: GridOptions = {
+
+    // Nested Detailed Grid
+
+
+  public gridOptionsMaterialUtilized:GridOptions = {};
+  gridOptionsDailyConsumed: GridOptions = {
     defaultColDef: {
       filter: false,
     },
-    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">No rows to Show</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
     rowHeight: 35,
@@ -62,11 +79,73 @@ export class ViewFullGridComponent implements OnInit {
     defaultToolPanel:null,
   };
 
+  public themeClass: string ="ag-theme-quartz";
+  public daily_consumed_columnDef: ColDef[] = [
+    // group cell renderer needed for expand / collapse icons
+    { field: 'mrn_no', headerName:'MRN No', cellRenderer: 'agGroupCellRenderer' },
+    { field: 'accession_no',headerName:'Accession No' },
+    { field: 'procedure_code', headerName:'Procedure code' },
+    { field: 'procedure_date',headerName:'Procedure date'},
+  ];
+  public detailCellRendererParams: any = {
+    detailGridOptions: {
+      rowSelection: 'multiple',
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      pagination: false,
+      paginationAutoPageSize: false,
+      columnDefs: [
+        { field: 'item_no',headerName:'Item No'},
+        { field: 'item_name',headerName:'Item Name' },
+        { field: 'size',headerName:'Size' },
+        { field: 'qty',headerName:'QTY'}
+      ],
+      defaultColDef: {
+        flex: 1,
+        resizable:true,
+        width:100
+      },
+    },
+    getDetailRowData: (params) => {
+      params.successCallback(params.data.sub);
+    },
+  } as IDetailCellRendererParams<MainData, SubData>;
+
+  public Material_utilized_columnDef : ColDef[] = [
+    { field: 'mrn_no', headerName:'MRN No', cellRenderer: 'agGroupCellRenderer' },
+    { field: 'accession_no',headerName:'Accession No' },
+    { field: 'procedure_code', headerName:'Procedure code' },
+    { field: 'procedure_date',headerName:'Procedure date'},
+  ]
+  public detailCellRendererParams_MaterialUtilized: any = {
+    detailGridOptions: {
+      rowSelection: 'multiple',
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      pagination: false,
+      paginationAutoPageSize: false,
+
+      columnDefs: [
+        { field: 'item_name',headerName:'Item Name'},
+        { field: 'booking',headerName:'Booking' },
+        { field: 'intra_procedure',headerName:'Intra procedure' },
+        { field: 'post_procedure',headerName:'Post procedure'}
+      ],
+      defaultColDef: {
+        flex: 1,
+      },
+    },
+    getDetailRowData: (params) => {
+      params.successCallback(params.data.sub);
+    },
+  } as IDetailCellRendererParams<MainData, SubData>;
+
   ngOnInit(){
   }
 
   constructor(private http: HttpClient,private router : Router,private AuthFakeService : AuthfakeauthenticationService,private cdr: ChangeDetectorRef) {
     this.current_Procedure_filters = [];
+    this.filter_daily_consumed = ['Used','Back to Cabinet','Damaged'];
   }
 
   cellRendered(headername: any, params: any):string {
@@ -128,71 +207,32 @@ export class ViewFullGridComponent implements OnInit {
       }
     }
   }
-  onGridReady_1(params: GridReadyEvent) {
-    this.gridApi_1 = params.api;
-    console.log('event', params);
+
+
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    // arbitrarily expand a row for presentational purposes
+    // setTimeout(() => {
+    //   params.api.getDisplayedRowAtIndex(1)!.setExpanded(true);
+    // }, 0);
   }
+  onGridReady_dailyconsumedgrid(params: GridReadyEvent) {
+    this.gridOptionsDailyConsumed = params;
+    this.http.get<MainData[]>(
+        'assets/json/daily_consumed_grid.json'
+      )
+      .subscribe((data) => {
+        this.DailyConsumedGridData = data;
+        this.gridOptionsDailyConsumed.api?.sizeColumnsToFit();
+      });
+  }
+
+
 
   GoBackTodashboard() {
     this.router.navigate(['material-management/dashboard'])
   }
 
   ngAfterViewInit(): void {
-    this.AuthFakeService.UpdatedColumnDef.subscribe((res:any)=>{
-      this.columnDefs1 = res;
-      console.log('res',res);
-      console.log('columnDefs1',this.columnDefs1);
-      if(this.columnDefs1.length>0)
-      {
-        console.log('1');
-        this.columnDefs1 = res;
-        this.http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
-          this.myGrid_1.api.setRowData(res);
-          this.gridOptions1.api?.sizeColumnsToFit();
-        });
-      }
-      else
-      {
-        this.columnDefs1 = [
-          {
-            field: 'item_no',
-            headerName:'Item No',
-            suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'item_no')
-          },
-          {
-            field: 'item_name',
-            headerName:'Item Name',
-            filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'item_name')
-          },
-          {
-            field: 'expire_date',
-            headerName:'Expiry Date',
-            filter: "agDateColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'expire_date')
-          },
-          {
-            field: 'procedure',
-            headerName:'Procedure',
-            filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'procedure')
-          },
-          {
-            field: 'quantity',
-            headerName:'Quantity',
-            filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'quantity')
-          },
-        ];
-        this.gridOptions1.api?.sizeColumnsToFit();
-        this.myGrid_1.api.setRowData(null);
-      }
-      this.cdr.detectChanges();
-    });
-    this.AuthFakeService.UpdatedMaterialValue.subscribe((res:any)=>{
-      this.UpdatedMaterialValue = res;
-      console.log('Updatedmaterialvalue',this.UpdatedMaterialValue);
-    });
+
   }
 }

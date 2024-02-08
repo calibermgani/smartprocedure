@@ -1,8 +1,20 @@
-
+.ag-theme-alpine
+{
+  --ag-row-hover-color: transparent !important;
+  --ag-header-background-color : #594585 !important;
+  --ag-selected-row-background-color : transparent !important;
+}
 ::ng-deep .ag-row{
   border-bottom : none !important
 }
 
+// ::ng-deep .ag-row :hover{
+//   // background: none !important;
+// }
+::ng-deep .ag-row-selected::before
+{
+  background-color: transparent !important;
+}
 ::ng-deep .ag-row-odd{
   margin: 10px 0px !important;
   background:#F3F4F8 !important;
@@ -16,8 +28,12 @@
 
 ::ng-deep .ag-header-viewport
 {
-  background: #F3F4F8 !important;
+  background: #594585 !important;
   border: none !important;
+}
+
+::ng-deep .ag-header-viewport:hover{
+  background: #594585 !important;
 }
 
 ::ng-deep .ag-header{
@@ -28,6 +44,7 @@ border-bottom: none !important;
 {
   font-size: 14px !important;
   font-weight: 500 !important;
+  color: #fff !important;
 }
 
 ::ng-deep .ag-cell-value
@@ -42,7 +59,45 @@ border-bottom: none !important;
   border-radius: 15px;
   font-family: poppins !important;
 }
+::ng-deep .ag-row-group-expanded
+{
+  background: #8B8B8B !important;
 
+.ag-cell-value{
+  color: #fff !important;
+}
+.ag-icon-tree-open{
+  color: #fff !important;
+}
+}
+
+::ng-deep .ag-theme-alpine .ag-group-contracted .ag-icon:hover{
+  color: #181d1f !important;
+}
+
+::ng-deep .ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within
+{
+  border: none !important;
+}
+
+::ng-deep .ag-icon-menu{
+  color: #fff !important;
+}
+
+::ng-deep .ag-details-grid .ag-theme-alpine{
+//  .ag-root-wrapper .ag-layout-normal .ag-ltr .ag-theme-alpine{
+  --ag-row-hover-color: transparent !important;
+  // .ag-row :hover{
+  //   background: transparent !important;
+  // }
+}
+
+::ng-deep .ag-ltr .ag-cell-range-single-cell
+{
+  border: none !important;
+  background: transparent !important;
+  --ag-row-hover-color: transparent !important;
+}
 
 .showMiniGrid
 {
@@ -89,6 +144,66 @@ border-bottom: none !important;
 ::ng-deep .ng-dropdown-panel.ng-select-bottom
 {
   background: #fff !important;
+}
+
+::ng-deep .tooltip-inner
+{
+  max-width: 200px !important;
+  padding: 6px 8px !important;
+  color: #fff !important;
+  background-color: #D62424 !important;
+}
+
+::ng-deep .tooltip{
+  --bs-tooltip-bg:#D62424 !important
+}
+
+::ng-deep .bs-tooltip-bottom
+{
+  opacity: 1 !important;
+}
+
+.material_sum_card{
+  border: 0.5px solid
+  #747474;border-radius: 10px; padding: 10px;cursor: pointer;flex-wrap: wrap;background: #F3F4F8;
+
+}
+
+.disable_cards
+{
+  border: 0.5px solid #C9C9C9;border-radius: 10px; padding: 10px;cursor: pointer;flex-wrap: wrap;background: #fff;
+  .header_name_bold{
+    color: #747474 !important;
+  }
+}
+
+.item_category_label{
+  position: absolute;left: 7%;top: 61%;border-radius:
+              4px;padding: 0px 6px 0px 6px;color: #fff;font-size: 12px;
+}
+.bg_daily{
+background: #81D152;
+}
+.bg_damaged{
+  background: #C1B22A;
+}
+.bg_backtocabinet{
+  background: #FF5347;
+}
+.bg_nearexpired{
+  background: #FF9D4F;
+}
+.bg_lowstock{
+  background: #5B4DB7;
+}
+.bg_refilltocabinet{
+  background: #A51515;
+}
+.bg_recall{
+  background: #42ADC7;
+}
+.modal_value{
+  font-weight: 400 !important;
 }
 
 @media  (min-width: 769px) and (min-height: 451px) and (max-width: 1440px) and (max-height: 460px) {

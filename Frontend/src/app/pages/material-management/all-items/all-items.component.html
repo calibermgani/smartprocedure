@@ -5,37 +5,39 @@
         <div class="mt-1">
           <h1 class="header_name">Overall List</h1>
         </div>
+        <div class="mb-2">
         <input class="form-control-new mt-2" placeholder="Search by category,folder and item">
+        </div>
         <div class="list_body" style="height: 600px;">
-          <div class="d-flex mt-2" *ngFor="let x of folder_structure_value;let i = index">
-            <div class="flex-grow-1 p-2">
-              <div><p class="mb-0"><img src="assets/images/files.svg" class="me-1">{{x.foldername}}</p></div>
+          <div class="d-flex" *ngFor="let x of folder_structure_value;let i = index" style="position: relative;">
+            <div class="flex-grow-1 p-2 folders_name">
+              <div (click)="select_folder(x.foldername)"><p class="folder_name mb-0" style="text-wrap: nowrap;"><img [src]="textcontent==x.foldername ? 'assets/images/selected_folder.svg' : 'assets/images/files.svg' " class="folder_img me-1" >{{x.foldername}}</p></div>
             </div>
-            <div class="flex-shrink-0 p-2">
+            <div class="p-2" style="width: 110px;">
               <div class="float-end dropdown ms-2" dropdown>
                 <a class="text-muted dropdown-toggle" href="javascript: void(0);" role="button"
                     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
                     <i class="mdi mdi-dots-vertical"></i>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="min-width: 7rem !important;">
-                    <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-eye-outline me-2"></i>View</a>
+                    <!-- <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-eye-outline me-2"></i>View</a> -->
                     <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-pencil-outline me-2"></i>Edit</a>
                     <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-trash-can-outline me-2"></i>Delete</a>
                 </div>
             </div>
-            <div *ngIf="x.sub">
+            <div *ngIf="x.sub" style="position: relative;right:90%;top:20%" class="mb-3">
               <div class="d-flex" *ngFor="let sub of folder_structure_value[i].sub">
                 <div class="flex-grow-1 p-2">
-                  <div><p class="mb-0"><img src="assets/images/files.svg" class="me-1">{{sub.subfoldername}}</p></div>
+                  <div><p class="mb-0" style="text-wrap: nowrap;font-weight: 400 !important;"><img src="assets/images/files.svg" class="me-1">{{sub.subfoldername}}</p></div>
                 </div>
-                <div class="flex-shrink-0 p-2">
+                <div class="p-2" style="margin-left: 38px;">
                   <div class="float-end dropdown ms-2" dropdown>
                     <a class="text-muted dropdown-toggle" href="javascript: void(0);" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
                         <i class="mdi mdi-dots-vertical"></i>
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="min-width: 7rem !important;">
-                        <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-eye-outline me-2"></i>View</a>
+                        <!-- <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-eye-outline me-2"></i>View</a> -->
                         <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-pencil-outline me-2"></i>Edit</a>
                         <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-trash-can-outline me-2"></i>Delete</a>
                     </div>
@@ -48,11 +50,11 @@
           </div>
         </div>
         <div class="list-footer">
-          <div class="d-flex justify-content-between align-items-center">
-            <div class="d-flex flex-row">
+          <div class="d-flex justify-content-between align-items-center" style="flex-wrap: wrap;">
+            <div>
               <button class="btn-diasble"><i class="mdi mdi-timer-outline"></i>Histroy</button>
             </div>
-            <div class="d-flex flex-row">
+            <div>
               <button class="btn-diasble"><i class="mdi mdi-trash-can-outline"></i>Trash</button>
             </div>
           </div>
@@ -71,22 +73,58 @@
         style="border-bottom: 0.5px solid #1B1B1B;">
         <div>
           <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist">
-            <li class="nav-item" role="presentation">
-              <a class="nav-link active" data-bs-toggle="tab" href="#allitems" role="tab" aria-selected="true"
+            <li class="nav-item tabs-links" role="presentation">
+              <a class="nav-link active" data-bs-toggle="tab" href="#allitems" role="tab" aria-selected="true" (click)="changeTab('allitems')"
                 (click)="SelectedTab('allitems')">
                 <h1 class="d-none d-sm-block name">All Items</h1>
               </a>
             </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#vendor_list" role="tab" aria-selected="false"
+            <li class="nav-item tabs-links-1" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#vendor_list" role="tab" aria-selected="false" (click)="changeTab('vendor_list')"
                 tabindex="-1" (click)="SelectedTab('vendor_list')">
                 <h1 class="d-none d-sm-block name">Vendor list</h1>
               </a>
             </li>
-            <li class="nav-item" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#low_stock" role="tab" aria-selected="false" tabindex="-1"
+            <li class="nav-item tabs-links-1" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#daily_consumed" role="tab" aria-selected="false" tabindex="-1"  (click)="changeTab('daily_consumed')"
+                (click)="SelectedTab('daily_consumed')">
+                <h1 class="d-none d-sm-block name">Daily consumed</h1>
+              </a>
+            </li>
+            <li class="nav-item tabs-links-1" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#damaged" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('damaged')"
+                (click)="SelectedTab('damaged')">
+                <h1 class="d-none d-sm-block name">Damaged</h1>
+              </a>
+            </li>
+            <li class="nav-item tabs-links-1" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#backtocabinet" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('backtocabinet')"
+                (click)="SelectedTab('backtocabinet')">
+                <h1 class="d-none d-sm-block name">Back to cabinet</h1>
+              </a>
+            </li>
+            <li class="nav-item tabs-links-1" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#near_expired" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('near_expired')"
+                (click)="SelectedTab('near_expired')">
+                <h1 class="d-none d-sm-block name">Near expired</h1>
+              </a>
+            </li>
+            <li class="nav-item tabs-links-1" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#low_stock" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('low_stock')"
                 (click)="SelectedTab('low_stock')">
                 <h1 class="d-none d-sm-block name">Low Stock</h1>
+              </a>
+            </li>
+            <li class="nav-item tabs-links-1" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#refilltocabinet" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('refilltocabinet')"
+                (click)="SelectedTab('refilltocabinet')">
+                <h1 class="d-none d-sm-block name">Refill to cabinet</h1>
+              </a>
+            </li>
+            <li class="nav-item tabs-links" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#recall" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('recall')"
+                (click)="SelectedTab('recall')">
+                <h1 class="d-none d-sm-block name">Recall</h1>
               </a>
             </li>
           </ul>
@@ -106,6 +144,8 @@
                       src="assets/images/add_item.svg" width="16px" height="16px" class="me-2">Add Item</a>
                   <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addcategory?.show()"><img
                       src="assets/images/add_category.svg" width="16px" height="16px" class="me-2">Add Category</a>
+                      <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="subcategory?.show()"><img
+                        src="assets/images/add_sub_category.svg" width="16px" height="16px" class="me-2">Add sub category</a>
                   <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addvendor?.show()"><img
                       src="assets/images/add_vendor.svg" width="16px" height="16px" class="me-2">Add vendor</a>
                   <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addtag?.show()"><img
@@ -169,49 +209,212 @@
         <div class="tab-pane active show" id="allitems" role="tabpanel">
           <div class="d-flex flex-row align-items-center" style="background: #F3F4F8;border-radius: 8px;padding: 15px;">
             <div class="me-2">
-              <h4>LOT No</h4>
-              <input class="form-control" value="12">
-            </div>
-            <div class="me-2">
-              <h4>Item No</h4>
-              <input class="form-control" value="52937">
-            </div>
-            <div class="me-2">
-              <h4>Item Name</h4>
-              <input class="form-control" placeholder="Name">
-            </div>
-            <div class="me-2">
-              <h4>Barcode</h4>
-              <input class="form-control" placeholder="scan or type">
-            </div>
-            <div class="me-2" style="width: 13%;">
-              <h4>Category</h4>
-              <ng-select [items]="category" placeholder="Select category"></ng-select>
-            </div>
-            <div class="me-2" style="width: 13%;">
-              <h4>Procedure</h4>
-              <ng-select [items]="procedure" placeholder="Select procedure"></ng-select>
-            </div>
-            <div class="me-2 mt-3">
               <button class="btn-new"
-                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;">Search</button>
+                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="hideAdvancedFilters()">Filter</button>
             </div>
-            <div class="me-2 mt-3">
+            <div class="me-2" style="width: 20%;">
+              <input class="form-control" type="text" placeholder="Search">
+            </div>
+            <div class="d-flex flex-row align-items-center me-2" style="width: 20%;">
+              <input class="form-control" type="text" placeholder="scan or type"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;right: 10%;">
+            </div>
+
+            <div class="me-2" >
               <button class="btn-2"
                 style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;border: 0.5px solid #855EDB;">Reset</button>
             </div>
+            <div class="me-2">
+              <button class="btn-new"
+                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;">Search</button>
+            </div>
           </div>
-          <div class="mt-2">
-            <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
-              style="width: 100%;height: 545px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
-              [sideBar]="sideBar"></ag-grid-angular>
+          <div class="row">
+            <div class="col-3 mt-2" style="border: 0.5px solid #8B8B8B;border-radius: 6px; display: none;" [ngClass]="{'showAdvancedFilters':resize ==true}">
+              <div class="d-flex flex-row justify-centent-between align-items-center my-2">
+                <div (click)="hideAdvancedFilters()" style="cursor:pointer">
+                 <h1 style="font-weight: 500 !important;"><img src="assets/images/back_arrow.svg" width="24px" height="24px" class="me-2">Filter</h1>
+                </div>
+                <div class="ms-auto">
+                  <p class="mb-0" style="color: #747474 !important;">Clear all</p>
+                </div>
+              </div>
+              <div class="mt-4 pb-4" style="border-bottom: 1px solid #ECECEC;">
+                <div class="d-flex flex-column">
+                  <div><h1 style="font-weight: 500 !important;">Active filters:</h1></div>
+                  <div class="mt-2">
+                    <h1 style="font-weight: 400 !important;color:#8B8B8B !important;">No filters were selected</h1>
+                  </div>
+                </div>
+              </div>
+              <div style="height: 381px;overflow-y: scroll;border-bottom: 1px solid #ECECEC;" class="pb-3 mb-4">
+              <div class="mt-3 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Folder</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <ng-select [items]="" placeholder="Select"></ng-select>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Item search</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <input type="text" class="form-control-new" placeholder="Search by item name">
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Procedure search</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <input type="text" class="form-control-new" placeholder="Search by procedure name">
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Quantity</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options"></ngx-slider>
+                    <div class="d-flex flex-row mt-2">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="QuantityminValue">
+                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="QuantitymaxValue">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Price</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <ngx-slider [(value)]="PriceminValue" [(highValue)]="PricemaxValue" [options]="options"></ngx-slider>
+                    <div class="d-flex flex-row mt-2">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="PriceminValue">
+                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="PricemaxValue">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Tags</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <input type="text" class="form-control-new" >
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Barcode</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div class="d-flex flex-row align-items-center">
+                    <input class="form-control-new" type="text" placeholder="scan or type"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: absolute;right: 10%;">
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Tags</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <input type="text" class="form-control-new" >
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="float-end mt-2">
+              <button class="btn-new"
+                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;">Apply</button>
+            </div>
+            </div>
+            <div class="col-9" [ngClass]="{'resizeGrid':resize ==false}">
+              <div class="mt-2">
+                <div class="d-flex flex-row p-3" style="background: #855EDB;border: 1px solid #855EDB;border-radius: 17px 17px 0px 0px;" *ngIf="showEditablefields == true">
+                  <div class="flex-shrink-1">
+                    <div class="d-flex flex-row align-items-center">
+                      <div class="me-2">
+                        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+                      </div>
+                      <div>
+                        <h1 style="color: #fff !important;">Deselect | {{selected_row_data_length}}Item selected</h1>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="flex-grow-0 ms-auto">
+                    <div class="d-flex flex-row justify-centent-between align-items-center">
+                      <div class="me-4">
+                        <h1 style="color: #fff !important;" class="mb-0"> <i class="mdi mdi-pencil-outline me-1" style="color:#fff;font-size:18px"></i>Edit</h1>
+                      </div>
+                      <div class="me-4">
+                        <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg" width="15px" height="15px" class="me-1">Update Qty</h1>
+                      </div>
+                      <div class="me-4">
+                        <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg" width="15px" height="15px" class="me-1">Move</h1>
+                      </div>
+                      <div class="me-4">
+                        <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/clone_img.svg" width="15px" height="15px" class="me-1">Clone</h1>
+                      </div>
+                      <div class="me-4">
+                        <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/add_tag_white.svg" width="15px" height="15px" class="me-1">Add Tag</h1>
+                      </div>
+                      <div class="me-4">
+                        <h1 style="color: #fff !important;" class="mb-0"> <i class="mdi mdi-trash-can-outline me-1" style="color:#fff;font-size:18px"></i>Delete</h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
+                  style="width: 100%;height: 578px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef" (selectionChanged)="onSelectionChanged($event)"
+                  [sideBar]="sideBar"></ag-grid-angular>
+              </div>
+            </div>
           </div>
         </div>
         <div class="tab-pane" id="vendor_list" role="tabpanel">
-          <app-vendor-list></app-vendor-list>
+          <app-vendor-list *ngIf="enableTab=='vendor_list'"></app-vendor-list>
+        </div>
+        <div class="tab-pane" id="daily_consumed" role="tabpanel">
+          <app-daily-consumed  *ngIf="enableTab=='daily_consumed'"></app-daily-consumed>
+        </div>
+        <div class="tab-pane" id="damaged" role="tabpanel">
+          <app-damaged *ngIf="enableTab=='damaged'"></app-damaged>
+        </div>
+        <div class="tab-pane" id="backtocabinet" role="tabpanel">
+          <app-back-to-cabinet *ngIf="enableTab=='backtocabinet'"></app-back-to-cabinet>
+        </div>
+        <div class="tab-pane" id="near_expired" role="tabpanel">
+          <app-near-expired *ngIf="enableTab=='near_expired'"></app-near-expired>
         </div>
         <div class="tab-pane" id="low_stock" role="tabpanel">
-          <app-low-stock></app-low-stock>
+          <app-low-stock *ngIf="enableTab=='low_stock'"></app-low-stock>
+        </div>
+        <div class="tab-pane" id="refilltocabinet" role="tabpanel">
+          <app-refill-to-cabinet *ngIf="enableTab=='refilltocabinet'"></app-refill-to-cabinet>
+        </div>
+        <div class="tab-pane" id="recall" role="tabpanel">
+          <app-recall *ngIf="enableTab=='recall'"></app-recall>
         </div>
       </div>
     </div>
@@ -485,7 +688,7 @@
         <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addtag?.hide()"
           style="cursor: pointer">
       </div>
-      <div class="row">
+      <div class="row" style="width: 100%;">
         <div class="col-12 p-3 mx-2">
           <div class="mb-3 mx-2">
             <label for="items_category" style="font-size: 10px; color: #747474;">Tag Name<span
@@ -679,6 +882,46 @@
         <button type="button" class="btn-new me-2"
           style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
         <button type="button" class="btn-new" style="width: auto !important;">Send</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #subcategory="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:700px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add sub category
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="subcategory?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="row mx-2">
+        <div class="col-4" >
+          <div class="mb-3 mt-1">
+            <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Sub category Name<span style="color: red;">*</span></label>
+            <input type="text" class="form-control-new" placeholder="">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3 mt-1" >
+            <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Choose category</label>
+            <ng-select [items]="" placeholder="Select category"></ng-select>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3 mt-1">
+            <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Status<span style="color: red;">*</span></label>
+            <ng-select [items]="" placeholder="Select status"></ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="subcategory?.hide()">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;text-align: center;"><i class="mdi mdi-plus-circle-outline me-2" style="font-size: 16px;"></i>Add</button>
       </div>
     </div>
   </div>

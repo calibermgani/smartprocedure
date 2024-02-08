@@ -14,7 +14,7 @@
   border: 0px solid !important;
 }
 
-::ng-deep .nav{
+.nav{
   background: #594585 !important;
   height: 34px !important;
   border-radius: 0px 10px 0px 0px !important;
@@ -24,14 +24,14 @@
 }
 
 
-::ng-deep .nav-link:hover{
+.nav-link:hover{
   border: none !important;
   background: none !important;
   border-radius: 0px !important;
   height: 32px !important;
 }
 
-::ng-deep .nav-link{
+.nav-link{
   color: #fff !important;
   transition: none !important;
   transform: none !important;

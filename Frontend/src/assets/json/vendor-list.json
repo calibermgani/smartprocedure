@@ -7,7 +7,8 @@
     "vendor_address":"3890 Poplar Dr.",
     "status":"Active",
     "contact_person":"Miles, Esther",
-    "added_by":"Admin"
+    "added_by":"Admin",
+    "action":true
   },
   {
     "id":"2",
@@ -17,7 +18,8 @@
     "vendor_address":"3890 Poplar Dr.",
     "status":"Active",
     "contact_person":"Miles, Esther",
-    "added_by":"Admin"
+    "added_by":"Admin",
+    "action":true
   },
   {
     "id":"3",
@@ -27,7 +29,8 @@
     "vendor_address":"3890 Poplar Dr.",
     "status":"InActive",
     "contact_person":"Miles, Esther",
-    "added_by":"Admin"
+    "added_by":"Admin",
+    "action":true
   },
   {
     "id":"4",
@@ -37,7 +40,8 @@
     "vendor_address":"3890 Poplar Dr.",
     "status":"Active",
     "contact_person":"Miles, Esther",
-    "added_by":"Admin"
+    "added_by":"Admin",
+    "action":true
   },
   {
     "id":"5",
@@ -47,6 +51,7 @@
     "vendor_address":"3890 Poplar Dr.",
     "status":"InActive",
     "contact_person":"Miles, Esther",
-    "added_by":"Admin"
+    "added_by":"Admin",
+    "action":true
   }
 ]

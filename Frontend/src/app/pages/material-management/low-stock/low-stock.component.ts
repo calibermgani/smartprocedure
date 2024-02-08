@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-low-stock',
@@ -14,7 +15,8 @@ export class LowStockComponent implements OnInit{
   procedure_values:string[];
   lowStock:any = [];
 
-  @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
+  @ViewChild('myGrid_LowStock') myGrid_LowStock: AgGridAngular;
+  @ViewChild('viewitem') viewitem: ModalDirective
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -70,6 +72,7 @@ export class LowStockComponent implements OnInit{
       field: '',
       checkboxSelection: true,
       headerCheckboxSelection: true,
+      resizable:false,
       width:10
     },
     {
@@ -81,7 +84,7 @@ export class LowStockComponent implements OnInit{
       field: 'item_name',
       headerName: 'Item Name',
       cellRenderer: this.cellrendered.bind(this, 'item_name'),
-      onCellClicked: this.CellClicked.bind(this, 'item_name')
+      onCellClicked: this.cellClicked.bind(this, 'item_name')
     },
     {
       field: 'quantity',
@@ -120,7 +123,13 @@ export class LowStockComponent implements OnInit{
     }
   }
 
-  CellClicked(headerName: any, params: any) {}
+  cellClicked(headername:any,params:any){
+    switch (headername) {
+      case 'item_name': {
+        this.viewitem?.show();
+      }
+  }
+}
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
@@ -131,7 +140,7 @@ export class LowStockComponent implements OnInit{
     this.http.get('assets/json/low-stock.json').subscribe((res:any)=>{
       this.lowStock = res;
       this.gridOptions1.api?.sizeColumnsToFit();
-      this.myGrid_1.api?.setRowData(this.lowStock);
+      this.myGrid_LowStock.api?.setRowData(this.lowStock);
     })
   }
 }

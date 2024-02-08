@@ -21,19 +21,25 @@
     "id":4,
     "type":"Near expired",
     "imgPath":"assets/images/expiry.svg",
-    "quantity":"12"
+    "quantity":"12",
+    "alert":true,
+    "alert_data":"Near expired"
   },
   {
     "id":5,
     "type":"Low Stock",
     "imgPath":"assets/images/low_stock.svg",
-    "quantity":"08"
+    "quantity":"08",
+    "alert":true,
+    "alert_data":"Low Stock"
   },
   {
     "id":6,
     "type":"Refill to Cabinet",
     "imgPath":"assets/images/refill_to_cabinet.svg",
-    "quantity":"16"
+    "quantity":"16",
+    "alert":true,
+    "alert_data":"Low Stock"
   },
   {
     "id":7,
