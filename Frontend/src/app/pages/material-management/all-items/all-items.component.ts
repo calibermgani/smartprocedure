@@ -132,12 +132,12 @@ export class AllItemsComponent implements OnInit {
       field: 'item_no',
       headerName: 'Item No',
       cellRenderer: this.cellrendered.bind(this, 'item_no'),
-      onCellClicked: this.CellClicked.bind(this, 'item_no')
     },
     {
       field: 'item_name',
       headerName: 'Item Name',
-      cellRenderer: this.cellrendered.bind(this, 'item_name')
+      cellRenderer: this.cellrendered.bind(this, 'item_name'),
+      onCellClicked: this.CellClicked.bind(this, 'item_name')
     },
     {
       field: 'item_category',
@@ -222,6 +222,7 @@ export class AllItemsComponent implements OnInit {
     {
       field: 'action',
       headerName: 'Action',
+      resizable:false,
       pinned:"right",
       cellRenderer: this.cellrendered.bind(this, 'action')
 
@@ -299,7 +300,7 @@ export class AllItemsComponent implements OnInit {
 
   CellClicked(headerName: any, params: any) {
     switch(headerName){
-      case 'item_no':{
+      case 'item_name':{
         this.viewitem?.show();
       }
     }
@@ -382,8 +383,13 @@ export class AllItemsComponent implements OnInit {
     this.gridApi_1.getSelectedNodes().forEach(element => {
       this.selected_row_data.push(element.data);
     });
-    this.selected_row_data_length = this.selected_row_data.length;
-    this.showEditablefields =! this.showEditablefields;
+    if(this.selected_row_data.length == 0){
+      this.showEditablefields = false;
+    }
+    else{
+      this.selected_row_data_length = this.selected_row_data.length;
+      this.showEditablefields = true;
+    }
   }
 
   onSelect(event: any) {

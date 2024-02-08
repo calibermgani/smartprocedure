@@ -86,12 +86,17 @@ li::marker{
   --ag-header-background-color : #594585 !important;
   --ag-selected-row-background-color : transparent !important;
 }
-
-
 ::ng-deep .ag-row{
   border-bottom : none !important
 }
 
+// ::ng-deep .ag-row :hover{
+//   // background: none !important;
+// }
+::ng-deep .ag-row-selected::before
+{
+  background-color: transparent !important;
+}
 ::ng-deep .ag-row-odd{
   margin: 10px 0px !important;
   background:#F3F4F8 !important;
@@ -107,6 +112,10 @@ li::marker{
 {
   background: #594585 !important;
   border: none !important;
+}
+
+::ng-deep .ag-header-viewport:hover{
+  background: #594585 !important;
 }
 
 ::ng-deep .ag-header{
@@ -128,18 +137,50 @@ border-bottom: none !important;
 
 ::ng-deep .ag-root-wrapper
 {
-  border: 1px solid #C9C9C9 !important;
+  border: 1px solid #747474 !important;
   border-radius: 15px;
   font-family: poppins !important;
 }
-::ng-deep .ag-header
+::ng-deep .ag-row-group-expanded
 {
-  border-bottom: none !important;
+  background: #8B8B8B !important;
+
+.ag-cell-value{
+  color: #fff !important;
 }
-::ng-deep .ag-row-selected::before
+.ag-icon-tree-open{
+  color: #fff !important;
+}
+}
+
+::ng-deep .ag-theme-alpine .ag-group-contracted .ag-icon:hover{
+  color: #181d1f !important;
+}
+
+::ng-deep .ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within
 {
-  background-color: transparent !important
+  border: none !important;
 }
+
+::ng-deep .ag-icon-menu{
+  color: #fff !important;
+}
+
+::ng-deep .ag-details-grid .ag-theme-alpine{
+//  .ag-root-wrapper .ag-layout-normal .ag-ltr .ag-theme-alpine{
+  --ag-row-hover-color: transparent !important;
+  // .ag-row :hover{
+  //   background: transparent !important;
+  // }
+}
+
+::ng-deep .ag-ltr .ag-cell-range-single-cell
+{
+  border: none !important;
+  background: transparent !important;
+  --ag-row-hover-color: transparent !important;
+}
+
 
 .hide0veralllist
 {
@@ -229,3 +270,13 @@ border-bottom: none !important;
 .resizeGrid{
   width: 100% !important;
 }
+
+.item_category_label{
+  position: absolute;left: 7%;top: 61%;border-radius:4px;padding: 0px 6px 0px 6px;color: #fff;font-size: 12px;
+  background: #81D152;
+}
+
+.modal_value{
+  font-weight: 400 !important;
+}
+

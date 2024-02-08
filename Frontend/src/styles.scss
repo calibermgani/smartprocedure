@@ -111,7 +111,7 @@ h5{
   display: block !important;
   width: 100% !important;
   padding: 0.47rem 0.75rem !important;
-  font-size: 0.7125rem !important;
+  font-size: 0.8125rem !important;
   font-weight: 400 !important;
   line-height: 1.5 !important;
   color: #1B1B1B !important;
@@ -255,4 +255,12 @@ input:focus-visible{
 .dropdown-item
 {
   cursor: pointer !important;
+}
+
+.previousitem
+{
+  position: absolute;left: -5%;top:50%;cursor: pointer;
+}
+.nextitem{
+  position: absolute;right:-5%;top:50%;cursor: pointer;
 }
