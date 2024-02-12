@@ -117,6 +117,11 @@ export class AllItemsComponent implements OnInit {
       this.folder_structure_value = res;
       console.log('response',this.folder_structure_value);
     });
+
+    setTimeout(() => {
+      this.additem?.show()
+    }, 1000);
+
   }
 
 

@@ -467,37 +467,74 @@
               <!-- end dropzon-preview -->
             </form>
           </div>
+          <div class="d-flex flex-row" style="width: 100%;">
           <div class="">
-            <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Item Status</label>
+            <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Procedure <span style="color: #D62424;font-size: 7px;">You can also link the item to multiple procedure</span></label>
             <ng-select [items]="" placeholder="Select Status"></ng-select>
           </div>
+          <div class="mt-4 ms-2">
+            <button class="btn-new"
+              style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+          </div>
+        </div>
         </div>
         <div class="col-8">
-          <div class="d-flex">
-            <div class="mb-3" style="width: 50%;">
+          <div class="d-flex flex-row justify-centent-between">
+            <div class="mb-3 me-4" style="width: 50%;">
               <label for="items_category" style="font-size: 10px; color: #1B1B1B;">Items Category<span
                   style="color: red;">*</span></label>
               <ng-select [items]="" placeholder="Select Status"></ng-select>
             </div>
-            <div class="mt-4 mx-3">
+            <!-- <div class="mt-4 mx-3">
               <button class="btn-new"
                 style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                   class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
-            </div>
+            </div> -->
             <div class="mb-3" style="width: 50%;">
               <label for="items_name" style="font-size: 10px; color: #1B1B1B;">Items Name<span
                   style="color: red;">*</span></label>
               <input class="form-control-new" type="text">
             </div>
           </div>
-          <div class="mb-5">
-            <label for="items_descrption" style="font-size: 10px; color: #1B1B1B;">Item Descrption</label>
-            <input class="form-control-new">
+          <div class="d-flex flex-row">
+            <div class="d-flex flex-row" style="width: 50%;">
+              <div class="mb-5" style="width: 100%;">
+                <label for="items_descrption" style="font-size: 10px; color: #1B1B1B;">Item Category<span
+                  style="color: red;">*</span></label>
+                <ng-select [items]="" placeholder="Select Category"></ng-select>
+              </div>
+              <div class="mt-4 ms-2">
+                <button class="btn-new"
+                  style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                    class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+              </div>
+            </div>
+            <div class="ms-4" style="width: 50%;">
+              <label for="notes" style="font-size: 10px; color: #1B1B1B;">Barcodes<span
+                style="color: red;">*</span></label>
+                <!-- <div class="d-flex flex-row align-items-center" style="width: 100%;"> -->
+                  <input class="form-control-new" type="text" placeholder="scan or type"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;bottom: 25%;left: 90%;">
+                <!-- </div> -->
+            </div>
           </div>
-          <div class="mt-4" style="margin-top: 55px !important;">
-            <label for="notes" style="font-size: 10px; color: #1B1B1B;">Notes</label>
-            <input class="form-control-new" type="text">
+          <div class="d-flex flex-row">
+            <div class="">
+              <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Item Status</label>
+              <ng-select [items]="" placeholder="Select Status"></ng-select>
+            </div>
+            <div class="">
+              <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Vendor</label>
+              <ng-select [items]="" placeholder="Select Status"></ng-select>
+            </div>
+            <div class="mt-4 ms-2">
+              <button class="btn-new"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
           </div>
+
+
         </div>
       </div>
       <div class="row p-3">
@@ -759,17 +796,17 @@
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Item number</label>
-                <h1 class="modal_value">Neurology</h1>
+                <h1 class="">Neurology</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item name</label>
-               <h1 class="modal_value">ORS juice</h1>
+               <h1 class="">ORS juice</h1>
               </div>
             </div>
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="" style="width: 100%;margin-bottom: 2.3rem;">
                 <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item category</label>
-                <h1 class="modal_value">ORS Juice</h1>
+                <h1 class="">ORS Juice</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Barcodes</label>
@@ -843,13 +880,13 @@
       <div class="row mx-2 mb-3">
         <div class="col-12">
           <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item description</label>
-          <h1 class="modal_value">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+          <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
         </div>
       </div>
       <div class="row mx-2 mb-3">
         <div class="col-12">
           <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Notes</label>
-          <h1 class="modal_value">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+          <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
         </div>
       </div>
       <div class="row mx-2 mb-3">

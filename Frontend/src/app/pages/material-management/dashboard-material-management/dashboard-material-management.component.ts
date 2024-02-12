@@ -86,7 +86,8 @@ export class DashboardMaterialManagementComponent implements OnInit {
         { field: 'item_no',headerName:'Item No'},
         { field: 'item_name',headerName:'Item Name',onCellClicked: this.cellClicked.bind(this, 'item_name') },
         { field: 'size',headerName:'Size' },
-        { field: 'qty',headerName:'QTY'}
+        { field: 'qty',headerName:'QTY'},
+        { field: 'status',headerName:'Status'}
       ],
       defaultColDef: {
         flex: 1,
@@ -116,6 +117,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
       columnDefs: [
         { field: 'item_name',headerName:'Item Name',onCellClicked: this.cellClicked.bind(this, 'item_name')},
         { field: 'booking',headerName:'Booking' },
+        { field: 'pre_procedure',headerName:'Pre procedure' },
         { field: 'intra_procedure',headerName:'Intra procedure' },
         { field: 'post_procedure',headerName:'Post procedure'}
       ],
@@ -210,6 +212,9 @@ export class DashboardMaterialManagementComponent implements OnInit {
           return params.value ? `<span style="padding:2px 10px 2px 10px;color:#fff;background:#5B4DB7;border-radius:12px">${params.value}</span>` : '-nil-';
         }
       }
+      // case 'status': {
+      //   return params.value ? params.value : '-nil-';
+      // }
     }
   }
 
