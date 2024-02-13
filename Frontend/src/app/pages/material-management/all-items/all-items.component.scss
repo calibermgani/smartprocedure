@@ -280,3 +280,10 @@ border-bottom: none !important;
   font-weight: 400 !important;
 }
 
+.price_field {
+  padding-left: 40px; // Adjust this value to match the width of your icon
+  background-image: url('/assets/images/currency.svg') !important; // Replace with your icon's URL
+  background-repeat: no-repeat !important;
+  background-position: 10px center !important; // Adjust the position of the icon
+  background-size: 20px !important; // Adjust the size of the icon
+}

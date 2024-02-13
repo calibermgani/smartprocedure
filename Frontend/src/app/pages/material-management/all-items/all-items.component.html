@@ -426,8 +426,8 @@
 
 <div bsModal #additem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
   <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
-    <div class="modal-content">
-      <div class="d-flex justify-content-between align-items-center p-3 m-2" style="background: #F3F4F8;">
+    <div class="modal-content p-2">
+      <div class="d-flex justify-content-between align-items-center p-2 m-2" style="background: #F3F4F8;border-radius: 6px;">
         <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Item
         </h1>
         <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="additem?.hide()"
@@ -469,7 +469,7 @@
           </div>
           <div class="d-flex flex-row" style="width: 100%;">
           <div class="">
-            <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Procedure <span style="color: #D62424;font-size: 7px;">You can also link the item to multiple procedure</span></label>
+            <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
             <ng-select [items]="" placeholder="Select Status"></ng-select>
           </div>
           <div class="mt-4 ms-2">
@@ -518,12 +518,12 @@
                 <!-- </div> -->
             </div>
           </div>
-          <div class="d-flex flex-row">
-            <div class="">
+          <div class="d-flex flex-row align-items-center mt-2">
+            <div class="me-4" style="width: 50%;">
               <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Item Status</label>
               <ng-select [items]="" placeholder="Select Status"></ng-select>
             </div>
-            <div class="">
+            <div class="" style="width: 40%;">
               <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Vendor</label>
               <ng-select [items]="" placeholder="Select Status"></ng-select>
             </div>
@@ -540,12 +540,28 @@
       <div class="row p-3">
         <div class="col-4">
           <div class="mb-3">
-            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Item No<span
+            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Price<span
                 style="color: red;">*</span></label>
-            <input class="form-control-new" type="number">
+            <span><i class="d-inline-flex mdi mdi-currency-usd"></i></span><input class="form-control-new price_field" type="number" style="text-align: right;">
           </div>
           <div class="mb-3">
             <label for="size" style="font-size: 10px; color: #1B1B1B;">Size<span style="color: red;">*</span></label>
+            <div class="d-flex">
+             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="unit" style="font-size: 10px; color: #1B1B1B;">Min Level<span style="color: red;">*</span></label>
+            <input class="form-control-new" type="text">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="size" style="font-size: 10px; color: #1B1B1B;">Size</label>
             <div class="d-flex flex-row">
               <input class="form-control-new me-2" type="number">
               <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-2"></ng-select>
@@ -555,62 +571,41 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="unit" style="font-size: 10px; color: #1B1B1B;">Unit<span style="color: red;">*</span></label>
-            <input class="form-control-new" type="number">
+            <label for="vendor" style="font-size: 10px; color: #1B1B1B;">Cabinet</label>
+            <div class="d-flex">
+              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
           </div>
           <div class="mb-3">
-            <label for="min_level" style="font-size: 10px; color: #1B1B1B;">Min Level<span
-                style="color: red;">*</span></label>
+            <label for="expiry_date" style="font-size: 10px; color: #1B1B1B;">Cat No</label>
             <input class="form-control-new" type="number">
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
-            <label for="cat_no" style="font-size: 10px; color: #1B1B1B;">Cat No</label>
+            <label for="lot_no" style="font-size: 10px; color: #1B1B1B;">Unit<span style="color: red;">*</span></label>
             <input class="form-control-new" type="number">
           </div>
           <div class="mb-3">
-            <label for="vendor" style="font-size: 10px; color: #1B1B1B;">Vendor</label>
-            <div class="d-flex flex-row">
-              <ng-select [items]="" placeholder="Choose Option" style="width: 90%;" class="me-2"></ng-select>
-              <button class="btn-new"
-                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
-                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
-            </div>
+            <label for="price" style="font-size: 10px; color: #1B1B1B;">Expiry Date<span style="color: red;">*</span></label>
+            <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker>
           </div>
           <div class="mb-3">
-            <label for="expiry_date" style="font-size: 10px; color: #1B1B1B;">Expiry Date<span
-                style="color: red;">*</span></label>
-            <input class="form-control-new">
-          </div>
-          <div class="mb-3">
-            <label for="tags" style="font-size: 10px; color: #1B1B1B;">Tags</label>
-            <input class="form-control-new" type="text">
+            <label for="on_hand_qty" style="font-size: 10px; color: #1B1B1B;">Lot No</label>
+            <input class="form-control-new" type="number">
           </div>
         </div>
-        <div class="col-4">
+      </div>
+      <div class="row p-3">
+        <div class="col-12">
           <div class="mb-3">
-            <label for="lot_no" style="font-size: 10px; color: #1B1B1B;">Lot No</label>
-            <input class="form-control-new" type="number">
-          </div>
-          <div class="mb-3">
-            <label for="price" style="font-size: 10px; color: #1B1B1B;">Price<span style="color: red;">*</span></label>
-            <input class="form-control-new" type="number">
-          </div>
-          <div class="mb-3">
-            <label for="on_hand_qty" style="font-size: 10px; color: #1B1B1B;">Qty<span
-                style="color: red;">*</span></label>
-            <input class="form-control-new" type="number">
-          </div>
-          <div class="mb-3">
-            <label for="procedure" style="font-size: 10px; color: #1B1B1B;">Procedure</label>
-            <div class="d-flex flex-row">
-              <ng-select [items]="" placeholder="Choose Option" style="width: 90%;" class="me-2"></ng-select>
-              <button class="btn-new"
-                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
-                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
-            </div>
-          </div>
+            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Item description</label>
+            <textarea type="text" class="form-control-new"></textarea>
+           </div>
         </div>
       </div>
       <div class="d-flex justify-content-end p-3">
@@ -618,6 +613,8 @@
           style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
         <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
             width="24px" height="24px" class="me-2">Add</button>
+        <!-- <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+            width="24px" height="24px" class="me-2">Update</button> -->
       </div>
     </div>
   </div>
