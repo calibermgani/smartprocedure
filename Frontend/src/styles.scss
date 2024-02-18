@@ -85,7 +85,7 @@ h4{
 }
 h5{
   font-size: 8px !important;
-  font-weight:400 !important;
+  font-weight:600 !important;
 }
 
 
@@ -263,4 +263,15 @@ input:focus-visible{
 }
 .nextitem{
   position: absolute;right:-5%;top:50%;cursor: pointer;
+}
+
+.modal-label{
+  font-size: 10px; color: #747474;font-weight: 400;
+}
+.modal-label-edit{
+  font-size: 9px;color: #1B1B1B;font-weight: 400;
+}
+
+.pointer{
+  cursor: pointer;
 }

@@ -16,6 +16,8 @@ export class AuthfakeauthenticationService {
     public currentMenu = new BehaviorSubject('sidemenu');
     currentSideMenu = this.currentMenu.asObservable();
 
+    public showGridDetailedView = new BehaviorSubject(true);
+    GridDetailedView_value = this.showGridDetailedView.asObservable();
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -53,5 +55,9 @@ export class AuthfakeauthenticationService {
     passingemail(data:any)
     {
       this.currentUserSubject.next(data);
+    }
+
+    changeViewType(data:any){
+      this.showGridDetailedView.next(data);
     }
 }

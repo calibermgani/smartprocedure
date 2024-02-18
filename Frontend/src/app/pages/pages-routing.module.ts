@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { DefaultComponent } from './dashboards/default/default.component';
 import { AuthGuard } from '../core/guards/auth.guard';
 import { ViewFullGridComponent } from './material-management/view-full-grid/view-full-grid.component';
+import { GridItemsDetailedViewComponent } from './material-management/grid-items-detailed-view/grid-items-detailed-view.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: 'dashboard' },

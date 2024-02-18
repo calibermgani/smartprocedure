@@ -7,7 +7,8 @@
     "procedure":"Cardiology",
     "lot_no":"454",
     "quantity":"55",
-    "store":"24"
+    "store":"24",
+    "vendor_name":"Ralph Edwards"
   },
   {
     "id": 2,
@@ -17,7 +18,8 @@
     "procedure":"Anesthesia",
     "lot_no":"454",
     "quantity":"25",
-    "store":"240"
+    "store":"240",
+    "vendor_name":"Ralph Edwards"
   },{
     "id": 1,
     "item_no":"654432",
@@ -26,7 +28,8 @@
     "procedure":"Diagnostic",
     "lot_no":"454",
     "quantity":"15",
-    "store":"100"
+    "store":"100",
+    "vendor_name":"Ralph Edwards"
   },{
     "id": 1,
     "item_no":"956654",
@@ -35,7 +38,8 @@
     "procedure":"cardiology",
     "lot_no":"454",
     "quantity":"30",
-    "store":"140"
+    "store":"140",
+    "vendor_name":"Ralph Edwards"
   },{
     "id": 1,
     "item_no":"989909",
@@ -44,7 +48,8 @@
     "procedure":"Neurology",
     "lot_no":"454",
     "quantity":"80",
-    "store":"300"
+    "store":"300",
+    "vendor_name":"Ralph Edwards"
   },{
     "id": 1,
     "item_no":"85372",
@@ -53,7 +58,8 @@
     "procedure":"cardiology",
     "lot_no":"454",
     "quantity":"55",
-    "store":"90"
+    "store":"90",
+    "vendor_name":"Ralph Edwards"
   },{
     "id": 1,
     "item_no":"85372",
@@ -62,7 +68,8 @@
     "procedure":"cardiology",
     "lot_no":"454",
     "quantity":"55",
-    "store":"14"
+    "store":"14",
+    "vendor_name":"Ralph Edwards"
   },{
     "id": 1,
     "item_no":"85372",
@@ -71,7 +78,8 @@
     "procedure":"cardiology",
     "lot_no":"454",
     "quantity":"45",
-    "store":"09"
+    "store":"09",
+    "vendor_name":"Ralph Edwards"
   }
 
 ]

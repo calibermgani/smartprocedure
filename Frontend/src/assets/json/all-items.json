@@ -19,6 +19,8 @@
      "notes":"Ortopediska kilnkin",
      "images":"assets/images/barcode.svg",
      "barcodes":"AZ324323XX23",
+     "store": 20,
+     "cabinet":4,
      "action":true
   },
   {
@@ -41,6 +43,8 @@
      "notes":"Ortopediska kilnkin",
      "images":"assets/images/barcode.svg",
      "barcodes":"AZ324323XX23",
+     "store": 20,
+     "cabinet":4,
      "action":true
   },
   {
@@ -63,6 +67,8 @@
      "notes":"Ortopediska kilnkin",
      "images":"assets/images/barcode.svg",
      "barcodes":"AZ324323XX23",
+     "store": 20,
+     "cabinet":4,
      "action":true
   },
   {
@@ -85,6 +91,8 @@
      "notes":"Ortopediska kilnkin",
      "images":"assets/images/barcode.svg",
      "barcodes":"AZ324323XX23",
+     "store": 20,
+     "cabinet":4,
      "action":true
   },
   {
@@ -107,6 +115,8 @@
      "notes":"Ortopediska kilnkin",
      "images":"assets/images/barcode.svg",
      "barcodes":"AZ324323XX23",
+     "store": 20,
+     "cabinet":4,
      "action":true
   }
 ]
