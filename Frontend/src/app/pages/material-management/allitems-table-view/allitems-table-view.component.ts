@@ -13,13 +13,30 @@ export class AllItemsTableViewComponent {
 
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
+  @ViewChild('setalert', { static: false }) setalert?: ModalDirective;
+  @ViewChild('bulkupdate', { static: false }) bulkupdate?: ModalDirective;
+  @ViewChild('move', { static: false }) move?: ModalDirective;
+  @ViewChild('clone', { static: false }) clone?: ModalDirective;
+
   all_Items_gridData:any = [];
   selected_row_data:any[];
+  folder_structure_value:any = [];
   selected_row_data_length:any;
-  showEditablefields:boolean = false;
+  showEditablefields:boolean = true;
 
 
-  constructor(private http : HttpClient){}
+  constructor(private http : HttpClient){
+    setTimeout(() => {
+      // this.clone?.show();
+    }, 1000);
+  }
+
+  ngOnInit(): void {
+    this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
+      this.folder_structure_value = res;
+      console.log('response',this.folder_structure_value);
+    });
+  }
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -62,6 +79,8 @@ export class AllItemsTableViewComponent {
     ],
     defaultToolPanel: null,
   };
+
+
 
   columnDefs1: ColDef[] = [
     {
