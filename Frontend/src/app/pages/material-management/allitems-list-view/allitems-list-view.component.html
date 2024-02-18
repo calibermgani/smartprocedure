@@ -1,48 +1,51 @@
 <!-- Editable Headers -->
 <div class="row">
   <div class="col-12">
-    <div class="d-flex flex-row p-3 editable_header mt-2"
-      style="background: #855EDB;border: 1px solid #855EDB;border-radius:8px;position: relative;z-index: 9;height: 50px;top: -6px;"
-      *ngIf="showEditablefields == true">
-      <div class="flex-shrink-1">
-        <div class="d-flex flex-row align-items-center">
-          <div class="me-2">
-            <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="option1">
+    <div class="d-flex flex-row p-3 editable_header"
+        style="background: #855EDB;border: 1px solid #855EDB;border-radius: 17px 0px 0px 0px;position: relative;z-index: 9;height: 50px;top: -6px;"
+        *ngIf="showEditablefields == true">
+        <div class="flex-shrink-1">
+          <div class="d-flex flex-row align-items-center">
+            <div class="me-2">
+              <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1"
+                value="option1">
+            </div>
+            <div>
+              <h1 style="color: #fff !important;">Deselect | {{selected_row_data_length }} Item selected</h1>
+            </div>
           </div>
-          <div>
-            <h1 style="color: #fff !important;">Deselect | {{selected_row_data_length }} Item selected</h1>
+        </div>
+        <div class="flex-grow-0 ms-auto">
+          <div class="d-flex flex-row justify-centent-between align-items-center">
+            <div class="me-4 pointer">
+              <h1 style="color: #fff !important;" class="mb-0"><i class="mdi mdi-pencil-outline me-1"
+                  style="color:#fff;font-size:13px"></i>Edit</h1>
+            </div>
+            <div class="me-4 pointer" (click)="setalert?.show()">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg"  class="me-1" style="width: 13px;height:20px;">Set Alert</h1>
+            </div>
+            <div class="me-4 pointer" (click)="bulkupdate?.show()">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg"  class="me-1" style="width: 13px;height:20px;">Update Qty</h1>
+            </div>
+            <div class="me-4 pointer" (click)="move?.show()">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg" width="15px"
+                  height="15px" class="me-1">Move</h1>
+            </div>
+            <div class="me-4 pointer" (click)="clone_modal.show()">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/clone_img.svg" width="15px"
+                  height="15px" class="me-1">Clone</h1>
+            </div>
+            <div class="me-4 pointer" (click)="add_tag?.show()">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/add_tag_white.svg" width="15px"
+                  height="15px" class="me-1">Add Tag</h1>
+            </div>
+            <div class="me-4 pointer" (click)="delete_modal?.show()">
+              <h1 style="color: #fff !important;" class="mb-0"><i class="mdi mdi-trash-can-outline me-1"
+                  style="color:#fff;font-size:13px"></i>Delete</h1>
+            </div>
           </div>
         </div>
       </div>
-      <div class="flex-grow-0 ms-auto">
-        <div class="d-flex flex-row justify-centent-between align-items-center">
-          <div class="me-4">
-            <h1 style="color: #fff !important;" class="mb-0"><i class="mdi mdi-pencil-outline me-1"
-                style="color:#fff;font-size:13px"></i>Edit</h1>
-          </div>
-          <div class="me-4">
-            <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg" class="me-1"
-                style="width: 13px;height:13px;">Update Qty</h1>
-          </div>
-          <div class="me-4">
-            <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg"
-                style="width: 13px;height:13px;" class="me-1">Move</h1>
-          </div>
-          <div class="me-4">
-            <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/clone_img.svg"
-                style="width: 13px;height:13px;" class="me-1">Clone</h1>
-          </div>
-          <div class="me-4">
-            <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/add_tag_white.svg"
-                style="width: 13px;height:13px;" class="me-1">Add Tag</h1>
-          </div>
-          <div class="me-4">
-            <h1 style="color: #fff !important;" class="mb-0"><i class="mdi mdi-trash-can-outline me-1"
-                style="color:#fff;font-size:13px"></i>Delete</h1>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
 <div class="row">

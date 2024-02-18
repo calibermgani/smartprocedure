@@ -31,15 +31,15 @@
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg" width="15px"
                   height="15px" class="me-1">Move</h1>
             </div>
-            <div class="me-4 pointer" (click)="clone?.show()">
+            <div class="me-4 pointer" (click)="clone_modal.show()">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/clone_img.svg" width="15px"
                   height="15px" class="me-1">Clone</h1>
             </div>
-            <div class="me-4 pointer">
+            <div class="me-4 pointer" (click)="add_tag?.show()">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/add_tag_white.svg" width="15px"
                   height="15px" class="me-1">Add Tag</h1>
             </div>
-            <div class="me-4 pointer">
+            <div class="me-4 pointer" (click)="delete_modal?.show()">
               <h1 style="color: #fff !important;" class="mb-0"><i class="mdi mdi-trash-can-outline me-1"
                   style="color:#fff;font-size:13px"></i>Delete</h1>
             </div>
@@ -53,7 +53,7 @@
   </div>
 </div>
 
-<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
   <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -248,7 +248,7 @@
   </div>
 </div>
 
-<div bsModal #bulkupdate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+<div bsModal #bulkupdate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name3">
   <div class="modal-dialog modal-dialog-centered" style="max-width:600px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -343,8 +343,7 @@
   </div>
 </div>
 
-
-<div bsModal #move="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+<div bsModal #move="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name4">
   <div class="modal-dialog modal-dialog-centered" style="max-width:315px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -385,5 +384,99 @@
     </div>
   </div>
 </div>
+</div>
 
 
+<div bsModal #clone_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:310px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Clone
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="clone_modal?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="row mx-2">
+        <div class="col-12">
+          <div class="d-flex flex-column my-2"></div>
+          <div><h1 class="mb-2">Are you sure want to clone 2 items</h1></div>
+          <div>
+            <h4 style="color: #855EDB;">Juice , Curabitur</h4>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #add_tag="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:390px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Add Tag
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="add_tag?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="row mx-2 my-2">
+        <div class="col-12">
+          <div class="mt-1" >
+            <label for="items_category" class="modal-label-edit mb-1">Tag Name<span
+              style="color: red;">*</span></label>
+           <input type="text" class="form-control" placeholder="Search">
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+          width="24px" height="24px" class="me-2">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #delete_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:300px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Delete
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="delete_modal?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="d-flex flex-column align-items-center justify-content-between my-4">
+        <div class="mb-2">
+          <img src="assets/images/delete_modal_img.svg" style="width: 40px;height: 40px;">
+        </div>
+        <div class="mb-2">
+          <h1>Do you want to delete 1 items?</h1>
+        </div>
+        <div class="mb-2">
+          <h4>You can always restore deleted items from Trash.</h4>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-evenly p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Go back</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Yes,continue</button>
+      </div>
+    </div>
+  </div>
+</div>

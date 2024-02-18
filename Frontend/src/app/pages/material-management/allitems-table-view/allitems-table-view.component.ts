@@ -16,7 +16,9 @@ export class AllItemsTableViewComponent {
   @ViewChild('setalert', { static: false }) setalert?: ModalDirective;
   @ViewChild('bulkupdate', { static: false }) bulkupdate?: ModalDirective;
   @ViewChild('move', { static: false }) move?: ModalDirective;
-  @ViewChild('clone', { static: false }) clone?: ModalDirective;
+  @ViewChild('clone_modal', { static: false }) clone_modal: ModalDirective;
+  @ViewChild('add_tag', { static: false }) add_tag: ModalDirective;
+  @ViewChild('delete_modal', { static: false }) delete_modal: ModalDirective;
 
   all_Items_gridData:any = [];
   selected_row_data:any[];
@@ -26,9 +28,6 @@ export class AllItemsTableViewComponent {
 
 
   constructor(private http : HttpClient){
-    setTimeout(() => {
-      // this.clone?.show();
-    }, 1000);
   }
 
   ngOnInit(): void {
