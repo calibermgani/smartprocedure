@@ -64,41 +64,43 @@ export class BackToCabinetComponent {
 
   columnDefs1: ColDef[] = [
     {
-      field: 'item_no',
-      headerName: 'Item no',
-      cellRenderer: this.cellrendered.bind(this, 'item_no'),
-      width:100,
+      field: 'mrn_no',
+      headerName:'MRN No',
+      filter: "agTextColumnFilter", suppressMenu: false,
+      cellRenderer: this.cellRendered.bind(this, 'mrn_no')
     },
     {
-      field: 'item_name',
-      headerName: 'Item Name',
-      cellRenderer: this.cellrendered.bind(this, 'item_name'),
-      onCellClicked: this.cellClicked.bind(this, 'item_name')
+      field: 'accession_no',
+      headerName:'Accession No',
+      filter: "agTextColumnFilter",suppressMenu: false,
+      cellRenderer: this.cellRendered.bind(this, 'accession_no')
     },
     {
-      field: 'procedure',
-      headerName: 'Procedure',
-      cellRenderer: this.cellrendered.bind(this, 'procedure')
+      field: 'procedure_code',
+      headerName:'Procedure Code',
+      filter: "agTextColumnFilter",suppressMenu: false,
+      cellRenderer: this.cellRendered.bind(this, 'procedure_code')
     },
     {
-      field: 'quantity',
-      headerName: 'Quantity',
-      cellRenderer: this.cellrendered.bind(this, 'quantity')
+      field: 'procedure_date',
+      headerName:'Procedure Date',
+      filter: "agTextColumnFilter",suppressMenu: false,
+      cellRenderer: this.cellRendered.bind(this, 'procedure_date')
     },
   ];
 
-  cellrendered(headerName: any, params: any) {
+  cellRendered(headerName: any, params: any) {
     switch (headerName) {
-      case'item_no':{
+      case'mrn_no':{
         return params.value;
       }
-      case 'item_name': {
+      case 'accession_no': {
         return params.value;
       }
-      case 'procedure': {
+      case 'procedure_code': {
         return params.value;
       }
-      case 'quantity': {
+      case 'procedure_date': {
         return params.value;
       }
     }
@@ -114,7 +116,7 @@ export class BackToCabinetComponent {
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-    this.http.get('assets/json/damaged-list.json').subscribe((res:any)=>{
+    this.http.get('assets/json/damaged_grid.json').subscribe((res:any)=>{
       this.damagedGriddata = res;
     })
   }

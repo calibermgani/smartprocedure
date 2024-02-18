@@ -30,7 +30,7 @@
   margin-bottom: 0px !important
 }
 .tabs-links-1{
-  margin: 0px 12px;
+  margin: 0px 5px;
   margin-bottom: 0px !important
 }
 
@@ -73,6 +73,10 @@ li::marker{
   background: #F3F4F8;
   padding: 8px;
   cursor: pointer;
+}
+
+.dropdown-item{
+  padding: 0.35rem 0.9rem !important;
 }
 
 .dropdown-item:hover
@@ -269,6 +273,9 @@ border-bottom: none !important;
 }
 .resizeGrid{
   width: 100% !important;
+  height: 588px;
+  overflow-y:hidden;
+  overflow-x: hidden;
 }
 
 .item_category_label{
@@ -286,4 +293,8 @@ border-bottom: none !important;
   background-repeat: no-repeat !important;
   background-position: 10px center !important; // Adjust the position of the icon
   background-size: 20px !important; // Adjust the size of the icon
+}
+
+.changeView{
+  background: #594585;
 }

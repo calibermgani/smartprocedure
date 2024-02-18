@@ -23,6 +23,11 @@ import { RecallComponent } from './recall/recall.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { NgxSliderModule } from 'ngx-slider-v2';
 import { FormsModule } from '@angular/forms';
+import { WastedComponent } from './wasted/wasted.component';
+import { AllItemsTableViewComponent } from './allitems-table-view/allitems-table-view.component';
+import { AllitemsGridViewComponent } from './allitems-grid-view/allitems-grid-view.component';
+import { AllitemsListViewComponent } from './allitems-list-view/allitems-list-view.component';
+import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-items-detailed-view.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,12 @@ import { FormsModule } from '@angular/forms';
     BackToCabinetComponent,
     NearExpiredComponent,
     RefillToCabinetComponent,
-    RecallComponent
+    RecallComponent,
+    WastedComponent,
+    AllItemsTableViewComponent,
+    AllitemsGridViewComponent,
+    AllitemsListViewComponent,
+    GridItemsDetailedViewComponent
   ],
   imports: [
     CommonModule,

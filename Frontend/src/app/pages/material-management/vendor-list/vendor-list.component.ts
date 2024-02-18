@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-vendor-list',
@@ -16,6 +17,7 @@ export class VendorListComponent implements OnInit {
   vendorList:string[];
 
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
+  @ViewChild('edit_vendor', { static: true }) edit_vendor: ModalDirective;
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -118,7 +120,8 @@ export class VendorListComponent implements OnInit {
     {
       field: 'action',
       headerName: 'Action',
-      cellRenderer: this.cellrendered.bind(this, 'action')
+      cellRenderer: this.cellrendered.bind(this, 'action'),
+      onCellClicked: this.CellClicked.bind(this, 'action')
 
     }
   ];
@@ -165,21 +168,64 @@ export class VendorListComponent implements OnInit {
         if(params.value)
         {
           return `<div class="d-flex flex-row">
-          <i class="mdi mdi-pencil-outline me-3" style="color:#000;font-size:18px"></i>
-          <i class="mdi mdi-trash-can-outline me-3" style="color:red;font-size:18px"></i>
+          <i class="mdi mdi-pencil-outline me-3 edit-row" style="color:#000;font-size:18px;cursor:pointer"></i>
+          <i class="mdi mdi-trash-can-outline me-3 delete-row" style="color:red;font-size:18px;cursor:pointer"></i>
           </div>`
         }
       }
     }
   }
 
-  CellClicked(headerName: any, params: any) {}
+  CellClicked(headerName: any, params: any) {
+    switch(headerName){
+      case 'action':{
+        const editIcons = document.querySelectorAll('.edit-row');
+        // Add click event listeners to edit icons
+        editIcons.forEach(icon => {
+            icon.addEventListener('click', (event) => {
+              this.edit_vendor?.show();
+                console.log('Edit icon clicked');
+            });
+        });
+
+        const deleteIcons = document.querySelectorAll('.delete-row');
+        // Add click event listeners to edit icons
+        deleteIcons.forEach(icon => {
+            icon.addEventListener('click', (event) => {
+                console.log('Delete icon clicked');
+            });
+        });
+        break;
+      }
+    }
+  }
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
     this.http.get('assets/json/vendor-list.json').subscribe((res:any)=>{
       this.vendorList = res;
       this.myGrid_1.api?.setRowData(this.vendorList);
-    })
+
+      setTimeout(() => {
+        const editIcons = document.querySelectorAll('.edit-row');
+        const deleteIcons = document.querySelectorAll('.delete-row');
+
+        // Add click event listeners to edit icons
+        editIcons.forEach(icon => {
+            icon.addEventListener('click', (event) => {
+               this.edit_vendor?.show();
+                console.log('Edit icon clicked');
+            });
+        });
+        // Add click event listeners to delete icons
+        deleteIcons.forEach(icon => {
+            icon.addEventListener('click', (event) => {
+                // Your delete logic here
+                console.log('Delete icon clicked');
+            });
+        });
+      }, 100);
+    });
   }
+
 }

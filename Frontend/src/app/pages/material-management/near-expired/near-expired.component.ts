@@ -81,11 +81,6 @@ export class NearExpiredComponent {
       cellRenderer: this.cellrendered.bind(this, 'expiry_date'),
     },
     {
-      field: 'procedure',
-      headerName: 'Procedure',
-      cellRenderer: this.cellrendered.bind(this, 'procedure')
-    },
-    {
       field: 'quantity',
       headerName: 'Quantity',
       cellRenderer: this.cellrendered.bind(this, 'quantity')
@@ -98,9 +93,6 @@ export class NearExpiredComponent {
         return params.value;
       }
       case 'item_name': {
-        return params.value;
-      }
-      case 'procedure': {
         return params.value;
       }
       case 'quantity': {

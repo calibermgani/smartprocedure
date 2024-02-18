@@ -76,24 +76,19 @@ export class RecallComponent {
       onCellClicked: this.cellClicked.bind(this, 'item_name')
     },
     {
+      field: 'lot_no',
+      headerName: 'Lot no',
+      cellRenderer: this.cellrendered.bind(this, 'lot_no')
+    },
+    {
       field: 'expiry_date',
       headerName: 'Expiry Date',
       cellRenderer: this.cellrendered.bind(this, 'expiry_date'),
     },
     {
-      field: 'procedure',
-      headerName: 'Procedure',
-      cellRenderer: this.cellrendered.bind(this, 'procedure')
-    },
-    {
       field: 'quantity',
       headerName: 'Quantity',
       cellRenderer: this.cellrendered.bind(this, 'quantity')
-    },
-    {
-      field: 'lot_no',
-      headerName: 'Lot no',
-      cellRenderer: this.cellrendered.bind(this, 'lot_no')
     },
   ];
 
@@ -103,9 +98,6 @@ export class RecallComponent {
         return params.value;
       }
       case 'item_name': {
-        return params.value;
-      }
-      case 'procedure': {
         return params.value;
       }
       case 'quantity': {

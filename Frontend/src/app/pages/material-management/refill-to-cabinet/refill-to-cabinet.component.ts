@@ -76,11 +76,6 @@ export class RefillToCabinetComponent {
       onCellClicked: this.cellClicked.bind(this, 'item_name')
     },
     {
-      field: 'procedure',
-      headerName: 'Procedure',
-      cellRenderer: this.cellrendered.bind(this, 'procedure')
-    },
-    {
       field: 'quantity',
       headerName: 'Quantity',
       cellRenderer: this.cellrendered.bind(this, 'quantity')
@@ -95,13 +90,7 @@ export class RefillToCabinetComponent {
       case 'item_name': {
         return params.value;
       }
-      case 'procedure': {
-        return params.value;
-      }
       case 'quantity': {
-        return params.value;
-      }
-      case 'expiry_date':{
         return params.value;
       }
     }

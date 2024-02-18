@@ -6,7 +6,7 @@
           <h1 class="header_name">Overall List</h1>
         </div>
         <div class="mb-2">
-        <input class="form-control-new mt-2" placeholder="Search by category,folder and item">
+        <input class="form-control-new-sm mt-2" placeholder="Search by category,folder and item">
         </div>
         <div class="list_body" style="height: 600px;">
           <div class="d-flex" *ngFor="let x of folder_structure_value;let i = index" style="position: relative;">
@@ -101,6 +101,12 @@
               <a class="nav-link" data-bs-toggle="tab" href="#backtocabinet" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('backtocabinet')"
                 (click)="SelectedTab('backtocabinet')">
                 <h1 class="d-none d-sm-block name">Back to cabinet</h1>
+              </a>
+            </li>
+            <li class="nav-item tabs-links-1" role="presentation">
+              <a class="nav-link" data-bs-toggle="tab" href="#wasted" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('wasted')"
+                (click)="SelectedTab('wasted')">
+                <h1 class="d-none d-sm-block name">Wasted</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
@@ -206,11 +212,11 @@
         </div>
       </div>
       <div class="tab-content py-2 text-muted">
-        <div class="tab-pane active show" id="allitems" role="tabpanel">
+        <div class="tab-pane active show" id="allitems" role="tabpanel" *ngIf="overallview == true">
           <div class="d-flex flex-row align-items-center" style="background: #F3F4F8;border-radius: 8px;padding: 15px;">
             <div class="me-2">
               <button class="btn-new"
-                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="hideAdvancedFilters()">Filter</button>
+                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="hideAdvancedFilters()"><i class="mdi mdi-filter-outline me-2"></i>Filter</button>
             </div>
             <div class="me-2" style="width: 20%;">
               <input class="form-control" type="text" placeholder="Search">
@@ -218,7 +224,6 @@
             <div class="d-flex flex-row align-items-center me-2" style="width: 20%;">
               <input class="form-control" type="text" placeholder="scan or type"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;right: 10%;">
             </div>
-
             <div class="me-2" >
               <button class="btn-2"
                 style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;border: 0.5px solid #855EDB;">Reset</button>
@@ -226,6 +231,19 @@
             <div class="me-2">
               <button class="btn-new"
                 style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;">Search</button>
+            </div>
+            <div class="ms-auto pointer">
+              <div class="d-flex flex-row" >
+                <div (click)="ChangeView('grid')">
+                  <img src="assets/images/grid_view.svg" [ngClass]="{'changeView': selectedView == 'grid' }" tooltip="Grid" placement="top">
+                </div>
+                <div (click)="ChangeView('list')">
+                  <img src="assets/images/list_view.svg" [ngClass]="{'changeView': selectedView == 'list' }" tooltip="List" placement="top">
+                </div>
+                <div (click)="ChangeView('table')">
+                  <img src="assets/images/table_view.svg" [ngClass]="{'changeView': selectedView == 'table' }" tooltip="Table" placement="top">
+                </div>
+              </div>
             </div>
           </div>
           <div class="row">
@@ -250,7 +268,7 @@
               <div class="mt-3 me-1">
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
-                    <p class="mb-1" style="font-weight: 400 !important;">Folder</p>
+                    <p class="mb-1" style="font-weight: 400 !important;">Category</p>
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
@@ -283,7 +301,22 @@
               <div class="mt-4 me-1">
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
-                    <p class="mb-1" style="font-weight: 400 !important;">Quantity</p>
+                    <p class="mb-1" style="font-weight: 400 !important;">Store Qty</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options"></ngx-slider>
+                    <div class="d-flex flex-row mt-2">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="QuantityminValue">
+                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="QuantitymaxValue">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Cabinet Qty</p>
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
@@ -313,11 +346,37 @@
               <div class="mt-4 me-1">
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Min Level</p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options"></ngx-slider>
+                    <div class="d-flex flex-row mt-2">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="QuantityminValue">
+                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="QuantitymaxValue">
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
+                    <p class="mb-1" style="font-weight: 400 !important;">Quantity alert<span style="font-size: 9px;color: #747474;" class="ms-1">With Qty alert setup</span></p>
+                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                  </div>
+                  <div>
+                    <ng-select [items]="" placeholder="Select"></ng-select>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-4 me-1">
+                <div class="d-flex flex-column">
+                  <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Tags</p>
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" >
+                    <input type="text" class="form-control-new" placeholder="Search by Tags">
                   </div>
                 </div>
               </div>
@@ -335,11 +394,11 @@
               <div class="mt-4 me-1">
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
-                    <p class="mb-1" style="font-weight: 400 !important;">Tags</p>
+                    <p class="mb-1" style="font-weight: 400 !important;">Notes</p>
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" >
+                    <input type="text" class="form-control-new" placeholder="Search by Notes">
                   </div>
                 </div>
               </div>
@@ -351,46 +410,17 @@
             </div>
             <div class="col-9" [ngClass]="{'resizeGrid':resize ==false}">
               <div class="mt-2">
-                <div class="d-flex flex-row p-3" style="background: #855EDB;border: 1px solid #855EDB;border-radius: 17px 17px 0px 0px;position: absolute;z-index: 9;width: 98.5%;height: 50px;" *ngIf="showEditablefields == true">
-                  <div class="flex-shrink-1">
-                    <div class="d-flex flex-row align-items-center">
-                      <div class="me-2">
-                        <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" value="option1">
-                      </div>
-                      <div>
-                        <h1 style="color: #fff !important;">Deselect | {{selected_row_data_length   }} Item selected</h1>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="flex-grow-0 ms-auto">
-                    <div class="d-flex flex-row justify-centent-between align-items-center">
-                      <div class="me-4">
-                        <h1 style="color: #fff !important;" class="mb-0"> <i class="mdi mdi-pencil-outline me-1" style="color:#fff;font-size:18px"></i>Edit</h1>
-                      </div>
-                      <div class="me-4">
-                        <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg" width="15px" height="15px" class="me-1">Update Qty</h1>
-                      </div>
-                      <div class="me-4">
-                        <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg" width="15px" height="15px" class="me-1">Move</h1>
-                      </div>
-                      <div class="me-4">
-                        <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/clone_img.svg" width="15px" height="15px" class="me-1">Clone</h1>
-                      </div>
-                      <div class="me-4">
-                        <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/add_tag_white.svg" width="15px" height="15px" class="me-1">Add Tag</h1>
-                      </div>
-                      <div class="me-4">
-                        <h1 style="color: #fff !important;" class="mb-0"> <i class="mdi mdi-trash-can-outline me-1" style="color:#fff;font-size:18px"></i>Delete</h1>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
-                  style="width: 100%;height: 578px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef" (selectionChanged)="onSelectionChanged($event)"
-                  [sideBar]="sideBar"></ag-grid-angular>
+                <app-allitems-table-view *ngIf="selectedView == 'table' "></app-allitems-table-view>
+                <app-allitems-grid-view *ngIf="selectedView == 'grid' "></app-allitems-grid-view>
+                <app-allitems-list-view *ngIf="selectedView == 'list' "></app-allitems-list-view>
               </div>
             </div>
           </div>
+        </div>
+        <div class="tab-pane active show" id="allitems" role="tabpanel" *ngIf="overallview == false">
+
+            <app-grid-items-detailed-view></app-grid-items-detailed-view>
+
         </div>
         <div class="tab-pane" id="vendor_list" role="tabpanel">
           <app-vendor-list *ngIf="enableTab=='vendor_list'"></app-vendor-list>
@@ -403,6 +433,9 @@
         </div>
         <div class="tab-pane" id="backtocabinet" role="tabpanel">
           <app-back-to-cabinet *ngIf="enableTab=='backtocabinet'"></app-back-to-cabinet>
+        </div>
+        <div class="tab-pane" id="wasted" role="tabpanel">
+          <app-wasted *ngIf="enableTab=='wasted'"></app-wasted>
         </div>
         <div class="tab-pane" id="near_expired" role="tabpanel">
           <app-near-expired *ngIf="enableTab=='near_expired'"></app-near-expired>
@@ -436,7 +469,7 @@
       <div class="row p-3">
         <div class="col-4">
           <div class="mb-3">
-            <label for="images" style="font-size: 10px; color: #1B1B1B;">Images</label>
+            <label class="modal-label-edit">Images</label>
             <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
             <form>
               <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'">
@@ -469,7 +502,7 @@
           </div>
           <div class="d-flex flex-row" style="width: 100%;">
           <div class="">
-            <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
+            <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
             <ng-select [items]="" placeholder="Select Status"></ng-select>
           </div>
           <div class="mt-4 ms-2">
@@ -482,7 +515,7 @@
         <div class="col-8">
           <div class="d-flex flex-row justify-centent-between">
             <div class="mb-3 me-4" style="width: 50%;">
-              <label for="items_category" style="font-size: 10px; color: #1B1B1B;">Items Category<span
+              <label for="items_category" class="modal-label-edit">Items Category<span
                   style="color: red;">*</span></label>
               <ng-select [items]="" placeholder="Select Status"></ng-select>
             </div>
@@ -492,7 +525,7 @@
                   class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div> -->
             <div class="mb-3" style="width: 50%;">
-              <label for="items_name" style="font-size: 10px; color: #1B1B1B;">Items Name<span
+              <label for="items_name" class="modal-label-edit">Items Name<span
                   style="color: red;">*</span></label>
               <input class="form-control-new" type="text">
             </div>
@@ -500,7 +533,7 @@
           <div class="d-flex flex-row">
             <div class="d-flex flex-row" style="width: 50%;">
               <div class="mb-5" style="width: 100%;">
-                <label for="items_descrption" style="font-size: 10px; color: #1B1B1B;">Item Category<span
+                <label for="items_descrption" class="modal-label-edit">Item Category<span
                   style="color: red;">*</span></label>
                 <ng-select [items]="" placeholder="Select Category"></ng-select>
               </div>
@@ -511,7 +544,7 @@
               </div>
             </div>
             <div class="ms-4" style="width: 50%;">
-              <label for="notes" style="font-size: 10px; color: #1B1B1B;">Barcodes<span
+              <label for="notes" class="modal-label-edit">Barcodes<span
                 style="color: red;">*</span></label>
                 <!-- <div class="d-flex flex-row align-items-center" style="width: 100%;"> -->
                   <input class="form-control-new" type="text" placeholder="scan or type"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;bottom: 25%;left: 90%;">
@@ -520,11 +553,11 @@
           </div>
           <div class="d-flex flex-row align-items-center mt-2">
             <div class="me-4" style="width: 50%;">
-              <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Item Status</label>
+              <label for="items_status" class="modal-label-edit">Item Status</label>
               <ng-select [items]="" placeholder="Select Status"></ng-select>
             </div>
             <div class="" style="width: 40%;">
-              <label for="items_status" style="font-size: 10px; color: #1B1B1B;">Vendor</label>
+              <label for="items_status" class="modal-label-edit">Vendor</label>
               <ng-select [items]="" placeholder="Select Status"></ng-select>
             </div>
             <div class="mt-4 ms-2">
@@ -540,12 +573,12 @@
       <div class="row p-3">
         <div class="col-4">
           <div class="mb-3">
-            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Price<span
+            <label for="items_no" class="modal-label-edit">Price<span
                 style="color: red;">*</span></label>
             <span><i class="d-inline-flex mdi mdi-currency-usd"></i></span><input class="form-control-new price_field" type="number" style="text-align: right;">
           </div>
           <div class="mb-3">
-            <label for="size" style="font-size: 10px; color: #1B1B1B;">Size<span style="color: red;">*</span></label>
+            <label for="size" class="modal-label-edit">Size<span style="color: red;">*</span></label>
             <div class="d-flex">
              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
@@ -555,13 +588,13 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="unit" style="font-size: 10px; color: #1B1B1B;">Min Level<span style="color: red;">*</span></label>
+            <label for="unit" class="modal-label-edit">Min Level<span style="color: red;">*</span></label>
             <input class="form-control-new" type="text">
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
-            <label for="size" style="font-size: 10px; color: #1B1B1B;">Size</label>
+            <label for="size" class="modal-label-edit">Size</label>
             <div class="d-flex flex-row">
               <input class="form-control-new me-2" type="number">
               <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-2"></ng-select>
@@ -571,7 +604,7 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="vendor" style="font-size: 10px; color: #1B1B1B;">Cabinet</label>
+            <label for="vendor" class="modal-label-edit">Cabinet</label>
             <div class="d-flex">
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
@@ -581,21 +614,21 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="expiry_date" style="font-size: 10px; color: #1B1B1B;">Cat No</label>
+            <label for="expiry_date" class="modal-label-edit">Cat No</label>
             <input class="form-control-new" type="number">
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
-            <label for="lot_no" style="font-size: 10px; color: #1B1B1B;">Unit<span style="color: red;">*</span></label>
+            <label for="lot_no" class="modal-label-edit">Unit<span style="color: red;">*</span></label>
             <input class="form-control-new" type="number">
           </div>
           <div class="mb-3">
-            <label for="price" style="font-size: 10px; color: #1B1B1B;">Expiry Date<span style="color: red;">*</span></label>
+            <label for="price" class="modal-label-edit">Expiry Date<span style="color: red;">*</span></label>
             <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker>
           </div>
           <div class="mb-3">
-            <label for="on_hand_qty" style="font-size: 10px; color: #1B1B1B;">Lot No</label>
+            <label for="on_hand_qty" class="modal-label-edit">Lot No</label>
             <input class="form-control-new" type="number">
           </div>
         </div>
@@ -603,7 +636,7 @@
       <div class="row p-3">
         <div class="col-12">
           <div class="mb-3">
-            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Item description</label>
+            <label for="items_no" class="modal-label-edit">Item description</label>
             <textarea type="text" class="form-control-new"></textarea>
            </div>
         </div>
@@ -633,21 +666,21 @@
       <div class="row p-3">
         <div class="col-4">
           <div class="mb-3">
-            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Category Name<span
+            <label for="items_no" class="modal-label-edit">Category Name<span
                 style="color: red;">*</span></label>
             <input class="form-control-new">
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
-            <label for="cat_no" style="font-size: 10px; color: #1B1B1B;">Category short Code<span
+            <label for="cat_no" class="modal-label-edit">Category short Code<span
                 style="color: red;">*</span></label>
             <input class="form-control-new">
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
-            <label for="lot_no" style="font-size: 10px; color: #1B1B1B;">Status</label>
+            <label for="lot_no" class="modal-label-edit">Status</label>
             <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
           </div>
         </div>
@@ -675,30 +708,30 @@
         <div class="col-8">
           <div class="d-flex justify-content-between">
             <div class="mb-3" style="width: 270px">
-              <label for="items_category" style="font-size: 10px; color: #1B1B1B;">Vendor Name<span
+              <label for="items_category" class="modal-label-edit">Vendor Name<span
                   style="color: red;">*</span></label>
               <input class="form-control-new">
             </div>
             <div class="mb-3" style="width: 270px">
-              <label for="items_name" style="font-size: 10px; color: #1B1B1B;">Vendor Email<span
+              <label for="items_name" class="modal-label-edit">Vendor Email<span
                   style="color: red;">*</span></label>
               <input class="form-control-new">
             </div>
           </div>
           <div class="">
-            <label for="notes" style="font-size: 10px; color: #1B1B1B;">Vendor contact no</label>
+            <label for="notes" class="modal-label-edit">Vendor contact no</label>
             <input class="form-control-new">
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
-            <label for="items_no" style="font-size: 10px; color: #1B1B1B;">Vendor Address<span
+            <label for="items_no" class="modal-label-edit">Vendor Address<span
                 style="color: red;">*</span></label>
 
             <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
           </div>
           <div class="mb-3">
-            <label for="size" style="font-size: 10px; color: #1B1B1B;">Status</label>
+            <label for="size" class="modal-label-edit">Status</label>
             <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
           </div>
         </div>
@@ -725,7 +758,7 @@
       <div class="row" style="width: 100%;">
         <div class="col-12 p-3 mx-2">
           <div class="mb-3 mx-2">
-            <label for="items_category" style="font-size: 10px; color: #747474;">Tag Name<span
+            <label class="modal-label-edit">Tag Name<span
                 style="color: red;">*</span></label>
             <input class="form-control-new">
           </div>
@@ -784,7 +817,7 @@
         <div class="col-3 px-2">
           <div class="d-flex flex-column justify-centent-between">
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;">Item:</label>
+              <label for="items_category" class="modal-label">Item:</label>
               <img src="assets/images/item_image_sample.svg" width="207px" height="104px"><span class="item_category_label" >Daily consumed</span>
             </div>
           </div>
@@ -792,21 +825,21 @@
         <div class="col-9" style="padding: 0px 0px 0px 84px;">
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Item number</label>
+                <label for="items_category" class="modal-label mb-1">Item number</label>
                 <h1 class="">Neurology</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item name</label>
+                <label for="items_category" class="modal-label mb-1" >Item name</label>
                <h1 class="">ORS juice</h1>
               </div>
             </div>
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="" style="width: 100%;margin-bottom: 2.3rem;">
-                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item category</label>
+                <label for="items_category" class="modal-label mb-1">Item category</label>
                 <h1 class="">ORS Juice</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Barcodes</label>
+                <label for="items_category" class="modal-label mb-1">Barcodes</label>
                 <h1><img src="assets/images/barcode_view.svg" width="100px" height="45px" style="display: inline-flex;"></h1>
               </div>
             </div>
@@ -816,19 +849,19 @@
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Procedure </label>
+              <label for="items_category" class="modal-label mb-1">Procedure </label>
               <h1 class="">Cardiology</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Price</label>
+              <label for="items_category" class="modal-label mb-1">Price</label>
               <h1 class="">100.00</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Store</label>
+              <label for="items_category" class="modal-label mb-1" >Store</label>
               <h1 class="">50</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Min level  </label>
+              <label for="items_category" class="modal-label mb-1">Min level  </label>
               <h1 class="">52934</h1>
             </div>
           </div>
@@ -836,19 +869,19 @@
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item Status</label>
+              <label for="items_category" class="modal-label mb-1">Item Status</label>
               <h1 class="">In Stock</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Size</label>
+              <label for="items_category" class="modal-label mb-1">Size</label>
               <h1 class="">300ml</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Cabinet</label>
+              <label for="items_category" class="modal-label mb-1">Cabinet</label>
               <h1 class="">0</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Cat No</label>
+              <label for="items_category" class="modal-label mb-1" >Cat No</label>
               <h1 class="">56954</h1>
             </div>
           </div>
@@ -856,40 +889,50 @@
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Vendor</label>
+              <label for="items_category" class="modal-label mb-1" >Vendor</label>
               <h1 class="">Flores Junita</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Unit</label>
+              <label for="items_category" class="modal-label mb-1">Unit</label>
               <h1 class="">60</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Expiry Date</label>
+              <label for="items_category" class="modal-label mb-1">Expiry Date</label>
               <h1 class="">14-10-2023</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Lot No</label>
+              <label for="items_category" class="modal-label mb-1">Lot No</label>
               <h1 class="">14454</h1>
             </div>
           </div>
         </div>
       </div>
       <div class="row mx-2 mb-3">
+        <div class="col-8">
+          <div class="d-flex">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Tags</label>
+              <h1 >#energy #ORS #energy #ORS #energy #ORS #energy #ORS</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Unit No</label>
+            <h1 class="">10</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row mx-2 mb-3">
         <div class="col-12">
-          <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item description</label>
+          <label for="items_category" class="modal-label mb-1">Item description</label>
           <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
         </div>
       </div>
       <div class="row mx-2 mb-3">
         <div class="col-12">
-          <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Notes</label>
+          <label for="items_category" class="modal-label mb-1">Notes</label>
           <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
-        </div>
-      </div>
-      <div class="row mx-2 mb-3">
-        <div class="col-12">
-          <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Tags</label>
-          <h1 >#energy#ORS</h1>
         </div>
       </div>
     </div>
@@ -929,15 +972,15 @@
       </div>
       <div class="d=flex flex-column p-3">
         <div class="mb-3 mt-1" style="width: 100%;">
-          <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Vendor Name</label>
+          <label for="items_category" class="modal-label-edit mb-1">Vendor Name</label>
           <h1 class="">Ralph Edwards</h1>
         </div>
         <div class="mb-3 mt-1" style="width: 100%;">
-          <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Contact Person</label>
+          <label for="items_category" class="modal-label-edit mb-1">Contact Person</label>
           <h1 class="">Nguyen shane</h1>
         </div>
         <div class="mb-3 mt-1" style="width: 100%;">
-          <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Comment</label>
+          <label for="items_category" class="modal-label-edit mb-1">Comment</label>
           <textarea class="form-control-new" style="font-size: 10px !important;font-weight: 400 !important;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua</textarea>
         </div>
       </div>
@@ -966,19 +1009,19 @@
       <div class="row mx-2">
         <div class="col-4" >
           <div class="mb-3 mt-1">
-            <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Sub category Name<span style="color: red;">*</span></label>
+            <label for="items_category" class="modal-label-edit mb-1">Sub category Name<span style="color: red;">*</span></label>
             <input type="text" class="form-control-new" placeholder="">
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3 mt-1" >
-            <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Choose category</label>
+            <label for="items_category" class="modal-label-edit mb-1">Choose category</label>
             <ng-select [items]="" placeholder="Select category"></ng-select>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3 mt-1">
-            <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Status<span style="color: red;">*</span></label>
+            <label for="items_category" class="modal-label-edit mb-1">Status<span style="color: red;">*</span></label>
             <ng-select [items]="" placeholder="Select status"></ng-select>
           </div>
         </div>

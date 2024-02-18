@@ -81,7 +81,8 @@ export class DailyConsumedComponent implements OnInit{
         { field: 'item_no',headerName:'Item No'},
         { field: 'item_name',headerName:'Item Name',onCellClicked: this.cellClicked.bind(this, 'item_name') },
         { field: 'size',headerName:'Size' },
-        { field: 'qty',headerName:'QTY'}
+        { field: 'qty',headerName:'QTY'},
+        { field: 'status',headerName:'Status'}
       ],
       defaultColDef: {
         flex: 1,

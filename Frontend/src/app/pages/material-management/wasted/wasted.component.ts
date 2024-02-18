@@ -1,17 +1,18 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 
-@Component({
-  selector: 'app-damaged',
-  templateUrl: './damaged.component.html',
-  styleUrls: ['./damaged.component.scss']
-})
-export class DamagedComponent implements OnInit{
 
-  @ViewChild('myGrid_Damaged') myGrid_Damaged: AgGridAngular;
+@Component({
+  selector: 'app-wasted',
+  templateUrl: './wasted.component.html',
+  styleUrls: ['./wasted.component.scss']
+})
+export class WastedComponent {
+
+  @ViewChild('myGrid_backtocabinet') myGrid_backtocabinet: AgGridAngular;
   @ViewChild('viewitem') viewitem: ModalDirective;
   procedure_list:string[];
   damagedGriddata:any[];
@@ -118,11 +119,10 @@ export class DamagedComponent implements OnInit{
     this.gridApi_1 = params.api;
     this.http.get('assets/json/damaged_grid.json').subscribe((res:any)=>{
       this.damagedGriddata = res;
-      this.myGrid_Damaged.api?.setRowData(this.damagedGriddata);
     })
   }
 
   ngAfterViewInit(): void {
-      this.myGrid_Damaged.api.sizeColumnsToFit();
+      this.myGrid_backtocabinet.api.sizeColumnsToFit();
   }
 }

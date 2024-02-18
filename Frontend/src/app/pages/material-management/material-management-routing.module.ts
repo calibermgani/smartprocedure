@@ -1,3 +1,4 @@
+import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-items-detailed-view.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AllItemsComponent } from './all-items/all-items.component';

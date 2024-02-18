@@ -92,11 +92,6 @@ export class LowStockComponent implements OnInit{
       cellRenderer: this.cellrendered.bind(this, 'quantity')
     },
     {
-      field: 'procedure',
-      headerName: 'Procedure',
-      cellRenderer: this.cellrendered.bind(this, 'procedure')
-    },
-    {
       field: 'vendor_name',
       headerName: 'Vendor Name',
       cellRenderer: this.cellrendered.bind(this, 'vendor_name')
@@ -112,9 +107,6 @@ export class LowStockComponent implements OnInit{
         return params.value;
       }
       case 'quantity': {
-        return params.value;
-      }
-      case 'procedure': {
         return params.value;
       }
       case 'vendor_name': {

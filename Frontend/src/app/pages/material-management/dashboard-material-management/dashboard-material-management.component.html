@@ -40,9 +40,6 @@
             <div class="me-2">
               <input type="text" class="form-control-new-sm" placeholder="Search">
             </div>
-            <!-- <div class="me-2" style="height: 26px;">
-              <ng-select [items]="filter_daily_consumed" placeholder="Select Status"></ng-select>
-            </div> -->
             <div class="me-2">
               <input type="text" placeholder="Select Date" class="form-control-new "
                 style="height: 26px;font-size: 0.66rem !important;"
@@ -56,9 +53,6 @@
             </div>
           </div>
         </div>
-        <!-- <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1 *ngIf="material_type_name != 'Daily consumed'"
-          style="width: 100%;height:550px;" [defaultColDef]="defaultColDef"></ag-grid-angular> -->
-
           <ag-grid-angular style="width: 100%;height:550px;" [columnDefs]="daily_consumed_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsDailyConsumed" *ngIf="material_type_name == 'Daily consumed'"
             [masterDetail]="true" [embedFullWidthRows]="true" [detailCellRendererParams]="detailCellRendererParams"
             [rowData]="DailyConsumedGridData" class="ag-theme-alpine" (firstDataRendered)="onFirstDataRendered($event)"
@@ -71,16 +65,21 @@
           </div>
           <div class="d-flex flex-row align-items-center">
             <div class="me-2">
+              <input type="text" class="form-control-new-sm" placeholder="Search">
+            </div>
+            <!-- <div class="me-2" style="height: 26px;">
+              <ng-select [items]="filter_daily_consumed" placeholder="Select Status"></ng-select>
+            </div> -->
+            <div class="me-2">
               <input type="text" placeholder="Select Date" class="form-control-new "
                 style="height: 26px;font-size: 0.66rem !important;"
-                [bsConfig]="{withTimepicker: false, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+                [bsConfig]="bsconfig"
                 bsDaterangepicker>
             </div>
-            <div class="me-2" style="height: 26px;">
-              <ng-select [items]="procedure_list" placeholder="Select Procedure"></ng-select>
-            </div>
-            <div class="me-2" style="height: 26px;">
-              <ng-select [items]="items_list" placeholder="Select Items"></ng-select>
+            <div>
+              <a style="cursor: pointer;"
+              (click)="navigateTodetailedView()"><img src="assets/images/detailed_view.svg" width="16px"
+                  height="16px"></a>
             </div>
           </div>
         </div>
@@ -96,14 +95,20 @@
           <div>
             <h1 class="header_name_bold mb-2" style="text-align: left !important;">Material utilized - Procedure list </h1>
           </div>
-          <!-- <div>
-            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;color: #000;cursor: pointer;"
-              class="me-2" (click)="navigateTodetailedView()"><img src="assets/images/detailed_view.svg" width="16px"
-                height="16px" class="me-2">View all</a>
-            <a style="background: #F3F4F8;padding: 4px 10px 4px 10px;border-radius: 6px;cursor: pointer;"
-              (click)="ClosematerialGrid()"><img src="assets/images/close_materials_grid.svg" width="30px"
-                height="30px"></a>
-          </div> -->
+          <div class="d-flex flex-row align-items-center">
+            <div class="me-2">
+              <input type="text" class="form-control-new-sm" placeholder="Search">
+            </div>
+            <!-- <div class="me-2" style="height: 26px;">
+              <ng-select [items]="filter_daily_consumed" placeholder="Select Status"></ng-select>
+            </div> -->
+            <div class="me-2">
+              <input type="text" placeholder="Select Date" class="form-control-new "
+                style="height: 26px;font-size: 0.66rem !important;"
+                [bsConfig]="bsconfig"
+                bsDaterangepicker>
+            </div>
+          </div>
         </div>
         <ag-grid-angular style="width: 100%;height:550px;" [columnDefs]="Material_utilized_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsMaterialUtilized"
         [masterDetail]="true" [embedFullWidthRows]="true" [detailCellRendererParams]="detailCellRendererParams_MaterialUtilized"
@@ -130,7 +135,7 @@
         <div class="col-3 px-2">
           <div class="d-flex flex-column justify-centent-between">
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;">Item:</label>
+              <label class="modal-label">Item:</label>
               <img src="assets/images/item_image_sample.svg" width="207px" height="104px"><span class="item_category_label" [ngClass]="{'bg_daily' : material_type_name === 'Daily consumed','bg_damaged' : material_type_name === 'Damaged','bg_backtocabinet' : material_type_name === 'Back to cabinet','bg_nearexpired' : material_type_name === 'Near expired','bg_lowstock' : material_type_name === 'Low Stock','bg_refilltocabinet' : material_type_name === 'Refill to Cabinet','bg_recall' : material_type_name === 'Recall'}">{{material_type_name}}</span>
             </div>
           </div>
@@ -138,21 +143,21 @@
         <div class="col-9" style="padding: 0px 0px 0px 84px;">
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label for="items_category" style="font-size: 10px; color: #1B1B1B;font-weight: 400;" class="mb-1">Item number</label>
+                <label class="modal-label mb-1">Item number</label>
                 <h1 class="">Neurology</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item name</label>
+                <label class="modal-label mb-1">Item name</label>
                <h1 class="">ORS juice</h1>
               </div>
             </div>
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="" style="width: 100%;margin-bottom: 2.3rem;">
-                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item category</label>
+                <label class="modal-label mb-1">Item category</label>
                 <h1 class="">ORS Juice</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Barcodes</label>
+                <label class="modal-label mb-1">Barcodes</label>
                 <h1><img src="assets/images/barcode_view.svg" width="100px" height="45px" style="display: inline-flex;"></h1>
               </div>
             </div>
@@ -162,39 +167,40 @@
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Procedure </label>
+              <label class="mb-1 modal-label">Procedure </label>
               <h1 class="">Cardiology</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Price</label>
+              <label class="mb-1 modal-label">Price</label>
               <h1 class="">100.00</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Store</label>
+              <label  class="mb-1 modal-label">Store</label>
               <h1 class="">50</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Min level  </label>
+              <label  class="mb-1 modal-label">Min level  </label>
               <h1 class="">52934</h1>
             </div>
+
           </div>
         </div>
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item Status</label>
+              <label  class="mb-1 modal-label">Item Status</label>
               <h1 class="">In Stock</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Size</label>
+              <label class="modal-label mb-1">Size</label>
               <h1 class="">300ml</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Cabinet</label>
+              <label class="modal-label mb-1">Cabinet</label>
               <h1 class="">0</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Cat No</label>
+              <label class="modal-label mb-1">Cat No</label>
               <h1 class="">56954</h1>
             </div>
           </div>
@@ -202,40 +208,51 @@
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Vendor</label>
+              <label class="modal-label mb-1">Vendor</label>
               <h1 class="">Flores Junita</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Unit</label>
+              <label class="modal-label mb-1">Unit</label>
               <h1 class="">60</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Expiry Date</label>
+              <label class="modal-label mb-1">Expiry Date</label>
               <h1 class="">14-10-2023</h1>
             </div>
             <div class="mb-3">
-              <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Lot No</label>
+              <label class="modal-label mb-1">Lot No</label>
               <h1 class="">14454</h1>
             </div>
+
+          </div>
+        </div>
+      </div>
+      <div class="row mx-2 mb-3">
+        <div class="col-8">
+          <div class="d-flex">
+            <div class="mb-3">
+              <label class="modal-label mb-1">Tags</label>
+              <h1 >#energy #ORS #energy #ORS #energy #ORS #energy #ORS</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label class="modal-label mb-1">Unit No</label>
+            <h1 class="">10</h1>
           </div>
         </div>
       </div>
       <div class="row mx-2 mb-3">
         <div class="col-12">
-          <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Item description</label>
+          <label class="modal-label mb-1">Item description</label>
           <h1 class="modal_value">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
         </div>
       </div>
       <div class="row mx-2 mb-3">
         <div class="col-12">
-          <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Notes</label>
+          <label class="modal-label mb-1">Notes</label>
           <h1 class="modal_value">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
-        </div>
-      </div>
-      <div class="row mx-2 mb-3">
-        <div class="col-12">
-          <label for="items_category" style="font-size: 10px; color: #747474;font-weight: 400;" class="mb-1">Tags</label>
-          <h1 >#energy#ORS</h1>
         </div>
       </div>
     </div>

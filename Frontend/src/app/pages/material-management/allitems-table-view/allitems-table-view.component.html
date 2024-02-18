@@ -1,27 +1,55 @@
 <div class="row">
   <div class="col-12">
-    <div class="d-flex flex-row align-items-center" style="background: #F3F4F8;border-radius: 8px;padding: 15px;">
-      <div class="me-2" style="width: 20%;">
-       <input type="type" class="form-control" placeholder="Search">
-      </div>
-      <div class="me-3" style="width: 20%;">
-        <input type="text" placeholder="Select Date" class="form-control-new "
-        style="height: 36px;background: #fff !important;"
-        [bsConfig]="{withTimepicker: false, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
-        bsDaterangepicker>
-      </div>
-      <div class="me-2">
-        <button class="btn-new"
-          style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;">Search</button>
-      </div>
-    </div>
     <div class="mt-2">
-      <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_nearexpired
-      style="width: 100%;height: 545px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
-      [sideBar]="sideBar"></ag-grid-angular>
+      <div class="d-flex flex-row p-3 editable_header"
+        style="background: #855EDB;border: 1px solid #855EDB;border-radius: 17px 0px 0px 0px;position: relative;z-index: 9;height: 50px;top: -6px;"
+        *ngIf="showEditablefields == true">
+        <div class="flex-shrink-1">
+          <div class="d-flex flex-row align-items-center">
+            <div class="me-2">
+              <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1"
+                value="option1">
+            </div>
+            <div>
+              <h1 style="color: #fff !important;">Deselect | {{selected_row_data_length }} Item selected</h1>
+            </div>
+          </div>
+        </div>
+        <div class="flex-grow-0 ms-auto">
+          <div class="d-flex flex-row justify-centent-between align-items-center">
+            <div class="me-4 pointer">
+              <h1 style="color: #fff !important;" class="mb-0"><i class="mdi mdi-pencil-outline me-1"
+                  style="color:#fff;font-size:13px"></i>Edit</h1>
+            </div>
+            <div class="me-4 pointer">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg"  class="me-1" style="width: 13px;height:20px;">Update Qty</h1>
+            </div>
+            <div class="me-4 pointer">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg" width="15px"
+                  height="15px" class="me-1">Move</h1>
+            </div>
+            <div class="me-4 pointer">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/clone_img.svg" width="15px"
+                  height="15px" class="me-1">Clone</h1>
+            </div>
+            <div class="me-4 pointer">
+              <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/add_tag_white.svg" width="15px"
+                  height="15px" class="me-1">Add Tag</h1>
+            </div>
+            <div class="me-4 pointer">
+              <h1 style="color: #fff !important;" class="mb-0"><i class="mdi mdi-trash-can-outline me-1"
+                  style="color:#fff;font-size:13px"></i>Delete</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
+        style="width: 100%;height: 576px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
+        (selectionChanged)="onSelectionChanged($event)" [sideBar]="sideBar"></ag-grid-angular>
+    </div>
   </div>
 </div>
-</div>
+
 <div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
   <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
     <div class="modal-content">
@@ -37,7 +65,7 @@
         <div class="col-3 px-2">
           <div class="d-flex flex-column justify-centent-between">
             <div class="mb-3">
-              <label class="modal-label mb-1">Item:</label>
+              <label for="items_category" class="modal-label">Item:</label>
               <img src="assets/images/item_image_sample.svg" width="207px" height="104px">
             </div>
           </div>
@@ -45,21 +73,21 @@
         <div class="col-9" style="padding: 0px 0px 0px 84px;">
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label class="modal-label mb-1">Item number</label>
+                <label for="items_category" class="modal-label mb-1">Item number</label>
                 <h1 class="">Neurology</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label class="modal-label mb-1">Item name</label>
+                <label for="items_category" class="modal-label mb-1" >Item name</label>
                <h1 class="">ORS juice</h1>
               </div>
             </div>
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="" style="width: 100%;margin-bottom: 2.3rem;">
-                <label class="modal-label mb-1">Item category</label>
+                <label for="items_category" class="modal-label mb-1">Item category</label>
                 <h1 class="">ORS Juice</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
-                <label class="modal-label mb-1">Barcodes</label>
+                <label for="items_category" class="modal-label mb-1">Barcodes</label>
                 <h1><img src="assets/images/barcode_view.svg" width="100px" height="45px" style="display: inline-flex;"></h1>
               </div>
             </div>
@@ -69,19 +97,19 @@
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label class="modal-label mb-1">Procedure </label>
+              <label for="items_category" class="modal-label mb-1">Procedure </label>
               <h1 class="">Cardiology</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Price</label>
+              <label for="items_category" class="modal-label mb-1">Price</label>
               <h1 class="">100.00</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Store</label>
+              <label for="items_category" class="modal-label mb-1" >Store</label>
               <h1 class="">50</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Min level  </label>
+              <label for="items_category" class="modal-label mb-1">Min level  </label>
               <h1 class="">52934</h1>
             </div>
           </div>
@@ -89,19 +117,19 @@
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label class="modal-label mb-1">Item Status</label>
+              <label for="items_category" class="modal-label mb-1">Item Status</label>
               <h1 class="">In Stock</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Size</label>
+              <label for="items_category" class="modal-label mb-1">Size</label>
               <h1 class="">300ml</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Cabinet</label>
+              <label for="items_category" class="modal-label mb-1">Cabinet</label>
               <h1 class="">0</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Cat No</label>
+              <label for="items_category" class="modal-label mb-1" >Cat No</label>
               <h1 class="">56954</h1>
             </div>
           </div>
@@ -109,19 +137,19 @@
         <div class="col-4">
           <div class="d-flex flex-column">
             <div class="mb-3">
-              <label class="modal-label mb-1">Vendor</label>
+              <label for="items_category" class="modal-label mb-1" >Vendor</label>
               <h1 class="">Flores Junita</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Unit</label>
+              <label for="items_category" class="modal-label mb-1">Unit</label>
               <h1 class="">60</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Expiry Date</label>
+              <label for="items_category" class="modal-label mb-1">Expiry Date</label>
               <h1 class="">14-10-2023</h1>
             </div>
             <div class="mb-3">
-              <label class="modal-label mb-1">Lot No</label>
+              <label for="items_category" class="modal-label mb-1">Lot No</label>
               <h1 class="">14454</h1>
             </div>
           </div>
@@ -145,19 +173,28 @@
       </div>
       <div class="row mx-2 mb-3">
         <div class="col-12">
-          <label class="modal-label mb-1">Item description</label>
+          <label for="items_category" class="modal-label mb-1">Item description</label>
           <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
         </div>
       </div>
       <div class="row mx-2 mb-3">
         <div class="col-12">
-          <label class="modal-label mb-1">Notes</label>
+          <label for="items_category" class="modal-label mb-1">Notes</label>
           <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
         </div>
       </div>
     </div>
-      <div class="d-flex justify-content-end p-3">
-        <button type="button" class="btn-new me-2" style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="viewitem?.hide()">Close</button>
+      <div class="d-flex flex-row justify-content-end p-3">
+        <div>
+          <button type="button" class="btn-new me-4"
+            style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"
+            (click)="viewitem?.hide()">Close</button>
+        </div>
+        <div>
+          <button type="button" class="btn-new me-2"
+            style="width: auto !important;"
+            (click)="viewitem?.hide()">Edit</button>
+        </div>
       </div>
     </div>
     <div class="d-flex flex-row">
