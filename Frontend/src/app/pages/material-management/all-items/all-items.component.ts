@@ -45,6 +45,7 @@ export class AllItemsComponent implements OnInit {
   vendor_list_dropbtn:boolean = false;
   low_stock_dropbtn:boolean = false;
   overallview:boolean = true;
+  selectedTab_To_View:string;
   files: File[] = [];
   imageURL: any;
   @ViewChild('additem', { static: false }) additem?: ModalDirective;
@@ -74,6 +75,10 @@ export class AllItemsComponent implements OnInit {
   QuantitymaxValue: number = 20;
   PriceminValue:number = 10;
   PricemaxValue:number = 40;
+  StoreQtyminValue:number = 10;
+  StoreQtymaxValue:number = 40;
+  MinlevelMinimumValue:number = 40;
+  MinlevelMaximumValue:number = 30;
 
 
   constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient) {
@@ -90,6 +95,14 @@ export class AllItemsComponent implements OnInit {
       this.folder_structure_value = res;
       console.log('response',this.folder_structure_value);
     });
+
+    this.authfakeauthenticationService.selectedTabTypeValue.subscribe((res:any)=>{
+      console.log('Selected Tab',res);
+      this.selectedTab_To_View = res;
+      this.enableTab = res;
+      console.log('Selected Tab',res);
+      console.log('Selected Tab',res);
+    })
   }
 
 
@@ -100,61 +113,61 @@ export class AllItemsComponent implements OnInit {
   SelectedTab(data:any)
   {
     switch(data){
-      case 'allitems':{
+      case 'All Items':{
         this.all_items_dropbtn = true;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = false;
         break;
       }
-      case 'vendor_list':{
+      case 'Vendor list':{
         this.vendor_list_dropbtn = true;
         this.all_items_dropbtn=false;
         this.low_stock_dropbtn=false;
         break;
       }
-      case 'low_stock':{
+      case 'Low Stock':{
         this.all_items_dropbtn = false;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = true;
         break;
       }
-      case 'daily_consumed':{
+      case 'Daily consumed':{
         this.all_items_dropbtn = false;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = false;
         break;
       }
-      case 'damaged':{
+      case 'Damaged':{
         this.all_items_dropbtn = false;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = false;
         break;
       }
-      case 'backtocabinet':{
+      case 'Back to Cabinet':{
         this.all_items_dropbtn = false;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = true;
         break;
       }
-      case 'wasted':{
+      case 'Wasted':{
         this.all_items_dropbtn = false;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = false;
         break;
       }
-      case 'near_expired':{
+      case 'Near expired':{
         this.all_items_dropbtn = false;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = false;
         break;
       }
-      case 'refilltocabinet':{
+      case 'Refill to Cabinet':{
         this.all_items_dropbtn = false;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = false;
         break;
       }
-      case 'recall':{
+      case 'Recall':{
         this.all_items_dropbtn = false;
         this.vendor_list_dropbtn = false;
         this.low_stock_dropbtn = false;
@@ -208,40 +221,42 @@ export class AllItemsComponent implements OnInit {
   changeTab(tabs:any){
     switch(tabs)
     {
-      case 'vendor_list':{
-        this.enableTab = 'vendor_list';
+      case 'Vendor list':{
+        this.enableTab = 'Vendor list';
         break;
       }
-      case 'daily_consumed':{
-        this.enableTab = 'daily_consumed';
+      case 'Daily consumed':{
+        this.enableTab = 'Daily consumed';
         break;
       }
-      case 'damaged':{
-        this.enableTab = 'damaged';
+      case 'Damaged':{
+        this.enableTab = 'Damaged';
         break;
       }
-      case 'backtocabinet':{
-        this.enableTab = 'backtocabinet';
+      case 'Back to Cabinet':{
+        this.enableTab = 'Back to Cabinet';
+        console.log(this.enableTab);
+
         break;
       }
-      case 'wasted':{
-        this.enableTab = 'wasted';
+      case 'Wasted':{
+        this.enableTab = 'Wasted';
         break;
       }
-      case 'near_expired':{
-        this.enableTab = 'near_expired';
+      case 'Near expired':{
+        this.enableTab = 'Near expired';
         break;
       }
-      case 'low_stock':{
-        this.enableTab = 'low_stock';
+      case 'Low Stock':{
+        this.enableTab = 'Low Stock';
         break;
       }
-      case 'refilltocabinet':{
-        this.enableTab = 'refilltocabinet';
+      case 'Refill to Cabinet':{
+        this.enableTab = 'Refill to Cabinet';
         break;
       }
-      case 'recall':{
-        this.enableTab = 'recall';
+      case 'Recall':{
+        this.enableTab = 'Recall';
         break;
       }
     }

@@ -112,62 +112,62 @@
         <div>
           <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist">
             <li class="nav-item tabs-links" role="presentation">
-              <a class="nav-link active" data-bs-toggle="tab" href="#allitems" role="tab" aria-selected="true" (click)="changeTab('allitems')"
-                (click)="SelectedTab('allitems')">
+              <a [ngClass]="selectedTab_To_View == 'All Items' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#allitems" role="tab" aria-selected="true" (click)="changeTab('All Items')"
+                (click)="SelectedTab('All Items')">
                 <h1 class="d-none d-sm-block name">All Items</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#vendor_list" role="tab" aria-selected="false" (click)="changeTab('vendor_list')"
-                tabindex="-1" (click)="SelectedTab('vendor_list')">
+              <a [ngClass]="selectedTab_To_View == 'Vendor list' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#vendor_list" role="tab" aria-selected="false" (click)="changeTab('Vendor list')"
+                tabindex="-1" (click)="SelectedTab('Vendor list')">
                 <h1 class="d-none d-sm-block name">Vendor list</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#daily_consumed" role="tab" aria-selected="false" tabindex="-1"  (click)="changeTab('daily_consumed')"
-                (click)="SelectedTab('daily_consumed')">
+              <a [ngClass]="selectedTab_To_View == 'Daily consumed' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#daily_consumed" role="tab" aria-selected="false" tabindex="-1"  (click)="changeTab('Daily consumed')"
+                (click)="SelectedTab('Daily consumed')">
                 <h1 class="d-none d-sm-block name">Daily consumed</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#damaged" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('damaged')"
-                (click)="SelectedTab('damaged')">
+              <a [ngClass]="selectedTab_To_View == 'Damaged' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#damaged" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('Damaged')"
+                (click)="SelectedTab('Damaged')">
                 <h1 class="d-none d-sm-block name">Damaged</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#backtocabinet" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('backtocabinet')"
-                (click)="SelectedTab('backtocabinet')">
+              <a [ngClass]="selectedTab_To_View == 'Back to Cabinet' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#backtocabinet" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('Back to Cabinet')"
+                (click)="SelectedTab('Back to Cabinet')">
                 <h1 class="d-none d-sm-block name">Back to cabinet</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#wasted" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('wasted')"
-                (click)="SelectedTab('wasted')">
+              <a [ngClass]="selectedTab_To_View == 'Wasted' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#wasted" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('Wasted')"
+                (click)="SelectedTab('Wasted')">
                 <h1 class="d-none d-sm-block name">Wasted</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#near_expired" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('near_expired')"
-                (click)="SelectedTab('near_expired')">
+              <a [ngClass]="selectedTab_To_View == 'Near expired' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#near_expired" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('Near expired')"
+                (click)="SelectedTab('Near expired')">
                 <h1 class="d-none d-sm-block name">Near expired</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#low_stock" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('low_stock')"
-                (click)="SelectedTab('low_stock')">
+              <a [ngClass]="selectedTab_To_View == 'Low Stock' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#low_stock" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('Low Stock')"
+                (click)="SelectedTab('Low Stock')">
                 <h1 class="d-none d-sm-block name">Low Stock</h1>
               </a>
             </li>
             <li class="nav-item tabs-links-1" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#refilltocabinet" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('refilltocabinet')"
-                (click)="SelectedTab('refilltocabinet')">
+              <a [ngClass]="selectedTab_To_View == 'Refill to Cabinet' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#refilltocabinet" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('Refill to Cabinet')"
+                (click)="SelectedTab('Refill to Cabinet')">
                 <h1 class="d-none d-sm-block name">Refill to cabinet</h1>
               </a>
             </li>
             <li class="nav-item tabs-links" role="presentation">
-              <a class="nav-link" data-bs-toggle="tab" href="#recall" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('recall')"
-                (click)="SelectedTab('recall')">
+              <a [ngClass]="selectedTab_To_View == 'Recall' ? 'nav-link active': 'nav-link'" data-bs-toggle="tab" href="#recall" role="tab" aria-selected="false" tabindex="-1" (click)="changeTab('Recall')"
+                (click)="SelectedTab('Recall')">
                 <h1 class="d-none d-sm-block name">Recall</h1>
               </a>
             </li>
@@ -250,7 +250,7 @@
         </div>
       </div>
       <div class="tab-content py-2 text-muted">
-        <div class="tab-pane active show" id="allitems" role="tabpanel" *ngIf="overallview == true">
+        <div [ngClass]="selectedTab_To_View == 'All Items' ? 'tab-pane active show': 'tab-pane'" id="allitems" role="tabpanel" *ngIf="overallview == true">
           <div class="d-flex flex-row align-items-center" style="background: #F3F4F8;border-radius: 8px;padding: 15px;">
             <div class="me-2">
               <button class="btn-new"
@@ -343,10 +343,10 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options"></ngx-slider>
+                    <ngx-slider [(value)]="StoreQtyminValue" [(highValue)]="StoreQtymaxValue" [options]="options"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="QuantityminValue">
-                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="QuantitymaxValue">
+                      <input type="text" class="form-control-new me-2" placeholder="Min">
+                      <input type="text" class="form-control-new" placeholder="Max">
                     </div>
                   </div>
                 </div>
@@ -360,8 +360,8 @@
                   <div>
                     <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="QuantityminValue">
-                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="QuantitymaxValue">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" >
+                      <input type="text" class="form-control-new" placeholder="Max">
                     </div>
                   </div>
                 </div>
@@ -375,8 +375,8 @@
                   <div>
                     <ngx-slider [(value)]="PriceminValue" [(highValue)]="PricemaxValue" [options]="options"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="PriceminValue">
-                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="PricemaxValue">
+                      <input type="text" class="form-control-new me-2" placeholder="Min">
+                      <input type="text" class="form-control-new" placeholder="Max">
                     </div>
                   </div>
                 </div>
@@ -388,10 +388,10 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options"></ngx-slider>
+                    <ngx-slider [(value)]="MinlevelMinimumValue" [(highValue)]="MinlevelMaximumValue" [options]="options"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="QuantityminValue">
-                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="QuantitymaxValue">
+                      <input type="text" class="form-control-new me-2" placeholder="Min">
+                      <input type="text" class="form-control-new" placeholder="Max">
                     </div>
                   </div>
                 </div>
@@ -425,7 +425,7 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div class="d-flex flex-row align-items-center">
-                    <input class="form-control-new" type="text" placeholder="scan or type"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: absolute;right: 10%;">
+                    <input class="form-control-new barcode_img" type="text" placeholder="scan or type">
                   </div>
                 </div>
               </div>
@@ -455,37 +455,35 @@
             </div>
           </div>
         </div>
-        <div class="tab-pane active show" id="allitems" role="tabpanel" *ngIf="overallview == false">
-
+        <div [ngClass]="selectedTab_To_View == 'All Items' ? 'tab-pane active show': 'tab-pane'" id="allitems" role="tabpanel" *ngIf="overallview == false">
             <app-grid-items-detailed-view></app-grid-items-detailed-view>
-
         </div>
-        <div class="tab-pane" id="vendor_list" role="tabpanel">
-          <app-vendor-list *ngIf="enableTab=='vendor_list'"></app-vendor-list>
+        <div  [ngClass]="selectedTab_To_View == 'Vendor list' ? 'tab-pane active show': 'tab-pane'"  id="vendor_list" role="tabpanel">
+          <app-vendor-list *ngIf="enableTab=='Vendor list'"></app-vendor-list>
         </div>
-        <div class="tab-pane" id="daily_consumed" role="tabpanel">
-          <app-daily-consumed  *ngIf="enableTab=='daily_consumed'"></app-daily-consumed>
+        <div [ngClass]="selectedTab_To_View == 'Daily consumed' ? 'tab-pane active show': 'tab-pane'" id="daily_consumed" role="tabpanel">
+          <app-daily-consumed  *ngIf="enableTab=='Daily consumed'"></app-daily-consumed>
         </div>
-        <div class="tab-pane" id="damaged" role="tabpanel">
-          <app-damaged *ngIf="enableTab=='damaged'"></app-damaged>
+        <div [ngClass]="selectedTab_To_View == 'Damaged' ? 'tab-pane active show': 'tab-pane'" id="damaged" role="tabpanel">
+          <app-damaged *ngIf="enableTab=='Damaged'"></app-damaged>
         </div>
-        <div class="tab-pane" id="backtocabinet" role="tabpanel">
-          <app-back-to-cabinet *ngIf="enableTab=='backtocabinet'"></app-back-to-cabinet>
+        <div  [ngClass]="selectedTab_To_View == 'Back to Cabinet' ? 'tab-pane active show': 'tab-pane'" class="tab-pane" id="backtocabinet" role="tabpanel">
+          <app-back-to-cabinet *ngIf="enableTab=='Back to Cabinet'"></app-back-to-cabinet>
         </div>
-        <div class="tab-pane" id="wasted" role="tabpanel">
-          <app-wasted *ngIf="enableTab=='wasted'"></app-wasted>
+        <div [ngClass]="selectedTab_To_View == 'Wasted' ? 'tab-pane active show': 'tab-pane'" id="wasted" role="tabpanel">
+          <app-wasted *ngIf="enableTab=='Wasted'"></app-wasted>
         </div>
-        <div class="tab-pane" id="near_expired" role="tabpanel">
-          <app-near-expired *ngIf="enableTab=='near_expired'"></app-near-expired>
+        <div [ngClass]="selectedTab_To_View == 'Near expired' ? 'tab-pane active show': 'tab-pane'" id="near_expired" role="tabpanel">
+          <app-near-expired *ngIf="enableTab=='Near expired'"></app-near-expired>
         </div>
-        <div class="tab-pane" id="low_stock" role="tabpanel">
-          <app-low-stock *ngIf="enableTab=='low_stock'"></app-low-stock>
+        <div [ngClass]="selectedTab_To_View == 'Low Stock' ? 'tab-pane active show': 'tab-pane'" id="low_stock" role="tabpanel">
+          <app-low-stock *ngIf="enableTab=='Low Stock'"></app-low-stock>
         </div>
-        <div class="tab-pane" id="refilltocabinet" role="tabpanel">
-          <app-refill-to-cabinet *ngIf="enableTab=='refilltocabinet'"></app-refill-to-cabinet>
+        <div [ngClass]="selectedTab_To_View == 'Refill to Cabinet' ? 'tab-pane active show': 'tab-pane'" id="refilltocabinet" role="tabpanel">
+          <app-refill-to-cabinet *ngIf="enableTab=='Refill to Cabinet'"></app-refill-to-cabinet>
         </div>
-        <div class="tab-pane" id="recall" role="tabpanel">
-          <app-recall *ngIf="enableTab=='recall'"></app-recall>
+        <div [ngClass]="selectedTab_To_View == 'Recall' ? 'tab-pane active show': 'tab-pane'" id="recall" role="tabpanel">
+          <app-recall *ngIf="enableTab=='Recall'"></app-recall>
         </div>
       </div>
     </div>

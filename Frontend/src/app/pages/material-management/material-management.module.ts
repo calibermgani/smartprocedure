@@ -5,7 +5,6 @@ import { MaterialManagementRoutingModule } from './material-management-routing.m
 import { AllItemsComponent } from './all-items/all-items.component';
 import { DashboardMaterialManagementComponent } from './dashboard-material-management/dashboard-material-management.component';
 import { AgGridModule } from 'ag-grid-angular';
-import { ViewFullGridComponent } from './view-full-grid/view-full-grid.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { VendorListComponent } from './vendor-list/vendor-list.component';
 import { LowStockComponent } from './low-stock/low-stock.component';
@@ -33,7 +32,6 @@ import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-
   declarations: [
     AllItemsComponent,
     DashboardMaterialManagementComponent,
-    ViewFullGridComponent,
     VendorListComponent,
     LowStockComponent,
     DailyConsumedComponent,

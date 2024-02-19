@@ -140,9 +140,6 @@ export class DashboardMaterialManagementComponent implements OnInit {
       this.material_summary_data = res;
     });
     this.ChangeGrid('Daily consumed');
-    // setTimeout(() => {
-    //   this.viewitem?.show();
-    // }, 1000);
   }
 
   cellRendered(headername: any, params: any):string {
@@ -496,9 +493,12 @@ export class DashboardMaterialManagementComponent implements OnInit {
     this.reduceTableSize = false;
   }
 
-  navigateTodetailedView()
+  navigateTodetailedView(data:any)
   {
-    this.router.navigate(['/material-management/viewfullgrid'])
+    console.log('Selected Tab',data);
+
+    this.authfakeauthenticationService.changeTabView_AllItems(data);
+    this.router.navigate(['/material-management/all-item']);
   }
 
   onGridReady_1(params: GridReadyEvent) {
