@@ -53,6 +53,8 @@ export class AllItemsComponent implements OnInit {
   @ViewChild('addtag', { static: false }) addtag?: ModalDirective;
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @ViewChild('notify', { static: false }) notify?: ModalDirective;
+  @ViewChild('export', { static: false }) export?: ModalDirective;
+
 
   cartData: any[];
   subtotal: any = 0;
@@ -290,7 +292,17 @@ export class AllItemsComponent implements OnInit {
     }
   }
 
-  showDetailedView(value:boolean){
-
+  selectedExportType:string;
+  selectExportType(data:any){
+    switch(data){
+      case 'excel':{
+        this.selectedExportType='excel';
+        break;
+      }
+      case 'pdf':{
+        this.selectedExportType='pdf';
+        break;
+      }
+    }
   }
 }
