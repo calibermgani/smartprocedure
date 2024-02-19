@@ -7,7 +7,7 @@
 .grid-outline{
     border: 0.5px solid #8B8B8B;
     border-radius: 6px;
-    width: 197px;
+    width: auto;
     flex-wrap: wrap;
 }
 .mrn_value{
@@ -30,7 +30,7 @@
 .card-item-count{
   width: 43px;
   position: relative;
-  top: -18px;
+  top: -41px;
   left: 6px;
   font-weight: 500 !important;background: #F3F4F8;border-radius: 10px;padding: 1px 4px 1px 4px !important;
 }

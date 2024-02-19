@@ -281,7 +281,7 @@ export class AllItemsComponent implements OnInit {
       }
       case 'list':{
         this.selectedView = 'list';
-        break
+        break;
       }
       case 'table':{
         this.selectedView = 'table';

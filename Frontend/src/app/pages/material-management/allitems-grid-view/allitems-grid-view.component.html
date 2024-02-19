@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-12">
     <div class="d-flex flex-row p-3 editable_header"
-      style="background: #855EDB;border: 1px solid #855EDB;border-radius: 17px 0px 0px 0px;position: relative;z-index: 9;height: 50px;top: -6px;"
+      style="background: #855EDB;border: 1px solid #855EDB;border-radius: 6px;position: relative;z-index: 9;height: 50px;top: -6px;"
       *ngIf="showEditablefields == true">
       <div class="flex-shrink-1">
         <div class="d-flex flex-row align-items-center">
@@ -17,16 +17,14 @@
       <div class="flex-grow-0 ms-auto">
         <div class="d-flex flex-row justify-centent-between align-items-center">
           <div class="me-4 pointer">
-            <h1 style="color: #fff !important;" class="mb-0"><i class="mdi mdi-pencil-outline me-1"
+            <h1 style="color: #fff !important;" class="mb-0" (click)="edit_modal?.show()"><i class="mdi mdi-pencil-outline me-1"
                 style="color:#fff;font-size:13px"></i>Edit</h1>
           </div>
           <div class="me-4 pointer" (click)="setalert?.show()">
-            <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg" class="me-1"
-                style="width: 13px;height:20px;">Set Alert</h1>
+            <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg"  class="me-1" style="width: 13px;height:20px;">Set Alert</h1>
           </div>
           <div class="me-4 pointer" (click)="bulkupdate?.show()">
-            <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg" class="me-1"
-                style="width: 13px;height:20px;">Update Qty</h1>
+            <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg"  class="me-1" style="width: 13px;height:20px;">Update Qty</h1>
           </div>
           <div class="me-4 pointer" (click)="move?.show()">
             <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg" width="15px"
@@ -54,13 +52,13 @@
 <div class="row">
   <div class="col-12">
     <div style="height: 600px;overflow-y: scroll;">
-    <div class="item-grid">
+    <div class="item-grid mx-5">
       <div class="d-flex flex-column m-2 grid-outline" *ngFor="let x of Grid_data">
-        <div style="height: 137px;">
-          <div class="ms-1 mt-1">
+        <div style="height: 120px;position: relative;">
+          <div class="ms-1 mt-1" style="position: relative;z-index: 999">
             <input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" (click)="selectgrid()" />
           </div>
-          <img [src]="x.img" class="pointer" (click)="viewitem?.show()">
+          <img [src]="x.img" class="pointer" (click)="viewitem?.show()"  style="position: relative;bottom: 23px;">
           <div *ngIf="x.items" class="card-item-count pointer" (click)="navigateToDetailedView(false)">
             <h5 class="mb-0">Items:{{ x.items }}</h5>
           </div>
@@ -76,12 +74,12 @@
             </a>
 
             <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="min-width: 100px !important;">
-                <a class="dropdown-item" href="javascript: void(0);"><i class="mdi mdi-pencil-outline me-1" style="color:#000;font-size:14px"></i>Edit</a>
-                <a class="dropdown-item" href="javascript: void(0);"><img src="assets/images/set_alert.svg" style="width: 14px;height: 14px;" class="me-1">Set Alert</a>
-                <a class="dropdown-item" href="javascript: void(0);"><img src="assets/images/clone_black.svg" width="13px"height="13px" class="me-1">Clone</a>
-                <a class="dropdown-item" href="javascript: void(0);"><img src="assets/images/move_black.svg" width="13px"height="13px" class="me-1">Move</a>
-                <a class="dropdown-item" href="javascript: void(0);"><img src="assets/images/add_tag_black.svg" width="13px"height="13px" class="me-1">Add Tag</a>
-                <a class="dropdown-item" href="javascript: void(0);"><i class="mdi mdi-trash-can-outline me-1" style="color:#000;font-size:14px"></i>Delete</a>
+                <a class="dropdown-item" href="javascript: void(0);" ><i class="mdi mdi-pencil-outline me-1" style="color:#000;font-size:14px"></i>Edit</a>
+                <a class="dropdown-item" href="javascript: void(0);" (click)="setalert?.show()"><img src="assets/images/set_alert.svg" style="width: 14px;height: 14px;" class="me-1">Set Alert</a>
+                <a class="dropdown-item" href="javascript: void(0);" (click)="clone_modal?.show()"><img src="assets/images/clone_black.svg" width="13px"height="13px" class="me-1">Clone</a>
+                <a class="dropdown-item" href="javascript: void(0);" (click)="move?.show()"><img src="assets/images/move_black.svg" width="13px"height="13px" class="me-1">Move</a>
+                <a class="dropdown-item" href="javascript: void(0);" (click)="add_tag?.show()"><img src="assets/images/add_tag_black.svg" width="13px"height="13px" class="me-1">Add Tag</a>
+                <a class="dropdown-item" href="javascript: void(0);" (click)="delete_modal?.show()"><i class="mdi mdi-trash-can-outline me-1" style="color:#000;font-size:14px"></i>Delete</a>
             </div>
         </div>
         </div>
@@ -261,6 +259,337 @@
       </div>
       <div class="nextitem">
         <img src="assets/images/go_next_patient.svg" width="30px" height="30px">
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div bsModal #edit_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:600px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Edit Modal
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="edit_modal?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="row mx-2 my-2">
+        <div class="col-6">
+          <label for="items_category" class="modal-label-edit mb-1">More procedure</label>
+         <ng-select items="" placeholder="Select Procedure"></ng-select>
+        </div>
+        <div class="col-6">
+          <label for="items_category" class="modal-label-edit mb-1">Price</label>
+          <input type="text" class="form-control-new" placeholder="Enter the price">
+        </div>
+      </div>
+
+
+      <div class="row mx-2 my-2">
+        <div class="col-6">
+          <label for="items_category" class="modal-label-edit mb-1">Tags</label>
+          <input type="text" class="form-control-new" placeholder="">
+        </div>
+        <div class="col-6">
+          <label for="items_category" class="modal-label-edit mb-1">Quantity</label>
+          <div class="d-flex justify-content-start">
+            <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+              class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+            <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+            <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+              class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+          </div>
+        </div>
+      </div>
+
+      <div class="row mx-2 my-2">
+        <div class="col-12">
+          <label for="items_category" class="modal-label-edit mb-1">Add Note</label>
+          <textarea class="form-control-new textarea-font-size">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+        </div>
+
+      </div>
+
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div bsModal #setalert="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:450px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Send Qty Alert
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="setalert?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="d-flex justify-centent-between align-items-center flex-row px-3 pt-3">
+        <div class="mt-1 me-2" style="width: 70%;">
+          <label for="items_category" class="modal-label-edit mb-1">Alert me when quantity is</label>
+          <ng-select items="" placeholder="Select the value"></ng-select>
+        </div>
+        <div class=" mt-1" style="width: 30%;">
+          <label for="items_category" class="modal-label-edit mb-1">Contact Person</label>
+          <input class="form-control-new" type="text">
+        </div>
+      </div>
+      <div class="d-flex justify-centent-between align-items-center flex-row p-3">
+        <div class="mt-1 me-2" style="width: 70%;">
+          <label for="items_category" class="modal-label-edit mb-1">This alert will be sent to</label>
+          <ng-select items="" placeholder="Search by Vendor"></ng-select>
+        </div>
+      </div>
+
+
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Set</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #bulkupdate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name3">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:600px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Bulk update Quantity
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="bulkupdate?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="row mx-3">
+        <div class="col-12 p-0" style="border: 0.5px solid #747474;border-radius: 4px;">
+          <div class="d-flex justify-content-between align-items-center p-2" style="background: #855EDB;">
+            <div>
+              <h4 style="color: #fff !important;" class="mb-0">Items(3)</h4>
+            </div>
+            <div>
+              <h4 style="color: #fff !important;" class="mb-0">Quantity</h4>
+            </div>
+            <div>
+              <h4 style="color: #fff !important;" class="mb-0">New quantity</h4>
+            </div>
+          </div>
+          <div class="d-flex justify-content-between align-items-center py-4 px-2" style="background: #F3F4F8;border-radius: 0px 0px 6px 6px;">
+            <div>
+              <h4 class="mb-0" style="color: #1B1B1B;font-weight: 600 !important;">Bulk update</h4>
+            </div>
+            <div class="d-flex justify-content-end">
+              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+            <div>
+            <input type="text" class="form-control" placeholder="eg:50">
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-4 px-2">
+          <div style="width: 20%;"  class="ms-3">
+            <h4 class="mb-0" style="color: #1B1B1B;font-weight: 600 !important;">Juice</h4>
+          </div>
+          <div class="d-flex justify-content-center ms-4">
+            <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+              class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+            <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+            <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+              class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+          </div>
+          <div>
+          <input type="text" class="form-control" placeholder="eg:50">
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-4 px-2" >
+          <div style="width: 20%;"  class="ms-3">
+            <h4 class="mb-0" style="color: #1B1B1B;font-weight: 600 !important;">Congue</h4>
+          </div>
+          <div class="d-flex justify-content-center ms-4">
+            <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+              class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+            <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+            <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+              class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+          </div>
+          <div>
+          <input type="text" class="form-control" placeholder="eg:50">
+          </div>
+        </div>
+        <div class="d-flex justify-content-between align-items-center py-4 px-2">
+          <div style="width: 20%;"  class="ms-3">
+            <h4 class="mb-0" style="color: #1B1B1B;font-weight: 600 !important;">Curabitur</h4>
+          </div>
+          <div class="d-flex justify-content-center ms-4">
+            <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+              class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+            <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+            <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+              class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+          </div>
+          <div>
+          <input type="text" class="form-control" placeholder="eg:50">
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #move="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name4">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:315px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Move
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="move?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="row mx-3">
+        <div class="col-12 p-0">
+          <div class="mt-3 pb-4" style=" border-bottom: 0.5px solid #8B8B8B;">
+            <label class="modal-label-edit mb-1">Select Destination</label>
+            <ng-select items="" placeholder="Select Destination"></ng-select>
+          </div>
+
+          <div class="row my-3 align-items-center mx-1" *ngFor="let x of folder_structure_value">
+            <div class="col-1 p-0"><img src="assets/images/files.svg" class="folder_img me-1"></div>
+            <div class="col-11 p-0">
+              <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 500 !important;">{{ x.foldername }}</h1>
+            </div>
+            <div class="ms-3 mt-1" *ngIf="x.sub">
+              <div class="row my-2" *ngFor="let y of x.sub">
+                <div class="col-1 p-0"><img src="assets/images/files.svg" class="folder_img me-1"></div>
+                <div class="col-11 p-0">
+                  <h1 class="folder_name mb-0"  style="text-wrap: nowrap;font-weight: 400 !important;">{{ y.subfoldername }}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Move</button>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+<div bsModal #clone_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:310px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Clone
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="clone_modal?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="row mx-2">
+        <div class="col-12">
+          <div class="d-flex flex-column my-2"></div>
+          <div><h1 class="mb-2">Are you sure want to clone 2 items</h1></div>
+          <div>
+            <h4 style="color: #855EDB;">Juice , Curabitur</h4>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Update</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #add_tag="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:390px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Add Tag
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="add_tag?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="row mx-2 my-2">
+        <div class="col-12">
+          <div class="mt-1" >
+            <label for="items_category" class="modal-label-edit mb-1">Tag Name<span
+              style="color: red;">*</span></label>
+           <input type="text" class="form-control" placeholder="Search">
+          </div>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+          width="24px" height="24px" class="me-2">Add</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #delete_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:300px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Delete
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="delete_modal?.hide()"
+          style="cursor: pointer">
+      </div>
+
+      <div class="d-flex flex-column align-items-center justify-content-between my-4">
+        <div class="mb-2">
+          <img src="assets/images/delete_modal_img.svg" style="width: 40px;height: 40px;">
+        </div>
+        <div class="mb-2">
+          <h1>Do you want to delete 1 items?</h1>
+        </div>
+        <div class="mb-2">
+          <h4>You can always restore deleted items from Trash.</h4>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-evenly p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Go back</button>
+        <button type="button" class="btn-new" style="width: auto !important;">Yes,continue</button>
       </div>
     </div>
   </div>

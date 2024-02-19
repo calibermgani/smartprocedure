@@ -24,7 +24,7 @@ export class AllItemsTableViewComponent {
   selected_row_data:any[];
   folder_structure_value:any = [];
   selected_row_data_length:any;
-  showEditablefields:boolean = true;
+  showEditablefields:boolean = false;
 
 
   constructor(private http : HttpClient){

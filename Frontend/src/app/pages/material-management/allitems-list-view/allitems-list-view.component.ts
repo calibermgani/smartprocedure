@@ -12,12 +12,18 @@ export class AllitemsListViewComponent implements OnInit{
   showNestedList:boolean = false;
   showEditablefields:boolean = false;
   selectedListItems:any[]= [];
+  folder_structure_value:any = [];
   constructor(private http : HttpClient){}
 
   ngOnInit(): void {
     this.http.get('assets/json/allItems-listView.json').subscribe((res:any)=>{
       this.ListViewData = res;
-    })
+    });
+
+    this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
+      this.folder_structure_value = res;
+      console.log('response',this.folder_structure_value);
+    });
   }
 
   selectedItemIndex: number;

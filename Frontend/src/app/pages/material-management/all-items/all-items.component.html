@@ -272,14 +272,14 @@
             </div>
             <div class="ms-auto pointer">
               <div class="d-flex flex-row" >
-                <div (click)="ChangeView('grid')">
-                  <img src="assets/images/grid_view.svg" [ngClass]="{'changeView': selectedView == 'grid' }" tooltip="Grid" placement="top">
+                <div (click)="ChangeView('grid')" class="me-2 p-2" [ngClass]="{'changeView': selectedView == 'grid' }">
+                  <img [src]=" selectedView == 'grid' ? 'assets/images/gridview_selected.svg' : 'assets/images/gridview_unselected.svg' "  tooltip="Grid" placement="top" style="width: 16px; height: 16px;">
                 </div>
-                <div (click)="ChangeView('list')">
-                  <img src="assets/images/list_view.svg" [ngClass]="{'changeView': selectedView == 'list' }" tooltip="List" placement="top">
+                <div (click)="ChangeView('list')" class="me-2 p-2" [ngClass]="{'changeView': selectedView == 'list' }">
+                  <img [src]=" selectedView == 'list' ? 'assets/images/listview_selected.svg' : 'assets/images/listview_unselected.svg' "  tooltip="List" placement="top" style="width: 16px; height: 16px;">
                 </div>
-                <div (click)="ChangeView('table')">
-                  <img src="assets/images/table_view.svg" [ngClass]="{'changeView': selectedView == 'table' }" tooltip="Table" placement="top">
+                <div (click)="ChangeView('table')" class="me-2 p-2" [ngClass]="{'changeView': selectedView == 'table' }">
+                  <img [src]=" selectedView == 'table' ? 'assets/images/tableview_selected.svg' : 'assets/images/tableview_unselected.svg' "  tooltip="Table" placement="top" style="width: 16px; height: 16px;">
                 </div>
               </div>
             </div>
@@ -675,7 +675,7 @@
         <div class="col-12">
           <div class="mb-3">
             <label for="items_no" class="modal-label-edit">Item description</label>
-            <textarea type="text" class="form-control-new"></textarea>
+            <textarea type="text" class="form-control-new textarea-font-size"></textarea>
            </div>
         </div>
       </div>
