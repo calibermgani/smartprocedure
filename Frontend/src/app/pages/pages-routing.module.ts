@@ -3,7 +3,6 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DefaultComponent } from './dashboards/default/default.component';
 import { AuthGuard } from '../core/guards/auth.guard';
-import { ViewFullGridComponent } from './material-management/view-full-grid/view-full-grid.component';
 import { GridItemsDetailedViewComponent } from './material-management/grid-items-detailed-view/grid-items-detailed-view.component';
 
 const routes: Routes = [
@@ -23,7 +22,6 @@ const routes: Routes = [
   { path: 'workarea', loadChildren: () => import('./procedure/procedure-work-area/procedure-work-area.module').then(m => m.ProcedureWorkAreaModule), canActivate: [AuthGuard] },
   { path: 'staff-management', loadChildren: () => import('./staff-management/staff-management.module').then(m => m.StaffManagementModule), canActivate: [AuthGuard] },
   { path: 'material-management', loadChildren: () => import('./material-management/material-management.module').then(m => m.MaterialManagementModule), canActivate: [AuthGuard] },
-  { path: 'material-management/viewfullgrid', component: ViewFullGridComponent, canActivate: [AuthGuard] },
 ];
 
 @NgModule({

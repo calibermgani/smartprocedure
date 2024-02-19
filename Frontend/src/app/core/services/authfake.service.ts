@@ -5,7 +5,6 @@ import { map } from 'rxjs/operators';
 
 import { User } from '../models/auth.models';
 import { environment_new } from 'src/environments/environment';
-import { ColDef } from 'ag-grid-community';
 
 @Injectable({ providedIn: 'root' })
 export class AuthfakeauthenticationService {
@@ -18,6 +17,9 @@ export class AuthfakeauthenticationService {
 
     public showGridDetailedView = new BehaviorSubject(true);
     GridDetailedView_value = this.showGridDetailedView.asObservable();
+
+    public selectedTabTypeSubject = new BehaviorSubject<String>('All Items');
+    selectedTabTypeValue = this.selectedTabTypeSubject.asObservable();
 
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -59,5 +61,10 @@ export class AuthfakeauthenticationService {
 
     changeViewType(data:any){
       this.showGridDetailedView.next(data);
+    }
+
+    changeTabView_AllItems(data:any){
+      console.log('Pass Selcted tab',data);
+      this.selectedTabTypeSubject.next(data);
     }
 }
