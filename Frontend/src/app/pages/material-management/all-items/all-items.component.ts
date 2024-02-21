@@ -1,6 +1,6 @@
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { AuthfakeauthenticationService } from './../../../core/services/authfake.service';
-import { Component, OnInit, ViewChild, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { ModalDirective } from 'ngx-bootstrap/modal';

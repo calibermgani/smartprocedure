@@ -1,4 +1,4 @@
-::ng-deep .nav{
+:host ::ng-deep .nav{
   background: #594585 !important;
   height: auto !important;
   border-radius: 16px !important;
@@ -316,4 +316,21 @@ border-bottom: none !important;
   background-repeat: no-repeat !important;
   background-position: 314px !important; // Adjust the position as needed
   background-size: 16px 16px !important; // Adjust the size of the image
+}
+
+:host ::ng-deep .tooltip-inner
+{
+  max-width: 200px !important;
+  padding: 6px 8px !important;
+  color: #fff !important;
+  background-color: #181d1f !important;
+}
+
+:host ::ng-deep .tooltip{
+  --bs-tooltip-bg:#181d1f !important
+}
+
+:host ::ng-deep .bs-tooltip-bottom
+{
+  opacity: 1 !important;
 }

@@ -371,7 +371,7 @@
             <div class="tab-pane active show" id="clinical_history_view" role="tabpanel">
               <div class="tab-pane" role="tabpanel" style="width: 100% !important;">
                 <ul class="nav line-tab px-1 nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                  style="background: #F3F4F8 !important;width: 100% !important;white-space: nowrap; border: 1px solid #F3F4F8;border-radius: 12px !important;align-items: center;padding: 0px 5px !important;">
+                  style="background: #F3F4F8 !important;width: 360px !important;white-space: nowrap; border: 1px solid #F3F4F8;border-radius: 12px !important;align-items: center;padding: 0px 5px !important;height: auto !important;">
                   <li class="nav-item" role="presentation">
                     <a class="navs-links active" data-bs-toggle="tab" href="#pre_diagnosis" role="tab"
                       aria-selected="true" style="white-space: nowrap;">
@@ -618,9 +618,9 @@
                 id="clinical_histroy" role="tabpanel">
                 <!-- <div class="tab-pane" role="tabpanel" style="width: 100% !important;"> -->
                 <ul class="nav line-tab px-1 nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                  style="background: #F3F4F8 !important;width: 100% !important;white-space: nowrap; border: 1px solid #F3F4F8;border-radius: 12px !important;align-items: center;padding: 0px 5px !important;">
+                  style="background: #F3F4F8 !important;width: 360px !important;white-space: nowrap; border: 1px solid #F3F4F8;border-radius: 12px !important;align-items: center;padding: 0px 5px !important;height: auto !important;">
                   <li class="nav-item" role="presentation" (click)="tab_Subactive('pre_diagnosis')">
-                    <a [ngClass]="{ 'navs-links': true, 'navs-links active': active_sub_status == 'pre_diagnosis' }"
+                    <a [ngClass]="{ 'navs-links': true, 'active': active_sub_status == 'pre_diagnosis' }"
                       data-bs-toggle="tab" href="#pre_diagnosis_view" role="tab" aria-selected="true"
                       style="white-space: nowrap;">
                       <div class="d-flex flex-row">
