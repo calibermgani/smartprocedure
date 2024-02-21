@@ -2,8 +2,8 @@
   {
      "tabs": "Radiology",
      "id": 1,
-     "template": "#TabContentA1",
-     "active":"active",
+     "template": "#TabContentC1",
+     "active":"",
      "content": "Dynamic content 1",
      "imgPath":"assets/images/Radiologist.svg",
      "removable": false,
@@ -12,51 +12,51 @@
         {
            "id": 1,
            "subtabs": "Request Info",
-           "active":"active",
-           "link": "#a1-1"
+           "active":"",
+           "link": "#c1-1"
         },
         {
            "id": 2,
            "subtabs": "Admission Info",
            "active":"",
-           "link": "#a1-2"
+           "link": "#c1-2"
         },
         {
            "id": 3,
            "subtabs": "Booking",
            "active":"",
-           "link": "#a1-3"
+           "link": "#c1-3"
         },
         {
            "id": 4,
            "subtabs": "Vetting & Protocoling",
            "active":"",
-           "link": "#a1-4"
+           "link": "#c1-4"
         },
         {
            "id": 5,
            "subtabs": "Materials",
            "active":"",
-           "link": "#a1-5"
+           "link": "#c1-5"
         },
         {
            "id": 6,
            "subtabs": "IV accusses & closure",
            "active":"",
-           "link": "#a1-6"
+           "link": "#c1-6"
         },
         {
            "id": 7,
            "subtabs": "Radiation dose info",
            "active":"",
-           "link": "#a1-7"
+           "link": "#c1-7"
         }
      ]
   },
   {
      "tabs": "Nurse",
      "id": 2,
-     "template": "#TabContentA2",
+     "template": "#TabContentC2",
      "active":"",
      "content": "Dynamic content 2",
      "imgPath":"assets/images/Nurse.svg",
@@ -67,45 +67,45 @@
            "id": 1,
            "subtabs": "Request Info",
            "active":"",
-           "link": "#a2-1"
+           "link": "#c2-1"
         },
         {
            "id": 2,
            "subtabs": "Admission Info",
            "active":"",
-           "link": "#a2-2"
+           "link": "#c2-2"
         },
         {
            "id": 3,
            "subtabs": "Booking",
            "active":"",
-           "link": "#a2-3"
+           "link": "#c2-3"
         },
         {
           "id": 1,
           "subtabs": "Request Info",
           "active":"",
-          "link": "#a2-4"
+          "link": "#c2-4"
        },
        {
           "id": 2,
           "subtabs": "Admission Info",
           "active":"",
-          "link": "#a2-5"
+          "link": "#c2-5"
        },
        {
           "id": 3,
           "subtabs": "Booking",
           "active":"",
-          "link": "#a2-6"
+          "link": "#c2-6"
        }
      ]
   },
   {
      "tabs": "Technologist",
      "id": 3,
-     "template": "#TabContentA3",
-     "active":"",
+     "template": "#TabContentC3",
+     "active":"active",
      "content": "Dynamic content 3",
      "imgPath":"assets/images/Technologist.svg",
      "removable": false,
@@ -114,19 +114,25 @@
       {
         "id": 1,
         "subtabs": "Request Info",
-        "link": "#a3-1"
+        "link": "#c3-1"
      },
      {
         "id": 2,
         "subtabs": "Admission Info",
-        "link": "#a3-2"
-     }
+        "link": "#c3-2"
+     },
+     {
+      "id": 2,
+      "subtabs": "Materials",
+      "active":"active",
+      "link": "#c3-3"
+   }
      ]
   },
   {
      "tabs": "Receptionist",
      "id": 4,
-     "template": "#TabContentA4",
+     "template": "#TabContentC4",
      "active":"",
      "content": "Dynamic content 4",
      "imgPath":"assets/images/Receptionist.svg",
@@ -136,7 +142,7 @@
       {
         "id": 1,
         "subtabs": "Request Info",
-        "link": "#a4-1"
+        "link": "#c4-1"
      }
      ]
   }

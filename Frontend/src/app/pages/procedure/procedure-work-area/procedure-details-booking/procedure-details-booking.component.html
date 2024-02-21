@@ -1,0 +1,356 @@
+<div class="cards"
+  style="border-radius: 10px !important; border: 1px solid #8B8B8B;padding: 0px !important;height: 557px;">
+  <div class="row">
+
+    <div class="col-3 pe-0" style="border-right: 1px solid #594585;" [ngClass]="{'hideViewOnlyArea': hideViewOnlyMode == true }">
+        <p class="mb-0 px-3 py-2" class="viewonlymode_header mb-0">View Other User Details</p>
+        <img src="assets/images/ViewOnlyModeleft.svg" style="position: relative;top: 43%;left: 95%;bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" class="leftexpand" (click)="HideViewOnlyArea()">
+        <div class="accords px-1" style="overflow-x: scroll;height: 507px;">
+          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
+            <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode">
+              <span accordion-heading class="d-flex">
+                <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+                  {{x.headername}}</h4>
+
+                <div class="float-end">
+                  <img src="assets/images/detailed_view.svg" alt="detailed_view" width="10px" height="10px"
+                    class="mb-1 me-2" (click)="open()">
+                  <i class="mdi"
+                    [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+                    style="font-size: 17px;"></i>
+                </div>
+              </span>
+              <div class="text-muted">
+                <strong class="text-body-emphasis">This is the first item's accordion body.</strong> It is hidden by
+                default, until the collapse plugin adds the appropriate classes that we use to style each element.
+                These classes control the overall appearance, as well as the showing and hiding via CSS
+                transitions. You can modify any of this with custom CSS or overriding our default variables. It's
+                also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
+                the transition does limit overflow.
+              </div>
+            </accordion-group>
+          </accordion>
+        </div>
+
+
+    </div>
+    <div class="col-9" style="padding: 0px 0px !important;" [ngClass]="{'expandWorkArea': hideViewOnlyMode == true }">
+      <img src="assets/images/ViewOnlyModeright.svg" style="position: relative;top: 280px;left: 13px;cursor: pointer;width: 20px;height: 20px;z-index: 1;"  (click)="ShowViewOnlyArea()" *ngIf="hideViewOnlyMode == true">
+        <div class="tab-pane" role="tabpanel" [ngClass]="{'TabsAlign': hideViewOnlyMode == true }">
+          <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist"  [ngClass]="{'ChangeMainTab': hideViewOnlyMode == true }" style="margin-right: 0.66rem">
+            <li class="nav-items" role="presentation" *ngFor="let x of mainTabsValue">
+              <a [class]="'nav-link '+x.active" data-bs-toggle="tab" [href]="x.template" role="tab"
+                aria-selected="true">
+                <div class="d-flex align-items-center">
+                  <!-- <i class="mdi mdi-18px mdi-account me-2"></i> -->
+                  <img [src]="x.imgPath" width="16px" height="16px" class="me-2">
+                  <span>{{x.tabs}}</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+
+
+          <div class="tab-content mt-1 text-muted">
+            <div class="tab-pane" id="TabContentB1" role="tabpanel">
+              <!-- <div class="tab-pane" role="tabpanel"> -->
+              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
+                  <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab"
+                    aria-selected="true">
+                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content px-2 text-muted">
+                <div class="tab-pane" id="b1-1" role="tabpanel">
+                  <h1>Request Info</h1>
+                </div>
+                <div class="tab-pane" id="b1-2" role="tabpanel">
+                  <h1>Admission Info</h1>
+                </div>
+                <div class="tab-pane" id="b1-3" role="tabpanel">
+                  <h1>Booking</h1>
+                </div>
+                <div class="tab-pane" id="b1-4" role="tabpanel">
+                  <h1>Vetting & Protocoling</h1>
+                </div>
+                <div class="tab-pane" id="b1-5" role="tabpanel">
+                </div>
+                <div class="tab-pane" id="b1-6" role="tabpanel">
+                  <h1>IV accusses & closure</h1>
+                </div>
+                <div class="tab-pane" id="b1-7" role="tabpanel">
+                  <h1>Radiation dose info</h1>
+                </div>
+              </div>
+              <!-- </div> -->
+            </div>
+            <div class="tab-pane" id="TabContentB2" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
+                    <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted mt-2">
+                  <div class="tab-pane" id="b2-1" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+                  <div class="tab-pane" id="b2-2" role="tabpanel">
+                    <h1>Admission Info</h1>
+                  </div>
+                  <div class="tab-pane" id="b2-3" role="tabpanel">
+                    <h1>Booking</h1>
+                  </div>
+                  <div class="tab-pane" id="b2-4" role="tabpanel">
+                    <h1>Vetting & Protocoling</h1>
+                  </div>
+                  <div class="tab-pane" id="b2-5" role="tabpanel">
+                    <h1>Materials</h1>
+                  </div>
+                  <div class="tab-pane" id="b2-6" role="tabpanel">
+                    <h1>IV accusses & closure</h1>
+                  </div>
+                </div>
+                <!-- </div> -->
+              </div>
+            </div>
+            <div class="tab-pane active" id="TabContentB3" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
+                    <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted">
+                  <div class="tab-pane" id="b3-1" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+                  <div class="tab-pane" id="b3-2" role="tabpanel">
+                    <h1>Admission Info</h1>
+                  </div>
+                  <div class="tab-pane active show" id="b3-3" role="tabpanel">
+                    <div class="p-0">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="d-flex flex-row justify-content-between align-item-center mx-2 p-2" style="background: #F3F4F8;border-radius: 6px;">
+                            <div>
+                              <p class="mb-0">Items</p>
+                            </div>
+                            <div class="dropdown d-inline-block pointer storeItem" dropdown [insideClick]="true" #dropdown="bs-dropdown" [ngClass]="{'VisibleStorebutton': hideViewOnlyMode == false }" [isDisabled]="hideViewOnlyMode">
+                              <h4 class="mb-0" dropdownToggle><img src="assets/images/storeItem.svg" class="me-2" >Store Item</h4>
+
+                            <div class="dropdown-menu dropdown-menu-end mb-0" *dropdownMenu >
+                              <div class="row m-2">
+                                <div class="col-12 p-0">
+                                  <div class="d-flex justify-content-between align-items-center p-2" style="background: #F3F4F8;border-radius: 8px;">
+                                    <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Store Item
+                                    </h1>
+                                    <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="dropdown?.hide()"
+                                      style="cursor: pointer">
+                                  </div>
+                                  <div class="d-flex justify-content-between align-items-center flex-wrap flex-row my-2">
+                                    <div class="me-2">
+                                      <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+                                    </div>
+                                    <div class="me-2">
+                                      <select class="form-selects" placeholder="Select Category" style="width: 150px !important;">
+                                        <option>Select</option>
+                                        <option>Large select</option>
+                                        <option>Small select</option>
+                                      </select>
+                                    </div>
+                                    <div class="me-2">
+                                      <button class="btn-new">Search</button>
+                                    </div>
+                                  </div>
+                                  <div class="mt-2">
+                                    <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
+                                      style="width: 100%;height: 295px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
+                                      [rowData]="StoreItemGridData"></ag-grid-angular>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="d-flex flex-row justify-content-between align-items-center p-2" style="background-color: #594585;border-radius: 0px 0px 4px 4px;">
+                                <div class="ms-3"><h4 class="mb-0" style="color: #fff !important;">2 items selected</h4></div>
+                                <div class="ms-3"><button class="btn-white" >Search</button></div>
+                              </div>
+                            </div>
+
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="ms-1 me-3 mt-2 Outer-border">
+                        <div class="d-flex flex-wrap align-item-center p-2 Outer-border-header">
+                          <div style="width: 50%;"><h1 class="mb-0" style="font-weight: 500 !important;">My Cart</h1></div>
+                          <div class="ms-2" *ngIf="hideViewOnlyMode == true"><h1 class="mb-0" style="font-weight: 500 !important;">Store Item</h1></div>
+                          <!-- <div class="dropdown d-inline-block me-3" dropdown> -->
+                            <!-- <button type="button" class="btn-new header-item noti-icon" id="page-header-notifications-dropdown"
+                              dropdownToggle
+                              style="height:auto !important;width: 100px !important;padding: 6px 12px 6px 12px !important;background: #855EDB !important;">
+                              <i class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i>
+                              Add new
+                            </button> -->
+
+                          <!-- </div> -->
+                        </div>
+                        <div class="row mx-2">
+                        <div class="col-6 pe-2 ps-0 mycart-body" [ngClass]="{'ShowfullCart': hideViewOnlyMode == false }">
+                          <div class="d-flex flex-column flex-wrap my-3" *ngFor="let x of myCartData;let  i= index">
+                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center mb-1">
+                              <div>
+                                <p class="mb-0">{{ x.Item_name }}</p>
+                              </div>
+                              <div><i class="mdi mdi-trash-can-outline pointer"></i></div>
+                            </div>
+                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+                              <div class="d-flex flex-wrap align-items-center">
+                                <img [src]="x.fav ? 'assets/images/favourite_fill.svg':'assets/images/Fav_stroke.svg'" class="pointer me-2" (click)="AddToFavourite(i , x.fav)">|
+                                <h4 class="mx-2 mb-0">No :{{ x.no }}</h4>|
+                                <h4 class="mx-2 mb-0">No :{{ x.size }}</h4>
+                              </div>
+                              <div class="d-flex">
+                                <button class="btn-new plus-count"><i
+                                    class="mdi mdi-minus" style="color: #000 !important;font-size: 12px;"></i></button>
+                                <span class="mx-2" style="background: #fff !important;">3</span>
+                                <button class="btn-new minus-count"><i
+                                    class="mdi mdi-plus" style="color: #fff !important;font-size: 12px;"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-6 mycart-body-2" [ngClass]="{'hideStoreItem': hideViewOnlyMode == false }">
+                          <div class="d-flex flex-wrap flex-row my-2">
+                            <div class="me-2">
+                              <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" style="height: 30px !important;width: 120px !important;">
+                            </div>
+                            <div class="me-2">
+                              <select class="form-selects" placeholder="Select Category" style="height: 30px !important;width: 120px !important;">
+                                <option>Select</option>
+                                <option>Large select</option>
+                                <option>Small select</option>
+                            </select>
+                            </div>
+                            <div class="me-2">
+                              <button class="btn-new" style="height: 30px !important;width: 120px !important;">Search</button>
+                            </div>
+                          </div>
+
+
+                              <div class="mt-2" style="width: 100%;">
+                                <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
+                                  style="width: 100%;height: 295px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
+                                  [rowData]="StoreItemGridData"></ag-grid-angular>
+                                <div class="d-flex justify-content-between align-items-center p-2" style="background: #F3F4F8;width:100%;
+                                                                                  position: relative;
+                                                                                  bottom: 46px;
+                                                                                  border-radius: 0px 0px 10px 13px;
+                                                                                  border: 1px solid;">
+                                  <div>
+                                    <h4 class="mb-0">2 Items selected</h4>
+                                  </div>
+                                  <div><button class="btn-new" style="height: 30px !important;width: 120px !important;">Add to cart</button></div>
+                                </div>
+                              </div>
+
+
+                        </div>
+                      </div>
+                      </div>
+                      <div class="d-flex flex-row justify-content-between align-items-center p-2 me-4 my-2" style="background: #F3F0FC;">
+                        <div class=""><h4 class="mb-0">Total selected item  : 3</h4></div>
+                        <div class=""><button class="btn-new" style="height: 30px !important;width: 120px !important;">Check out</button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="TabContentB4" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
+                    <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted">
+                  <div class="tab-pane" id="b4-1" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+<!-- Tab Content1 -->
+<ng-template #TabContent1>
+
+</ng-template>
+
+<!-- Tab Content2 -->
+<ng-template #TabContent2>
+  <p class="p-3 mb-0">
+    2Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+    single-origin coffee squid. Exercitation +1 labore velit, blog
+    sartorial PBR leggings next level wes anderson artisan four loko
+    farm-to-table craft beer twee. Qui photo booth letterpress,
+    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+    vinyl cillum PBR. Homo nostrud organic, assumenda labore
+    aesthetic magna delectus.
+  </p>
+</ng-template>
+
+<!-- Tab Content3 -->
+<ng-template #TabContent3>
+  <p class="p-3 mb-0">
+    3Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+    single-origin coffee squid. Exercitation +1 labore velit, blog
+    sartorial PBR leggings next level wes anderson artisan four loko
+    farm-to-table craft beer twee. Qui photo booth letterpress,
+    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+    vinyl cillum PBR. Homo nostrud organic, assumenda labore
+    aesthetic magna delectus.
+  </p>
+</ng-template>
+
+<!-- Tab Contenb4 -->
+<ng-template #TabContenb4>
+  <p class="p-3 mb-0">
+    4Food truck fixie locavore, accusamus mcsweeney's marfa nulla
+    single-origin coffee squid. Exercitation +1 labore velit, blog
+    sartorial PBR leggings next level wes anderson artisan four loko
+    farm-to-table craft beer twee. Qui photo booth letterpress,
+    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+    vinyl cillum PBR. Homo nostrud organic, assumenda labore
+    aesthetic magna delectus.
+  </p>
+</ng-template>

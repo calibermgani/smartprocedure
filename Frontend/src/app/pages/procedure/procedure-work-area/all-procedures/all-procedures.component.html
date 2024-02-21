@@ -21,15 +21,44 @@ height: 730px;">
   </cdk-step>
 </ng-stepper>
 <ng-stepper #cdkStepper [linear]="true" style="width: 100% !important;" *ngIf="this.stepperData?.length >1">
-<cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true" *ngFor="let x of stepperData">
-  <ng-template cdkStepLabel>
-    <div class="step-bullet">.</div>
-    <p class="step-title">{{x.title}}</p>
-  </ng-template>
-  <app-procedure-details #stepOne  [StageValue]="x.value"></app-procedure-details>
-</cdk-step>
+  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true"  *ngIf="VettingCondition == false">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Vetting</p>
+    </ng-template>
+    <app-procedure-details #stepOne ></app-procedure-details>
+  </cdk-step>
+  <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true" *ngIf="BookingCondition == false">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Booking</p>
+    </ng-template>
+    <app-procedure-details-booking #stepTwo ></app-procedure-details-booking>
+  </cdk-step>
+  <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="true" *ngIf="PreProcedureCondition == false">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Pre-procedure</p>
+    </ng-template>
+    <app-procedure-details-pre-procedure #stepThree ></app-procedure-details-pre-procedure>
+  </cdk-step>
+  <cdk-step [stepControl]="stepFour.stepFourForm" [optional]="true" *ngIf="IntraProcedureCondition == true">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Intra-procedure</p>
+    </ng-template>
+    <app-procedure-details-intra-procedure #stepFour style="z-index: 99999 !important;"></app-procedure-details-intra-procedure>
+  </cdk-step>
+  <cdk-step [stepControl]="stepFive.stepFiveForm" [optional]="true" *ngIf="PostProcedureCondition == true">
+    <ng-template cdkStepLabel>
+      <div class="step-bullet">.</div>
+      <p class="step-title">Post-procedure</p>
+    </ng-template>
+    <app-procedure-details-post-procedure #stepFive ></app-procedure-details-post-procedure>
+  </cdk-step>
 </ng-stepper>
 </div>
+
 <div class="cards me-2" style="position: absolute; bottom: 77% !important;border: 1px solid #F9F7FD;background: #F9F7FD;left:0.6rem;width: 95%;left: 3% !important;right: 0% !important;height: 79px !important;border-radius: 10 !important;padding: 10px 0px !important;">
 <div class="d-flex flex-row justify-content-around align-items-center p-2">
   <div class="me-1">

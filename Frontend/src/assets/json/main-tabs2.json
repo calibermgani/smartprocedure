@@ -1,52 +1,149 @@
 [
   {
-    "tabs": "Radiology",
-    "id": 1,
-    "template": "TabContent1",
-    "content": "Dynamic content 1",
-    "removable": false,
-    "disabled": false
+     "tabs": "Radiology",
+     "id": 1,
+     "template": "#TabContentB1",
+     "active":"",
+     "content": "Dynamic content 1",
+     "imgPath":"assets/images/Radiologist.svg",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+        {
+           "id": 1,
+           "subtabs": "Request Info",
+           "active":"",
+           "link": "#b1-1"
+        },
+        {
+           "id": 2,
+           "subtabs": "Admission Info",
+           "active":"",
+           "link": "#b1-2"
+        },
+        {
+           "id": 3,
+           "subtabs": "Booking",
+           "active":"",
+           "link": "#b1-3"
+        },
+        {
+           "id": 4,
+           "subtabs": "Vetting & Protocoling",
+           "active":"",
+           "link": "#b1-4"
+        },
+        {
+           "id": 5,
+           "subtabs": "Materials",
+           "active":"",
+           "link": "#b1-5"
+        },
+        {
+           "id": 6,
+           "subtabs": "IV accusses & closure",
+           "active":"",
+           "link": "#b1-6"
+        },
+        {
+           "id": 7,
+           "subtabs": "Radiation dose info",
+           "active":"",
+           "link": "#b1-7"
+        }
+     ]
   },
   {
-    "tabs": "Nurse",
-    "id": 2,
-    "template": "TabContent2",
-    "content": "Dynamic content 2",
-    "removable": false,
-    "disabled": false,
-    "active": true,
-    "subtabs": [
+     "tabs": "Nurse",
+     "id": 2,
+     "template": "#TabContentB2",
+     "active":"",
+     "content": "Dynamic content 2",
+     "imgPath":"assets/images/Nurse.svg",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+        {
+           "id": 1,
+           "subtabs": "Request Info",
+           "active":"",
+           "link": "#b2-1"
+        },
+        {
+           "id": 2,
+           "subtabs": "Admission Info",
+           "active":"",
+           "link": "#b2-2"
+        },
+        {
+           "id": 3,
+           "subtabs": "Booking",
+           "active":"",
+           "link": "#b2-3"
+        },
+        {
+          "id": 1,
+          "subtabs": "Request Info",
+          "active":"",
+          "link": "#b2-4"
+       },
+       {
+          "id": 2,
+          "subtabs": "Admission Info",
+          "active":"",
+          "link": "#b2-5"
+       },
+       {
+          "id": 3,
+          "subtabs": "Booking",
+          "active":"",
+          "link": "#b2-6"
+       }
+     ]
+  },
+  {
+     "tabs": "Technologist",
+     "id": 3,
+     "template": "#TabContentB3",
+     "active":"active",
+     "content": "Dynamic content 3",
+     "imgPath":"assets/images/Technologist.svg",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
       {
+        "id": 1,
+        "subtabs": "Request Info",
+        "link": "#b3-1"
+     },
+     {
         "id": 2,
-        "subtabs": "Lab Result",
-        "link": "#Lab_Result"
-      },
-      {
-        "id": 3,
-        "subtabs": "CT Brain",
-        "link": "#CT_Brain"
-      },
-      {
-        "id": 4,
-        "subtabs": "ECG",
-        "link": "#ECG"
-      }
-    ]
+        "subtabs": "Admission Info",
+        "link": "#b3-2"
+     },
+     {
+      "id": 3,
+      "subtabs": "Materials",
+      "active":"active",
+      "link": "#b3-3"
+     }
+     ]
   },
   {
-    "tabs": "Technologist",
-    "id": 3,
-    "template": "TabContent3",
-    "content": "Dynamic content 3",
-    "removable": false,
-    "disabled": false
-  },
-  {
-    "tabs": "Receptionist",
-    "id": 4,
-    "template": "TabContent4",
-    "content": "Dynamic content 4",
-    "removable": false,
-    "disabled": false
+     "tabs": "Receptionist",
+     "id": 4,
+     "template": "#TabContentB4",
+     "active":"",
+     "content": "Dynamic content 4",
+     "imgPath":"assets/images/Receptionist.svg",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+      {
+        "id": 1,
+        "subtabs": "Request Info",
+        "link": "#b4-1"
+     }
+     ]
   }
 ]

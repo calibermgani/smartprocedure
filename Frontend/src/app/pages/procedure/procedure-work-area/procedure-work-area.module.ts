@@ -19,12 +19,23 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgxSliderModule } from 'ngx-slider-v2';
+import { ProcedureDetailsBookingComponent } from './procedure-details-booking/procedure-details-booking.component';
+import { ProcedureDetailsPreProcedureComponent } from './procedure-details-pre-procedure/procedure-details-pre-procedure.component';
+import { ProcedureDetailsIntraProcedureComponent } from './procedure-details-intra-procedure/procedure-details-intra-procedure.component';
+import { ProcedureDetailsPostProcedureComponent } from './procedure-details-post-procedure/procedure-details-post-procedure.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { AgGridModule } from 'ag-grid-angular';
+
 @NgModule({
   declarations: [
     WorkAreaComponent,
     ProcedureDetailsComponent,
     AllProceduresComponent,
-    VettingComponent
+    VettingComponent,
+    ProcedureDetailsBookingComponent,
+    ProcedureDetailsPreProcedureComponent,
+    ProcedureDetailsIntraProcedureComponent,
+    ProcedureDetailsPostProcedureComponent,
   ],
   imports: [
     CommonModule,
@@ -41,7 +52,9 @@ import { NgxSliderModule } from 'ngx-slider-v2';
     ModalModule.forRoot(),
     CarouselModule.forRoot(),
     FormsModule,
-    NgxSliderModule
+    NgxSliderModule,
+    NgSelectModule,
+    AgGridModule
   ]
 })
 export class ProcedureWorkAreaModule { }

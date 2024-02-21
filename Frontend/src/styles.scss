@@ -172,7 +172,7 @@ h5{
 .form-selects
 {
   background: #fff !important;
-  border-radius: 2px !important;
+  border-radius: 4px !important;
   color: #000 !important;
   padding: 2px;
   background-image: url('assets/images/whitearrow.svg') !important;
@@ -226,6 +226,14 @@ border: none;
 
 .btn-diasble:hover{
   background: #855EDB  !important;
+  border: none !important;
+}
+
+.btn-white{
+  color: #000 !important;
+  background: #fff !important;
+  padding: 4px 16px 4px 16px !important;
+  border-radius: 4px !important;
   border: none !important;
 }
 
