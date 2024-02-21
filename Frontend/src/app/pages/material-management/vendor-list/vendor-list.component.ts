@@ -206,25 +206,24 @@ export class VendorListComponent implements OnInit {
       this.vendorList = res;
       this.myGrid_1.api?.setRowData(this.vendorList);
 
-      setTimeout(() => {
-        const editIcons = document.querySelectorAll('.edit-row');
-        const deleteIcons = document.querySelectorAll('.delete-row');
+        // const editIcons = document.querySelectorAll('.edit-row');
 
-        // Add click event listeners to edit icons
-        editIcons.forEach(icon => {
-            icon.addEventListener('click', (event) => {
-               this.edit_vendor?.show();
-                console.log('Edit icon clicked');
-            });
-        });
-        // Add click event listeners to delete icons
-        deleteIcons.forEach(icon => {
-            icon.addEventListener('click', (event) => {
-                // Your delete logic here
-                console.log('Delete icon clicked');
-            });
-        });
-      }, 100);
+
+        // // Add click event listeners to edit icons
+        // editIcons.forEach(icon => {
+        //     icon.addEventListener('click', (event) => {
+        //        this.edit_vendor?.show();
+        //         console.log('Edit icon clicked');
+        //     });
+        // });
+        // const deleteIcons = document.querySelectorAll('.delete-row');
+        // // Add click event listeners to delete icons
+        // deleteIcons.forEach(icon => {
+        //     icon.addEventListener('click', (event) => {
+        //         // Your delete logic here
+        //         console.log('Delete icon clicked');
+        //     });
+        // });
     });
   }
 

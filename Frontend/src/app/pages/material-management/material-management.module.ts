@@ -28,6 +28,7 @@ import { AllitemsGridViewComponent } from './allitems-grid-view/allitems-grid-vi
 import { AllitemsListViewComponent } from './allitems-list-view/allitems-list-view.component';
 import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-items-detailed-view.component';
 
+
 @NgModule({
   declarations: [
     AllItemsComponent,
@@ -58,7 +59,7 @@ import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),
     AccordionModule.forRoot(),
-    NgxSliderModule
+    NgxSliderModule,
   ],
   providers:[
 
