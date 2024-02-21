@@ -127,12 +127,16 @@ export class ProcedureDetailsIntraProcedureComponent {
     {
       field: 'qty',
       headerName:'Qty',
+      width:100,
       cellRenderer: AddQuantityComponent,
     },
     {
       field: 'total_qty',
       headerName:'Total Qty',
       width:100,
+      cellStyle:(params:any):any=>{
+        return {'text-align':'center'};
+      },
       filter: "agTextColumnFilter",suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'total_qty')
     },
