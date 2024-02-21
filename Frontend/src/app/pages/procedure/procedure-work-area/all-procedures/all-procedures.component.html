@@ -21,21 +21,21 @@ height: 730px;">
   </cdk-step>
 </ng-stepper>
 <ng-stepper #cdkStepper [linear]="true" style="width: 100% !important;" *ngIf="this.stepperData?.length >1">
-  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true"  *ngIf="VettingCondition == false">
+  <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true"  *ngIf="VettingCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Vetting</p>
     </ng-template>
     <app-procedure-details #stepOne ></app-procedure-details>
   </cdk-step>
-  <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true" *ngIf="BookingCondition == false">
+  <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true" *ngIf="BookingCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Booking</p>
     </ng-template>
     <app-procedure-details-booking #stepTwo ></app-procedure-details-booking>
   </cdk-step>
-  <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="true" *ngIf="PreProcedureCondition == false">
+  <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="true" *ngIf="PreProcedureCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Pre-procedure</p>

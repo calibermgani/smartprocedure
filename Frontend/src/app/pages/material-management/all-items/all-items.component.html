@@ -278,7 +278,7 @@
                 <div (click)="ChangeView('list')" class="me-2 p-2" [ngClass]="{'changeView': selectedView == 'list' }">
                   <img [src]=" selectedView == 'list' ? 'assets/images/listview_selected.svg' : 'assets/images/listview_unselected.svg' "  tooltip="List" placement="top" style="width: 16px; height: 16px;">
                 </div>
-                <div (click)="ChangeView('table')" class="me-2 p-2" [ngClass]="{'changeView': selectedView == 'table' }">
+                <div (click)="ChangeView('table')" class="p-2" [ngClass]="{'changeView': selectedView == 'table' }">
                   <img [src]=" selectedView == 'table' ? 'assets/images/tableview_selected.svg' : 'assets/images/tableview_unselected.svg' "  tooltip="Table" placement="top" style="width: 16px; height: 16px;">
                 </div>
               </div>
@@ -447,7 +447,7 @@
             </div>
             </div>
             <div class="col-9" [ngClass]="{'resizeGrid':resize ==false}">
-              <div class="mt-2">
+              <div class="mt-2 me-3">
                 <app-allitems-table-view *ngIf="selectedView == 'table' "></app-allitems-table-view>
                 <app-allitems-grid-view *ngIf="selectedView == 'grid' "></app-allitems-grid-view>
                 <app-allitems-list-view *ngIf="selectedView == 'list' "></app-allitems-list-view>
