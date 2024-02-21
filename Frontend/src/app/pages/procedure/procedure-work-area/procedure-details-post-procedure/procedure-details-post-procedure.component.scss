@@ -1,0 +1,356 @@
+::ng-deep .nav-pills .nav-link.active
+{
+  color: #fff !important;
+  background-color:  #855EDB !important;
+  border: none !important;
+  border-radius: 0px 0px 0px 0px !important;
+  height: 32px !important;
+  padding: 5px 30px !important;
+  opacity: 1;
+  width: 100% !important;
+}
+
+.nav-tabs .nav-link{
+  border: 0px solid !important;
+}
+
+.nav{
+  background: #594585 !important;
+  height: 34px !important;
+  border-radius: 0px 10px 0px 0px;
+  text-align: center !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+}
+
+
+// .nav-link:hover{
+//   border: none !important;
+//   background: none !important;
+//   border-radius: 0px !important;
+//   height: 32px !important;
+// }
+
+.nav-link{
+  color: #fff !important;
+  transition: none !important;
+  transform: none !important;
+  padding: 6px 30px !important;
+  opacity: 1;
+}
+
+::ng-deep .nav-justified .nav-item
+{
+  flex-grow: 0 !important;
+}
+
+
+::ng-deep .card-header{
+  padding: 3px 10px 3px 10px !important;
+  background: #ECECEC !important;
+}
+
+.accordion-item{
+  border: none !important;
+  margin: 10px 0px ;
+}
+
+.navs-link{
+  background: none;
+  display: block;
+  transition: none !important;
+  transform: none !important;
+  padding: 4px 6px 4px 6px !important;
+  opacity: 0.6;
+  width: 125px !important;
+  font-weight: normal !important;
+  white-space: nowrap;
+}
+
+.nav-tabs-custom .nav-item .navs-link{
+  border: none;
+}
+
+::ng-deep  .navs-link.active
+{
+  color: #fff !important;
+  background-color:  #747474 !important;
+  border: 1px solid #747474 !important;
+  border-radius: 6px !important;
+  height: 22px !important;
+  padding:4px 6px 4px 6px !important;
+  opacity: 1;
+  width: 125px !important;
+  font-weight: bolder !important;
+
+  .name{
+    color: #fff !important;
+  }
+}
+
+.nav-items
+{
+  flex-basis: 0;
+    flex-grow: 0;
+    text-align: center
+}
+
+.scroll-container::-webkit-scrollbar {
+  width: 0px !important;
+  height: 4px !important;
+  cursor: pointer !important; /* Set the width of the scrollbar */
+}
+
+.scroll-container::-webkit-scrollbar-thumb {
+  border-radius: 10px !important;
+  background: #8B8B8B !important;
+  -webkit-box-shadow: inset 0 0 6px #ECECEC !important; /* Set the border-radius of the scrollbar thumb */
+  cursor: pointer !important;
+}
+
+.scroll-container::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px #ECECEC !important;
+  border-radius: 10px !important;
+  cursor: pointer !important;
+}
+
+.Outer-border
+{
+  border: 0.5px solid #594585;border-radius: 10px;
+}
+.Outer-border-header{
+  background: #F3F4F8;border-radius: 10px 10px 0px 0px;height: 30px;border-bottom: 0.5px solid #594585;
+}
+.mycart-body{
+  border-right: 0.5px solid #594585;height: 350px;overflow-y: scroll;
+}
+.mycart-body-2
+{
+  height: 350px;
+}
+.plus-count{
+  padding: 0px !important;width: 22px !important;height: 18px !important;background: #ECECEC !important;
+}
+.minus-count{
+  padding: 0px !important;width: 22px !important;height: 18px !important;background: #855EDB !important;
+}
+.barcode_img{
+  padding-right: 40px !important; // Adjust this value to leave space for the image
+  background-image: url('/assets/images/barcode_input_type.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: 134px !important; // Adjust the position as needed
+  background-size: 16px 16px !important; // Adjust the size of the image
+}
+.drop
+{
+  .ng-select-container
+  {
+    min-height: 30px !important;
+  }
+}
+
+.viewonlymode_header
+{
+  color: #fff !important;background: #594585;width: auto;height: 32px;border-radius: 10px 0px 0px 0px;padding: 8px 9px;
+}
+
+.ag-theme-alpine
+{
+  --ag-row-hover-color: transparent !important;
+  --ag-header-background-color : #594585 !important;
+  --ag-selected-row-background-color : transparent !important;
+}
+::ng-deep .ag-row{
+  border-bottom : none !important
+}
+
+// ::ng-deep .ag-row :hover{
+//   // background: none !important;
+// }
+::ng-deep .ag-row-selected::before
+{
+  background-color: transparent !important;
+}
+::ng-deep .ag-row-odd{
+  margin: 10px 0px !important;
+  background:#F3F4F8 !important;
+  z-index: 2 ;
+}
+
+::ng-deep .ag-row-even{
+  margin: 10px 0px !important;
+  background: none !important;
+}
+
+::ng-deep .ag-header-viewport
+{
+  background: #594585 !important;
+  border: none !important;
+}
+
+::ng-deep .ag-header-viewport:hover{
+  background: #594585 !important;
+}
+
+::ng-deep .ag-header{
+border-bottom: none !important;
+}
+
+::ng-deep .ag-header-cell-text
+{
+  font-size: 10px !important;
+  font-weight: 500 !important;
+  color: #fff !important;
+}
+
+::ng-deep .ag-cell-value
+{
+  font-size: 10px !important;
+  font-weight: 400 !important;
+}
+
+::ng-deep .ag-root-wrapper
+{
+  border: 1px solid #747474 !important;
+  border-radius: 15px;
+  font-family: poppins !important;
+}
+::ng-deep .ag-row-group-expanded
+{
+  background: #8B8B8B !important;
+
+.ag-cell-value{
+  color: #fff !important;
+}
+.ag-icon-tree-open{
+  color: #fff !important;
+}
+}
+
+::ng-deep .ag-theme-alpine .ag-group-contracted .ag-icon:hover{
+  color: #181d1f !important;
+}
+
+::ng-deep .ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within
+{
+  border: none !important;
+}
+
+::ng-deep .ag-icon-menu{
+  color: #fff !important;
+}
+
+::ng-deep .ag-details-grid .ag-theme-alpine{
+//  .ag-root-wrapper .ag-layout-normal .ag-ltr .ag-theme-alpine{
+  --ag-row-hover-color: transparent !important;
+  // .ag-row :hover{
+  //   background: transparent !important;
+  // }
+}
+
+::ng-deep .ag-ltr .ag-cell-range-single-cell
+{
+  border: none !important;
+  background: transparent !important;
+  --ag-row-hover-color: transparent !important;
+}
+
+.hideViewOnlyArea
+{
+  display: none;
+  width: 1%;
+}
+
+
+.expandWorkArea
+{
+  width: 100%;
+}
+
+.showExpandImg{
+  padding-right: 40px !important; // Adjust this value to leave space for the image
+  background-image: url('/assets/images/ViewOnlyModeright.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: 0px !important; // Adjust the position as needed
+  background-size: 16px 16px !important; // Adjust the size of the image
+  z-index: 1 !important;
+}
+
+.TabsAlign{
+  position: relative;
+  bottom: 22px;
+  border-left: 1px solid;
+  margin-left: 1.4rem !important;
+}
+.ChangeMainTab{
+  margin-left: 0.66rem !important;
+  margin-right: 0.66rem !important;
+  border-radius: 10px 10px 0px 0px !important;
+  .nav-link.active{
+    border-radius: 10px 10px 0px 0px !important;
+  }
+}
+
+.ShowfullCart{
+  width: 100%;
+}
+
+.storeItem{
+  opacity: 0.5;
+  cursor:not-allowed;
+  pointer-events:all !important;
+}
+
+.VisibleStorebutton{
+opacity: 1;
+cursor: pointer;
+}
+
+.hideStoreItem{
+  display: none;
+}
+
+.dropdown-menu{
+  width: 600px;
+  height: auto;
+}
+
+.nav
+{
+  background:#654e98 !important;
+  height: 34px !important;
+  border-radius: 0px 0px 0px 0px !important;
+  text-align: center !important;
+  display: flex !important;
+  flex-wrap: nowrap !important;
+  // justify-content:space-between;
+  // padding: 3px 3px;
+}
+
+
+.navs-links
+{
+  display: block;
+  color: #fff !important;
+  transition: none !important;
+  transform: none !important;
+  padding: 5px 30px !important;
+  opacity: 1;
+}
+
+.navs-links.active{
+background: #855EDB;
+border-radius: 12px !important;
+  .details_tab{
+    color: #fff !important;
+  }
+}
+
+
+.barcode_img{
+  padding-right: 40px !important; // Adjust this value to leave space for the image
+  background-image: url('/assets/images/barcode_input_type.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: 134px !important; // Adjust the position as needed
+  background-size: 16px 16px !important; // Adjust the size of the image
+}

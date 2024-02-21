@@ -91,7 +91,6 @@ export class ProcedureDetailsBookingComponent {
 
     this.http.get('assets/json/mycart-data.json').subscribe((res:any)=>{
       this.myCartData = res;
-
     })
 
   }
@@ -128,6 +127,7 @@ export class ProcedureDetailsBookingComponent {
       field: 'action',
       headerName:'Action',
       width:100,
+      pinned:"right",
       filter: "agTextColumnFilter",suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'action'),
       onCellClicked:this.cellClicked.bind(this,'action')
@@ -162,9 +162,6 @@ export class ProcedureDetailsBookingComponent {
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-    // this.http.get('assets/json/damaged_grid.json').subscribe((res:any)=>{
-    //   this.StoreItemGridData = res;
-    // })
   }
 
 
@@ -181,7 +178,7 @@ export class ProcedureDetailsBookingComponent {
 
   ngAfterViewInit(): void {
     // setTimeout(() => {
-    //   this.StoreItem_Grid.api.sizeColumnsToFit();
-    // }, 2000);
+    //   this.gridOptions1.api.sizeColumnsToFit();
+    // }, 1000);
  }
 }

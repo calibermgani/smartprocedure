@@ -1,0 +1,149 @@
+[
+  {
+     "tabs": "Radiology",
+     "id": 1,
+     "template": "#TabContentE1",
+     "active":"",
+     "content": "Dynamic content 1",
+     "imgPath":"assets/images/Radiologist.svg",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+        {
+           "id": 1,
+           "subtabs": "Request Info",
+           "active":"",
+           "link": "#e1-1"
+        },
+        {
+           "id": 2,
+           "subtabs": "Admission Info",
+           "active":"",
+           "link": "#e1-2"
+        },
+        {
+           "id": 3,
+           "subtabs": "Booking",
+           "active":"",
+           "link": "#e1-3"
+        },
+        {
+           "id": 4,
+           "subtabs": "Vetting & Protocoling",
+           "active":"",
+           "link": "#e1-4"
+        },
+        {
+           "id": 5,
+           "subtabs": "Materials",
+           "active":"",
+           "link": "#e1-5"
+        },
+        {
+           "id": 6,
+           "subtabs": "IV accusses & closure",
+           "active":"",
+           "link": "#e1-6"
+        },
+        {
+           "id": 7,
+           "subtabs": "Radiation dose info",
+           "active":"",
+           "link": "#e1-7"
+        }
+     ]
+  },
+  {
+     "tabs": "Nurse",
+     "id": 2,
+     "template": "#TabContentE2",
+     "active":"",
+     "content": "Dynamic content 2",
+     "imgPath":"assets/images/Nurse.svg",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+        {
+           "id": 1,
+           "subtabs": "Request Info",
+           "active":"",
+           "link": "#e2-1"
+        },
+        {
+           "id": 2,
+           "subtabs": "Admission Info",
+           "active":"",
+           "link": "#e2-2"
+        },
+        {
+           "id": 3,
+           "subtabs": "Booking",
+           "active":"",
+           "link": "#e2-3"
+        },
+        {
+          "id": 1,
+          "subtabs": "Request Info",
+          "active":"",
+          "link": "#e2-4"
+       },
+       {
+          "id": 2,
+          "subtabs": "Admission Info",
+          "active":"",
+          "link": "#e2-5"
+       },
+       {
+          "id": 3,
+          "subtabs": "Booking",
+          "active":"",
+          "link": "#e2-6"
+       }
+     ]
+  },
+  {
+     "tabs": "Technologist",
+     "id": 3,
+     "template": "#TabContentE3",
+     "active":"active",
+     "content": "Dynamic content 3",
+     "imgPath":"assets/images/Technologist.svg",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+      {
+        "id": 1,
+        "subtabs": "Request Info",
+        "link": "#e3-1"
+     },
+     {
+        "id": 2,
+        "subtabs": "Admission Info",
+        "link": "#e3-2"
+     },
+     {
+      "id": 3,
+      "subtabs": "Materials",
+      "active":"active",
+      "link": "#e3-3"
+     }
+     ]
+  },
+  {
+     "tabs": "Receptionist",
+     "id": 4,
+     "template": "#TabContentE4",
+     "active":"",
+     "content": "Dynamic content 4",
+     "imgPath":"assets/images/Receptionist.svg",
+     "removable": false,
+     "disabled": false,
+     "subtabs": [
+      {
+        "id": 1,
+        "subtabs": "Request Info",
+        "link": "#e4-1"
+     }
+     ]
+  }
+]

@@ -128,6 +128,7 @@ export class ProcedureDetailsPreProcedureComponent {
       field: 'action',
       headerName:'Action',
       width:100,
+      pinned:"right",
       filter: "agTextColumnFilter",suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'action'),
       onCellClicked:this.cellClicked.bind(this,'action')
@@ -180,9 +181,7 @@ export class ProcedureDetailsPreProcedureComponent {
 
 
   ngAfterViewInit(): void {
-    // setTimeout(() => {
-    //   this.StoreItem_Grid.api.sizeColumnsToFit();
-    // }, 2000);
+    // this.StoreItem_Grid.api?.sizeColumnsToFit();
  }
 
 }

@@ -1,11 +1,11 @@
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { AddQuantityComponent } from '../add-quantity/add-quantity.component';
 import { DropDownButtonComponent } from '../drop-down-button/drop-down-button.component';
-import { ModalDirective } from 'ngx-bootstrap/modal';
+
 
 
 @Component({
@@ -15,15 +15,18 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class ProcedureDetailsIntraProcedureComponent {
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
-  @ViewChild('viewnote')viewnote:ModalDirective
   @Input() StageValue: any;
+  @Output() OpenViewNoteEvent = new EventEmitter;
+  @Output() OpenAddNoteEvent = new EventEmitter;
+  @Output() OpenViewItemEvent = new EventEmitter;
   mainTabsValue: any = [];
   subTabs: any[] = [];
   header_viewOnlymode: any[] = [];
   myCartData : any = [];
-  Addtofavourite_bool:boolean = false;
   hideViewOnlyMode : boolean = false;
-  QtyIncrementValue:any = 0;
+  openViewNote:boolean = false;
+  AddNewNoteBool : boolean = false;
+  OpenViewItemBool : boolean = false;
   StoreItemGridData:any = [
     {
       "item_no":"85327",
@@ -122,7 +125,8 @@ export class ProcedureDetailsIntraProcedureComponent {
       field: 'item_name',
       headerName:'Item Name',
       filter: "agTextColumnFilter",suppressMenu: false,
-      cellRenderer: this.cellRendered.bind(this, 'item_name')
+      cellRenderer: this.cellRendered.bind(this, 'item_name'),
+      onCellClicked:this.cellClicked.bind(this,'item_name')
     },
     {
       field: 'qty',
@@ -180,11 +184,16 @@ export class ProcedureDetailsIntraProcedureComponent {
        }
     }
   }
-
   cellClicked(headerName : any, params:any){
     switch(headerName){
+      case 'item_name':{
+        this.OpenViewItemBool = true;
+        this.OpenViewItemEvent.next(this.OpenViewItemBool);
+        break;
+      }
       case 'note':{
-        this.viewnote?.show();
+        this.openViewNote = true
+          this.OpenViewNoteEvent.emit(this.openViewNote);
         break;
       }
     }
@@ -196,6 +205,7 @@ export class ProcedureDetailsIntraProcedureComponent {
   }
 
   onSelectionChanged(params: any) {
+
   }
 
 
@@ -207,6 +217,11 @@ export class ProcedureDetailsIntraProcedureComponent {
   }
   ShowViewOnlyArea(){
     this.hideViewOnlyMode = false
+  }
+
+  OpenAddNewItemModal(){
+    this.AddNewNoteBool = true;
+    this.OpenAddNoteEvent.next(this.AddNewNoteBool);
   }
 
 

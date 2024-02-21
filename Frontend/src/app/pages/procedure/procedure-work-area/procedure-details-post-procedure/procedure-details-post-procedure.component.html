@@ -1,1 +1,256 @@
-<p>procedure-details-post-procedure works!</p>
+<div class="cards"
+  style="border-radius: 10px !important; border: 1px solid #8B8B8B;padding: 0px !important;height: 557px;">
+  <div class="row">
+    <div class="col-3 pe-0" style="border-right: 1px solid #594585;" [ngClass]="{'hideViewOnlyArea': hideViewOnlyMode == true }">
+        <p class="mb-0 px-3 py-2" class="viewonlymode_header mb-0">View Other User Details</p>
+        <img src="assets/images/ViewOnlyModeleft.svg" style="position: relative;top: 43%;left: 95%;bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" class="leftexpand" (click)="HideViewOnlyArea()">
+        <div class="accords px-1" style="overflow-x: scroll;height: 507px;">
+          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
+            <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode">
+              <span accordion-heading class="d-flex">
+                <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+                  {{x.headername}}</h4>
+
+                <div class="float-end">
+                  <img src="assets/images/detailed_view.svg" alt="detailed_view" width="10px" height="10px"
+                    class="mb-1 me-2" (click)="open()">
+                  <i class="mdi"
+                    [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+                    style="font-size: 17px;"></i>
+                </div>
+              </span>
+              <div class="text-muted">
+                <strong class="text-body-emphasis">This is the first item's accordion body.</strong> It is hidden by
+                default, until the collapse plugin adds the appropriate classes that we use to style each element.
+                These classes control the overall appearance, as well as the showing and hiding via CSS
+                transitions. You can modify any of this with custom CSS or overriding our default variables. It's
+                also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
+                the transition does limit overflow.
+              </div>
+            </accordion-group>
+          </accordion>
+        </div>
+
+
+    </div>
+    <div class="col-9" style="padding: 0px 0px !important;" [ngClass]="{'expandWorkArea': hideViewOnlyMode == true }">
+      <img src="assets/images/ViewOnlyModeright.svg" style="position: relative;top: 280px;left: 13px;cursor: pointer;width: 20px;height: 20px;z-index: 1;"  (click)="ShowViewOnlyArea()" *ngIf="hideViewOnlyMode == true">
+        <div class="tab-pane" role="tabpanel" [ngClass]="{'TabsAlign': hideViewOnlyMode == true }">
+          <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist"  [ngClass]="{'ChangeMainTab': hideViewOnlyMode == true }" style="margin-right: 0.66rem">
+            <li class="nav-items" role="presentation" *ngFor="let x of mainTabsValue">
+              <a [class]="'nav-link '+x.active" data-bs-toggle="tab" [href]="x.template" role="tab"
+                aria-selected="true">
+                <div class="d-flex align-items-center">
+                  <!-- <i class="mdi mdi-18px mdi-account me-2"></i> -->
+                  <img [src]="x.imgPath" width="16px" height="16px" class="me-2">
+                  <span>{{x.tabs}}</span>
+                </div>
+              </a>
+            </li>
+          </ul>
+
+
+          <div class="tab-content mt-1 text-muted">
+            <div class="tab-pane" id="TabContentE1" role="tabpanel">
+              <!-- <div class="tab-pane" role="tabpanel"> -->
+              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
+                  <a class="navs-link" data-bs-toggle="tab" [href]="x.link" role="tab"
+                    aria-selected="true">
+                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                  </a>
+                </li>
+              </ul>
+              <div class="tab-content px-2 text-muted">
+                <div class="tab-pane" id="e1-1" role="tabpanel">
+                  <h1>Request Info</h1>
+                </div>
+                <div class="tab-pane" id="e1-2" role="tabpanel">
+                  <h1>Admission Info</h1>
+                </div>
+                <div class="tab-pane" id="e1-3" role="tabpanel">
+                  <h1>Booking</h1>
+                </div>
+                <div class="tab-pane" id="e1-4" role="tabpanel">
+                  <h1>Vetting & Protocoling</h1>
+                </div>
+                <div class="tab-pane" id="e1-5" role="tabpanel">
+                </div>
+                <div class="tab-pane" id="e1-6" role="tabpanel">
+                  <h1>IV accusses & closure</h1>
+                </div>
+                <div class="tab-pane" id="e1-7" role="tabpanel">
+                  <h1>Radiation dose info</h1>
+                </div>
+              </div>
+              <!-- </div> -->
+            </div>
+            <div class="tab-pane" id="TabContentE2" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
+                    <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted mt-2">
+                  <div class="tab-pane" id="e2-1" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+                  <div class="tab-pane" id="e2-2" role="tabpanel">
+                    <h1>Admission Info</h1>
+                  </div>
+                  <div class="tab-pane" id="e2-3" role="tabpanel">
+                    <h1>Booking</h1>
+                  </div>
+                  <div class="tab-pane" id="e2-4" role="tabpanel">
+                    <h1>Vetting & Protocoling</h1>
+                  </div>
+                  <div class="tab-pane" id="e2-5" role="tabpanel">
+                    <h1>Materials</h1>
+                  </div>
+                  <div class="tab-pane" id="e2-6" role="tabpanel">
+                    <h1>IV accusses & closure</h1>
+                  </div>
+                </div>
+                <!-- </div> -->
+              </div>
+            </div>
+            <div class="tab-pane active" id="TabContentE3" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
+                    <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted">
+                  <div class="tab-pane" id="e3-1" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+                  <div class="tab-pane" id="e3-2" role="tabpanel">
+                    <h1>Admission Info</h1>
+                  </div>
+                  <div class="tab-pane active show" id="e3-3" role="tabpanel">
+                    <div class="p-0">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="ms-1 me-3 mt-2 Outer-border">
+                            <div class="d-flex justify-content-between flex-wrap align-item-center p-2 Outer-border-header">
+                              <div>
+                                <h1 class="mb-0" style="font-weight: 500 !important;">Items</h1>
+                              </div>
+                            </div>
+
+                            <div class="tab-pane active show"  role="tabpanel">
+                              <div class="tab-pane" role="tabpanel" style="width: 100% !important;">
+                                <ul class="nav line-tab px-1 nav-tabs  nav-tabs-custom nav-justified m-1 mt-2" role="tablist"
+                                  style="background: #F3F4F8 !important;width: 360px !important;height: 25px !important;white-space: nowrap; border: 1px solid #F3F4F8;border-radius: 12px !important;align-items: center;padding: 0px 5px !important;height: auto !important;">
+                                  <li class="nav-item" role="presentation" style="height: 20px !important;">
+                                    <a class="navs-links active" data-bs-toggle="tab" href="#used" role="tab"
+                                      aria-selected="true" style="white-space: nowrap;">
+                                      <div class="d-flex flex-row">
+                                        <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Used</h4>
+                                      </div>
+                                    </a>
+                                  </li>
+                                  <li class="nav-item" role="presentation" style="height: 20px !important;">
+                                    <a class="navs-links" data-bs-toggle="tab" href="#returned" role="tab" aria-selected="false"
+                                      tabindex="-1" style="white-space: nowrap;">
+                                      <div class="d-flex flex-row">
+                                        <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Returned</h4>
+                                      </div>
+                                    </a>
+                                  </li>
+                                  <li class="nav-item" role="presentation" style="height: 20px !important;">
+                                    <a class="navs-links" data-bs-toggle="tab" href="#damaged" role="tab" aria-selected="false"
+                                      tabindex="-1" style="white-space: nowrap;">
+                                      <div class="d-flex flex-row">
+                                        <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Damaged</h4>
+                                      </div>
+                                    </a>
+                                  </li><li class="nav-item" role="presentation">
+                                    <a class="navs-links" data-bs-toggle="tab" href="#waste" role="tab" aria-selected="false"
+                                      tabindex="-1" style="white-space: nowrap;">
+                                      <div class="d-flex flex-row">
+                                        <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Waste</h4>
+                                      </div>
+                                    </a>
+                                  </li>
+
+                                </ul>
+
+                                <div class="tab-content p-1 text-muted">
+                                  <div class="tab-pane active show" id="used" role="tabpanel">
+                                    <div style="background-color: #F3F4F8;" class="my-2 p-1">
+                                      <label class="modal-label-edit">Barcode</label>
+                                      <div class="d-flex justify-content-start">
+                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type"></div>
+                                        <div class="ms-2"><button class="btn-new" style="padding:4px !important;width: 65px !important;height: 26px !important;">Scan</button></div>
+                                      </div>
+                                    </div>
+
+                                    <div class="m-2">
+                                      <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
+                                      style="width: 100%;height: 252px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
+                                      [rowData]="StoreItemGridData" (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
+                                    </div>
+                                  </div>
+                                  <div class="tab-pane" id="returned" role="tabpanel">
+
+                                  </div>
+                                  <div class="tab-pane" id="damaged" role="tabpanel">
+
+                                  </div>
+                                  <div class="tab-pane" id="waste" role="tabpanel">
+
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="d-flex flex-row justify-content-between align-items-center p-2 me-4 my-2" style="background: #F3F0FC;">
+                        <div class=""><h4 class="mb-0">Total selected item  : 3</h4></div>
+                        <div class=""><button class="btn-new" style="height: 30px !important;width: 120px !important;">Check out</button></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="tab-pane" id="TabContentE4" role="tabpanel">
+              <div class="tab-pane" role="tabpanel">
+                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
+                    <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                    </a>
+                  </li>
+                </ul>
+                <div class="tab-content ms-2 mt-2 text-muted">
+                  <div class="tab-pane" id="e4-1" role="tabpanel">
+                    <h1>Request Info</h1>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+  </div>
+</div>

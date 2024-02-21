@@ -1,7 +1,6 @@
 <div class="cards"
   style="border-radius: 10px !important; border: 1px solid #8B8B8B;padding: 0px !important;height: 557px;">
   <div class="row">
-
     <div class="col-3 pe-0" style="border-right: 1px solid #594585;" [ngClass]="{'hideViewOnlyArea': hideViewOnlyMode == true }">
         <p class="mb-0 px-3 py-2" class="viewonlymode_header mb-0">View Other User Details</p>
         <img src="assets/images/ViewOnlyModeleft.svg" style="position: relative;top: 43%;left: 95%;bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" class="leftexpand" (click)="HideViewOnlyArea()">
@@ -150,7 +149,7 @@
                               <div >
                                 <h1 class="mb-0" style="font-weight: 500 !important;">My Cart</h1>
                               </div>
-                              <div class="me-2" >
+                              <div class="me-2 pointer" (click)="OpenAddNewItemModal()">
                                 <h4 class="mb-0" style="font-weight: 500 !important;"><img src="assets/images/add-new-item.svg" class="me-2">Add new Item</h4>
                               </div>
                             </div>
