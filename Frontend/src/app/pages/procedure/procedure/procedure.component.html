@@ -111,7 +111,7 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-4" [ngClass]="{'show_filters' : show_advanced_filtes == true }"
+    <div class="col-md-3" [ngClass]="{'show_filters' : show_advanced_filtes == true }"
       style="display: none;height: auto;">
       <div style="border: 1px solid #ECECEC;border-radius: 12px;">
         <div class="d-flex p-2" style="border-bottom: 1px solid #ECECEC;cursor: pointer;"
@@ -123,13 +123,13 @@
           <div class="col-6">
             <p style="font-weight: 400;" class="mb-2">Patient Type</p>
             <div class="d-flex">
-              <h1 style="font-weight: 500 !important;padding: 6px 16px 6px 16px !important;"
+              <p style="font-weight: 500 !important;padding: 6px 16px 6px 16px !important;" class="pointer"
                 [ngClass]="{ 'main_active' : selected_patient_type == 'in_patient'}"
-                (click)="PatientType('in_patient')">In Patient</h1>
+                (click)="PatientType('in_patient')">In Patient</p>
 
-              <h1 style="font-weight: 500 !important;padding: 6px 16px 6px 16px !important;"
+              <p style="font-weight: 500 !important;padding: 6px 16px 6px 16px !important;" class="pointer"
                 [ngClass]="{ 'main_active' : selected_patient_type == 'out_patient'}"
-                (click)="PatientType('out_patient')">Out Patient</h1>
+                (click)="PatientType('out_patient')">Out Patient</p>
             </div>
           </div>
           <div class="col-6">
@@ -203,7 +203,7 @@
 
       </div>
     </div>
-    <div class="col-md-12" [ngClass]="{'reduce_grid_size':reduce_size == true}">
+    <div class="col-md-9" [ngClass]="{'reduce_grid_size':reduce_size == false}">
       <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
         style="width: 100%;height: 700px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
         [sideBar]="sideBar"></ag-grid-angular>

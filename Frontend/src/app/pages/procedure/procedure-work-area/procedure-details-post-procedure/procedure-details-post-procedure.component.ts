@@ -5,6 +5,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { AddQuantityComponent } from '../add-quantity/add-quantity.component';
 import { DropDownButtonComponent } from '../drop-down-button/drop-down-button.component';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 @Component({
@@ -15,16 +16,14 @@ import { DropDownButtonComponent } from '../drop-down-button/drop-down-button.co
 export class ProcedureDetailsPostProcedureComponent {
 
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
+  @ViewChild('viewnote')viewnote:ModalDirective;
+  @ViewChild('viewitem')viewitem:ModalDirective;
   @Input() StageValue: any;
-  @Output() OpenViewNoteEvent_Postprocedure = new EventEmitter;
-  @Output() OpenViewItemEvent_Postprocedure = new EventEmitter;
   mainTabsValue: any = [];
   subTabs: any[] = [];
   header_viewOnlymode: any[] = [];
   myCartData : any = [];
   hideViewOnlyMode : boolean = true;
-  openViewModal_Postprocedure:boolean = false;
-  openViewNote_Postprocedure:boolean = false;
   StoreItemGridData:any = [
     {
       "item_no":"85327",
@@ -139,7 +138,6 @@ export class ProcedureDetailsPostProcedureComponent {
     {
       field: 'note',
       headerName:'Note',
-      width:100,
       filter: "agTextColumnFilter",suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'note'),
       onCellClicked:this.cellClicked.bind(this,'note')
@@ -163,10 +161,9 @@ export class ProcedureDetailsPostProcedureComponent {
       }
       case 'note': {
        if(params.value){
-        return `<div class="d-flex"><button class="btn-new" style="width: 70px !important;
+        return `<button class="btn-new" style="width: 70px !important;
         height: 26px !important;
-        padding: 4px 8px 5px 8px !important;
-        text-align: center;">View Note</button></div>`
+        padding: 4px 8px 5px 8px !important;">View Note</button>`
        }
       }
     }
@@ -174,13 +171,11 @@ export class ProcedureDetailsPostProcedureComponent {
   cellClicked(headerName : any, params:any){
     switch(headerName){
       case 'item_name':{
-        this.openViewModal_Postprocedure = true;
-        this.OpenViewItemEvent_Postprocedure.emit(this.openViewModal_Postprocedure);
+        this.viewitem?.show();
         break;
       }
       case 'note':{
-        this.openViewNote_Postprocedure = true;
-        this.OpenViewNoteEvent_Postprocedure.emit(this.openViewNote_Postprocedure);
+        this.viewnote?.show();
         break;
       }
     }

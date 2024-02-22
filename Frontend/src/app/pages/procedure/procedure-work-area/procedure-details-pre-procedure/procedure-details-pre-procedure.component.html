@@ -55,7 +55,7 @@
             <div class="tab-pane" id="TabContentC1" role="tabpanel">
               <!-- <div class="tab-pane" role="tabpanel"> -->
               <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;height:24px !important">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
                   <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab"
                     aria-selected="true">
@@ -93,7 +93,7 @@
               <div class="tab-pane" role="tabpanel">
                 <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
                 <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;height:24px !important">
                   <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
                     <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                       <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -127,7 +127,7 @@
             <div class="tab-pane active" id="TabContentC3" role="tabpanel">
               <div class="tab-pane" role="tabpanel">
                 <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;height:24px !important">
                   <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
                     <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                       <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -156,7 +156,7 @@
                             <div class="dropdown-menu dropdown-menu-end mb-0" *dropdownMenu >
                               <div class="row m-2">
                                 <div class="col-12 p-0">
-                                  <div class="d-flexalign-items-center p-2" style="background: #F3F4F8;border-radius: 8px;">
+                                  <div class="d-flex align-items-center p-2" style="background: #F3F4F8;border-radius: 8px;">
                                     <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Store Item
                                     </h1>
                                     <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="dropdown?.hide()"
@@ -174,17 +174,19 @@
                                       </select>
                                     </div>
                                     <div class="me-2">
-                                      <button class="btn-new">Search</button>
+                                      <button class="btn-new" style="height: 26px !important;
+                                      width: 103px !important;
+                                      padding: 4px !important;">Search</button>
                                     </div>
                                   </div>
                                   <div class="mt-2">
                                     <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
-                                      style="width: 100%;height: 205px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
+                                      style="width: 100%;height: 233px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
                                       [rowData]="StoreItemGridData"></ag-grid-angular>
                                   </div>
                                 </div>
                               </div>
-                              <div class="d-flex flex-row justify-content-between align-items-center p-2" style="background-color: #594585;border-radius: 0px 0px 4px 4px;position:relative;bottom: -8px;">
+                              <div class="d-flex flex-row justify-content-between align-items-center p-2" style="background-color: #594585;border-radius: 0px 0px 4px 4px;position:relative;top:18px;">
                                 <div class="ms-3"><h4 class="mb-0" style="color: #fff !important;">2 items selected</h4></div>
                                 <div class="ms-3"><button class="btn-white" >Search</button></div>
                               </div>
@@ -284,7 +286,7 @@
             <div class="tab-pane" id="TabContentC4" role="tabpanel">
               <div class="tab-pane" role="tabpanel">
                 <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;height:24px !important">
                   <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
                     <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                       <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -310,48 +312,3 @@
 
 
 
-
-
-<!-- Tab Content1 -->
-<ng-template #TabContent1>
-
-</ng-template>
-
-<!-- Tab Content2 -->
-<ng-template #TabContent2>
-  <p class="p-3 mb-0">
-    2Food truck fixie locavore, accusamus mcsweeney's marfa nulla
-    single-origin coffee squid. Exercitation +1 labore velit, blog
-    sartorial PBR leggings next level wes anderson artisan four loko
-    farm-to-table craft beer twee. Qui photo booth letterpress,
-    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-    vinyl cillum PBR. Homo nostrud organic, assumenda labore
-    aesthetic magna delectus.
-  </p>
-</ng-template>
-
-<!-- Tab Content3 -->
-<ng-template #TabContent3>
-  <p class="p-3 mb-0">
-    3Food truck fixie locavore, accusamus mcsweeney's marfa nulla
-    single-origin coffee squid. Exercitation +1 labore velit, blog
-    sartorial PBR leggings next level wes anderson artisan four loko
-    farm-to-table craft beer twee. Qui photo booth letterpress,
-    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-    vinyl cillum PBR. Homo nostrud organic, assumenda labore
-    aesthetic magna delectus.
-  </p>
-</ng-template>
-
-<!-- Tab Contenb4 -->
-<ng-template #TabContenb4>
-  <p class="p-3 mb-0">
-    4Food truck fixie locavore, accusamus mcsweeney's marfa nulla
-    single-origin coffee squid. Exercitation +1 labore velit, blog
-    sartorial PBR leggings next level wes anderson artisan four loko
-    farm-to-table craft beer twee. Qui photo booth letterpress,
-    commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-    vinyl cillum PBR. Homo nostrud organic, assumenda labore
-    aesthetic magna delectus.
-  </p>
-</ng-template>

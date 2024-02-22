@@ -47,14 +47,14 @@ height: 730px;">
       <div class="step-bullet">.</div>
       <p class="step-title">Intra-procedure</p>
     </ng-template>
-    <app-procedure-details-intra-procedure #stepFour (OpenViewNoteEvent)="OpenViewNote_Modal($event)" (OpenAddNoteEvent)="OpenAddItem_Modal($event)" (OpenViewItemEvent)="OpenViewItem_Modal($event)"></app-procedure-details-intra-procedure>
+    <app-procedure-details-intra-procedure #stepFour></app-procedure-details-intra-procedure>
   </cdk-step>
   <cdk-step [stepControl]="stepFive.stepFiveForm" [optional]="true" *ngIf="PostProcedureCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Post-procedure</p>
     </ng-template>
-    <app-procedure-details-post-procedure #stepFive  (OpenViewItemEvent_Postprocedure)="OpenViewItemModal_Postprocedure($event)" (OpenViewNoteEvent_Postprocedure)="OpenViewNoteModal_Postprocedure($event)"></app-procedure-details-post-procedure>
+    <app-procedure-details-post-procedure #stepFive></app-procedure-details-post-procedure>
   </cdk-step>
 </ng-stepper>
 </div>

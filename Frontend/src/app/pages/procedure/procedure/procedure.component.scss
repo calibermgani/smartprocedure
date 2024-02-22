@@ -126,12 +126,12 @@
 }
 .reduce_grid_size
 {
-  width: 66%;
+  width: 100%;
   position: relative;
   left: 0%;
 }
 
-::ng-deep .ng-select-container
+:host ::ng-deep .ng-select-container
 {
   background: #fff;
   border:1px solid #BEBEBF !important;

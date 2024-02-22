@@ -12,10 +12,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 })
 export class AllProceduresComponent implements OnInit {
 
-  @ViewChild('addnote') addnote:ModalDirective;
-  @ViewChild('addnewtem') addnewtem:ModalDirective;
-  @ViewChild('viewitem') viewitem:ModalDirective;
-  @ViewChild('viewnote') viewnote:ModalDirective;
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
   stepperData: any;
   VettingCondition:boolean = false;
@@ -180,55 +176,6 @@ export class AllProceduresComponent implements OnInit {
   }
 
 
-
-
-  OpenViewNote_Modal(value:boolean){
-    if(value){
-      console.log(value);
-
-      this.addnote?.show();
-    }
-    else{
-      this.addnote.hide();
-    }
-  }
-
-  OpenAddItem_Modal(value:boolean){
-    if(value){
-      this.addnewtem?.show();
-    }
-    else{
-      this.addnewtem.hide();
-    }
-  }
-
-  OpenViewItem_Modal(value:boolean){
-    if(value){
-      console.log(value);
-
-      this.viewitem?.show();
-    }
-    else{
-      this.viewitem.hide();
-    }
-  }
-  OpenViewItemModal_Postprocedure(value:boolean){
-    if(value){
-      this.viewitem?.show();
-    }
-    else{
-      this.viewitem.hide();
-    }
-  }
-
-  OpenViewNoteModal_Postprocedure(value:boolean){
-    if(value){
-      this.viewnote?.show();
-    }
-    else{
-      this.viewnote.hide();
-    }
-  }
 
   AddToFavourite(index:number,value:boolean){
     this.myCartData[index].fav = !value;

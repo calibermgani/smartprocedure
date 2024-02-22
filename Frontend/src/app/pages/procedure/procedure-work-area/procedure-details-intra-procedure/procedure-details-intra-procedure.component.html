@@ -51,10 +51,10 @@
 
 
           <div class="tab-content mt-1 text-muted">
-            <div class="tab-pane" id="TabContentB1" role="tabpanel">
+            <div class="tab-pane" id="TabContentD1" role="tabpanel">
               <!-- <div class="tab-pane" role="tabpanel"> -->
               <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;height:24px !important">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
                   <a class="navs-link" data-bs-toggle="tab" [href]="x.link" role="tab"
                     aria-selected="true">
@@ -87,11 +87,11 @@
               </div>
               <!-- </div> -->
             </div>
-            <div class="tab-pane" id="TabContentB2" role="tabpanel">
+            <div class="tab-pane" id="TabContentD2" role="tabpanel">
               <div class="tab-pane" role="tabpanel">
                 <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
                 <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;height:24px !important">
                   <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
                     <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                       <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -122,10 +122,10 @@
                 <!-- </div> -->
               </div>
             </div>
-            <div class="tab-pane active" id="TabContentB3" role="tabpanel">
+            <div class="tab-pane active" id="TabContentD3" role="tabpanel">
               <div class="tab-pane" role="tabpanel">
                 <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;height:24px !important">
                   <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
                     <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                       <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -194,10 +194,10 @@
                 </div>
               </div>
             </div>
-            <div class="tab-pane" id="TabContentB4" role="tabpanel">
+            <div class="tab-pane" id="TabContentD4" role="tabpanel">
               <div class="tab-pane" role="tabpanel">
                 <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;height:24px !important">
                   <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
                     <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                       <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
@@ -220,31 +220,35 @@
   </div>
 </div>
 
-<div bsModal #viewnote="bs-modal" class="modal fade"  role="dialog" aria-labelledby="dialog-nested-name2">
-  <div class="modal-dialog modal-dialog-centered" style="max-width:400px !important;">
+
+
+
+
+<div bsModal #addnote="bs-modal" class="modal fade"  role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:450px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
         style="background: #F3F4F8;border-radius: 8px;">
         <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">View Note
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="viewnote?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addnote?.hide()"
           style="cursor: pointer">
       </div>
-      <div class="d=flex flex-column p-3">
-        <div class="d-flex flex-row" style="width: 100%;">
+      <div class="d=flex flex-column px-3 py-3">
+        <div class="d-flex flex-row mb-4" style="width: 100%;">
           <div style="width: 50%;">
-            <label for="items_category" class="modal-label-edit mb-1">Item Name</label>
+            <label for="items_category" class="modal-label mb-1">Item Name</label>
             <h1 class="">ORS Juice</h1>
           </div>
           <div style="width: 50%;">
-            <label for="items_category" class="modal-label-edit mb-1">Item No</label>
+            <label for="items_category" class="modal-label mb-1">Item No</label>
             <h1 class="">42254</h1>
           </div>
         </div>
 
-        <div class="d-flex flex-column mb-3 mt-1" style="width: 100%;">
-          <label for="items_category" class="modal-label-edit mb-1">Comment<span style="color:red !important;">Minimum 50 letters</span></label>
-          <textarea placeholder="Type your comment"></textarea>
+        <div class="d-flex flex-column mb-2 mt-1" style="width: 100%;">
+          <label for="items_category" class="modal-label-edit mb-1">Comment<span class="ms-1" style="color:red !important;">Minimum 50 letters</span></label>
+          <textarea placeholder="Type your comment" class="form-control-new"></textarea>
         </div>
 
       </div>
@@ -254,6 +258,245 @@
         <!-- <button type="button" class="btn-new me-2"
           style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="viewnote?.hide()">Cancel</button> -->
         <button type="button" class="btn-new" style="width: auto !important;">Save</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #addnewtem="bs-modal" class="modal fade" role="dialog" aria-labelledby="dialog-nested-name2">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
+    <div class="modal-content p-2">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 mt-3 mb-2"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add new item
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addnewtem?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="m-2 Outer-border">
+        <div class="d-flex flex-wrap align-item-center p-2 Outer-border-header">
+          <div style="width: 50%;">
+            <h1 class="mb-0" style="font-weight: 500 !important;">My Cart</h1>
+          </div>
+          <div class="ms-2">
+            <h1 class="mb-0" style="font-weight: 500 !important;">Store Item</h1>
+          </div>
+        </div>
+        <div class="row mx-2">
+          <div class="col-5 my-2 mycart-body">
+            <div class="d-flex flex-column flex-wrap my-3" *ngFor="let x of myCartData;let  i= index">
+              <div class="d-flex flex-row flex-wrap justify-content-between align-items-center mb-1">
+                <div>
+                  <p class="mb-0">{{ x.Item_name }}</p>
+                </div>
+                <div><i class="mdi mdi-trash-can-outline pointer"></i></div>
+              </div>
+              <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+                <div class="d-flex flex-wrap align-items-center">
+                  <img [src]="x.fav ? 'assets/images/favourite_fill.svg':'assets/images/Fav_stroke.svg'"
+                    class="pointer me-2" (click)="AddToFavourite(i , x.fav)">|
+                  <h4 class="mx-2 mb-0">No :{{ x.no }}</h4>|
+                  <h4 class="mx-2 mb-0">No :{{ x.size }}</h4>
+                </div>
+                <div class="d-flex">
+                  <button class="btn-new plus-count"><i class="mdi mdi-minus"
+                      style="color: #000 !important;font-size: 12px;"></i></button>
+                  <span class="mx-2" style="background: #fff !important;">3</span>
+                  <button class="btn-new minus-count"><i class="mdi mdi-plus"
+                      style="color: #fff !important;font-size: 12px;"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-7 mycart-body-2">
+            <div class="d-flex flex-wrap flex-row my-2">
+              <div class="me-2">
+                <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+              </div>
+              <div class="me-2">
+                <select class="form-selects" placeholder="Select Category">
+                  <option>Select</option>
+                  <option>Large select</option>
+                  <option>Small select</option>
+                </select>
+              </div>
+              <div class="me-2">
+                <button class="btn-new" style="height: 30px !important;width: 120px !important;">Search</button>
+              </div>
+            </div>
+            <div class="mt-2" style="width: 100%;">
+              <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1"
+                #StoreItem_Grid style="width: 100%;height: 295px;" (gridReady)="onGridReady_1($event)"
+                [defaultColDef]="defaultColDef" [rowData]="StoreItemGridData"></ag-grid-angular>
+              <div class="d-flex justify-content-between align-items-center p-2" style="background: #F3F4F8;width:100%;position: relative;bottom: 46px;border-radius: 0px 0px 10px 13px;border: 1px solid;">
+                <div>
+                  <h4 class="mb-0">2 Items selected</h4>
+                </div>
+                <div><button class="btn-new" style="height: 30px !important;width: 120px !important;">Add to
+                    cart</button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">View Item
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="viewitem?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div style="overflow-y: scroll !important;height: 500px;">
+      <div class="row mx-2 mt-3" style="flex-wrap: nowrap !important">
+        <div class="col-3 px-2">
+          <div class="d-flex flex-column justify-centent-between">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label">Item:</label>
+              <img src="assets/images/item_image_sample.svg" width="207px" height="104px">
+            </div>
+          </div>
+        </div>
+        <div class="col-9" style="padding: 0px 0px 0px 84px;">
+            <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
+              <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" class="modal-label mb-1">Item number</label>
+                <h1 class="">Neurology</h1>
+              </div>
+              <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" class="modal-label mb-1" >Item name</label>
+               <h1 class="">ORS juice</h1>
+              </div>
+            </div>
+            <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
+              <div class="" style="width: 100%;margin-bottom: 2.3rem;">
+                <label for="items_category" class="modal-label mb-1">Item category</label>
+                <h1 class="">ORS Juice</h1>
+              </div>
+              <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" class="modal-label mb-1">Barcodes</label>
+                <h1><img src="assets/images/barcode_view.svg" width="100px" height="45px" style="display: inline-flex;"></h1>
+              </div>
+            </div>
+        </div>
+      </div>
+      <div class="row mx-2 mb-3">
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Procedure </label>
+              <h1 class="">Cardiology</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Price</label>
+              <h1 class="">100.00</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1" >Store</label>
+              <h1 class="">50</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Min level  </label>
+              <h1 class="">52934</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Item Status</label>
+              <h1 class="">In Stock</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Size</label>
+              <h1 class="">300ml</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Cabinet</label>
+              <h1 class="">0</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1" >Cat No</label>
+              <h1 class="">56954</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-column">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1" >Vendor</label>
+              <h1 class="">Flores Junita</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Unit</label>
+              <h1 class="">60</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Expiry Date</label>
+              <h1 class="">14-10-2023</h1>
+            </div>
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Lot No</label>
+              <h1 class="">14454</h1>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row mx-2 mb-3">
+        <div class="col-8">
+          <div class="d-flex">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Tags</label>
+              <h1 >#energy #ORS #energy #ORS #energy #ORS #energy #ORS</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Unit No</label>
+            <h1 class="">10</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row mx-2 mb-3">
+        <div class="col-12">
+          <label for="items_category" class="modal-label mb-1">Item description</label>
+          <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+        </div>
+      </div>
+      <div class="row mx-2 mb-3">
+        <div class="col-12">
+          <label for="items_category" class="modal-label mb-1">Notes</label>
+          <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+        </div>
+      </div>
+    </div>
+      <div class="d-flex flex-row justify-content-end p-3">
+        <!-- <div>
+          <button type="button" class="btn-new me-4"
+            style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"
+            (click)="viewitem?.hide()">Close</button>
+        </div> -->
+        <div>
+          <button type="button" class="btn-new me-2"
+            style="width: auto !important;"
+            (click)="viewitem?.hide()">Close</button>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex flex-row">
+      <div class="previousitem">
+        <img src="assets/images/go_previous_patient.svg" width="30px" height="30px">
+      </div>
+      <div class="nextitem">
+        <img src="assets/images/go_next_patient.svg" width="30px" height="30px">
       </div>
     </div>
   </div>

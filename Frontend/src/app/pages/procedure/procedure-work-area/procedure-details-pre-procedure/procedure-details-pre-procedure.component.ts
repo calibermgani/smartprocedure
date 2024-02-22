@@ -91,7 +91,6 @@ export class ProcedureDetailsPreProcedureComponent {
 
     this.http.get('assets/json/mycart-data.json').subscribe((res:any)=>{
       this.myCartData = res;
-
     })
 
   }

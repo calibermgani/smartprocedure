@@ -154,11 +154,15 @@
   color: #fff !important;background: #594585;width: auto;height: 32px;border-radius: 10px 0px 0px 0px;padding: 8px 9px;
 }
 
+
 .ag-theme-alpine
 {
   --ag-row-hover-color: transparent !important;
   --ag-header-background-color : #594585 !important;
   --ag-selected-row-background-color : transparent !important;
+  position: absolute !important;
+  top: 3px !important;
+  --ag-line-height:20px !important
 }
 ::ng-deep .ag-row{
   border-bottom : none !important
@@ -175,11 +179,13 @@
   margin: 10px 0px !important;
   background:#F3F4F8 !important;
   z-index: 2 ;
+  padding:4px 4px;
 }
 
 ::ng-deep .ag-row-even{
   margin: 10px 0px !important;
   background: none !important;
+  padding: 4px 4px;
 }
 
 ::ng-deep .ag-header-viewport
@@ -198,7 +204,7 @@ border-bottom: none !important;
 
 ::ng-deep .ag-header-cell-text
 {
-  font-size: 10px !important;
+  font-size: 14px !important;
   font-weight: 500 !important;
   color: #fff !important;
 }

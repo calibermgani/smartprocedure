@@ -18,7 +18,7 @@ export class ProcedureComponent implements OnInit {
   current_Procedure_filters: string[];
   sortBy_values: string[];
   main_filter_value: string = 'View all';
-  CurrentSavedFilter: string;
+  CurrentSavedFilter: any;
 
   enabled_edit_btn: boolean;
   enable_edit_feature: boolean = false;

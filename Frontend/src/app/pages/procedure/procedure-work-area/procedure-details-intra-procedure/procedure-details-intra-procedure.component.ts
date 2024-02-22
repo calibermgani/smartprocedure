@@ -5,6 +5,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { AddQuantityComponent } from '../add-quantity/add-quantity.component';
 import { DropDownButtonComponent } from '../drop-down-button/drop-down-button.component';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 
 
 
@@ -15,18 +16,15 @@ import { DropDownButtonComponent } from '../drop-down-button/drop-down-button.co
 })
 export class ProcedureDetailsIntraProcedureComponent {
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
+  @ViewChild('addnewtem') addnewtem : ModalDirective;
+  @ViewChild('addnote') addnote : ModalDirective;
+  @ViewChild('viewitem') viewitem : ModalDirective;
   @Input() StageValue: any;
-  @Output() OpenViewNoteEvent = new EventEmitter;
-  @Output() OpenAddNoteEvent = new EventEmitter;
-  @Output() OpenViewItemEvent = new EventEmitter;
   mainTabsValue: any = [];
   subTabs: any[] = [];
   header_viewOnlymode: any[] = [];
   myCartData : any = [];
   hideViewOnlyMode : boolean = false;
-  openViewNote:boolean = false;
-  AddNewNoteBool : boolean = false;
-  OpenViewItemBool : boolean = false;
   StoreItemGridData:any = [
     {
       "item_no":"85327",
@@ -102,6 +100,10 @@ export class ProcedureDetailsIntraProcedureComponent {
     this.http.get('assets/json/viewOnlyMode.json').subscribe((res: any) => {
       this.header_viewOnlymode = res;
     });
+
+    this.http.get('assets/json/mycart-data.json').subscribe((res:any)=>{
+      this.myCartData = res;
+    })
 
 
   }
@@ -187,13 +189,11 @@ export class ProcedureDetailsIntraProcedureComponent {
   cellClicked(headerName : any, params:any){
     switch(headerName){
       case 'item_name':{
-        this.OpenViewItemBool = true;
-        this.OpenViewItemEvent.next(this.OpenViewItemBool);
+        this.viewitem?.show();
         break;
       }
       case 'note':{
-        this.openViewNote = true
-          this.OpenViewNoteEvent.emit(this.openViewNote);
+        this.addnote.show();
         break;
       }
     }
@@ -220,8 +220,7 @@ export class ProcedureDetailsIntraProcedureComponent {
   }
 
   OpenAddNewItemModal(){
-    this.AddNewNoteBool = true;
-    this.OpenAddNoteEvent.next(this.AddNewNoteBool);
+    this.addnewtem?.show();
   }
 
 
