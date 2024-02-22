@@ -11,7 +11,7 @@ import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef 
 export class ProcedureDetailsPreProcedureComponent {
 
 
-  @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
+  @ViewChild('StoreItem_Grid_Preprocedure') StoreItem_Grid_Preprocedure: AgGridAngular;
   @Input() StageValue: any;
   mainTabsValue: any = [];
   subTabs: any[] = [];
@@ -106,7 +106,7 @@ export class ProcedureDetailsPreProcedureComponent {
     {
       field: 'item_no',
       headerName:'Item No',
-      width:100,
+      width:110,
       filter: "agTextColumnFilter", suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'item_no')
     },

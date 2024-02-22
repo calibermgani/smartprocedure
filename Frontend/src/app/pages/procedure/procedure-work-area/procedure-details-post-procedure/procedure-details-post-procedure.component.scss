@@ -138,7 +138,7 @@
   padding-right: 40px !important; // Adjust this value to leave space for the image
   background-image: url('/assets/images/barcode_input_type.svg') !important;
   background-repeat: no-repeat !important;
-  background-position: 134px !important; // Adjust the position as needed
+  background-position: 160px !important; // Adjust the position as needed
   background-size: 16px 16px !important; // Adjust the size of the image
 }
 .drop
@@ -352,11 +352,3 @@ border-radius: 12px !important;
   }
 }
 
-
-.barcode_img{
-  padding-right: 40px !important; // Adjust this value to leave space for the image
-  background-image: url('/assets/images/barcode_input_type.svg') !important;
-  background-repeat: no-repeat !important;
-  background-position: 134px !important; // Adjust the position as needed
-  background-size: 16px 16px !important; // Adjust the size of the image
-}

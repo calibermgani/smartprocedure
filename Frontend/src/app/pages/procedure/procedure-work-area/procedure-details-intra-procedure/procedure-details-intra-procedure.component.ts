@@ -119,7 +119,7 @@ export class ProcedureDetailsIntraProcedureComponent {
     {
       field: 'item_no',
       headerName:'Item No',
-      width:100,
+      width:110,
       filter: "agTextColumnFilter", suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'item_no')
     },
@@ -133,13 +133,13 @@ export class ProcedureDetailsIntraProcedureComponent {
     {
       field: 'qty',
       headerName:'Qty',
-      width:100,
+      width:80,
       cellRenderer: AddQuantityComponent,
     },
     {
       field: 'total_qty',
       headerName:'Total Qty',
-      width:100,
+      width:120,
       cellStyle:(params:any):any=>{
         return {'text-align':'center'};
       },
@@ -156,7 +156,7 @@ export class ProcedureDetailsIntraProcedureComponent {
     {
       field: 'note',
       headerName:'Note',
-      width:100,
+      width:90,
       filter: "agTextColumnFilter",suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'note'),
       onCellClicked:this.cellClicked.bind(this,'note')

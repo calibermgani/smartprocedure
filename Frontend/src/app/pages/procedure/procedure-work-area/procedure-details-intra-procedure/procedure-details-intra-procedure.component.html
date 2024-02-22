@@ -156,17 +156,17 @@
 
                             <div class="d-flex flex-wrap align-items-center m-2 px-2" style="width: 100%;">
                               <div class="me-2" style="width: 25%;">
-                                <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+                                <input class="form-control-new-sm" [ngClass]="hideViewOnlyMode == true ? 'barcode_img_lg' : 'barcode_img_md' " type="text" placeholder="scan or type">
                               </div>
                               <div class="me-2" style="width: 25%;">
-                                <select class="form-selects" placeholder="Select Category" style="width: 100% !important;background: #F3F4F8 !important">
+                                <select class="form-selects" placeholder="Select Category" style="width: 100% !important;">
                                   <option>Select</option>
                                   <option>Large select</option>
                                   <option>Small select</option>
                                 </select>
                               </div>
                               <div class="me-2" style="width: 25%;">
-                                <select class="form-selects" placeholder="Select Category" style="width: 100% !important;background: #F3F4F8 !important">
+                                <select class="form-selects" placeholder="Select Category" style="width: 100% !important;">
                                   <option>Select</option>
                                   <option>Large select</option>
                                   <option>Small select</option>
@@ -311,10 +311,10 @@
           <div class="col-7 mycart-body-2">
             <div class="d-flex flex-wrap flex-row my-2">
               <div class="me-2">
-                <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+                <input class="form-control-new-sm barcode_img_1" type="text" placeholder="scan or type" style="width: 30%;">
               </div>
               <div class="me-2">
-                <select class="form-selects" placeholder="Select Category">
+                <select class="form-selects" placeholder="Select Category" style="width: 30%;">
                   <option>Select</option>
                   <option>Large select</option>
                   <option>Small select</option>

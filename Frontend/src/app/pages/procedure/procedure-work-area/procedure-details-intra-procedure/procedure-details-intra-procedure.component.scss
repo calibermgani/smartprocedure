@@ -134,11 +134,18 @@
 .minus-count{
   padding: 0px !important;width: 22px !important;height: 18px !important;background: #855EDB !important;
 }
-.barcode_img{
-  padding-right: 40px !important; // Adjust this value to leave space for the image
+.barcode_img_md{
+  padding-right: 10px !important; // Adjust this value to leave space for the image
   background-image: url('/assets/images/barcode_input_type.svg') !important;
   background-repeat: no-repeat !important;
-  background-position: 134px !important; // Adjust the position as needed
+  background-position: 160px !important; // Adjust the position as needed
+  background-size: 16px 16px !important; // Adjust the size of the image
+}
+.barcode_img_lg{
+  padding-right: 10px !important; // Adjust this value to leave space for the image
+  background-image: url('/assets/images/barcode_input_type.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: 220px !important; // Adjust the position as needed
   background-size: 16px 16px !important; // Adjust the size of the image
 }
 .drop
@@ -315,3 +322,15 @@ cursor: pointer;
   height: auto;
 }
 
+.barcode_img_1{
+  padding-right: 10px !important;
+  background-image: url(/assets/images/barcode_input_type.svg) !important;
+  background-repeat: no-repeat !important;
+  background-position: 130px !important;
+  background-size: 16px 16px !important;
+}
+
+:host ::ng-deep .ag-body-horizontal-scroll{
+  position: relative !important;
+  bottom: 45px !important;
+}

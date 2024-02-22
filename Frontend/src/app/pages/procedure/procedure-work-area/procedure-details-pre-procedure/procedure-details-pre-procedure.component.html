@@ -239,23 +239,25 @@
                         <div class="col-7 mycart-body-2" [ngClass]="{'hideStoreItem': hideViewOnlyMode == false }">
                           <div class="d-flex flex-wrap flex-row my-2">
                             <div class="me-2">
-                              <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" style="height: 30px !important;width: 120px !important;">
+                              <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
                             </div>
                             <div class="me-2">
-                              <select class="form-selects" placeholder="Select Category" style="height: 30px !important;width: 120px !important;">
+                              <select class="form-selects" placeholder="Select Category" >
                                 <option>Select</option>
                                 <option>Large select</option>
                                 <option>Small select</option>
                             </select>
                             </div>
                             <div class="me-2">
-                              <button class="btn-new" style="height: 30px !important;width: 120px !important;">Search</button>
+                              <button class="btn-new" style="height: 26px !important;
+                              width: 103px !important;
+                              padding: 4px !important;">Search</button>
                             </div>
                           </div>
 
 
                               <div class="mt-2" style="width: 100%;">
-                                <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
+                                <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid_Preprocedure
                                   style="width: 100%;height: 295px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
                                   [rowData]="StoreItemGridData"></ag-grid-angular>
                                 <div class="d-flex justify-content-between align-items-center p-2" style="background: #F3F4F8;width:100%;
