@@ -80,11 +80,11 @@ export class RecallComponent {
       headerName: 'Lot no',
       cellRenderer: this.cellrendered.bind(this, 'lot_no')
     },
-    {
-      field: 'expiry_date',
-      headerName: 'Expiry Date',
-      cellRenderer: this.cellrendered.bind(this, 'expiry_date'),
-    },
+    // {
+    //   field: 'expiry_date',
+    //   headerName: 'Expiry Date',
+    //   cellRenderer: this.cellrendered.bind(this, 'expiry_date'),
+    // },
     {
       field: 'quantity',
       headerName: 'Quantity',

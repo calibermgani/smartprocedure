@@ -50,9 +50,10 @@ export class AllItemsTableViewComponent {
     },
     overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
     suppressMenuHide: false,
-    rowSelection: 'multiple',
+    rowSelection: 'single',
     rowHeight: 35,
     pagination: true,
+    suppressRowClickSelection:true,
     suppressHorizontalScroll: false,
     suppressMovableColumns: true,
     suppressDragLeaveHidesColumns: true,
@@ -87,7 +88,7 @@ export class AllItemsTableViewComponent {
       checkboxSelection: true,
       resizable:false,
       headerCheckboxSelection: true,
-      width:10
+      width:10,
     },
     {
       field: 'item_no',
@@ -271,26 +272,39 @@ export class AllItemsTableViewComponent {
     switch(headerName){
       case 'item_name':{
         this.viewitem?.show();
+        break;
       }
     }
   }
 
   onSelectionChanged(params:any){
     this.selected_row_data = [];
-   this.gridApi_1.getSelectedNodes().forEach(element => {
-     this.selected_row_data.push(element.data);
-   });
-   if(this.selected_row_data.length == 0){
-     this.showEditablefields = false;
-   }
-   else{
-     this.selected_row_data_length = this.selected_row_data.length;
-     this.showEditablefields = true;
-   }
+
+
+
  }
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
+
+    this.gridApi_1.addEventListener('selectionChanged', () => {
+      const selectedNodes = this.gridApi_1.getSelectedNodes();
+
+      if (selectedNodes.length > 0) {
+          console.log(selectedNodes);
+
+          if(this.selected_row_data.length == 0){
+            this.showEditablefields = false;
+          }
+          else{
+            this.selected_row_data_length = this.selected_row_data.length;
+            this.showEditablefields = true;
+          }
+      } else {
+
+          console.log('sewlva 2');
+      }
+  });
   }
 
   ngAfterViewInit(): void {

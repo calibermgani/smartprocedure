@@ -334,3 +334,6 @@ border-bottom: none !important;
 {
   opacity: 1 !important;
 }
+ :host ::ng-deep .ng-select-container{
+  background: #f3f4f8 !important;
+ }

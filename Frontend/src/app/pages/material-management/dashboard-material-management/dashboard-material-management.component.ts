@@ -462,12 +462,12 @@ export class DashboardMaterialManagementComponent implements OnInit {
             filter: "agTextColumnFilter",suppressMenu: false,
             cellRenderer: this.cellRendered.bind(this, 'lot_no')
           },
-          {
-            field: 'expire_date',
-            headerName:'Expiry Date',
-            filter: "agDateColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'expire_date')
-          },
+          // {
+          //   field: 'expire_date',
+          //   headerName:'Expiry Date',
+          //   filter: "agDateColumnFilter",suppressMenu: false,
+          //   cellRenderer: this.cellRendered.bind(this, 'expire_date')
+          // },
           {
             field: 'quantity',
             headerName:'Quantity',

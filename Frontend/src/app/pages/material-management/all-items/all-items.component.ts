@@ -86,7 +86,8 @@ export class AllItemsComponent implements OnInit {
 
     this.authfakeauthenticationService.GridDetailedView_value.subscribe((res:any)=>{
       this.overallview = res;
-    })
+    });
+
   }
 
   ngOnInit(): void {
@@ -102,7 +103,10 @@ export class AllItemsComponent implements OnInit {
       this.enableTab = res;
       console.log('Selected Tab',res);
       console.log('Selected Tab',res);
-    })
+    });
+    // setTimeout(() => {
+    //   this.additem?.show();
+    // }, 1000);
   }
 
 

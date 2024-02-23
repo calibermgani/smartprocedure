@@ -510,7 +510,7 @@
             <form>
               <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'">
                 <ngx-dropzone-label class="dz-message needsclick">
-                  <div class="mb-3">
+                  <div class="mt-4">
                     <i class="display-4 text-muted bx bxs-cloud-upload"></i>
                   </div>
 
@@ -551,9 +551,9 @@
         <div class="col-8">
           <div class="d-flex flex-row justify-centent-between">
             <div class="mb-3 me-4" style="width: 50%;">
-              <label for="items_category" class="modal-label-edit">Items Category<span
+              <label for="items_category" class="modal-label-edit">Items number<span
                   style="color: red;">*</span></label>
-              <ng-select [items]="" placeholder="Select Status"></ng-select>
+              <input class="form-control-new" placeholder="12345" type="text">
             </div>
             <!-- <div class="mt-4 mx-3">
               <button class="btn-new"
@@ -611,10 +611,11 @@
           <div class="mb-3">
             <label for="items_no" class="modal-label-edit">Price<span
                 style="color: red;">*</span></label>
-            <span><i class="d-inline-flex mdi mdi-currency-usd"></i></span><input class="form-control-new price_field" type="number" style="text-align: right;">
+            <!-- <span><i class="d-inline-flex mdi mdi-currency-usd"></i></span> -->
+            <input class="form-control-new price_field" type="number" style="text-align: right;">
           </div>
           <div class="mb-3">
-            <label for="size" class="modal-label-edit">Size<span style="color: red;">*</span></label>
+            <label for="size" class="modal-label-edit">Store Qty<span style="color: red;">*</span></label>
             <div class="d-flex">
              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
@@ -624,7 +625,7 @@
             </div>
           </div>
           <div class="mb-3">
-            <label for="unit" class="modal-label-edit">Min Level<span style="color: red;">*</span></label>
+            <label for="unit" class="modal-label-edit">Min store Qty<span style="color: red;">*</span></label>
             <input class="form-control-new" type="text">
           </div>
         </div>
@@ -634,13 +635,13 @@
             <div class="d-flex flex-row">
               <input class="form-control-new me-2" type="number">
               <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-2"></ng-select>
-              <button class="btn-new"
+              <!-- <button class="btn-new"
                 style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
-                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button> -->
             </div>
           </div>
           <div class="mb-3">
-            <label for="vendor" class="modal-label-edit">Cabinet</label>
+            <label for="vendor" class="modal-label-edit">Cabinet Qty</label>
             <div class="d-flex">
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
@@ -656,12 +657,12 @@
         </div>
         <div class="col-4">
           <div class="mb-3">
-            <label for="lot_no" class="modal-label-edit">Unit<span style="color: red;">*</span></label>
-            <input class="form-control-new" type="number">
+            <label for="lot_no" class="modal-label-edit">Sub Category<span style="color: red;">*</span></label>
+            <ng-select items="" placeholder="Choose option"></ng-select>
           </div>
           <div class="mb-3">
             <label for="price" class="modal-label-edit">Expiry Date<span style="color: red;">*</span></label>
-            <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker>
+            <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker [bsConfig]="{ adaptivePosition: true }">
           </div>
           <div class="mb-3">
             <label for="on_hand_qty" class="modal-label-edit">Lot No</label>
@@ -670,10 +671,16 @@
         </div>
       </div>
       <div class="row p-3">
-        <div class="col-12">
+        <div class="col-8">
           <div class="mb-3">
-            <label for="items_no" class="modal-label-edit">Item description</label>
-            <textarea type="text" class="form-control-new textarea-font-size"></textarea>
+            <label for="items_no" class="modal-label-edit">Tags</label>
+            <input type="text" class="form-control-new" placeholder="">
+           </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_no" class="modal-label-edit">Unit<span style="color: red;">*</span></label>
+            <input type="text" class="form-control-new" placeholder="">
            </div>
         </div>
       </div>
