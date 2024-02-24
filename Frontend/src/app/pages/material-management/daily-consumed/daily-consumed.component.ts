@@ -57,8 +57,12 @@ export class DailyConsumedComponent implements OnInit{
     suppressContextMenu: false,
   };
 
-  public gridOptionsDailyConsumed:GridOptions = {};
-  public gridOptionsMaterialUtilized:GridOptions = {};
+  public gridOptionsDailyConsumed:GridOptions = {
+    suppressRowClickSelection:true,
+  };
+  public gridOptionsMaterialUtilized:GridOptions = {
+    suppressRowClickSelection:true,
+  };
   // Nested Detailed Grid
 
 

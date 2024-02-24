@@ -31,6 +31,7 @@ export class RecallComponent {
     suppressMenuHide: false,
     rowSelection: 'multiple',
     rowHeight: 35,
+    suppressRowClickSelection:true,
     pagination: true,
     suppressHorizontalScroll: false,
     suppressMovableColumns: true,

@@ -57,14 +57,19 @@ export class DashboardMaterialManagementComponent implements OnInit {
     suppressMenuHide: false,
     rowSelection: 'multiple',
     rowHeight: 35,
+    suppressRowClickSelection:true,
     suppressHorizontalScroll: false,
     suppressMovableColumns: true,
     suppressDragLeaveHidesColumns: true,
     suppressContextMenu: false,
   };
 
-  public gridOptionsDailyConsumed:GridOptions = {};
-  public gridOptionsMaterialUtilized:GridOptions = {};
+  public gridOptionsDailyConsumed:GridOptions = {
+    suppressRowClickSelection:true,
+  };
+  public gridOptionsMaterialUtilized:GridOptions = {
+    suppressRowClickSelection:true,
+  };
   // Nested Detailed Grid
 
 

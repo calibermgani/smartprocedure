@@ -35,6 +35,7 @@ export class VendorListComponent implements OnInit {
     rowSelection: 'multiple',
     rowHeight: 35,
     pagination: true,
+    suppressRowClickSelection:true,
     suppressHorizontalScroll: false,
     suppressMovableColumns: true,
     suppressDragLeaveHidesColumns: true,

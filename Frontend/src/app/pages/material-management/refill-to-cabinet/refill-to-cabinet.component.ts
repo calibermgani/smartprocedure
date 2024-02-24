@@ -32,6 +32,7 @@ export class RefillToCabinetComponent {
     rowSelection: 'multiple',
     rowHeight: 35,
     pagination: true,
+    suppressRowClickSelection:true,
     suppressHorizontalScroll: false,
     suppressMovableColumns: true,
     suppressDragLeaveHidesColumns: true,

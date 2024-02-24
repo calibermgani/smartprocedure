@@ -38,6 +38,12 @@ export class ProcedureComponent implements OnInit {
     pagination: true,
     suppressDragLeaveHidesColumns: true,
     suppressContextMenu: true,
+    getRowStyle: (params) => {
+      if (params.data.Priority === 'Emergency') {
+          return { background: 'rgb(250 218 218) !important' };
+      }
+      return null;
+  },
   };
 
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
@@ -71,7 +77,7 @@ export class ProcedureComponent implements OnInit {
         },
       } as ToolPanelDef,
     ],
-    defaultToolPanel: 'columns',
+    defaultToolPanel: null,
   };
 
 
@@ -138,7 +144,7 @@ export class ProcedureComponent implements OnInit {
           let headerName = '';
           colDefs.push({ checkboxSelection: true, headerCheckboxSelection: true, width: 50, cellRenderer: this.cellrendered.bind(this, key), headerName: headerName, })
         }
-        else {
+        else if(key != 'substatus') {
           colDefs.push({ field: key, cellRenderer: this.cellrendered.bind(this, key),onCellClicked:this.cellClicked.bind(this,key) })
         }
       });
@@ -220,14 +226,34 @@ export class ProcedureComponent implements OnInit {
           return '-Nil-';
       }
       case 'Priority': {
-        if (params.value)
-          return params.value;
-        else
-          return '-Nil-';
+        switch(params.value){
+          case 'Emergency':{
+
+            return `<div class="d-flex flex-row align-items-center"><p style="color:#D62424 !important;font-weight:400 !important" class="mb-0">${params.value}<h5 style="font-weight:400 !important;color:
+            #855EDB !important;padding:0px 6px 0px 6px !important;background:#fff;border-radius:27px !important" class="mb-0 ms-2">Yet to start</h5></p></div>`;
+          }
+          case 'Routine':{
+            return `<p style="color:#17B927 !important;font-weight:400 !important">${params.value}</p>`;
+          }
+          case 'Other':{
+            return `<p style="color:#594585 !important;font-weight:400 !important">${params.value}</p>`;
+          }
+        }
+
       }
       case 'Procedure Status': {
-        if (params.value)
-          return params.value;
+        if (params.value){
+          let rowData = params.node.data;
+          const substatus = rowData.substatus;
+          console.log(substatus);
+          if(substatus){
+            return `<div class="d-flex flex-row  align-items-center"><p class="mb-0">${params.value}</p><h5 class="ms-1 mb-0" style="font-weight:400 !important;color:#855EDB !important;background:#F3F4F8;padding : 0px 4px 0px 4px;border-radius:27px">${substatus}</h5></div>`;
+          }
+          else{
+            return params.value;
+          }
+
+        }
         else
           return '-Nil-';
       }
@@ -291,6 +317,4 @@ export class ProcedureComponent implements OnInit {
     this.show_advanced_filtes = false;
     this.reduce_size = false;
   }
-
-
 }

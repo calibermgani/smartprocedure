@@ -50,7 +50,7 @@ export class AllItemsTableViewComponent {
     },
     overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
     suppressMenuHide: false,
-    rowSelection: 'single',
+    rowSelection: 'multiple',
     rowHeight: 35,
     pagination: true,
     suppressRowClickSelection:true,
@@ -286,25 +286,22 @@ export class AllItemsTableViewComponent {
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-
+    this.selected_row_data = [];
     this.gridApi_1.addEventListener('selectionChanged', () => {
       const selectedNodes = this.gridApi_1.getSelectedNodes();
-
-      if (selectedNodes.length > 0) {
-          console.log(selectedNodes);
-
-          if(this.selected_row_data.length == 0){
-            this.showEditablefields = false;
-          }
-          else{
-            this.selected_row_data_length = this.selected_row_data.length;
-            this.showEditablefields = true;
-          }
-      } else {
-
-          console.log('sewlva 2');
+      selectedNodes.forEach((element) => {
+        this.selected_row_data.push(element.data);
+      })
+      if (this.selected_row_data.length >= 0) {
+        if (this.selected_row_data.length == 0) {
+          this.showEditablefields = false;
+        }
+        else {
+          this.selected_row_data_length = this.selected_row_data.length;
+          this.showEditablefields = true;
+        }
       }
-  });
+    });
   }
 
   ngAfterViewInit(): void {

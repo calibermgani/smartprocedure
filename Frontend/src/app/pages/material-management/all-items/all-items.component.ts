@@ -94,15 +94,11 @@ export class AllItemsComponent implements OnInit {
     this.authfakeauthenticationService.changeSideMenu('material-management');
     this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
       this.folder_structure_value = res;
-      console.log('response',this.folder_structure_value);
     });
 
     this.authfakeauthenticationService.selectedTabTypeValue.subscribe((res:any)=>{
-      console.log('Selected Tab',res);
       this.selectedTab_To_View = res;
       this.enableTab = res;
-      console.log('Selected Tab',res);
-      console.log('Selected Tab',res);
     });
     // setTimeout(() => {
     //   this.additem?.show();
@@ -239,8 +235,6 @@ export class AllItemsComponent implements OnInit {
       }
       case 'Back to Cabinet':{
         this.enableTab = 'Back to Cabinet';
-        console.log(this.enableTab);
-
         break;
       }
       case 'Wasted':{

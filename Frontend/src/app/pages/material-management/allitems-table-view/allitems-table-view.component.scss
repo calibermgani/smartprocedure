@@ -21,12 +21,14 @@
 ::ng-deep .ag-row-odd{
   margin: 10px 0px !important;
   background:#F3F4F8 !important;
-  z-index: 2 ;
+  z-index: 2;
+  cursor: pointer !important;
 }
 
 ::ng-deep .ag-row-even{
   margin: 10px 0px !important;
   background: none !important;
+  cursor: pointer !important;
 }
 
 ::ng-deep .ag-header-viewport
