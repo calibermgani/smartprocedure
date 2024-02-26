@@ -21,12 +21,13 @@ import { RefillToCabinetComponent } from './refill-to-cabinet/refill-to-cabinet.
 import { RecallComponent } from './recall/recall.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { NgxSliderModule } from 'ngx-slider-v2';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WastedComponent } from './wasted/wasted.component';
 import { AllItemsTableViewComponent } from './allitems-table-view/allitems-table-view.component';
 import { AllitemsGridViewComponent } from './allitems-grid-view/allitems-grid-view.component';
 import { AllitemsListViewComponent } from './allitems-list-view/allitems-list-view.component';
 import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-items-detailed-view.component';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -50,6 +51,7 @@ import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     MaterialManagementRoutingModule,
     AgGridModule,
     NgSelectModule,
@@ -60,6 +62,7 @@ import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-
     BsDatepickerModule.forRoot(),
     AccordionModule.forRoot(),
     NgxSliderModule,
+    ToastrModule.forRoot()
   ],
   providers:[
 

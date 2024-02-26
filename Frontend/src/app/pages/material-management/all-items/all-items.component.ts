@@ -5,6 +5,10 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Options } from 'ngx-slider-v2';
+import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup, UntypedFormBuilder, UntypedFormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 
 interface AllItems{
   id:number,
@@ -55,8 +59,13 @@ export class AllItemsComponent implements OnInit {
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @ViewChild('notify', { static: false }) notify?: ModalDirective;
   @ViewChild('export', { static: false }) export?: ModalDirective;
+  @ViewChild('subcategory', { static: false }) subcategory?: ModalDirective;
 
-
+  AddtagForm:UntypedFormGroup;
+  AddVendorForm:UntypedFormGroup;
+  AddSubCategoryForm:UntypedFormGroup;
+  AddCategoryForm:UntypedFormGroup;
+  AddItemForm : UntypedFormGroup;
   cartData: any[];
   subtotal: any = 0;
   discount: any;
@@ -66,6 +75,13 @@ export class AllItemsComponent implements OnInit {
   tax: any;
   taxRate = 0.125;
   totalprice: any;
+  selectedExportType:string;
+  selectedView:any = 'table';
+  qty: number = 0;
+  textcontent:any;
+  resize:boolean = false;
+  enableTab:any = '';
+
 
   options: Options = {
     floor: 0,
@@ -81,14 +97,15 @@ export class AllItemsComponent implements OnInit {
   MinlevelMaximumValue:number = 30;
 
 
-  constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient) {
+  constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient,private formbuilder : UntypedFormBuilder,private allServices : AllServicesService,private toastr: ToastrService) {
     this.category = []; this.procedure = [];this.format_value = ['KG'];
 
     this.authfakeauthenticationService.GridDetailedView_value.subscribe((res:any)=>{
       this.overallview = res;
     });
-
   }
+
+
 
   ngOnInit(): void {
     this.authfakeauthenticationService.changeSideMenu('material-management');
@@ -100,10 +117,53 @@ export class AllItemsComponent implements OnInit {
       this.selectedTab_To_View = res;
       this.enableTab = res;
     });
-    // setTimeout(() => {
-    //   this.additem?.show();
-    // }, 1000);
+    this.AddtagForm= this.formbuilder.group({
+      TagName:['',Validators.required],
+    });
+
+    this.AddVendorForm  = this.formbuilder.group({
+      VendorName:['',Validators.required],
+      VendorEmail:['',[Validators.required,Validators.email]],
+      VendorContactNo:['',[Validators.required,Validators.pattern("([0-9]{10}$)")]],
+      VendorAddress:[],
+      Status:[]
+    });
+
+    this.AddSubCategoryForm = this.formbuilder.group({
+      SubCategoryName:['',[Validators.required]],
+      category:[],
+      status:[]
+    });
+
+    this.AddCategoryForm = this.formbuilder.group({
+      CategoryName : ['',[Validators.required]],
+      CategorySubCode : ['',[Validators.required]],
+      Status :[]
+    });
+
+    this.AddItemForm = this.formbuilder.group({
+      Image:[],
+      ItemNumber:['',[Validators.required]],
+      ItemName:['',[Validators.required]],
+      ItemCategory:[,Validators.required],
+      Barcodes:['',Validators.required],
+      procedure:[],
+      ItemStatus:[],
+      Vendor:[],
+      price:[,[Validators.required]],
+      size:[,[Validators.required]],
+      subcategory:[],
+      storeqty:[,[Validators.required]],
+      CabinetQty:[],
+      ExpiryDate:[,[Validators.required]],
+      MinStoreQty:[,[Validators.required]],
+      CatNo:[],
+      LotNo:[],
+      Tags:[],
+      Unit:[,[Validators.required]]
+    })
   }
+  get TagForm() { return this.AddtagForm.controls }
 
 
   HideOverAllList(){
@@ -191,7 +251,7 @@ export class AllItemsComponent implements OnInit {
     }
     reader.readAsDataURL(file)
   }
-  textcontent:any;
+
   select_folder(data:any){
     console.log('Selected Folder',data);
     this.textcontent = '';
@@ -209,15 +269,10 @@ export class AllItemsComponent implements OnInit {
     console.log('clicked Folder',this.textcontent);
   }
 
-  openModal()
-  {
-    console.log('1');
-  }
   ngAfterViewInit(): void {
 
   }
 
-  enableTab:any = '';
   changeTab(tabs:any){
     switch(tabs)
     {
@@ -260,12 +315,12 @@ export class AllItemsComponent implements OnInit {
     }
   }
 
-  resize:boolean = false;
+
   hideAdvancedFilters(){
     this.resize =! this.resize;
   }
 
-  qty: number = 0;
+
   calculateQty(id: any, qty: any, i: any) {
     this.subtotal = 0;
     if (id == '0' && qty > 1) {
@@ -287,7 +342,6 @@ export class AllItemsComponent implements OnInit {
     this.totalprice = (parseFloat(this.subtotal) + parseFloat(this.tax) + parseFloat(this.shippingRate) - parseFloat(this.discount)).toFixed(2)
   }
 
-  selectedView:any = 'table';
   ChangeView(view:any){
     switch(view){
       case 'grid':{
@@ -305,7 +359,6 @@ export class AllItemsComponent implements OnInit {
     }
   }
 
-  selectedExportType:string;
   selectExportType(data:any){
     switch(data){
       case 'excel':{
@@ -316,6 +369,132 @@ export class AllItemsComponent implements OnInit {
         this.selectedExportType='pdf';
         break;
       }
+    }
+  }
+
+  OpenModal(modalname:string){
+    switch(modalname){
+      case 'additem':{
+        this.additem?.show();
+        break;
+      }
+      case 'addtag':{
+        this.addtag?.show();
+        break;
+      }
+      case 'addvendor':{
+        this.addvendor?.show();
+        break;
+      }
+      case 'subcategory':{
+        this.subcategory?.show();
+        break;
+      }
+      case 'addcategory':{
+        this.addcategory?.show();
+        break;
+      }
+    }
+  }
+  CloseModal(modalname:string){
+    switch(modalname){
+      case 'addtag':{
+        this.AddtagForm.reset();
+        this.addtag?.hide();
+        break;
+      }
+      case 'addvendor':{
+        this.AddVendorForm.reset();
+        this.addvendor?.hide();
+        break;
+      }
+      case 'addvendor':{
+        this.AddSubCategoryForm.reset();
+        this.subcategory?.hide();
+        break;
+      }
+      case 'addcategory':{
+        this.AddCategoryForm.reset();
+        this.addcategory?.hide();
+        break;
+      }
+      case 'subcategory':{
+        this.AddSubCategoryForm.reset();
+        this.subcategory?.hide();
+      }
+      case 'additem':{
+        this.AddItemForm.reset();
+        this.additem?.hide();
+      }
+    }
+  }
+
+  Addtagfn(data:any){
+    if(this.AddtagForm.valid){
+      this.allServices.AddTag(data.controls.TagName.value).subscribe((res:any)=>{
+        if(res.status=='Success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.CloseModal('addtag')
+        }
+      });
+    }
+  }
+  AddVendorfn(data:any){
+    if(this.AddVendorForm.valid){
+      this.allServices.AddVendor(data).subscribe((res:any)=>{
+        if(res.status=='Success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.CloseModal('addvendor');
+        }
+      });
+    }
+  }
+
+  AddSubCategoryfn(data:any){
+    if(this.AddSubCategoryForm.valid){
+      this.allServices.AddSubCategoryfn(data).subscribe((res:any)=>{
+        console.log(res);
+        if(res.status=='Success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.CloseModal('subcategory');
+        }
+        else if(res.status == 'error'){
+          this.toastr.error('Something went wrong','UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        }
+      });
+    }
+  }
+
+  AddCategoryfn(data:any){
+    if(this.AddCategoryForm.valid){
+      this.allServices.AddCategoryfn(data).subscribe((res:any)=>{
+        console.log(res);
+        if(res.status=='Success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.CloseModal('addcategory');
+        }
+        else if(res.status == 'error'){
+          this.toastr.error('Something went wrong','UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        }
+      });
     }
   }
 }

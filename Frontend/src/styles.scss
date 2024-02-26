@@ -290,3 +290,16 @@ input:focus-visible{
   font-size: 0.6125rem !important;
   line-height: 16px !important;
 }
+
+.invalid-feedback{
+  display: block !important;
+  width: 100% !important;
+  margin-top: 0.25rem !important;
+  font-size: 80% !important;
+  color: #f46a6a !important;
+}
+
+button:disabled
+{
+  opacity: 0.2 !important;
+}

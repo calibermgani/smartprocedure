@@ -184,15 +184,15 @@
               </button>
               <div class="dropdown-menu dropdown-menu-end" *dropdownMenu>
                 <div class="d-flex flex-column">
-                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="additem?.show();"><img
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="OpenModal('additem')"><img
                       src="assets/images/add_item.svg" width="16px" height="16px" class="me-2">Add Item</a>
-                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addcategory?.show()"><img
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="OpenModal('addcategory')"><img
                       src="assets/images/add_category.svg" width="16px" height="16px" class="me-2">Add Category</a>
-                      <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="subcategory?.show()"><img
+                      <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="OpenModal('subcategory')"><img
                         src="assets/images/add_sub_category.svg" width="16px" height="16px" class="me-2">Add sub category</a>
-                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addvendor?.show()"><img
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="OpenModal('addvendor')"><img
                       src="assets/images/add_vendor.svg" width="16px" height="16px" class="me-2">Add vendor</a>
-                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="addtag?.show()"><img
+                  <a class="dropdown-item pb-2" style="color: #000 !important;" (click)="OpenModal('addtag')"><img
                       src="assets/images/add_tag.svg" width="16px" height="16px" class="me-2">Add Tag</a>
                 </div>
               </div>
@@ -502,13 +502,13 @@
         <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="additem?.hide()"
           style="cursor: pointer;">
       </div>
+      <form [formGroup]="AddItemForm">
       <div class="row p-3">
         <div class="col-4">
-          <div class="mb-3">
+          <div class="">
             <label class="modal-label-edit">Images</label>
             <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
-            <form>
-              <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'">
+              <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'" formControlName="Image">
                 <ngx-dropzone-label class="dz-message needsclick">
                   <div class="mt-4">
                     <i class="display-4 text-muted bx bxs-cloud-upload"></i>
@@ -534,36 +534,36 @@
                 </ngx-dropzone-label>
               </ngx-dropzone-preview>
               <!-- end dropzon-preview -->
-            </form>
           </div>
-          <div class="d-flex flex-row" style="width: 100%;">
-          <div class="">
-            <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
-            <ng-select [items]="" placeholder="Select Status"></ng-select>
-          </div>
-          <div class="mt-4 ms-2">
-            <button class="btn-new"
-              style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
-                class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
-          </div>
-        </div>
+
         </div>
         <div class="col-8">
           <div class="d-flex flex-row justify-centent-between">
-            <div class="mb-3 me-4" style="width: 50%;">
+            <div class="mb-5 me-4" style="width: 50%;">
               <label for="items_category" class="modal-label-edit">Items number<span
                   style="color: red;">*</span></label>
-              <input class="form-control-new" placeholder="12345" type="text">
+              <input class="form-control-new" placeholder="" type="text" formControlName="ItemNumber" minlength="2">
+              <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddItemForm.controls.ItemNumber.dirty || this.AddItemForm.controls.ItemNumber.touched) && this.AddItemForm.controls.ItemNumber.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(this.AddItemForm.controls.ItemNumber.dirty || this.AddItemForm.controls.ItemNumber.touched) && this.AddItemForm.controls.ItemNumber.errors?.minlength">
+                  Item Number should be more than one character</div>
+              </div>
             </div>
-            <!-- <div class="mt-4 mx-3">
-              <button class="btn-new"
-                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
-                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
-            </div> -->
-            <div class="mb-3" style="width: 50%;">
+            <div class="mb-5" style="width: 50%;">
               <label for="items_name" class="modal-label-edit">Items Name<span
                   style="color: red;">*</span></label>
-              <input class="form-control-new" type="text">
+              <input class="form-control-new" type="text" formControlName="ItemName" minlength="2">
+              <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddItemForm.controls.ItemName.dirty || this.AddItemForm.controls.ItemName.touched) && this.AddItemForm.controls.ItemName.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(this.AddItemForm.controls.ItemName.dirty || this.AddItemForm.controls.ItemName.touched) && this.AddItemForm.controls.ItemName.errors?.minlength">
+                  Item name should be more than one character</div>
+              </div>
             </div>
           </div>
           <div class="d-flex flex-row">
@@ -571,7 +571,12 @@
               <div class="mb-5" style="width: 100%;">
                 <label for="items_descrption" class="modal-label-edit">Item Category<span
                   style="color: red;">*</span></label>
-                <ng-select [items]="" placeholder="Select Category"></ng-select>
+                <ng-select [items]="['Category A','Category B']" placeholder="Select Category" formControlName="ItemCategory"></ng-select>
+                <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.AddItemForm.controls.ItemCategory.dirty || this.AddItemForm.controls.ItemCategory.touched) && this.AddItemForm.controls.ItemCategory.errors?.required">
+                    Please select atleast one of the option</div>
+                </div>
               </div>
               <div class="mt-4 ms-2">
                 <button class="btn-new"
@@ -580,21 +585,25 @@
               </div>
             </div>
             <div class="ms-4" style="width: 50%;">
-              <label for="notes" class="modal-label-edit">Barcodes<span
-                style="color: red;">*</span></label>
-                <!-- <div class="d-flex flex-row align-items-center" style="width: 100%;"> -->
-                  <input class="form-control-new" type="text" placeholder="scan or type"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;bottom: 25%;left: 90%;">
-                <!-- </div> -->
+              <label for="notes" class="modal-label-edit">Barcodes<span style="color: red;">*</span></label>
+              <input class="form-control-new" type="text" placeholder="scan or type" formControlName="Barcodes"><img
+                src="assets/images/barcode_input_type.svg" width="16px" height="16px"
+                style="position: absolute;bottom: 30%;left: 94%;">
+              <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddItemForm.controls.Barcodes.dirty || this.AddItemForm.controls.Barcodes.touched) && this.AddItemForm.controls.Barcodes.errors?.required">
+                  Please fill the field</div>
+              </div>
             </div>
           </div>
-          <div class="d-flex flex-row align-items-center mt-2">
-            <div class="me-4" style="width: 50%;">
-              <label for="items_status" class="modal-label-edit">Item Status</label>
-              <ng-select [items]="" placeholder="Select Status"></ng-select>
-            </div>
-            <div class="" style="width: 40%;">
-              <label for="items_status" class="modal-label-edit">Vendor</label>
-              <ng-select [items]="" placeholder="Select Status"></ng-select>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="d-flex flex-row">
+            <div class="">
+              <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 7px;text-align: center;">You can also link the item to multiple procedure</span></label>
+              <ng-select [items]="['Procedure A','Procedure B']" placeholder="Select Status" formControlName="procedure"></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -602,71 +611,121 @@
                   class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div>
           </div>
-
-
+        </div>
+        <div class="col-4">
+          <div class="me-4">
+            <label for="items_status" class="modal-label-edit">Item Status</label>
+            <ng-select [items]="['Active','inActive']" placeholder="Select Status" formControlName="ItemStatus"></ng-select>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-row">
+            <div class="" style="width: 100%;">
+              <label for="items_status" class="modal-label-edit">Vendor</label>
+              <ng-select [items]="['Vendor A','Vendor B']" placeholder="Select Status" formControlName="Vendor"></ng-select>
+            </div>
+            <div class="mt-4 ms-2">
+              <button class="btn-new"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row p-3">
         <div class="col-4">
-          <div class="mb-3">
+          <div class="">
             <label for="items_no" class="modal-label-edit">Price<span
                 style="color: red;">*</span></label>
-            <!-- <span><i class="d-inline-flex mdi mdi-currency-usd"></i></span> -->
-            <input class="form-control-new price_field" type="number" style="text-align: right;">
+            <input class="form-control-new price_field" type="number" style="text-align: right;" formControlName="price">
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div
+                *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.required">
+                Please fill the field</div>
+            </div>
           </div>
-          <div class="mb-3">
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="size" class="modal-label-edit">Size<span style="color: red;">*</span></label>
+            <div class="d-flex">
+              <input class="form-control-new me-2" type="number">
+              <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-3" formControlName="size"></ng-select>
+            </div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.size.errors?.required">
+              Please fill the field</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="lot_no" class="modal-label-edit">Sub Category</label>
+            <ng-select [items]="['Sub Category A','Sub Category B']" placeholder="Choose option" formControlName="subcategory"></ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="">
             <label for="size" class="modal-label-edit">Store Qty<span style="color: red;">*</span></label>
             <div class="d-flex">
              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;" formControlName="storeqty">
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                 class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div>
           </div>
-          <div class="mb-3">
-            <label for="unit" class="modal-label-edit">Min store Qty<span style="color: red;">*</span></label>
-            <input class="form-control-new" type="text">
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.storeqty.dirty || this.AddItemForm.controls.storeqty.touched) && this.AddItemForm.controls.storeqty.errors?.required">
+              Please fill the field</div>
           </div>
         </div>
         <div class="col-4">
-          <div class="mb-3">
-            <label for="size" class="modal-label-edit">Size</label>
-            <div class="d-flex flex-row">
-              <input class="form-control-new me-2" type="number">
-              <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-2"></ng-select>
-              <!-- <button class="btn-new"
-                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
-                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button> -->
-            </div>
-          </div>
-          <div class="mb-3">
+          <div class="">
             <label for="vendor" class="modal-label-edit">Cabinet Qty</label>
             <div class="d-flex">
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;" formControlName="CabinetQty">
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
                 class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div>
           </div>
-          <div class="mb-3">
-            <label for="expiry_date" class="modal-label-edit">Cat No</label>
-            <input class="form-control-new" type="number">
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="price" class="modal-label-edit">Expiry Date<span style="color: red;">*</span></label>
+            <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker [bsConfig]="{ adaptivePosition: true }" formControlName="ExpiryDate">
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.ExpiryDate.dirty || this.AddItemForm.controls.ExpiryDate.touched) && this.AddItemForm.controls.ExpiryDate.errors?.required">
+              Please fill the field</div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="">
+            <label for="unit" class="modal-label-edit">Min store Qty<span style="color: red;">*</span></label>
+            <input class="form-control-new" type="text" formControlName="MinStoreQty">
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.required">
+                Please fill the field</div>
+            </div>
           </div>
         </div>
         <div class="col-4">
-          <div class="mb-3">
-            <label for="lot_no" class="modal-label-edit">Sub Category<span style="color: red;">*</span></label>
-            <ng-select items="" placeholder="Choose option"></ng-select>
+          <div class="">
+            <label for="expiry_date" class="modal-label-edit">Cat No</label>
+            <input class="form-control-new" type="number" formControlName="CatNo">
           </div>
-          <div class="mb-3">
-            <label for="price" class="modal-label-edit">Expiry Date<span style="color: red;">*</span></label>
-            <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker [bsConfig]="{ adaptivePosition: true }">
-          </div>
-          <div class="mb-3">
+        </div>
+        <div class="col-4">
+          <div class="">
             <label for="on_hand_qty" class="modal-label-edit">Lot No</label>
-            <input class="form-control-new" type="number">
+            <input class="form-control-new" type="number" formControlName="LotNo">
           </div>
         </div>
       </div>
@@ -674,24 +733,29 @@
         <div class="col-8">
           <div class="mb-3">
             <label for="items_no" class="modal-label-edit">Tags</label>
-            <input type="text" class="form-control-new" placeholder="">
+            <input type="text" class="form-control-new" placeholder="" formControlName="Tags">
            </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_no" class="modal-label-edit">Unit<span style="color: red;">*</span></label>
-            <input type="text" class="form-control-new" placeholder="">
+            <input type="text" class="form-control-new" placeholder="" formControlName="Unit">
            </div>
+           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.required">
+              Please fill the field</div>
+          </div>
         </div>
       </div>
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
           style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
-        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+        <button type="button" class="btn-new" style="width: auto !important;" [disabled]="this.additem.invalid"><img src="assets/images/add_img_modal.svg"
             width="24px" height="24px" class="me-2">Add</button>
         <!-- <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
             width="24px" height="24px" class="me-2">Update</button> -->
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -703,37 +767,54 @@
       <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
         <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Category
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addcategory?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('addcategory')"
           style="cursor: pointer;">
       </div>
-      <div class="row p-3">
-        <div class="col-4">
-          <div class="mb-3">
-            <label for="items_no" class="modal-label-edit">Category Name<span
-                style="color: red;">*</span></label>
-            <input class="form-control-new">
+      <form [formGroup]="AddCategoryForm">
+        <div class="row p-3">
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="items_no" class="modal-label-edit">Category Name<span style="color: red;">*</span></label>
+              <input type="text" class="form-control-new" formControlName="CategoryName"  minlength="2">
+              <div *ngIf="this.AddCategoryForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddCategoryForm.controls.CategoryName.dirty || this.AddCategoryForm.controls.CategoryName.touched) && this.AddCategoryForm.controls.CategoryName.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(this.AddCategoryForm.controls.CategoryName.dirty || this.AddCategoryForm.controls.CategoryName.touched) && this.AddCategoryForm.controls.CategoryName.errors?.minlength">
+                  Category name should be more than one character</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="cat_no" class="modal-label-edit">Category short Code<span style="color: red;">*</span></label>
+              <input type="text" class="form-control-new" formControlName="CategorySubCode" minlength="2">
+              <div *ngIf="this.AddCategoryForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddCategoryForm.controls.CategorySubCode.dirty || this.AddCategoryForm.controls.CategorySubCode.touched) && this.AddCategoryForm.controls.CategorySubCode.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(this.AddCategoryForm.controls.CategorySubCode.dirty || this.AddCategoryForm.controls.CategorySubCode.touched) && this.AddCategoryForm.controls.CategorySubCode.errors?.minlength">
+                  Category Code should be more than one character</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="lot_no" class="modal-label-edit">Status</label>
+              <ng-select [items]="['Active','InActive']" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
+            </div>
           </div>
         </div>
-        <div class="col-4">
-          <div class="mb-3">
-            <label for="cat_no" class="modal-label-edit">Category short Code<span
-                style="color: red;">*</span></label>
-            <input class="form-control-new">
-          </div>
+        <div class="d-flex justify-content-end p-3">
+          <button type="button" class="btn-new me-2"
+            style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"
+            (click)="CloseModal('addcategory')">Cancel</button>
+          <button type="button" class="btn-new" style="width: auto !important;" [disabled]="this.AddCategoryForm.invalid" (click)="AddCategoryfn(this.AddCategoryForm)"><img src="assets/images/add_img_modal.svg"
+              width="24px" height="24px" class="me-2">Add</button>
         </div>
-        <div class="col-4">
-          <div class="mb-3">
-            <label for="lot_no" class="modal-label-edit">Status</label>
-            <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
-          </div>
-        </div>
-      </div>
-      <div class="d-flex justify-content-end p-3">
-        <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
-        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
-            width="24px" height="24px" class="me-2">Add</button>
-      </div>
+      </form>
     </div>
   </div>
 </div>
@@ -744,75 +825,109 @@
       <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
         <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add vendor
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addvendor?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('addvendor')"
           style="cursor: pointer;">
       </div>
-      <div class="row p-3">
-        <div class="col-8">
-          <div class="d-flex justify-content-between">
-            <div class="mb-3" style="width: 270px">
+      <form [formGroup]="AddVendorForm">
+      <div class="row m-3">
+        <div class="col-4">
+            <div class="">
               <label for="items_category" class="modal-label-edit">Vendor Name<span
                   style="color: red;">*</span></label>
-              <input class="form-control-new">
-            </div>
-            <div class="mb-3" style="width: 270px">
-              <label for="items_name" class="modal-label-edit">Vendor Email<span
-                  style="color: red;">*</span></label>
-              <input class="form-control-new">
+              <input class="form-control-new" type="text" formControlName="VendorName" minlength="2">
+              <div *ngIf="this.AddVendorForm.invalid"
+                class="invalid-feedback">
+                <div *ngIf="(this.AddVendorForm.controls.VendorName.dirty || this.AddVendorForm.controls.VendorName.touched) && this.AddVendorForm.controls.VendorName.errors?.required">Please fill the field</div>
+                <div *ngIf="(this.AddVendorForm.controls.VendorName.dirty || this.AddVendorForm.controls.VendorName.touched) && this.AddVendorForm.controls.VendorName.errors?.minlength">Vendor name should be more than one character</div>
+              </div>
             </div>
           </div>
+          <div class="col-4">
+            <div class="">
+              <label for="items_name" class="modal-label-edit">Vendor Email<span style="color: red;">*</span></label>
+              <input type="email" class="form-control-new" formControlName="VendorEmail">
+              <div *ngIf="this.AddVendorForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddVendorForm.controls.VendorEmail.dirty || this.AddVendorForm.controls.VendorEmail.touched) && this.AddVendorForm.controls.VendorEmail.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(AddVendorForm.controls.VendorEmail.dirty || AddVendorForm.controls.VendorEmail.touched) && AddVendorForm.controls.VendorEmail.errors?.email">
+                  Please fill the valid email</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="">
+              <label for="items_no" class="modal-label-edit">Vendor Contact No<span
+                  style="color: red;">*</span></label>
+                  <input type="text" class="form-control-new" formControlName="VendorContactNo">
+                  <div *ngIf="this.AddVendorForm.invalid" class="invalid-feedback">
+                    <div
+                      *ngIf="(this.AddVendorForm.controls.VendorContactNo.dirty || this.AddVendorForm.controls.VendorContactNo.touched) && this.AddVendorForm.controls.VendorContactNo.errors?.required">
+                      Please fill the field</div>
+                    <div
+                      *ngIf="(AddVendorForm.controls.VendorContactNo.dirty || AddVendorForm.controls.VendorContactNo.touched) && AddVendorForm.controls.VendorContactNo.errors?.pattern">
+                      Please fill correct phone number</div>
+                  </div>
+            </div>
+          </div>
+      </div>
+      <div class="row m-3">
+        <div class="col-8">
           <div class="">
-            <label for="notes" class="modal-label-edit">Vendor contact no</label>
-            <input class="form-control-new">
+            <label for="notes" class="modal-label-edit">Vendor Address</label>
+            <input type="text" class="form-control-new" formControlName="VendorAddress">
           </div>
         </div>
         <div class="col-4">
-          <div class="mb-3">
-            <label for="items_no" class="modal-label-edit">Vendor Address<span
-                style="color: red;">*</span></label>
-
-            <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
-          </div>
-          <div class="mb-3">
+          <div class="">
             <label for="size" class="modal-label-edit">Status</label>
-            <ng-select [items]="" placeholder="Choose Option" class="me-2"></ng-select>
+            <ng-select [items]="['Active','InActive']" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
           </div>
         </div>
       </div>
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
-        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('addvendor')">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;" [disabled]="this.AddVendorForm.invalid" (click)="AddVendorfn(this.AddVendorForm)"><img src="assets/images/add_img_modal.svg"
             width="24px" height="24px" class="me-2">Add</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
 
-<div bsModal #addtag="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+<div bsModal #addtag="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 389px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
         <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Tag
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="addtag?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('addtag')"
           style="cursor: pointer">
       </div>
-      <div class="row" style="width: 100%;">
-        <div class="col-12 p-3 mx-2">
-          <div class="mb-3 mx-2">
-            <label class="modal-label-edit">Tag Name<span
-                style="color: red;">*</span></label>
-            <input class="form-control-new">
+      <form [formGroup]="AddtagForm">
+        <div class="row" style="width: 100%;">
+          <div class="col-12 p-3 mx-2">
+            <div class="mb-3 mx-2">
+              <label class="modal-label-edit">Tag Name<span style="color: red;">*</span></label>
+              <input class="form-control" formControlName="TagName" minlength="2">
+              <div *ngIf="this.AddtagForm.invalid"
+               class="invalid-feedback">
+                <div *ngIf="(this.AddtagForm.controls.TagName.dirty || this.AddtagForm.controls.TagName.touched) && this.AddtagForm.controls.TagName.errors?.required">Please fill the field</div>
+                <div *ngIf="(this.AddtagForm.controls.TagName.dirty || this.AddtagForm.controls.TagName.touched) && this.AddtagForm.controls.TagName.errors?.minlength">Tag name should be more than one character</div>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
-        <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('addtag')">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="Addtagfn(this.AddtagForm)" [disabled]="this.AddtagForm.invalid"><img src="assets/images/add_img_modal.svg"
             width="24px" height="24px" class="me-2">Add</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
@@ -1046,34 +1161,41 @@
         style="background: #F3F4F8;border-radius: 8px;">
         <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add sub category
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="subcategory?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('subcategory')"
           style="cursor: pointer">
       </div>
+      <form [formGroup]="AddSubCategoryForm">
       <div class="row mx-2">
         <div class="col-4" >
           <div class="mb-3 mt-1">
             <label for="items_category" class="modal-label-edit mb-1">Sub category Name<span style="color: red;">*</span></label>
-            <input type="text" class="form-control-new" placeholder="">
+            <input type="text" class="form-control-new" formControlName="SubCategoryName" minlength="2">
+            <div *ngIf="this.AddSubCategoryForm.invalid"
+                class="invalid-feedback">
+                <div *ngIf="(this.AddSubCategoryForm.controls.SubCategoryName.dirty || this.AddSubCategoryForm.controls.SubCategoryName.touched) && this.AddSubCategoryForm.controls.SubCategoryName.errors?.required">Please fill the field</div>
+                <div *ngIf="(this.AddSubCategoryForm.controls.SubCategoryName.dirty || this.AddSubCategoryForm.controls.SubCategoryName.touched) && this.AddSubCategoryForm.controls.SubCategoryName.errors?.minlength">Sub Category name should be more than one character</div>
+              </div>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3 mt-1" >
             <label for="items_category" class="modal-label-edit mb-1">Choose category</label>
-            <ng-select [items]="" placeholder="Select category"></ng-select>
+            <ng-select [items]="['Category A','Category B']" placeholder="Select category" formControlName="category"></ng-select>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3 mt-1">
-            <label for="items_category" class="modal-label-edit mb-1">Status<span style="color: red;">*</span></label>
-            <ng-select [items]="" placeholder="Select status"></ng-select>
+            <label for="items_category" class="modal-label-edit mb-1">Status</label>
+            <ng-select [items]="['Active','InActive']" placeholder="Select status" formControlName="status"></ng-select>
           </div>
         </div>
       </div>
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="subcategory?.hide()">Cancel</button>
-        <button type="button" class="btn-new" style="width: auto !important;text-align: center;"><i class="mdi mdi-plus-circle-outline me-2" style="font-size: 16px;"></i>Add</button>
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('subcategory')">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;text-align: center;" (click)="AddSubCategoryfn(this.AddSubCategoryForm)" [disabled]="this.AddSubCategoryForm.invalid"><i class="mdi mdi-plus-circle-outline me-2" style="font-size: 16px;"></i>Add</button>
       </div>
+    </form>
     </div>
   </div>
 </div>
