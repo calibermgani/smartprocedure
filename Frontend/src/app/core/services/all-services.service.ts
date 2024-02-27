@@ -23,7 +23,7 @@ export class AllServicesService {
     this.payload["tag_name"]=data;
     this.payload["created_by"]='1';
     console.log(this.payload);
-    return this.http.post(`${this.apiUrl}/tags`,this.payload);
+    return this.http.post(`${this.apiUrl}/tags/store`,this.payload);
   }
 
   AddVendor(data:any){
@@ -35,7 +35,7 @@ export class AllServicesService {
     this.payload["ContactPerson"] = "";
     this.payload["Added_by"]="";
     console.log(this.payload);
-    return this.http.post(`${this.apiUrl}/vendors`,this.payload);
+    return this.http.post(`${this.apiUrl}/vendors/store`,this.payload);
   }
 
   AddCategoryfn(data:any){
@@ -43,12 +43,12 @@ export class AllServicesService {
     this.payload["category_shortcode"] = data.value.CategorySubCode;
     this.payload["status"] = data.value.Status;
     this.payload["Added_by"]="1";
-    return this.http.post(`${this.apiUrl}/categories`,this.payload);
+    return this.http.post(`${this.apiUrl}/categories/store`,this.payload);
   }
 
   AddSubCategoryfn(data:any){
     this.payload["sub_category_name"] = data.value.SubCategoryName;
-    this.payload["category_id"] = "9";
+    this.payload["category_id"] = "3";
     this.payload["status"] = data.value.status;
     this.payload["created_by"]="1";
     return this.http.post(`${this.apiUrl}/sub_categories`,this.payload);
@@ -85,8 +85,11 @@ export class AllServicesService {
   ViewItem(data:any){
     let params = new HttpParams();
     this.payload["item_id"] = data;
+    params = params.append('token','1a32e71a46317b9cc6feb7388238c95d');
     for (let key in this.payload) {
-      params = params.append(key, this.payload[key]);
+      if(key == 'item_id'){
+        params = params.append(key, this.payload[key]);
+      }
     }
     console.log(this.payload);
 

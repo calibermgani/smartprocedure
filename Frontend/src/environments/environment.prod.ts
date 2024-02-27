@@ -16,5 +16,5 @@
 import { IEnvironment } from './environment.interface';
 export const environment_new:IEnvironment = {
   production: false,
-  apiUrl: 'http://127.0.0.1:8000/api'
+  apiUrl: 'http://34.29.13.215/smartbuild_api/public/index.php/api'
 };

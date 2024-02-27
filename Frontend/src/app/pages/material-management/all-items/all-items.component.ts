@@ -9,6 +9,7 @@ import { AbstractControl, AsyncValidatorFn, FormBuilder, FormControl, FormGroup,
 import { AllServicesService } from 'src/app/core/services/all-services.service';
 import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
+import { environment_new } from 'src/environments/environment';
 
 interface AllItems{
   id:number,
@@ -83,6 +84,10 @@ export class AllItemsComponent implements OnInit {
   enableTab:any = '';
   StoreQty:number = 0;
   CabinetQty:number = 0;
+  public payload:Object = {
+    "token":"1a32e71a46317b9cc6feb7388238c95d",
+  };
+  public apiUrl: any = environment_new.apiUrl;
 
 
   options: Options = {
@@ -151,28 +156,28 @@ export class AllItemsComponent implements OnInit {
     });
 
     this.AddItemForm = this.formbuilder.group({
-      imageURL:[''],
-      ItemNumber:['',[Validators.required]],
-      ItemName:['',[Validators.required]],
-      ItemCategory:[,Validators.required],
-      Barcodes:['',Validators.required],
-      procedure:[''],
-      ItemStatus:[''],
-      Vendor:[''],
-      price:['',[Validators.required,Validators.pattern("[0-9]"),Validators.min(0)]],
-      size:['',[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
-      sizetype:['',Validators.required],
-      subcategory:[''],
-      storeqty:[0,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
-      CabinetQty:[0,[Validators.pattern('\\d*'),Validators.min(0)]],
-      ExpiryDate:['',[Validators.required]],
-      MinStoreQty:['',[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
-      CatNo:[''],
-      LotNo:[''],
-      Tags:[''],
-      Unit:['',[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
-      Itemdescription:[''],
-      Itemnotes:['']
+      imageURL:[],
+      ItemNumber:[,[Validators.required]],
+      ItemName:[,[Validators.required]],
+      ItemCategory:[,[Validators.required]],
+      Barcodes:[,[Validators.required]],
+      procedure:[],
+      ItemStatus:[],
+      Vendor:[],
+      price:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
+      size:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      sizetype:[,Validators.required],
+      subcategory:[],
+      storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      CabinetQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
+      ExpiryDate:[,[Validators.required]],
+      MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      CatNo:[],
+      LotNo:[],
+      Tags:[],
+      Unit:[,[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
+      Itemdescription:[],
+      Itemnotes:[]
     })
   }
   get TagForm() { return this.AddtagForm.controls }
@@ -417,9 +422,22 @@ export class AllItemsComponent implements OnInit {
     }
   }
 
+  Category:any=[];
   OpenModal(modalname:string){
     switch(modalname){
       case 'additem':{
+        this.http.post(`${this.apiUrl}/categories/item_category`,this.payload).subscribe({
+          next:((res:any)=>{
+            const juiceValues = Object.values(res.categories)
+            this.Category = juiceValues;
+          }),
+          error:((res:any)=>{
+            this.toastr.error(`${res}`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          })
+        })
         this.additem?.show();
         break;
       }

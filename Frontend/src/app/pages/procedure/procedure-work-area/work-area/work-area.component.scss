@@ -257,3 +257,19 @@ height: 37px !important;
   border-radius: 6px !important;
   margin: 10px 5px;
 }
+
+
+:host ::ng-deep .bs-datepicker-head
+{
+  background-color: #594585;
+}
+
+:host ::ng-deep .previous{
+
+    color: #fff !important;
+}
+
+:host ::ng-deep .current {
+    color: #fff !important;
+}
+

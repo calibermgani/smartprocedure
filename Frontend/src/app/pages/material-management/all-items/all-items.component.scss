@@ -345,3 +345,7 @@ border-bottom: none !important;
     background-position: 236px !important;
     background-size: 16px 16px !important;
 }
+
+::ng-deep .ag-horizontal-right-spacer{
+  display: none !important;
+}

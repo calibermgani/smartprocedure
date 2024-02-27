@@ -239,6 +239,14 @@ border: none;
   border: none !important;
 }
 
+.btn-grey{
+  background:#F3F4F8 !important;color: #1B1B1B !important;font-weight: 600;
+  border-radius: 6px !important;
+  padding: 6px 20px 6px 20px !important;
+  width: 150px !important;
+}
+
+
 ::-webkit-scrollbar  {
   width: 6px;
 }
@@ -302,4 +310,8 @@ input:focus-visible{
 button:disabled
 {
   opacity: 0.2 !important;
+}
+
+::ng-deep .ag-horizontal-right-spacer{
+  display: none !important;
 }

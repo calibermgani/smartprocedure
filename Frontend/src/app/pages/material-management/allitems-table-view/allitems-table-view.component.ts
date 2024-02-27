@@ -294,6 +294,7 @@ export class AllItemsTableViewComponent {
         break;
       }
       case 'view': {
+        this.ViewItemData = [];
         this.allService.ViewItem(params.data.id).subscribe({
           next:(res:any)=>{
             if(res.status == 'Success'){

@@ -88,12 +88,12 @@
           </div> -->
         </div>
         <div class="list-footer">
-          <div class="d-flex justify-content-between align-items-center" style="flex-wrap: wrap;">
+          <div class="d-flex flex-row justify-content-between align-items-center" style="flex-wrap: wrap;">
             <div>
-              <button class="btn-diasble"><i class="mdi mdi-timer-outline"></i>Histroy</button>
+              <button type="button" class="btn btn-grey" style="width: 120px !important;"><i class="mdi mdi-timer-outline"></i>Histroy</button>
             </div>
             <div>
-              <button class="btn-diasble"><i class="mdi mdi-trash-can-outline"></i>Trash</button>
+              <button type="button" class="btn btn-grey" style="width: 120px !important;"><i class="mdi mdi-trash-can-outline"></i>Trash</button>
             </div>
           </div>
         </div>
@@ -594,7 +594,7 @@
               <div class="mb-5" style="width: 100%;">
                 <label for="items_descrption" class="modal-label-edit">Item Category<span
                   style="color: red;">*</span></label>
-                <ng-select [items]="['Category A','Category B']" placeholder="Select Category" formControlName="ItemCategory"></ng-select>
+                <ng-select [items]="Category" placeholder="Select Category" formControlName="ItemCategory"></ng-select>
                 <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
                   <div
                     *ngIf="(this.AddItemForm.controls.ItemCategory.dirty || this.AddItemForm.controls.ItemCategory.touched) && this.AddItemForm.controls.ItemCategory.errors?.required">
@@ -662,17 +662,17 @@
           <div class="">
             <label for="items_no" class="modal-label-edit">Price<span
                 style="color: red;">*</span></label>
-            <input class="form-control-new price_field" type="number" style="text-align: right;" formControlName="price">
+            <input class="form-control-new price_field" type="text" style="text-align: right;" formControlName="price" step="0.01">
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div
                 *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.required">
                 Please fill the field</div>
             </div>
-            <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div
                 *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.pattern">
                 Price value should be in numbers</div>
-            </div> -->
+            </div>
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div
                 *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.min">
@@ -710,11 +710,16 @@
         <div class="col-4">
           <div class="">
             <label for="notes" class="modal-label-edit">Barcodes<span style="color: red;">*</span></label>
-            <input class="form-control-new barcode_img" type="text" placeholder="scan or type" formControlName="Barcodes">
+            <input class="form-control-new barcode_img" type="text" placeholder="scan or type" formControlName="Barcodes" minlength="2">
               <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
                 <div
                   *ngIf="(this.AddItemForm.controls.Barcodes.dirty || this.AddItemForm.controls.Barcodes.touched) && this.AddItemForm.controls.Barcodes.errors?.required">
                   Please fill the field</div>
+              </div>
+              <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddItemForm.controls.Barcodes.dirty || this.AddItemForm.controls.Barcodes.touched) && this.AddItemForm.controls.Barcodes.errors?.minlength">
+                  Barcode should be more than one character</div>
               </div>
           </div>
         </div>
