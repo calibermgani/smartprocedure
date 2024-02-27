@@ -64,7 +64,7 @@
           style="cursor: pointer">
       </div>
       <div style="overflow-y: scroll !important;height: 500px;">
-      <div class="row mx-2 mt-3" style="flex-wrap: nowrap !important">
+      <div class="row m-3" style="flex-wrap: nowrap !important">
         <div class="col-3 px-2">
           <div class="d-flex flex-column justify-centent-between">
             <div class="mb-3">
@@ -77,113 +77,131 @@
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" class="modal-label mb-1">Item number</label>
-                <h1 class="">Neurology</h1>
+                <h1 class="">{{ ViewItemData.item_number }}</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" class="modal-label mb-1" >Item name</label>
-               <h1 class="">ORS juice</h1>
+               <h1 class="">{{ ViewItemData.item_name }}</h1>
               </div>
             </div>
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
-              <div class="" style="width: 100%;margin-bottom: 2.3rem;">
+              <div class=" mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" class="modal-label mb-1">Item category</label>
-                <h1 class="">ORS Juice</h1>
+                <h1 class="">{{ ViewItemData.item_category_id }}</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" class="modal-label mb-1">Barcodes</label>
-                <h1><img src="assets/images/barcode_view.svg" width="100px" height="45px" style="display: inline-flex;"></h1>
+                <h1 class="">{{ ViewItemData.item_barcode }}</h1>
               </div>
             </div>
         </div>
       </div>
-      <div class="row mx-2 mb-3">
+      <div class="row m-3">
         <div class="col-4">
-          <div class="d-flex flex-column">
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Procedure </label>
-              <h1 class="">Cardiology</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Price</label>
-              <h1 class="">100.00</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1" >Store</label>
-              <h1 class="">50</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Min level  </label>
-              <h1 class="">52934</h1>
-            </div>
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Procedure </label>
+            <h1 class="">{{ ViewItemData.item_procedure_id }}</h1>
           </div>
         </div>
         <div class="col-4">
-          <div class="d-flex flex-column">
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Item Status</label>
-              <h1 class="">In Stock</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Size</label>
-              <h1 class="">300ml</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Cabinet</label>
-              <h1 class="">0</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1" >Cat No</label>
-              <h1 class="">56954</h1>
-            </div>
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Item Status</label>
+            <h1 class="">{{ ViewItemData.item_status }}</h1>
           </div>
         </div>
         <div class="col-4">
-          <div class="d-flex flex-column">
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1" >Vendor</label>
-              <h1 class="">Flores Junita</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Unit</label>
-              <h1 class="">60</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Expiry Date</label>
-              <h1 class="">14-10-2023</h1>
-            </div>
-            <div class="mb-3">
-              <label for="items_category" class="modal-label mb-1">Lot No</label>
-              <h1 class="">14454</h1>
-            </div>
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1" >Vendor</label>
+            <h1 class="">{{ ViewItemData.vendor_id }}</h1>
           </div>
         </div>
       </div>
-      <div class="row mx-2 mb-3">
+      <div class="row m-3">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Price</label>
+            <h1 class="">{{ ViewItemData.price }}</h1>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Size</label>
+            <h1 class="">{{ ViewItemData.size }}</h1>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Unit</label>
+            <h1 class="">{{ ViewItemData.unit }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row m-3">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1" >Store</label>
+            <h1 class="">{{ ViewItemData.store_qty }}</h1>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Cabinet</label>
+            <h1 class="">{{ ViewItemData.cabinet_qty }}</h1>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Expiry Date</label>
+            <h1 class="">{{ ViewItemData.expired_date }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row m-3">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Min level  </label>
+            <h1 class="">{{ ViewItemData.min_level }}</h1>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1" >Cat No</label>
+            <h1 class="">{{ ViewItemData.cat_no }}</h1>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="items_category" class="modal-label mb-1">Lot No</label>
+            <h1 class="">{{ ViewItemData.lot_no }}</h1>
+          </div>
+        </div>
+      </div>
+      <div class="row m-3">
         <div class="col-8">
           <div class="d-flex">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Tags</label>
-              <h1 >#energy #ORS #energy #ORS #energy #ORS #energy #ORS</h1>
+              <h1 >{{ ViewItemData.tag }}</h1>
             </div>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Unit No</label>
-            <h1 class="">10</h1>
+            <h1 class="">{{ ViewItemData.unit }}</h1>
           </div>
         </div>
       </div>
-      <div class="row mx-2 mb-3">
+      <div class="row m-3">
         <div class="col-12">
           <label for="items_category" class="modal-label mb-1">Item description</label>
-          <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+          <h1 class="">{{ ViewItemData.item_description }}</h1>
         </div>
       </div>
-      <div class="row mx-2 mb-3">
+      <div class="row m-3">
         <div class="col-12">
           <label for="items_category" class="modal-label mb-1">Notes</label>
-          <h1 class="">orem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h1>
+          <h1 class="">{{ ViewItemData.item_notes }}</h1>
         </div>
       </div>
     </div>

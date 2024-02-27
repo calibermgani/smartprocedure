@@ -1,0 +1,22 @@
+:host ::ng-deep .tooltip-inner
+{
+  width: 70px !important;
+  padding: 2px !important;
+  color: #000 !important;
+  background-color: #fff !important;
+  font-size: 9px !important;
+}
+
+:host ::ng-deep .tooltip{
+  --bs-tooltip-bg:#fff !important;
+  left:-14px !important;
+  transform : translate3d(14px, -12px, 0px) !important;
+}
+
+:host ::ng-deep .bs-tooltip-bottom
+{
+  opacity: 1 !important;
+}
+ :host ::ng-deep .ng-select-container{
+  background: #000 !important;
+ }

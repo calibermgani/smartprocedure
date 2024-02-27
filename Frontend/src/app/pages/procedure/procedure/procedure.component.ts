@@ -32,6 +32,7 @@ export class ProcedureComponent implements OnInit {
     },
     suppressMenuHide: false,
     rowSelection: 'multiple',
+    suppressRowClickSelection:true,
     rowHeight: 35,
     suppressHorizontalScroll: false,
     suppressMovableColumns: true,

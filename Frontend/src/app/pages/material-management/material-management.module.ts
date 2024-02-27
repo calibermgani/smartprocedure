@@ -65,7 +65,6 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
   ],
   providers:[
-
   ]
 })
 export class MaterialManagementModule { }

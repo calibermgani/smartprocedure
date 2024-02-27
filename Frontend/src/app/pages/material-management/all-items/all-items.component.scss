@@ -337,3 +337,11 @@ border-bottom: none !important;
  :host ::ng-deep .ng-select-container{
   background: #f3f4f8 !important;
  }
+
+.barcode_img{
+  padding-right: 30px !important;
+ background-image: url(/assets/images/barcode_input_type.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: 236px !important;
+    background-size: 16px 16px !important;
+}

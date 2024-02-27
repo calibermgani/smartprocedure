@@ -1,0 +1,8 @@
+[
+  {
+    "/api": {
+      "target": "http://34.29.13.215/smartbuild_api/public/index.php/api",
+      "secure": false
+    }
+  }
+]

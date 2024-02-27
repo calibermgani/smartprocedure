@@ -3,6 +3,8 @@ import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
 
 @Component({
   selector: 'app-allitems-table-view',
@@ -27,7 +29,7 @@ export class AllItemsTableViewComponent {
   showEditablefields:boolean = false;
 
 
-  constructor(private http : HttpClient){
+  constructor(private http : HttpClient,private allService : AllServicesService,private toastr : ToastrService){
   }
 
   ngOnInit(): void {
@@ -187,12 +189,28 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'barcodes')
     },
     {
-      field: 'action',
-      headerName: 'Action',
+      field: 'view',
+      width:10,
       resizable:false,
       pinned:"right",
-      cellRenderer: this.cellrendered.bind(this, 'action')
-
+      cellRenderer: this.cellrendered.bind(this, 'view'),
+      onCellClicked: this.CellClicked.bind(this, 'view')
+    },
+    {
+      field: 'edit',
+      width:10,
+      resizable:false,
+      pinned:"right",
+      cellRenderer: this.cellrendered.bind(this, 'edit'),
+      onCellClicked: this.CellClicked.bind(this, 'edit')
+    },
+    {
+      field: 'delete',
+      width:20,
+      resizable:false,
+      pinned:"right",
+      cellRenderer: this.cellrendered.bind(this, 'delete'),
+      onCellClicked: this.CellClicked.bind(this, 'delete')
     },
   ];
 
@@ -255,32 +273,54 @@ export class AllItemsTableViewComponent {
       case 'barcodes': {
         return params.value;
       }
-      case 'action': {
-        if(params.value)
-        {
-          return `<div class="d-flex flex-row">
-          <i class="mdi mdi-eye-outline me-3" style="color:#855EDB;font-size:18px"></i>
-          <i class="mdi mdi-pencil-outline me-3" style="color:#000;font-size:18px"></i>
-          <i class="mdi mdi-trash-can-outline me-3" style="color:red;font-size:18px"></i>
-          </div>`
-        }
+      case 'view':{
+        return `<div class="d-flex">
+        <div><i class="mdi mdi-eye-outline me-3" style="color:#855EDB;font-size:18px"></i></div></div>`
+      }
+      case 'edit':{
+        return `<div class="d-flex"><div><i class="mdi mdi-pencil-outline me-3" style="color:#000;font-size:18px"></i></div></div>`
+      }
+      case 'delete':{
+        return `<div class="d-flex"><div><i class="mdi mdi-trash-can-outline me-3" style="color:red;font-size:18px"></i></div></div>`
       }
     }
   }
 
+  ViewItemData:any = [];
   CellClicked(headerName: any, params: any) {
-    switch(headerName){
-      case 'item_name':{
+    switch (headerName) {
+      case 'item_name': {
         this.viewitem?.show();
         break;
+      }
+      case 'view': {
+        this.allService.ViewItem(params.data.id).subscribe({
+          next:(res:any)=>{
+            if(res.status == 'Success'){
+              this.ViewItemData = res.data;
+            }
+          },
+          error:(res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          }
+        })
+        this.viewitem?.show();
+        break;
+      }
+      case 'edit': {
+
+      }
+      case 'delete': {
+
       }
     }
   }
 
   onSelectionChanged(params:any){
-    this.selected_row_data = [];
-
-
+    console.log(params);
 
  }
 

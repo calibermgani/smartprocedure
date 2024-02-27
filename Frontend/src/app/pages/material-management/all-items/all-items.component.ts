@@ -81,6 +81,8 @@ export class AllItemsComponent implements OnInit {
   textcontent:any;
   resize:boolean = false;
   enableTab:any = '';
+  StoreQty:number = 0;
+  CabinetQty:number = 0;
 
 
   options: Options = {
@@ -95,6 +97,7 @@ export class AllItemsComponent implements OnInit {
   StoreQtymaxValue:number = 40;
   MinlevelMinimumValue:number = 40;
   MinlevelMaximumValue:number = 30;
+  ItemStatus:any;
 
 
   constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient,private formbuilder : UntypedFormBuilder,private allServices : AllServicesService,private toastr: ToastrService) {
@@ -103,6 +106,12 @@ export class AllItemsComponent implements OnInit {
     this.authfakeauthenticationService.GridDetailedView_value.subscribe((res:any)=>{
       this.overallview = res;
     });
+
+    this.ItemStatus= [
+      { value: 1, label: "Active" },
+      { value: 2, label: "Inactive" }
+    ]
+
   }
 
 
@@ -142,30 +151,66 @@ export class AllItemsComponent implements OnInit {
     });
 
     this.AddItemForm = this.formbuilder.group({
-      Image:[],
+      imageURL:[''],
       ItemNumber:['',[Validators.required]],
       ItemName:['',[Validators.required]],
       ItemCategory:[,Validators.required],
       Barcodes:['',Validators.required],
-      procedure:[],
-      ItemStatus:[],
-      Vendor:[],
-      price:[,[Validators.required]],
-      size:[,[Validators.required]],
-      subcategory:[],
-      storeqty:[,[Validators.required]],
-      CabinetQty:[],
-      ExpiryDate:[,[Validators.required]],
-      MinStoreQty:[,[Validators.required]],
-      CatNo:[],
-      LotNo:[],
-      Tags:[],
-      Unit:[,[Validators.required]]
+      procedure:[''],
+      ItemStatus:[''],
+      Vendor:[''],
+      price:['',[Validators.required,Validators.pattern("[0-9]"),Validators.min(0)]],
+      size:['',[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      sizetype:['',Validators.required],
+      subcategory:[''],
+      storeqty:[0,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      CabinetQty:[0,[Validators.pattern('\\d*'),Validators.min(0)]],
+      ExpiryDate:['',[Validators.required]],
+      MinStoreQty:['',[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      CatNo:[''],
+      LotNo:[''],
+      Tags:[''],
+      Unit:['',[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
+      Itemdescription:[''],
+      Itemnotes:['']
     })
   }
   get TagForm() { return this.AddtagForm.controls }
 
+  imageUrl: string | ArrayBuffer | null = null;
 
+  handleImageInput(input: HTMLInputElement): void {
+    const file: File | null = input?.files?.[0];
+
+    if (file) {
+      const reader: FileReader = new FileReader();
+      reader.onload = (e: any) => {
+        this.imageUrl = e.target?.result;
+      };
+      reader.readAsDataURL(file);
+    }
+  }
+
+  IncreaseStoreQty(data:any){
+    let Numdata = parseInt(data);
+    this.StoreQty = Numdata+1;
+  }
+  DecreaseStoreQty(data:any){
+    let Numdata = parseInt(data);
+    if(Numdata>0)
+    {this.StoreQty = Numdata-1;}
+  }
+
+  IncreaseCabinetQty(data:any){
+    let Numdata = parseInt(data);
+    this.CabinetQty = Numdata+1;
+  }
+
+  DecreaseCabinetQty(data:any){
+    let Numdata = parseInt(data);
+    if(Numdata>0)
+    {this.CabinetQty = Numdata-1;}
+  }
   HideOverAllList(){
     this.hide_Overall_list =! this.hide_Overall_list;
   }
@@ -431,26 +476,43 @@ export class AllItemsComponent implements OnInit {
 
   Addtagfn(data:any){
     if(this.AddtagForm.valid){
-      this.allServices.AddTag(data.controls.TagName.value).subscribe((res:any)=>{
-        if(res.status=='Success'){
-          this.toastr.success(`${res.message}`,'Successful',{
+      this.allServices.AddTag(data.controls.TagName.value).subscribe({
+        next: (res: any) => {
+          if (res.status == 'Success') {
+            this.toastr.success(`${res.message}`, 'Successful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+            this.CloseModal('addtag');
+          }
+        },
+        error: (res: any) => {
+          this.toastr.error(`${res}`, 'UnSuccessful', {
             positionClass: 'toast-top-center',
-            timeOut:2000,
+            timeOut: 2000,
           });
-          this.CloseModal('addtag')
         }
       });
     }
   }
-  AddVendorfn(data:any){
-    if(this.AddVendorForm.valid){
-      this.allServices.AddVendor(data).subscribe((res:any)=>{
-        if(res.status=='Success'){
-          this.toastr.success(`${res.message}`,'Successful',{
+
+  AddVendorfn(data: any) {
+    if (this.AddVendorForm.valid) {
+      this.allServices.AddVendor(data).subscribe({
+        next: (res: any) => {
+          if (res.status == 'Success') {
+            this.toastr.success(`${res.message}`, 'Successful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+            this.CloseModal('addvendor');
+          }
+        },
+        error: (res: any) => {
+          this.toastr.error(`${res}`, 'UnSuccessful', {
             positionClass: 'toast-top-center',
-            timeOut:2000,
+            timeOut: 2000,
           });
-          this.CloseModal('addvendor');
         }
       });
     }
@@ -458,43 +520,68 @@ export class AllItemsComponent implements OnInit {
 
   AddSubCategoryfn(data:any){
     if(this.AddSubCategoryForm.valid){
-      this.allServices.AddSubCategoryfn(data).subscribe((res:any)=>{
-        console.log(res);
-        if(res.status=='Success'){
-          this.toastr.success(`${res.message}`,'Successful',{
+      this.allServices.AddSubCategoryfn(data).subscribe({
+        next:(res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('subcategory');
+          }
+        },
+        error:(res:any)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
             positionClass: 'toast-top-center',
             timeOut:2000,
           });
-          this.CloseModal('subcategory');
         }
-        else if(res.status == 'error'){
-          this.toastr.error('Something went wrong','UnSuccessful',{
-            positionClass: 'toast-top-center',
-            timeOut:2000,
-          });
-        }
-      });
+      })
     }
   }
 
   AddCategoryfn(data:any){
     if(this.AddCategoryForm.valid){
-      this.allServices.AddCategoryfn(data).subscribe((res:any)=>{
-        console.log(res);
-        if(res.status=='Success'){
-          this.toastr.success(`${res.message}`,'Successful',{
+      this.allServices.AddCategoryfn(data).subscribe({
+        next:(res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('addcategory');
+          }
+        },
+        error:(res)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
             positionClass: 'toast-top-center',
             timeOut:2000,
           });
-          this.CloseModal('addcategory');
         }
-        else if(res.status == 'error'){
-          this.toastr.error('Something went wrong','UnSuccessful',{
+      })
+    }
+  }
+
+  AddItemfn(data:any){
+    if(data.valid){
+      console.log(data.value);
+      this.allServices.Additemfn(data).subscribe({
+        next:(res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('additem');
+          }
+        },
+        error:(res)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
             positionClass: 'toast-top-center',
             timeOut:2000,
           });
         }
-      });
+      })
     }
   }
 }

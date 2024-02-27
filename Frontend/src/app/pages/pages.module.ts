@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -24,6 +24,7 @@ import { PagesRoutingModule } from './pages-routing.module';
 import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AllServicesService } from '../core/services/all-services.service';
 
 @NgModule({
   declarations: [],
@@ -48,5 +49,6 @@ import { NgSelectModule } from '@ng-select/ng-select';
     PickerModule,
     NgSelectModule
   ],
+  providers:[AllServicesService,DatePipe]
 })
 export class PagesModule { }
