@@ -133,10 +133,10 @@ border-bottom: none !important;
   overflow-x: clip !important;
 }
 
-::ng-deep .ng-select-container
+:host ::ng-deep .ng-select-container
 {
   background: #fff !important;
-  border:1px solid #BEBEBF !important;
+  border:0.5px solid #BEBEBF !important;
 }
 
 ::ng-deep .ng-dropdown-panel.ng-select-bottom
@@ -147,3 +147,13 @@ border-bottom: none !important;
 .editable_header{
   width: 99.5%;
 }
+
+
+:host ::ng-deep .ng-select .ng-clear-wrapper{
+  top: 2px !important;
+  left: 7px !important;
+}
+
+:host ::ng-deep .ng-select-container{
+  background: #f3f4f8 !important;
+ }

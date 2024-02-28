@@ -28,6 +28,8 @@ import { AllitemsGridViewComponent } from './allitems-grid-view/allitems-grid-vi
 import { AllitemsListViewComponent } from './allitems-list-view/allitems-list-view.component';
 import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-items-detailed-view.component';
 import { ToastrModule } from 'ngx-toastr';
+import { HistroyComponent } from './histroy/histroy.component';
+import { TrashComponent } from './trash/trash.component';
 
 
 @NgModule({
@@ -46,7 +48,9 @@ import { ToastrModule } from 'ngx-toastr';
     AllItemsTableViewComponent,
     AllitemsGridViewComponent,
     AllitemsListViewComponent,
-    GridItemsDetailedViewComponent
+    GridItemsDetailedViewComponent,
+    HistroyComponent,
+    TrashComponent
   ],
   imports: [
     CommonModule,

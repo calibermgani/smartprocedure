@@ -11,29 +11,6 @@ import { ToastrService } from 'ngx-toastr';
 import { Observable } from 'rxjs';
 import { environment_new } from 'src/environments/environment';
 
-interface AllItems{
-  id:number,
-  item_no:string,
-  item_name:string,
-  item_category:string,
-  item_description:string,
-  procedure:string,
-  cat_no:string,
-  lot_no:string,
-  size:string,
-  vendor:string,
-  price:string,
-  unit:string,
-  expiry_date:string,
-  on_hand_qty:string,
-  min_level:string,
-  tags:string,
-  notes:string,
-  images:string,
-  barcodes:string,
-  action:string
-}
-
 @Component({
   selector: 'app-all-items',
   templateUrl: './all-items.component.html',
@@ -102,7 +79,11 @@ export class AllItemsComponent implements OnInit {
   StoreQtymaxValue:number = 40;
   MinlevelMinimumValue:number = 40;
   MinlevelMaximumValue:number = 30;
-  ItemStatus:any;
+  ItemStatus:any = [];
+  Procedure:any = [
+    { id: 1, label: "Procedure A" },
+    { id: 2, label: "Procedure B" }
+  ];
 
 
   constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient,private formbuilder : UntypedFormBuilder,private allServices : AllServicesService,private toastr: ToastrService) {
@@ -113,8 +94,8 @@ export class AllItemsComponent implements OnInit {
     });
 
     this.ItemStatus= [
-      { value: 1, label: "Active" },
-      { value: 2, label: "Inactive" }
+      { id: 1, label: "Active" },
+      { id: 2, label: "Inactive" }
     ]
 
   }
@@ -156,7 +137,7 @@ export class AllItemsComponent implements OnInit {
     });
 
     this.AddItemForm = this.formbuilder.group({
-      imageURL:[],
+      imageURL:[''],
       ItemNumber:[,[Validators.required]],
       ItemName:[,[Validators.required]],
       ItemCategory:[,[Validators.required]],
@@ -285,8 +266,6 @@ export class AllItemsComponent implements OnInit {
       }
     }
   }
-
-
 
 
   onSelect(event: any) {
@@ -422,22 +401,13 @@ export class AllItemsComponent implements OnInit {
     }
   }
 
-  Category:any=[];
+
   OpenModal(modalname:string){
     switch(modalname){
       case 'additem':{
-        this.http.post(`${this.apiUrl}/categories/item_category`,this.payload).subscribe({
-          next:((res:any)=>{
-            const juiceValues = Object.values(res.categories)
-            this.Category = juiceValues;
-          }),
-          error:((res:any)=>{
-            this.toastr.error(`${res}`,'UnSuccessful',{
-              positionClass: 'toast-top-center',
-              timeOut:2000,
-            });
-          })
-        })
+        this.getCategoryOptions();
+        this.getVendors();
+        this.getTags();
         this.additem?.show();
         break;
       }
@@ -450,6 +420,7 @@ export class AllItemsComponent implements OnInit {
         break;
       }
       case 'subcategory':{
+        this.getCategoryOptions();
         this.subcategory?.show();
         break;
       }
@@ -490,6 +461,145 @@ export class AllItemsComponent implements OnInit {
         this.additem?.hide();
       }
     }
+  }
+
+  Category:any = [];
+  CategoryOptions_Index:any = [];
+  getCategoryOptions(){
+    this.allServices.ItemCategoryOptions().subscribe({
+      next:((res:any)=>{
+        this.Category = [];
+        this.CategoryOptions_Index = [];
+        console.log(res);
+        this.CategoryOptions_Index = res.categories;
+      //   let values = Object.keys(res.categories).map(key => ({ key, value: res.categories[key] }));
+      //   Object.keys(values).forEach(key => {
+      //     this.CategoryOptions_Index.push(values[key]);
+      //     this.Category.push(values[key].value);
+      // });
+      // console.log(this.CategoryOptions_Index);
+      // console.log(this.Category);
+      res.categories.forEach((element) => {
+        this.Category.push(element.categories);
+      });
+          console.log(this.Category);
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`${res}`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    });
+  }
+  vendors:any = [];
+  VendorsOption_Index:any = [];
+  getVendors(){
+    this.allServices.VendorOptions().subscribe({
+      next:((res:any)=>{
+        if(res.vendors.length>0){
+          this.vendors= [];
+          this.VendorsOption_Index= [];
+          this.VendorsOption_Index = res.vendors;
+          res.vendors.forEach((element:any) => {
+            this.vendors.push(element.VendorName);
+          });
+          console.log('Vendors',this.vendors);
+        }
+        else{
+          this.vendors = ['No Vendors to show'];
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    });
+  }
+
+  Tags:any= [];
+  TagsOption_Index:any = [];
+  getTags(){
+    this.allServices.TagsOptions().subscribe({
+      next:((res:any)=>{
+        if(res.tags.length>0){
+          this.Tags = [];
+          this.TagsOption_Index = [];
+          this.TagsOption_Index = res.tags;
+          res.tags.forEach((element:any) => {
+            this.Tags.push(element.tag_name);
+          });
+          console.log('Vendors',this.Tags);
+        }
+        else{
+          this.Tags = ['No Vendors to show'];
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    });
+  }
+
+  SubCategories:any = [];
+  SubcategoryOptions_Index:any = [];
+  OnChangeItemCategory(data:any){
+    console.log('Selected Category',data);
+
+    let category_id:number;
+    // Object.keys(this.CategoryOptions_Index).forEach(index =>{
+    //   if(this.CategoryOptions_Index[index].value == data)
+    //   {
+    //       category_id =  this.CategoryOptions_Index[index].key;
+    //   }
+    // });
+    this.CategoryOptions_Index.forEach((element) => {
+      if(data == element.categories){
+        category_id = element.id;
+      }
+    });
+    console.log('Category ID ',category_id);
+
+    this.allServices.ItemSubCategoryOptions(category_id).subscribe(({
+      next:((res:any)=>{
+        this.SubCategories = [];
+        this.SubcategoryOptions_Index = [];
+        console.log(res);
+        if(res.sub_categories.length>0){
+          this.SubcategoryOptions_Index = res.sub_categories;
+          // let values = Object.keys(res.sub_categories).map(key => ({ key, value: res.sub_categories[key] }));
+          // Object.keys(values).forEach((index) => {
+          //   this.SubcategoryOptions_Index.push(values[index]);
+          //   this.SubCategories.push(values[index].value);
+          // })
+          // console.log(this.SubcategoryOptions_Index);
+          // console.log(this.SubCategories);
+          res.sub_categories.forEach(element => {
+            this.SubCategories.push(element.sub_category_name);
+          });
+          console.log(this.SubCategories);
+
+        }
+        else{
+          this.AddItemForm.patchValue({
+            subcategory:''
+          })
+          this.SubCategories = ['No Sub Categories to show'];
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`${res}`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+
+    }));
   }
 
   Addtagfn(data:any){
@@ -582,6 +692,43 @@ export class AllItemsComponent implements OnInit {
 
   AddItemfn(data:any){
     if(data.valid){
+      let category_value = data.value.ItemCategory;
+      this.CategoryOptions_Index.forEach(element => {
+        if(element.categories == category_value){
+          this.AddItemForm.patchValue({
+            ItemCategory:element.id
+          })
+        }
+      });
+      let subcategory_value = data.value.subcategory;
+      this.SubcategoryOptions_Index.forEach(element => {
+        if(element.sub_category_name == subcategory_value){
+          this.AddItemForm.patchValue({
+            subcategory:element.id
+          })
+        }
+      });
+      let vendor_value = data.value.Vendor;
+      this.VendorsOption_Index.forEach(element => {
+        if(element.VendorName == vendor_value){
+          this.AddItemForm.patchValue({
+            Vendor:element.id
+          })
+        }
+      });
+
+      let item_status = data.value.ItemStatus;
+      if(item_status.label == 'Active'){
+        this.AddItemForm.patchValue({
+          ItemStatus:1
+        })
+      }
+      else if(item_status.label == 'Inactive'){
+        this.AddItemForm.patchValue({
+          ItemStatus:2
+        })
+      }
+
       console.log(data.value);
       this.allServices.Additemfn(data).subscribe({
         next:(res:any)=>{
@@ -601,5 +748,30 @@ export class AllItemsComponent implements OnInit {
         }
       })
     }
+  }
+
+  currentview:string = 'all'
+  GoToRespectiveView(data:any){
+    switch(data){
+      case 'histroy':{
+        this.currentview = 'histroy';
+        break;
+      }
+      case 'trash':{
+        this.currentview = 'trash';
+        break;
+      }
+      case 'all':{
+        this.currentview = 'all';
+        break;
+      }
+    }
+  }
+
+  ChangeOverAllViewHis(data:any){
+    this.currentview = data;
+  }
+  ChangeOverAllViewTra(data:any){
+    this.currentview = data;
   }
 }

@@ -89,11 +89,11 @@
         </div>
         <div class="list-footer">
           <div class="d-flex flex-row justify-content-between align-items-center" style="flex-wrap: wrap;">
-            <div>
-              <button type="button" class="btn btn-grey" style="width: 120px !important;"><i class="mdi mdi-timer-outline"></i>Histroy</button>
+            <div style="width: 50% !important;">
+              <button type="button" class="btn btn-grey" style="width: 100px !important;" (click)="GoToRespectiveView('histroy')"><i class="mdi mdi-timer-outline"></i>Histroy</button>
             </div>
-            <div>
-              <button type="button" class="btn btn-grey" style="width: 120px !important;"><i class="mdi mdi-trash-can-outline"></i>Trash</button>
+            <div style="width: 50% !important;">
+              <button type="button" class="btn btn-grey" style="width: 100px !important;" (click)="GoToRespectiveView('trash')"><i class="mdi mdi-trash-can-outline"></i>Trash</button>
             </div>
           </div>
         </div>
@@ -103,7 +103,7 @@
         bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" (click)="HideOverAllList()">
       </div>
     </div>
-    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}">
+    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'all' ">
       <img src="assets/images/ViewOnlyModeright.svg"
         style="position: absolute;top: 50%;margin-left: -20px;z-index: 1;display: none;cursor: pointer;"
         class="rightexpand" (click)="HideOverAllList()">
@@ -487,9 +487,17 @@
         </div>
       </div>
     </div>
+
+
+    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'histroy' ">
+      <app-histroy (GoBackToAllItemsEvent_histroy)="ChangeOverAllViewHis($event)"></app-histroy>
+    </div>
+
+    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'trash' ">
+      <app-trash (GoBackToAllItemsEvent_trash)="ChangeOverAllViewTra($event)"></app-trash>
+    </div>
+
   </div>
-
-
 </div>
 
 
@@ -594,7 +602,7 @@
               <div class="mb-5" style="width: 100%;">
                 <label for="items_descrption" class="modal-label-edit">Item Category<span
                   style="color: red;">*</span></label>
-                <ng-select [items]="Category" placeholder="Select Category" formControlName="ItemCategory"></ng-select>
+                <ng-select [items]="this.Category" placeholder="Select Category" formControlName="ItemCategory" (change)="OnChangeItemCategory(this.AddItemForm.controls.ItemCategory.value)"></ng-select>
                 <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
                   <div
                     *ngIf="(this.AddItemForm.controls.ItemCategory.dirty || this.AddItemForm.controls.ItemCategory.touched) && this.AddItemForm.controls.ItemCategory.errors?.required">
@@ -611,7 +619,7 @@
               <div class="d-flex flex-row" style="width: 100%;">
                 <div class="mb-5" style="width: 100%;">
                   <label for="lot_no" class="modal-label-edit">Sub Category</label>
-                  <ng-select [items]="['Sub Category A','Sub Category B']" placeholder="Choose option" formControlName="subcategory"></ng-select>
+                  <ng-select [items]="this.SubCategories" placeholder="Choose option" formControlName="subcategory"></ng-select>
                 </div>
                 <div class="mt-4 ms-2">
                   <button class="btn-new"
@@ -628,7 +636,7 @@
           <div class="d-flex flex-row">
             <div class="">
               <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
-              <ng-select [items]="['Procedure A','Procedure B']" placeholder="Select Status" formControlName="procedure"></ng-select>
+              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure"></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -647,7 +655,7 @@
           <div class="d-flex flex-row">
             <div class="" style="width: 100%;">
               <label for="items_status" class="modal-label-edit">Vendor</label>
-              <ng-select [items]="['Vendor A','Vendor B']" placeholder="Select Status" formControlName="Vendor"></ng-select>
+              <ng-select [items]="this.vendors" placeholder="Select Status" formControlName="Vendor" ></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -816,7 +824,7 @@
         <div class="col-8">
           <div class="">
             <label for="items_no" class="modal-label-edit">Tags</label>
-            <input type="text" class="form-control-new" placeholder="" formControlName="Tags">
+            <ng-select [items]="Tags" formControlName="Tags"  placeholder="" [multiple]="true"></ng-select>
            </div>
         </div>
         <div class="col-4">
@@ -1287,7 +1295,7 @@
         <div class="col-4">
           <div class="mb-3 mt-1" >
             <label for="items_category" class="modal-label-edit mb-1">Choose category</label>
-            <ng-select [items]="['Category A','Category B']" placeholder="Select category" formControlName="category"></ng-select>
+            <ng-select [items]="this.Category" placeholder="Select category" formControlName="category"></ng-select>
           </div>
         </div>
         <div class="col-4">

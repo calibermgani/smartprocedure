@@ -198,6 +198,7 @@ border-bottom: none !important;
 .showfullgrid
 {
   width: 100% !important;
+  height: 723px !important;
   border-left: 1px solid #747474;
   .rightexpand
   {
@@ -214,10 +215,10 @@ border-bottom: none !important;
   overflow-x: clip !important;
 }
 
-::ng-deep .ng-select-container
+:host ::ng-deep .ng-select-container
 {
   background: #fff !important;
-  border:1px solid #BEBEBF !important;
+  border:0.5px solid #BEBEBF !important;
 }
 
 ::ng-deep .ng-dropdown-panel.ng-select-bottom
@@ -348,4 +349,9 @@ border-bottom: none !important;
 
 ::ng-deep .ag-horizontal-right-spacer{
   display: none !important;
+}
+
+:host ::ng-deep .ng-select .ng-clear-wrapper{
+  top: 2px !important;
+  left: 7px !important;
 }

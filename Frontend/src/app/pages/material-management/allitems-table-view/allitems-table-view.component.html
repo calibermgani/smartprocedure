@@ -53,7 +53,7 @@
   </div>
 </div>
 
-<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -209,12 +209,12 @@
         <div>
           <button type="button" class="btn-new me-4"
             style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"
-            (click)="viewitem?.hide()">Close</button>
+            (click)="CloseModal('item_name')">Close</button>
         </div>
         <div>
           <button type="button" class="btn-new me-2"
             style="width: auto !important;"
-            (click)="viewitem?.hide()">Edit</button>
+            (click)="OpenNestedModal()">Edit</button>
         </div>
       </div>
     </div>
@@ -229,7 +229,380 @@
   </div>
 </div>
 
-<div bsModal #edit_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+<div bsModal #editItem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" [config]="{ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
+    <div class="modal-content p-2">
+      <div class="d-flex justify-content-between align-items-center p-2 m-2" style="background: #F3F4F8;border-radius: 6px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Edit Item
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('editItem')"
+          style="cursor: pointer;">
+      </div>
+      <form [formGroup]="AddItemForm">
+        <div style="height: 650px;overflow-y: scroll;overflow-x: hidden;">
+      <div class="row p-3" style="height: 209px ;">
+        <div class="col-4" style="height: 180px;">
+          <div class="">
+            <label class="modal-label-edit">Images</label>
+            <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
+              <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'" >
+                <ngx-dropzone-label class="dz-message needsclick">
+                  <div class="mt-4">
+                    <i class="display-4 text-muted bx bxs-cloud-upload"></i>
+                  </div>
+
+                  <h5>Drop files here or click to upload.</h5>
+                </ngx-dropzone-label>
+              </ngx-dropzone>
+              <ngx-dropzone-preview *ngIf="imageURL" class="border rounded" [removable]="true" (removed)="onRemove()">
+                <ngx-dropzone-label>
+                  <div class="d-flex p-2">
+                    <div class="flex-shrink-0 me-3">
+                      <div class="avatar-sm bg-light rounded">
+                        <img class="img-fluid rounded d-block" src="{{imageURL}}" alt="Dropzone-Image" formControlName="">
+                      </div>
+                    </div>
+                    <div class="flex-grow-1">
+                      <div class="pt-1">
+                        <strong class="error text-danger"></strong>
+                      </div>
+                    </div>
+                  </div>
+                </ngx-dropzone-label>
+              </ngx-dropzone-preview>
+              <!-- end dropzon-preview -->
+
+              <!-- <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
+                <div class="position-relative d-inline-block">
+                  <div class="position-absolute bottom-0 end-0">
+                      <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
+                          <div class="avatar-xs">
+                              <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16">
+                                  <i class='bx bxs-image-alt'></i>
+                              </div>
+                          </div>
+                      </label>
+                      <input  #imageInput class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput(imageInput)">
+                  </div>
+                  <div class="avatar-lg">
+                      <div class="avatar-title bg-light rounded-circle">
+                          <img [src]="imageUrl" id="projectlogo-img" class="avatar-md h-auto rounded-circle" />
+                      </div>
+                  </div>
+              </div>
+              </div> -->
+          </div>
+
+        </div>
+        <div class="col-8" style="height: 180px;">
+          <div class="d-flex flex-row justify-centent-between" style="height: 100px;">
+            <div class="mb-5 me-4" style="width: 50%;">
+              <label for="items_category" class="modal-label-edit">Items number<span
+                  style="color: red;">*</span></label>
+              <input class="form-control-new" placeholder="" type="text" formControlName="ItemNumber" minlength="2">
+              <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddItemForm.controls.ItemNumber.dirty || this.AddItemForm.controls.ItemNumber.touched) && this.AddItemForm.controls.ItemNumber.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(this.AddItemForm.controls.ItemNumber.dirty || this.AddItemForm.controls.ItemNumber.touched) && this.AddItemForm.controls.ItemNumber.errors?.minlength">
+                  Item Number should be more than one character</div>
+              </div>
+            </div>
+            <div class="mb-5" style="width: 50%;">
+              <label for="items_name" class="modal-label-edit">Items Name<span
+                  style="color: red;">*</span></label>
+              <input class="form-control-new" type="text" formControlName="ItemName" minlength="2">
+              <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddItemForm.controls.ItemName.dirty || this.AddItemForm.controls.ItemName.touched) && this.AddItemForm.controls.ItemName.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(this.AddItemForm.controls.ItemName.dirty || this.AddItemForm.controls.ItemName.touched) && this.AddItemForm.controls.ItemName.errors?.minlength">
+                  Item name should be more than one character</div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-row">
+            <div class="d-flex flex-row" style="width: 50%;">
+              <div class="mb-5" style="width: 100%;">
+                <label for="items_descrption" class="modal-label-edit">Item Category<span
+                  style="color: red;">*</span></label>
+                <ng-select [items]="this.Category" placeholder="Select Category" formControlName="ItemCategory" (change)="OnChangeItemCategory(this.AddItemForm.controls.ItemCategory.value)"></ng-select>
+                <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.AddItemForm.controls.ItemCategory.dirty || this.AddItemForm.controls.ItemCategory.touched) && this.AddItemForm.controls.ItemCategory.errors?.required">
+                    Please select atleast one of the option</div>
+                </div>
+              </div>
+              <div class="mt-4 ms-2">
+                <button class="btn-new"
+                  style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                    class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+              </div>
+            </div>
+            <div class="ms-3" style="width: 50%;">
+              <div class="d-flex flex-row" style="width: 100%;">
+                <div class="mb-5" style="width: 100%;">
+                  <label for="lot_no" class="modal-label-edit">Sub Category</label>
+                  <ng-select [items]="this.SubCategories" placeholder="Choose option" formControlName="subcategory"></ng-select>
+                </div>
+                <div class="mt-4 ms-2">
+                  <button class="btn-new"
+                    style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                      class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="d-flex flex-row">
+            <div class="">
+              <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
+              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure"></ng-select>
+            </div>
+            <div class="mt-4 ms-2">
+              <button class="btn-new"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="me-4">
+            <label for="items_status" class="modal-label-edit">Item Status</label>
+            <ng-select [items]="ItemStatus" placeholder="Select Status" formControlName="ItemStatus"></ng-select>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="d-flex flex-row">
+            <div class="" style="width: 100%;">
+              <label for="items_status" class="modal-label-edit">Vendor</label>
+              <ng-select [items]="this.vendors" placeholder="Select Status" formControlName="Vendor" ></ng-select>
+            </div>
+            <div class="mt-4 ms-2">
+              <button class="btn-new"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="">
+            <label for="items_no" class="modal-label-edit">Price<span
+                style="color: red;">*</span></label>
+            <input class="form-control-new price_field" type="text" style="text-align: right;" formControlName="price" step="0.01">
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div
+                *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.required">
+                Please fill the field</div>
+            </div>
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div
+                *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.pattern">
+                Price value should be in numbers</div>
+            </div>
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div
+                *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.min">
+                Price value should be greater than or equal to zero</div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="size" class="modal-label-edit">Size<span style="color: red;">*</span></label>
+            <div class="d-flex">
+              <input class="form-control-new me-2" type="text" formControlName="size">
+              <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-3" formControlName="sizetype"></ng-select>
+            </div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.size.errors?.required">
+              Please fill the field</div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.sizetype.errors?.required">
+              Please select atleast one size type</div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div
+              *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.size.errors?.min">
+              Size value should be greater than or equal to zero</div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div
+              *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.size.errors?.pattern">
+              Size value should not be in alphabets</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="notes" class="modal-label-edit">Barcodes<span style="color: red;">*</span></label>
+            <input class="form-control-new barcode_img" type="text" placeholder="scan or type" formControlName="Barcodes" minlength="2">
+              <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddItemForm.controls.Barcodes.dirty || this.AddItemForm.controls.Barcodes.touched) && this.AddItemForm.controls.Barcodes.errors?.required">
+                  Please fill the field</div>
+              </div>
+              <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddItemForm.controls.Barcodes.dirty || this.AddItemForm.controls.Barcodes.touched) && this.AddItemForm.controls.Barcodes.errors?.minlength">
+                  Barcode should be more than one character</div>
+              </div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="">
+            <label for="size" class="modal-label-edit">Store Qty<span style="color: red;">*</span></label>
+            <div class="d-flex">
+             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="DecreaseStoreQty(this.StoreQty)"><i
+                class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" style="width: 30% !important;padding-left: 0px 15px !important;text-align: center;" formControlName="storeqty" [(ngModel)]="StoreQty">
+              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="IncreaseStoreQty(this.StoreQty)"><i
+                class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.storeqty.dirty || this.AddItemForm.controls.storeqty.touched) && this.AddItemForm.controls.storeqty.errors?.required">
+              Please fill the field</div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.storeqty.dirty || this.AddItemForm.controls.storeqty.touched) && this.AddItemForm.controls.storeqty.errors?.pattern">
+              Store Qty should not be in alphabets</div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.storeqty.dirty || this.AddItemForm.controls.storeqty.touched) && this.AddItemForm.controls.storeqty.errors?.min">
+             Store Qty should be greater than or equal to zero</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="vendor" class="modal-label-edit">Cabinet Qty</label>
+            <div class="d-flex">
+              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="DecreaseCabinetQty(this.CabinetQty)"><i
+                class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100"  style="width: 30% !important;padding: 0px 15px !important;text-align: center;" formControlName="CabinetQty" [(ngModel)]="CabinetQty">
+              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="IncreaseCabinetQty(this.CabinetQty)"><i
+                class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.CabinetQty.dirty || this.AddItemForm.controls.CabinetQty.touched) && this.AddItemForm.controls.CabinetQty.errors?.pattern">
+              Cabinet Qty should not be in alphabets</div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.CabinetQty.dirty || this.AddItemForm.controls.CabinetQty.touched) && this.AddItemForm.controls.CabinetQty.errors?.min">
+             Cabinet Qty should be greater than or equal to zero</div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="price" class="modal-label-edit">Expiry Date<span style="color: red;">*</span></label>
+            <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }" formControlName="ExpiryDate">
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.ExpiryDate.dirty || this.AddItemForm.controls.ExpiryDate.touched) && this.AddItemForm.controls.ExpiryDate.errors?.required">
+              Please fill the field</div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-4">
+          <div class="">
+            <label for="unit" class="modal-label-edit">Min store Qty<span style="color: red;">*</span></label>
+            <input class="form-control-new" type="text" formControlName="MinStoreQty">
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.required">
+                Please fill the field</div>
+            </div>
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.pattern">
+               Min Store Qtymust not be in alphabets</div>
+            </div>
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.min">
+                Please fill the Min Store quantity greater than or equal to zero </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="expiry_date" class="modal-label-edit">Cat No</label>
+            <input class="form-control-new" type="text" formControlName="CatNo">
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="on_hand_qty" class="modal-label-edit">Lot No</label>
+            <input class="form-control-new" type="text" formControlName="LotNo">
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-8">
+          <div class="">
+            <label for="items_no" class="modal-label-edit">Tags</label>
+            <ng-select [items]="Tags" formControlName="Tags"  placeholder="" [multiple]="true"></ng-select>
+           </div>
+        </div>
+        <div class="col-4">
+          <div class="">
+            <label for="items_no" class="modal-label-edit">Unit<span style="color: red;">*</span></label>
+            <input type="text" class="form-control-new" placeholder="" formControlName="Unit">
+           </div>
+           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.required">
+              Please fill the field</div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.min">
+              Unit Value must be greater than or equal to zero and must not be alphabets</div>
+          </div>
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.pattern">
+              Unit Value must not be alphabets</div>
+          </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12">
+          <div class="">
+            <label for="items_no" class="modal-label-edit">Item description</label>
+            <textarea type="text" class="form-control-new" placeholder="" formControlName="Itemdescription" style="font-size: 0.6123rem !important;"></textarea>
+           </div>
+        </div>
+      </div>
+      <div class="row p-3">
+        <div class="col-12">
+          <div class="mb-3">
+            <label for="items_no" class="modal-label-edit">Notes</label>
+            <textarea type="text" class="form-control-new" placeholder="" formControlName="Itemnotes" style="font-size: 0.6123rem !important;"></textarea>
+           </div>
+        </div>
+      </div>
+    </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('editItem')">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="EditItemfn(this.AddItemForm)" [disabled]="this.AddItemForm.invalid"><img src="assets/images/add_img_modal.svg"
+            width="24px" height="24px" class="me-2">Update</button>
+        <!-- <button type="button" class="btn-new" style="width: auto !important;"><img src="assets/images/add_img_modal.svg"
+            width="24px" height="24px" class="me-2">Update</button> -->
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
+
+<div bsModal #edit_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:600px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -286,7 +659,7 @@
   </div>
 </div>
 
-<div bsModal #setalert="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2">
+<div bsModal #setalert="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:450px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -323,7 +696,7 @@
   </div>
 </div>
 
-<div bsModal #bulkupdate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name3">
+<div bsModal #bulkupdate="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name3" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:600px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -418,7 +791,7 @@
   </div>
 </div>
 
-<div bsModal #move="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name4">
+<div bsModal #move="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name4" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:315px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -461,7 +834,7 @@
 </div>
 </div>
 
-<div bsModal #clone_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+<div bsModal #clone_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:310px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -492,7 +865,7 @@
   </div>
 </div>
 
-<div bsModal #add_tag="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+<div bsModal #add_tag="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:390px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -523,14 +896,14 @@
   </div>
 </div>
 
-<div bsModal #delete_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+<div bsModal #delete_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:300px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
         style="background: #F3F4F8;border-radius: 8px;">
         <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Delete
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="delete_modal?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('delete_modal')"
           style="cursor: pointer">
       </div>
 
@@ -539,7 +912,7 @@
           <img src="assets/images/delete_modal_img.svg" style="width: 40px;height: 40px;">
         </div>
         <div class="mb-2">
-          <h1>Do you want to delete 1 items?</h1>
+          <h1>Do you want to delete {{ selected_row_data_length > 0 ? selected_row_data_length+' items ?' :'this item ?' }}</h1>
         </div>
         <div class="mb-2">
           <h4>You can always restore deleted items from Trash.</h4>
@@ -548,8 +921,8 @@
 
       <div class="d-flex justify-content-evenly p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Go back</button>
-        <button type="button" class="btn-new" style="width: auto !important;">Yes,continue</button>
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('delete_modal')">Go back</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="DeleteItemfn()">Yes,continue</button>
       </div>
     </div>
   </div>
