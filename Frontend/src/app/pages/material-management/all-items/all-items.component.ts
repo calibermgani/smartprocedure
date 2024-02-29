@@ -421,6 +421,7 @@ export class AllItemsComponent implements OnInit {
         break;
       }
       case 'subcategory':{
+        this.getCategoryOptions();
         this.subcategory?.show();
         break;
       }
