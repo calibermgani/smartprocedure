@@ -537,15 +537,15 @@ export class AllItemsTableViewComponent {
                 imageURL:'',
                 ItemNumber:res.data.item_number,
                 ItemName:res.data.item_name,
-                ItemCategory:res.data.item_category_id,
+                ItemCategory:res.data.item_category?.name,
                 Barcodes:res.data.item_barcode,
                 procedure:res.data.item_procedure_id,
-                ItemStatus:res.data.item_status,
-                Vendor:res.data.vendor_id,
+                ItemStatus:res.data.item_status == '1' ? 'Active' : 'InActive',
+                Vendor:res.data.item_vendor?.VendorName,
                 price:res.data.price,
                 size:res.data.size,
                 sizetype:res.data.size_type,
-                subcategory:res.data.item_sub_category_id,
+                subcategory:res.data.item_sub_category?.sub_category_name,
                 storeqty:res.data.store_qty,
                 CabinetQty:res.data.cabinet_qty,
                 ExpiryDate:res.data.expired_date,
@@ -564,7 +564,7 @@ export class AllItemsTableViewComponent {
                 this.SubCategories = [];
                 this.SubcategoryOptions_Index = [];
                 console.log(res);
-                if(res.sub_categories.length>0){
+                if(res.sub_categories){
                   this.SubcategoryOptions_Index = res.sub_categories;
                   res.sub_categories.forEach(element => {
                     this.SubCategories.push(element.sub_category_name);
@@ -740,9 +740,10 @@ export class AllItemsTableViewComponent {
 
     this.allServices.ItemSubCategoryOptions(category_id).subscribe(({
       next:((res:any)=>{
+        this.SubCategories= [];
         this.SubcategoryOptions_Index = [];
         console.log(res);
-        if(res.sub_categories.length>0){
+        if(res.sub_categories){
           this.SubcategoryOptions_Index = res.sub_categories;
           // let values = Object.keys(res.sub_categories).map(key => ({ key, value: res.sub_categories[key] }));
           // Object.keys(values).forEach((index) => {
