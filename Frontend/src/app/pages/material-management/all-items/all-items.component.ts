@@ -1,6 +1,6 @@
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { AuthfakeauthenticationService } from './../../../core/services/authfake.service';
-import { Component, OnInit, ViewChild, OnChanges, SimpleChanges, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges, SimpleChanges, ViewEncapsulation, Input, ChangeDetectorRef } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { HttpClient } from '@angular/common/http';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -18,8 +18,7 @@ import { environment_new } from 'src/environments/environment';
 })
 export class AllItemsComponent implements OnInit {
 
-  category: string[];
-  procedure: string[];
+
   format_value:string[];
   folder_structure_value:any[];
   hide_Overall_list:boolean = false;
@@ -38,12 +37,18 @@ export class AllItemsComponent implements OnInit {
   @ViewChild('notify', { static: false }) notify?: ModalDirective;
   @ViewChild('export', { static: false }) export?: ModalDirective;
   @ViewChild('subcategory', { static: false }) subcategory?: ModalDirective;
+  @ViewChild('editcategory', { static: false }) editcategory?: ModalDirective;
+  @ViewChild('delete_modal', { static: false }) delete_modal?: ModalDirective;
+  @ViewChild('editsubcategory', { static: false }) editsubcategory?: ModalDirective;
+
 
   AddtagForm:UntypedFormGroup;
   AddVendorForm:UntypedFormGroup;
   AddSubCategoryForm:UntypedFormGroup;
   AddCategoryForm:UntypedFormGroup;
   AddItemForm : UntypedFormGroup;
+  AllItemsGridBaseFilterForm: UntypedFormGroup;
+  AllItemsGridAdvanceFilterForm: UntypedFormGroup;
   cartData: any[];
   subtotal: any = 0;
   discount: any;
@@ -71,23 +76,20 @@ export class AllItemsComponent implements OnInit {
     floor: 0,
     ceil: 250
   };
-  QuantityminValue: number = 10;
-  QuantitymaxValue: number = 20;
-  PriceminValue:number = 10;
-  PricemaxValue:number = 40;
-  StoreQtyminValue:number = 10;
-  StoreQtymaxValue:number = 40;
-  MinlevelMinimumValue:number = 40;
-  MinlevelMaximumValue:number = 30;
+  QuantityminValue: number;
+  QuantitymaxValue: number;
+  PriceminValue:number;
+  PricemaxValue:number;
+  StoreQtyminValue:number;
+  StoreQtymaxValue:number;
+  MinlevelMinimumValue:number;
+  MinlevelMaximumValue:number;
   ItemStatus:any = [];
-  Procedure:any = [
-    { id: 1, label: "Procedure A" },
-    { id: 2, label: "Procedure B" }
-  ];
+  ReloadAllItemsGrid:boolean;
+  ReloadVendorListGrid:boolean;
 
-
-  constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient,private formbuilder : UntypedFormBuilder,private allServices : AllServicesService,private toastr: ToastrService) {
-    this.category = []; this.procedure = [];this.format_value = ['KG'];
+  constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient,private formbuilder : UntypedFormBuilder,private allServices : AllServicesService,private toastr: ToastrService,private cdr: ChangeDetectorRef) {
+    this.format_value = ['KG'];
 
     this.authfakeauthenticationService.GridDetailedView_value.subscribe((res:any)=>{
       this.overallview = res;
@@ -95,7 +97,7 @@ export class AllItemsComponent implements OnInit {
 
     this.ItemStatus= [
       { id: 1, label: "Active" },
-      { id: 2, label: "Inactive" }
+      { id: 2, label: "InActive" }
     ]
 
   }
@@ -104,9 +106,7 @@ export class AllItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.authfakeauthenticationService.changeSideMenu('material-management');
-    this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
-      this.folder_structure_value = res;
-    });
+    this.GetOverAllList();
 
     this.authfakeauthenticationService.selectedTabTypeValue.subscribe((res:any)=>{
       this.selectedTab_To_View = res;
@@ -159,7 +159,31 @@ export class AllItemsComponent implements OnInit {
       Unit:[,[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
       Itemdescription:[],
       Itemnotes:[]
-    })
+    });
+
+    this.AllItemsGridBaseFilterForm = this.formbuilder.group({
+      SearchFilter:[],
+      BarCodeSearch:[]
+    });
+
+    this.AllItemsGridAdvanceFilterForm = this.formbuilder.group({
+      category:[],
+      Search:[],
+      ProcedureSearch:[],
+      StoreQty:[],
+      CabinetQty:[],
+      Price:[],
+      MinLevel:[],
+      QuantityAlert:[],
+      Tags:[],
+      Barcode:[],
+      Notes:[]
+    });
+
+    this.getCategoryOptions();
+    this.getVendors();
+    this.getTags();
+    this.getProcedures();
   }
   get TagForm() { return this.AddtagForm.controls }
 
@@ -350,26 +374,6 @@ export class AllItemsComponent implements OnInit {
   }
 
 
-  calculateQty(id: any, qty: any, i: any) {
-    this.subtotal = 0;
-    if (id == '0' && qty > 1) {
-      qty--;
-      this.cartData[i].qty = qty
-      this.cartData[i].total = (this.cartData[i].qty * this.cartData[i].price).toFixed(2)
-    }
-    if (id == '1') {
-      qty++;
-      this.cartData[i].qty = qty
-      this.cartData[i].total = (this.cartData[i].qty * this.cartData[i].price).toFixed(2)
-    }
-    this.cartData.map((x: any) => {
-      this.subtotal += parseFloat(x['total'])
-    })
-    this.subtotal = this.subtotal.toFixed(2)
-    this.discount = (this.subtotal * this.discountRate).toFixed(2)
-    this.tax = (this.subtotal * this.taxRate).toFixed(2);
-    this.totalprice = (parseFloat(this.subtotal) + parseFloat(this.tax) + parseFloat(this.shippingRate) - parseFloat(this.discount)).toFixed(2)
-  }
 
   ChangeView(view:any){
     switch(view){
@@ -405,9 +409,6 @@ export class AllItemsComponent implements OnInit {
   OpenModal(modalname:string){
     switch(modalname){
       case 'additem':{
-        this.getCategoryOptions();
-        this.getVendors();
-        this.getTags();
         this.additem?.show();
         break;
       }
@@ -420,7 +421,6 @@ export class AllItemsComponent implements OnInit {
         break;
       }
       case 'subcategory':{
-        this.getCategoryOptions();
         this.subcategory?.show();
         break;
       }
@@ -428,8 +428,21 @@ export class AllItemsComponent implements OnInit {
         this.addcategory?.show();
         break;
       }
+      case 'editcategory':{
+        this.editcategory?.show();
+        break;
+      }
+      case 'delete_modal':{
+        this.delete_modal?.show();
+        break;
+      }
+      case 'editsubcategory':{
+        this.editsubcategory?.show();
+        break;
+      }
     }
   }
+
   CloseModal(modalname:string){
     switch(modalname){
       case 'addtag':{
@@ -452,13 +465,28 @@ export class AllItemsComponent implements OnInit {
         this.addcategory?.hide();
         break;
       }
+      case 'editcategory':{
+        this.AddCategoryForm.reset();
+        this.editcategory?.hide();
+        break;
+      }
       case 'subcategory':{
         this.AddSubCategoryForm.reset();
-        this.subcategory?.hide();
+        this.subcategory?.hide();break;
       }
       case 'additem':{
         this.AddItemForm.reset();
         this.additem?.hide();
+        break;
+      }
+      case 'delete_modal':{
+        this.delete_modal?.hide();
+        break;
+      }
+      case 'editsubcategory':{
+        this.AddSubCategoryForm.reset();
+        this.editsubcategory?.hide();
+        break;
       }
     }
   }
@@ -546,12 +574,38 @@ export class AllItemsComponent implements OnInit {
     });
   }
 
+  Procedure:any = [];
+  ProcedureOption_Index:any = [];
+  getProcedures(){
+    this.allServices.ProcedureOptions().subscribe({
+      next:((res:any)=>{
+        this.Procedure = [];
+        this.ProcedureOption_Index = res.data;
+        if(res.data.length>0){
+          res.data.forEach((element:any) => {
+            this.Procedure.push(element.procedure_name);
+          });
+        }
+        else{
+          this.Procedure=['No Procedures to show'];
+        }
+
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
+  }
+
   SubCategories:any = [];
   SubcategoryOptions_Index:any = [];
+  category_id:number;
   OnChangeItemCategory(data:any){
+    this.category_id = null;
     console.log('Selected Category',data);
-
-    let category_id:number;
     // Object.keys(this.CategoryOptions_Index).forEach(index =>{
     //   if(this.CategoryOptions_Index[index].value == data)
     //   {
@@ -560,12 +614,12 @@ export class AllItemsComponent implements OnInit {
     // });
     this.CategoryOptions_Index.forEach((element) => {
       if(data == element.categories){
-        category_id = element.id;
+        this.category_id = element.id;
       }
     });
-    console.log('Category ID ',category_id);
+    console.log('Category ID ',this.category_id);
 
-    this.allServices.ItemSubCategoryOptions(category_id).subscribe(({
+    this.allServices.ItemSubCategoryOptions(this.category_id).subscribe(({
       next:((res:any)=>{
         this.SubCategories = [];
         this.SubcategoryOptions_Index = [];
@@ -602,6 +656,22 @@ export class AllItemsComponent implements OnInit {
     }));
   }
 
+
+//   DetailsSubCategories:any = [];
+//   getSubCategoriesOptions(){
+// this.allServices.GetAllSubCategory().subscribe({
+//   next:((res:any)=>{
+//     this.DetailsSubCategories = res.data;
+//   }),
+//   error:((res:any)=>{
+//     this.toastr.error('Something went wrong', 'UnSuccessful', {
+//       positionClass: 'toast-top-center',
+//       timeOut: 2000,
+//     });
+//   })
+// })
+//   }
+
   Addtagfn(data:any){
     if(this.AddtagForm.valid){
       this.allServices.AddTag(data.controls.TagName.value).subscribe({
@@ -625,15 +695,21 @@ export class AllItemsComponent implements OnInit {
   }
 
   AddVendorfn(data: any) {
+    this.ReloadVendorListGrid = false;
     if (this.AddVendorForm.valid) {
+      console.log(this.AddVendorForm.value);
+
       this.allServices.AddVendor(data).subscribe({
         next: (res: any) => {
+          console.log();
+
           if (res.status == 'Success') {
             this.toastr.success(`${res.message}`, 'Successful', {
               positionClass: 'toast-top-center',
               timeOut: 2000,
             });
             this.CloseModal('addvendor');
+            this.ReloadVendorListGrid = true;
           }
         },
         error: (res: any) => {
@@ -646,9 +722,19 @@ export class AllItemsComponent implements OnInit {
     }
   }
 
+  SelectedCategory:number;
   AddSubCategoryfn(data:any){
     if(this.AddSubCategoryForm.valid){
-      this.allServices.AddSubCategoryfn(data).subscribe({
+      console.log(this.AddSubCategoryForm.value);
+      console.log(this.AddSubCategoryForm.controls.category.value);
+
+      this.CategoryOptions_Index.forEach((element:any) => {
+        if(element.categories == this.AddSubCategoryForm.controls.category.value){
+          this.SelectedCategory = element.id
+        }
+      });
+      console.log(this.SelectedCategory);
+      this.allServices.AddSubCategoryfn(data,this.SelectedCategory).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -656,6 +742,7 @@ export class AllItemsComponent implements OnInit {
               timeOut:2000,
             });
             this.CloseModal('subcategory');
+            this.GetOverAllList();
           }
         },
         error:(res:any)=>{
@@ -678,6 +765,7 @@ export class AllItemsComponent implements OnInit {
               timeOut:2000,
             });
             this.CloseModal('addcategory');
+            this.GetOverAllList();
           }
         },
         error:(res)=>{
@@ -717,13 +805,25 @@ export class AllItemsComponent implements OnInit {
         }
       });
 
+
+      let procedure_value = data.value.procedure;
+      this.ProcedureOption_Index.forEach(element => {
+        if(element.procedure_name == procedure_value){
+          this.AddItemForm.patchValue({
+            procedure:element.id
+          })
+        }
+      });
+
       let item_status = data.value.ItemStatus;
+      console.log(item_status);
+
       if(item_status.label == 'Active'){
         this.AddItemForm.patchValue({
           ItemStatus:1
         })
       }
-      else if(item_status.label == 'Inactive'){
+      else if(item_status.label == 'InActive'){
         this.AddItemForm.patchValue({
           ItemStatus:2
         })
@@ -737,6 +837,7 @@ export class AllItemsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut:2000,
             });
+            this.ReloadAllItemsGrid = true;
             this.CloseModal('additem');
           }
         },
@@ -749,6 +850,139 @@ export class AllItemsComponent implements OnInit {
       })
     }
   }
+
+  EditCategoryfn(data:any){
+    if(data.valid){
+      this.allServices.EditCategory(data,this.Edit_Category_index.id).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('editcategory');
+            this.GetOverAllList();
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      })
+    }
+  }
+
+  selected_category_id:any;
+  EditSubCategoryfn(data:any){
+    if(data.valid){
+      console.log(data.value);
+      console.log(this.Edit_Category_index);
+      this.selected_category_id = null;
+      this.CategoryOptions_Index.forEach((element,index) => {
+        if(element.categories == data.value.category){
+          this.selected_category_id =element.id;
+        }
+      });
+
+      this.allServices.EditSubCategory(data,this.selected_category_id,this.Edit_SubCategory_index).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('editsubcategory');
+            this.GetOverAllList();
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      })
+    }
+  }
+
+  deleteCategoryIndex:number;
+  DeleteCategory(data:any){
+    this.deleteCategoryIndex = data.id;
+  }
+
+  deleteSubCategoryIndex:number;
+  DeleteSubCategory(data:any){
+    this.deleteSubCategoryIndex = data.id;
+  }
+
+  DeleteTheCategory(){
+    console.log(this.deleteCategoryIndex);
+    console.log(this.deleteSubCategoryIndex);
+
+    if(this.deleteCategoryIndex){
+      this.allServices.DeleteCategory(this.deleteCategoryIndex).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.deleteCategoryIndex = null;
+            this.delete_modal?.hide();
+            this.GetOverAllList();
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      })
+    }
+    else{
+      this.allServices.DeleteSubCategory(this.deleteSubCategoryIndex).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.deleteCategoryIndex = null;
+            this.delete_modal?.hide();
+            this.GetOverAllList();
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      })
+    }
+
+  }
+
+
+  GetOverAllList(){
+    this.allServices.GetOverAllList().subscribe({
+      next:((res:any)=>{
+        this.folder_structure_value = res.data;
+        console.log(this.folder_structure_value);
+
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`${res}`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
+  }
+
 
   currentview:string = 'all'
   GoToRespectiveView(data:any){
@@ -773,5 +1007,84 @@ export class AllItemsComponent implements OnInit {
   }
   ChangeOverAllViewTra(data:any){
     this.currentview = data;
+  }
+
+  Edit_Category_index:any
+  EditCategory(index:any){
+    console.log(index);
+    this.Edit_Category_index = index;
+    this.allServices.GetCategory(index).subscribe({
+      next:((res:any)=>{
+        this.AddCategoryForm.patchValue({
+          CategoryName : res.data.name,
+          CategorySubCode : res.data.category_shortcode,
+          Status : res.data.status
+        });
+        this.OpenModal('editcategory')
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`Something went wrong`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    });
+  }
+
+
+  Edit_SubCategory_index:any
+  EditSubCategory(index:any,category_index:any){
+    this.Edit_SubCategory_index = null;
+    this.Edit_Category_index = category_index;
+    console.log(this.Edit_Category_index);
+
+    this.allServices.GetSubCategory(index).subscribe({
+      next:((res:any)=>{
+        this.Edit_SubCategory_index = res.data.id;
+        this.AddSubCategoryForm.patchValue({
+          SubCategoryName : res.data.sub_category_name,
+          category : res.data.category.name,
+          status : res.data.status
+        });
+        this.getCategoryOptions();
+        this.OpenModal('editsubcategory')
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`Something went wrong`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    });
+  }
+
+  ResetBaseFilters(){
+    this.AllItemsGridBaseFilterForm.patchValue({
+      SearchFilter:'',
+      BarCodeSearch:''
+    });
+  }
+  SearchBaseFilters(data:any){
+    console.log(data.value);
+  }
+
+  SearchAdvancedGridFiltes(data:any){
+    console.log(data.value);
+  }
+
+  ReserAdvancedGridFilters(){
+    this.AllItemsGridAdvanceFilterForm.patchValue({
+      category:'',
+      Search:'',
+      ProcedureSearch:'',
+      StoreQty:'',
+      CabinetQty:'',
+      Price:'',
+      MinLevel:'',
+      QuantityAlert:'',
+      Tags:'',
+      Barcode:'',
+      Notes:''
+    })
   }
 }

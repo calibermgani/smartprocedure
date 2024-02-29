@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
@@ -24,6 +24,7 @@ export class AllItemsTableViewComponent {
   @ViewChild('delete_modal', { static: false }) delete_modal: ModalDirective;
   @ViewChild('editItem', { static: false }) editItem?: ModalDirective;
 
+  @Input() Updategrid: boolean = false;
   all_Items_gridData:any = [];
   selected_row_data:any[];
   folder_structure_value:any = [];
@@ -32,14 +33,16 @@ export class AllItemsTableViewComponent {
   AddItemForm : UntypedFormGroup;
   files: File[] = [];
   imageURL: any;
-  Procedure:any = [];
-  ItemStatus:any = [];
+  ItemStatus:any = [
+    { id: 1, label: "Active" },
+    { id: 2, label: "InActive" }
+  ];
   format_value:any = [];
   StoreQty:number;
   CabinetQty:number;
 
 
-  constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder){
+  constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef){
 
     this.AddItemForm = this.formbuilder.group({
       imageURL:[''],
@@ -60,7 +63,7 @@ export class AllItemsTableViewComponent {
       MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CatNo:[],
       LotNo:[],
-      Tags:[],
+      Tag:[],
       Unit:[,[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
       Itemdescription:[],
       Itemnotes:[]
@@ -74,6 +77,7 @@ export class AllItemsTableViewComponent {
       console.log('response',this.folder_structure_value);
     });
   }
+
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -86,7 +90,7 @@ export class AllItemsTableViewComponent {
     defaultColDef: {
       filter: false,
     },
-    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Add Some Items</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
     rowHeight: 35,
@@ -129,9 +133,9 @@ export class AllItemsTableViewComponent {
       width:10,
     },
     {
-      field: 'item_no',
+      field: 'item_number',
       headerName: 'Item No',
-      cellRenderer: this.cellrendered.bind(this, 'item_no'),
+      cellRenderer: this.cellrendered.bind(this, 'item_number'),
     },
     {
       field: 'item_name',
@@ -140,9 +144,9 @@ export class AllItemsTableViewComponent {
       onCellClicked: this.CellClicked.bind(this, 'item_name')
     },
     {
-      field: 'item_category',
+      field: 'item_category.name',
       headerName: 'Items Category',
-      cellRenderer: this.cellrendered.bind(this, 'item_category')
+      cellRenderer: this.cellrendered.bind(this, 'item_category.name')
     },
     {
       field: 'item_description',
@@ -170,9 +174,9 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'size')
     },
     {
-      field: 'vendor',
+      field: 'item_vendor.VendorName',
       headerName: 'Vendor',
-      cellRenderer: this.cellrendered.bind(this, 'vendor')
+      cellRenderer: this.cellrendered.bind(this, 'item_vendor.VendorName')
     },
     {
       field: 'price',
@@ -185,19 +189,19 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'unit')
     },
     {
-      field: 'expiry_date',
+      field: 'expired_date',
       headerName: 'Expiry Date',
-      cellRenderer: this.cellrendered.bind(this, 'expiry_date')
+      cellRenderer: this.cellrendered.bind(this, 'expired_date')
     },
     {
-      field: 'store',
+      field: 'store_qty',
       headerName: 'Store',
-      cellRenderer: this.cellrendered.bind(this, 'store')
+      cellRenderer: this.cellrendered.bind(this, 'store_qty')
     },
     {
-      field: 'cabinet',
+      field: 'cabinet_qty',
       headerName: 'Cabinet',
-      cellRenderer: this.cellrendered.bind(this, 'cabinet')
+      cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
     },
     {
       field: 'min_level',
@@ -205,24 +209,24 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'min_level')
     },
     {
-      field: 'tags',
+      field: 'tag',
       headerName: 'Tags',
-      cellRenderer: this.cellrendered.bind(this, 'tags')
+      cellRenderer: this.cellrendered.bind(this, 'tag')
     },
     {
-      field: 'notes',
+      field: 'item_notes',
       headerName: 'Notes',
-      cellRenderer: this.cellrendered.bind(this, 'notes')
+      cellRenderer: this.cellrendered.bind(this, 'item_notes')
     },
     {
-      field: 'images',
+      field: 'image_url',
       headerName: 'Images',
-      cellRenderer: this.cellrendered.bind(this, 'images')
+      cellRenderer: this.cellrendered.bind(this, 'image_url')
     },
     {
-      field: 'barcodes',
+      field: 'item_barcode',
       headerName: 'Barcodes',
-      cellRenderer: this.cellrendered.bind(this, 'barcodes')
+      cellRenderer: this.cellrendered.bind(this, 'item_barcode')
     },
     {
       field: 'view',
@@ -252,13 +256,13 @@ export class AllItemsTableViewComponent {
 
   cellrendered(headerName: any, params: any) {
     switch (headerName) {
-      case 'item_no': {
+      case 'item_number': {
         return params.value;
       }
       case 'item_name': {
         return params.value;
       }
-      case 'item_category': {
+      case 'item_category.name': {
         return params.value;
       }
       case 'item_description': {
@@ -276,7 +280,7 @@ export class AllItemsTableViewComponent {
       case 'size': {
         return params.value;
       }
-      case 'vendor': {
+      case 'item_vendor.VendorName': {
         return params.value;
       }
       case 'price': {
@@ -285,28 +289,33 @@ export class AllItemsTableViewComponent {
       case 'unit': {
         return params.value;
       }
-      case 'expiry_date': {
+      case 'expired_date': {
         return params.value;
       }
-      case 'store': {
+      case 'store_qty': {
         return params.value;
       }
-      case 'cabinet': {
+      case 'cabinet_qty': {
         return params.value;
       }
       case 'min_level': {
         return params.value;
       }
-      case 'tags': {
+      case 'tag': {
         return params.value;
       }
-      case 'notes': {
+      case 'item_notes': {
         return params.value;
       }
-      case 'images': {
-        return `<img src="${params.value}" width="52px" height="16px">`
+      case 'image_url': {
+        if(params.value)
+        {return `<img src="${params.value}" width="52px" height="16px">`}
+        else{
+          return null;
+        }
+
       }
-      case 'barcodes': {
+      case 'item_barcode': {
         return params.value;
       }
       case 'view':{
@@ -368,6 +377,7 @@ export class AllItemsTableViewComponent {
         this.getCategoryOptions();
         this.getVendors();
         this.getTags();
+        this.getProcedures();
         console.log(params.data.id);
         this.allServices.ViewItem(params.data.id).subscribe({
           next:(res:any)=>{
@@ -376,27 +386,51 @@ export class AllItemsTableViewComponent {
                 imageURL:'',
                 ItemNumber:res.data.item_number,
                 ItemName:res.data.item_name,
-                ItemCategory:res.data.item_category_id,
+                ItemCategory:res.data.item_category?.name,
                 Barcodes:res.data.item_barcode,
                 procedure:res.data.item_procedure_id,
-                ItemStatus:res.data.item_status,
-                Vendor:res.data.vendor_id,
+                ItemStatus:res.data.item_status == '1' ? 'Active' : 'InActive',
+                Vendor:res.data.item_vendor?.VendorName,
                 price:res.data.price,
                 size:res.data.size,
                 sizetype:res.data.size_type,
-                subcategory:res.data.item_sub_category_id,
+                subcategory:res.data.item_sub_category?.sub_category_name,
                 storeqty:res.data.store_qty,
                 CabinetQty:res.data.cabinet_qty,
                 ExpiryDate:res.data.expired_date,
                 MinStoreQty:res.data.min_level,
                 CatNo:res.data.cat_no,
                 LotNo:res.data.lot_no,
-                Tags:res.data.tag,
+                Tag:[res.data.tag],
                 Unit:res.data.unit,
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
               });
             }
+
+            console.log(res.data.item_category?.id);
+
+            this.allServices.ItemSubCategoryOptions(res.data.item_category?.id).subscribe(({
+              next:((res:any)=>{
+                this.SubCategories = [];
+                this.SubcategoryOptions_Index = [];
+                console.log(res);
+                if(res.sub_categories.length>0){
+                  this.SubcategoryOptions_Index = res.sub_categories;
+                  res.sub_categories.forEach(element => {
+                    this.SubCategories.push(element.sub_category_name);
+                  });
+                  console.log(this.SubCategories);
+
+                }
+                else{
+                  this.AddItemForm.patchValue({
+                    subcategory:''
+                  })
+                  this.SubCategories = ['No Sub Categories to show'];
+                }
+              }),
+            }))
           },
           error:(res:any)=>{
             this.toastr.error(`Something went wrong`,'UnSuccessful',{
@@ -404,7 +438,7 @@ export class AllItemsTableViewComponent {
               timeOut:2000,
             });
           }
-        })
+        });
         this.editItem?.show();
         break;
       }
@@ -495,6 +529,7 @@ export class AllItemsTableViewComponent {
     this.getCategoryOptions();
         this.getVendors();
         this.getTags();
+        this.getProcedures();
         this.allServices.ViewItem(this.Currently_Selected_row.id).subscribe({
           next:(res:any)=>{
             if(res.status == 'Success'){
@@ -523,6 +558,28 @@ export class AllItemsTableViewComponent {
                 Itemnotes:res.data.item_notes
               });
             }
+
+            this.allServices.ItemSubCategoryOptions(res.data.item_category?.id).subscribe(({
+              next:((res:any)=>{
+                this.SubCategories = [];
+                this.SubcategoryOptions_Index = [];
+                console.log(res);
+                if(res.sub_categories.length>0){
+                  this.SubcategoryOptions_Index = res.sub_categories;
+                  res.sub_categories.forEach(element => {
+                    this.SubCategories.push(element.sub_category_name);
+                  });
+                  console.log(this.SubCategories);
+
+                }
+                else{
+                  this.AddItemForm.patchValue({
+                    subcategory:''
+                  })
+                  this.SubCategories = ['No Sub Categories to show'];
+                }
+              }),
+            }))
           },
           error:(res:any)=>{
             this.toastr.error(`Something went wrong`,'UnSuccessful',{
@@ -563,16 +620,12 @@ export class AllItemsTableViewComponent {
         this.CategoryOptions_Index = [];
         console.log(res);
         this.CategoryOptions_Index = res.categories;
-      //   let values = Object.keys(res.categories).map(key => ({ key, value: res.categories[key] }));
-      //   Object.keys(values).forEach(key => {
-      //     this.CategoryOptions_Index.push(values[key]);
-      //     this.Category.push(values[key].value);
-      // });
-      // console.log(this.CategoryOptions_Index);
-      // console.log(this.Category);
       res.categories.forEach((element) => {
         this.Category.push(element.categories);
       });
+      this.AddItemForm.patchValue({
+        subcategory:[]
+      })
           console.log(this.Category);
       }),
       error:((res:any)=>{
@@ -583,6 +636,7 @@ export class AllItemsTableViewComponent {
       })
     });
   }
+
   vendors:any = [];
   VendorsOption_Index:any = [];
   getVendors(){
@@ -637,11 +691,39 @@ export class AllItemsTableViewComponent {
     });
   }
 
+  Procedure:any = [];
+  ProcedureOption_Index:any = [];
+  getProcedures(){
+    this.allServices.ProcedureOptions().subscribe({
+      next:((res:any)=>{
+        this.Procedure = [];
+        this.ProcedureOption_Index = res.data;
+        if(res.data.length>0){
+          res.data.forEach((element:any) => {
+            this.Procedure.push(element.procedure_name);
+          });
+        }
+        else{
+          this.Procedure=['No Procedures to show'];
+        }
+
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
+  }
+
   SubCategories:any = [];
   SubcategoryOptions_Index:any = [];
   OnChangeItemCategory(data:any){
     console.log('Selected Category',data);
-
+    this.AddItemForm.patchValue({
+      subcategory:[]
+    })
     let category_id:number;
     // Object.keys(this.CategoryOptions_Index).forEach(index =>{
     //   if(this.CategoryOptions_Index[index].value == data)
@@ -658,7 +740,6 @@ export class AllItemsTableViewComponent {
 
     this.allServices.ItemSubCategoryOptions(category_id).subscribe(({
       next:((res:any)=>{
-        this.SubCategories = [];
         this.SubcategoryOptions_Index = [];
         console.log(res);
         if(res.sub_categories.length>0){
@@ -704,6 +785,20 @@ export class AllItemsTableViewComponent {
           })
         }
       });
+
+      // console.log(this.AddItemForm.controls.ItemCategory.value);
+
+      // this.allServices.ItemSubCategoryOptions(this.AddItemForm.controls.ItemCategory.value).subscribe(({
+      //   next:((res:any)=>{
+      //     console.log(res);
+
+      //     this.SubCategories = [];
+      //     if(res.sub_categories.length>0){
+      //       this.SubcategoryOptions_Index = res.sub_categories;;
+      //     }
+      //   })
+      // }));
+
       let subcategory_value = data.value.subcategory;
       this.SubcategoryOptions_Index.forEach(element => {
         if(element.sub_category_name == subcategory_value){
@@ -754,17 +849,100 @@ export class AllItemsTableViewComponent {
     }
   }
 
-  EditItemfn(data:any){
+  UpdateItemfn(data:any){
+    if(data.valid){
+      let category_value = data.value.ItemCategory;
+      this.CategoryOptions_Index.forEach(element => {
+        if(element.categories == category_value){
+          this.AddItemForm.patchValue({
+            ItemCategory:element.id
+          })
+        }
+      });
 
+      console.log(this.AddItemForm.controls.ItemCategory.value);
+
+      let subcategory_value = data.value.subcategory;
+      console.log(this.SubcategoryOptions_Index);
+
+      this.SubcategoryOptions_Index.forEach(element => {
+        console.log(element);
+        if(element.sub_category_name == subcategory_value){
+          this.AddItemForm.patchValue({
+            subcategory:element.id
+          })
+        }
+      });
+      let vendor_value = data.value.Vendor;
+      this.VendorsOption_Index.forEach(element => {
+        if(element.VendorName == vendor_value){
+          this.AddItemForm.patchValue({
+            Vendor:element.id
+          })
+        }
+      });
+
+      let procedure_value = data.value.procedure;
+      this.ProcedureOption_Index.forEach(element => {
+        if(element.procedure_name == procedure_value){
+          this.AddItemForm.patchValue({
+            procedure:element.id
+          })
+        }
+      });
+
+      let item_status = data.value.ItemStatus;
+      if(item_status == 'Active'){
+        this.AddItemForm.patchValue({
+          ItemStatus:1
+        })
+      }
+      else if(item_status == 'InActive'){
+        this.AddItemForm.patchValue({
+          ItemStatus:2
+        })
+      }
+
+      console.log(data.value);
+
+      this.allServices.UpdateItemfn(data).subscribe({
+        next:(res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('editItem');
+            this.ngAfterViewInit();
+          }
+        },
+        error:(res)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        }
+      })
+    }
   }
 
   DeleteItemfn(){
     this.allServices.DeleteItem(this.Currently_Selected_row.id).subscribe({
       next:((res:any)=>{
-        console.log(res);
+        if(res.status=='Success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.CloseModal('delete_modal');
+          this.ngAfterViewInit();
+        }
       }),
       error:((res:any)=>{
-        console.log(res);
+        this.toastr.error(`${res}`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
       })
     })
   }
@@ -773,9 +951,26 @@ export class AllItemsTableViewComponent {
 
 
   ngAfterViewInit(): void {
-    this.http.get('assets/json/all-items.json').subscribe((res:any)=>{
-      this.all_Items_gridData = res;
-      this.myGrid_1.api?.setRowData(this.all_Items_gridData);
-    });
+    // this.http.get('http://127.0.0.1:8000/api/items/index',).subscribe((res:any)=>{
+    //   this.all_Items_gridData = res;
+    //   this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+    // });
+    this.allServices.GetAllItemsGrid().subscribe({
+      next:((res:any)=>{
+        this.all_Items_gridData = res.data;
+        this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong', 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      })
+    })
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.Updategrid.currentValue) {
+      this.ngAfterViewInit();
+    }
   }
 }

@@ -5,14 +5,14 @@
         <div class="mt-1">
           <h1 class="header_name">Overall List</h1>
         </div>
-        <div class="mb-2">
+        <div class="mb-3">
         <input class="form-control-new-sm mt-2" placeholder="Search by category,folder and item">
         </div>
         <div class="list_body" style="height: 600px;">
-          <div class="row my-3 align-items-center mx-1" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;">
+          <div class="row mb-3 align-items-center mx-1 pointer" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;margin-bottom: 0.6rem !important;">
             <div class="col-1 p-0"><img src="assets/images/files.svg" class="folder_img me-1"></div>
             <div class="col-10 p-0 ps-1">
-              <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 500 !important;">{{ x.foldername }}</h1>
+              <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 500 !important;">{{ x.name }}</h1>
             </div>
             <div class="col-1 p-0">
               <div class="float-end dropdown" dropdown>
@@ -22,16 +22,16 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="min-width: 7rem !important;">
                     <!-- <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-eye-outline me-2"></i>View</a> -->
-                    <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-pencil-outline me-2"></i>Edit</a>
-                    <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-trash-can-outline me-2"></i>Delete</a>
+                    <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;" (click)="EditCategory(x)"><i class="mdi mdi-pencil-outline me-2"></i>Edit</a>
+                    <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;" (click)="this.delete_modal?.show();DeleteCategory(x)"><i class="mdi mdi-trash-can-outline me-2"></i>Delete</a>
                 </div>
             </div>
             </div>
-            <div class="ms-3 mt-1" *ngIf="x.sub">
-              <div class="row my-2 align-items-center" *ngFor="let y of x.sub" style="word-break: wrap;">
-                <div class="col-1 p-0"><img src="assets/images/files.svg" class="folder_img me-1"></div>
+            <div class="ms-3" *ngIf="x.sub_category">
+              <div class="row my-2 align-items-center" *ngFor="let y of x.sub_category;let j = index" style="word-break: wrap;">
+                <div class="col-1 p-0"><img src="assets/images/add_sub_category.svg" class="folder_img me-1"></div>
                 <div class="col-9 p-0 ps-1">
-                  <h1 class="folder_name mb-0"  style="text-wrap: nowrap;font-weight: 400 !important;">{{ y.subfoldername }}</h1>
+                  <h1 class="folder_name mb-0"  style="text-wrap: nowrap;font-weight: 400 !important;">{{ y.sub_category_name }}</h1>
                 </div>
                 <div class="col-2 p-0">
                   <div class="dropdown" dropdown style="padding-left: 0.4rem;">
@@ -41,8 +41,8 @@
                     </a>
                     <div class="dropdown-menu dropdown-menu-end" *dropdownMenu style="min-width: 7rem !important;">
                         <!-- <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-eye-outline me-2"></i>View</a> -->
-                        <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-pencil-outline me-2"></i>Edit</a>
-                        <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;"><i class="mdi mdi-trash-can-outline me-2"></i>Delete</a>
+                        <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;" (click)="EditSubCategory(y.id,x)"><i class="mdi mdi-pencil-outline me-2"></i>Edit</a>
+                        <a class="dropdown-item" href="javascript: void(0);" style="padding: 5px 15px !important;" (click)="this.delete_modal?.show();DeleteSubCategory(y)"><i class="mdi mdi-trash-can-outline me-2"></i>Delete</a>
                     </div>
                 </div>
                 </div>
@@ -251,25 +251,27 @@
       </div>
       <div class="tab-content py-2 text-muted">
         <div [ngClass]="selectedTab_To_View == 'All Items' ? 'tab-pane active show': 'tab-pane'" id="allitems" role="tabpanel" *ngIf="overallview == true">
+          <form [formGroup]="AllItemsGridBaseFilterForm">
           <div class="d-flex flex-row align-items-center" style="background: #F3F4F8;border-radius: 8px;padding: 15px;">
             <div class="me-2">
               <button class="btn-new"
                 style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="hideAdvancedFilters()"><i class="mdi mdi-filter-outline me-2"></i>Filter</button>
             </div>
             <div class="me-2" style="width: 20%;">
-              <input class="form-control" type="text" placeholder="Search">
+              <input class="form-control" type="text" placeholder="Search" formControlName="SearchFilter">
             </div>
             <div class="d-flex flex-row align-items-center me-2" style="width: 20%;">
-              <input class="form-control" type="text" placeholder="scan or type"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;right: 10%;">
+              <input class="form-control" type="text" placeholder="scan or type" formControlName="BarCodeSearch"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;right: 10%;">
             </div>
             <div class="me-2" >
               <button class="btn-2"
-                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;border: 0.5px solid #855EDB;">Reset</button>
+                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;border: 0.5px solid #855EDB;" (click)="ResetBaseFilters()">Reset</button>
             </div>
             <div class="me-2">
               <button class="btn-new"
-                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;">Search</button>
+                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="SearchBaseFilters(this.AllItemsGridBaseFilterForm)">Search</button>
             </div>
+
             <div class="ms-auto pointer">
               <div class="d-flex flex-row" style="background: #fff;">
                 <div (click)="ChangeView('grid')" class="me-2 p-2" [ngClass]="{'changeView': selectedView == 'grid' }">
@@ -284,13 +286,15 @@
               </div>
             </div>
           </div>
+        </form>
           <div class="row">
             <div class="col-3 mt-2" style="border: 0.5px solid #8B8B8B;border-radius: 6px; display: none;" [ngClass]="{'showAdvancedFilters':resize ==true}">
+              <form [formGroup]="AllItemsGridAdvanceFilterForm">
               <div class="d-flex flex-row justify-centent-between align-items-center my-2">
-                <div (click)="hideAdvancedFilters()" style="cursor:pointer">
+                <div (click)="hideAdvancedFilters()" class="pointer">
                  <h1 style="font-weight: 500 !important;"><img src="assets/images/back_arrow.svg" width="24px" height="24px" class="me-2">Filter</h1>
                 </div>
-                <div class="ms-auto">
+                <div class="ms-auto pointer" (click)="ReserAdvancedGridFilters()">
                   <p class="mb-0" style="color: #747474 !important;">Clear all</p>
                 </div>
               </div>
@@ -302,7 +306,7 @@
                   </div>
                 </div>
               </div>
-              <div style="height: 381px;overflow-y: scroll;border-bottom: 1px solid #ECECEC;" class="pb-3 mb-4">
+              <div style="height: 381px;overflow-y: scroll;border-bottom: 1px solid #ECECEC;overflow-x: hidden;" class="pb-3 mb-4">
               <div class="mt-3 me-1">
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
@@ -310,7 +314,7 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <ng-select [items]="" placeholder="Select"></ng-select>
+                    <ng-select [items]="this.Category" placeholder="Select" formControlName="category"></ng-select>
                   </div>
                 </div>
               </div>
@@ -321,7 +325,7 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" placeholder="Search by item name">
+                    <input type="text" class="form-control-new" placeholder="Search by item name" formControlName="Search">
                   </div>
                 </div>
               </div>
@@ -332,7 +336,7 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" placeholder="Search by procedure name">
+                    <input type="text" class="form-control-new" placeholder="Search by procedure name" formControlName="ProcedureSearch">
                   </div>
                 </div>
               </div>
@@ -343,10 +347,10 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <ngx-slider [(value)]="StoreQtyminValue" [(highValue)]="StoreQtymaxValue" [options]="options"></ngx-slider>
+                    <ngx-slider [(value)]="StoreQtyminValue" [(highValue)]="StoreQtymaxValue" [options]="options" formControlName="StoreQty"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min">
-                      <input type="text" class="form-control-new" placeholder="Max">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="StoreQtyminValue" [ngModelOptions]="{standalone: true}">
+                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="StoreQtymaxValue" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
                 </div>
@@ -358,10 +362,10 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options"></ngx-slider>
+                    <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options" formControlName="CabinetQty"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min" >
-                      <input type="text" class="form-control-new" placeholder="Max">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="QuantityminValue" [ngModelOptions]="{standalone: true}">
+                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="QuantitymaxValue" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
                 </div>
@@ -373,10 +377,10 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <ngx-slider [(value)]="PriceminValue" [(highValue)]="PricemaxValue" [options]="options"></ngx-slider>
+                    <ngx-slider [(value)]="PriceminValue" [(highValue)]="PricemaxValue" [options]="options" formControlName="Price"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min">
-                      <input type="text" class="form-control-new" placeholder="Max">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="PriceminValue" [ngModelOptions]="{standalone: true}">
+                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="PricemaxValue" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
                 </div>
@@ -388,10 +392,10 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <ngx-slider [(value)]="MinlevelMinimumValue" [(highValue)]="MinlevelMaximumValue" [options]="options"></ngx-slider>
+                    <ngx-slider [(value)]="MinlevelMinimumValue" [(highValue)]="MinlevelMaximumValue" [options]="options" formControlName="MinLevel"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min">
-                      <input type="text" class="form-control-new" placeholder="Max">
+                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="MinlevelMinimumValue" [ngModelOptions]="{standalone: true}">
+                      <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="MinlevelMaximumValue" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
                 </div>
@@ -403,7 +407,7 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <ng-select [items]="" placeholder="Select"></ng-select>
+                    <ng-select [items]="" placeholder="Select" formControlName="QuantityAlert"></ng-select>
                   </div>
                 </div>
               </div>
@@ -414,7 +418,7 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" placeholder="Search by Tags">
+                    <input type="text" class="form-control-new" placeholder="Search by Tags" formControlName="Tags">
                   </div>
                 </div>
               </div>
@@ -425,7 +429,7 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div class="d-flex flex-row align-items-center">
-                    <input class="form-control-new barcode_img" type="text" placeholder="scan or type">
+                    <input class="form-control-new barcode_img" type="text" placeholder="scan or type" formControlName="Barcode">
                   </div>
                 </div>
               </div>
@@ -436,30 +440,31 @@
                     <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" placeholder="Search by Notes">
+                    <input type="text" class="form-control-new" placeholder="Search by Notes" formControlName="Notes">
                   </div>
                 </div>
               </div>
             </div>
-            <div class="float-end mt-2">
+            <div class="float-end my-2">
               <button class="btn-new"
-                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;">Apply</button>
+                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="SearchAdvancedGridFiltes(this.AllItemsGridAdvanceFilterForm)">Apply</button>
             </div>
+          </form>
             </div>
             <div class="col-9" [ngClass]="{'resizeGrid':resize ==false}">
-              <div class="mt-2 me-3">
-                <app-allitems-table-view *ngIf="selectedView == 'table' "></app-allitems-table-view>
+              <div class="mt-2 me-3">ReloadAllItemsGrid
+                <app-allitems-table-view *ngIf="selectedView == 'table'" [Updategrid]="ReloadAllItemsGrid"></app-allitems-table-view>
                 <app-allitems-grid-view *ngIf="selectedView == 'grid' "></app-allitems-grid-view>
                 <app-allitems-list-view *ngIf="selectedView == 'list' "></app-allitems-list-view>
               </div>
             </div>
           </div>
         </div>
-        <div [ngClass]="selectedTab_To_View == 'All Items' ? 'tab-pane active show': 'tab-pane'" id="allitems" role="tabpanel" *ngIf="overallview == false">
+        <!-- <div [ngClass]="selectedTab_To_View == 'All Items' ? 'tab-pane active show': 'tab-pane'" id="allitems" role="tabpanel" *ngIf="overallview == false">
             <app-grid-items-detailed-view></app-grid-items-detailed-view>
-        </div>
+        </div> -->
         <div  [ngClass]="selectedTab_To_View == 'Vendor list' ? 'tab-pane active show': 'tab-pane'"  id="vendor_list" role="tabpanel">
-          <app-vendor-list *ngIf="enableTab=='Vendor list'"></app-vendor-list>
+          <app-vendor-list *ngIf="enableTab=='Vendor list'" [Updategrid]="ReloadVendorListGrid"></app-vendor-list>
         </div>
         <div [ngClass]="selectedTab_To_View == 'Daily consumed' ? 'tab-pane active show': 'tab-pane'" id="daily_consumed" role="tabpanel">
           <app-daily-consumed  *ngIf="enableTab=='Daily consumed'"></app-daily-consumed>
@@ -619,7 +624,7 @@
               <div class="d-flex flex-row" style="width: 100%;">
                 <div class="mb-5" style="width: 100%;">
                   <label for="lot_no" class="modal-label-edit">Sub Category</label>
-                  <ng-select [items]="this.SubCategories" placeholder="Choose option" formControlName="subcategory"></ng-select>
+                  <ng-select [items]="this.SubCategories" placeholder="Choose option" formControlName="subcategory" dropdownPosition="bottom"></ng-select>
                 </div>
                 <div class="mt-4 ms-2">
                   <button class="btn-new"
@@ -718,7 +723,7 @@
         <div class="col-4">
           <div class="">
             <label for="notes" class="modal-label-edit">Barcodes<span style="color: red;">*</span></label>
-            <input class="form-control-new barcode_img" type="text" placeholder="scan or type" formControlName="Barcodes" minlength="2">
+            <input class="form-control-new barcode_img1" type="text" placeholder="scan or type" formControlName="Barcodes" minlength="2">
               <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
                 <div
                   *ngIf="(this.AddItemForm.controls.Barcodes.dirty || this.AddItemForm.controls.Barcodes.touched) && this.AddItemForm.controls.Barcodes.errors?.required">
@@ -934,6 +939,66 @@
   </div>
 </div>
 
+<div bsModal #editcategory="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Edit Category
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('editcategory')"
+          style="cursor: pointer;">
+      </div>
+      <form [formGroup]="AddCategoryForm">
+        <div class="row p-3">
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="items_no" class="modal-label-edit">Category Name<span style="color: red;">*</span></label>
+              <input type="text" class="form-control-new" formControlName="CategoryName"  minlength="2">
+              <div *ngIf="this.AddCategoryForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddCategoryForm.controls.CategoryName.dirty || this.AddCategoryForm.controls.CategoryName.touched) && this.AddCategoryForm.controls.CategoryName.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(this.AddCategoryForm.controls.CategoryName.dirty || this.AddCategoryForm.controls.CategoryName.touched) && this.AddCategoryForm.controls.CategoryName.errors?.minlength">
+                  Category name should be more than one character</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="cat_no" class="modal-label-edit">Category short Code<span style="color: red;">*</span></label>
+              <input type="text" class="form-control-new" formControlName="CategorySubCode" minlength="2">
+              <div *ngIf="this.AddCategoryForm.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.AddCategoryForm.controls.CategorySubCode.dirty || this.AddCategoryForm.controls.CategorySubCode.touched) && this.AddCategoryForm.controls.CategorySubCode.errors?.required">
+                  Please fill the field</div>
+                <div
+                  *ngIf="(this.AddCategoryForm.controls.CategorySubCode.dirty || this.AddCategoryForm.controls.CategorySubCode.touched) && this.AddCategoryForm.controls.CategorySubCode.errors?.minlength">
+                  Category Code should be more than one character</div>
+              </div>
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="lot_no" class="modal-label-edit">Status</label>
+              <ng-select [items]="['Active','InActive']" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end p-3">
+          <button type="button" class="btn-new me-2"
+            style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"
+            (click)="CloseModal('editcategory')">Cancel</button>
+          <button type="button" class="btn-new" style="width: auto !important;" [disabled]="this.AddCategoryForm.invalid" (click)="EditCategoryfn(this.AddCategoryForm)">
+            <!-- <img src="assets/images/add_img_modal.svg"
+              width="24px" height="24px" class="me-2"> -->
+              Edit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <div bsModal #addvendor="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
     <div class="modal-content">
@@ -997,7 +1062,7 @@
         <div class="col-4">
           <div class="">
             <label for="size" class="modal-label-edit">Status</label>
-            <ng-select [items]="['Active','InActive']" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
+            <ng-select [items]="this.ItemStatus" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
           </div>
         </div>
       </div>
@@ -1315,6 +1380,51 @@
   </div>
 </div>
 
+<div bsModal #editsubcategory="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:700px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Edit sub category
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('editsubcategory')"
+          style="cursor: pointer">
+      </div>
+      <form [formGroup]="AddSubCategoryForm">
+      <div class="row mx-2">
+        <div class="col-4" >
+          <div class="mb-3 mt-1">
+            <label for="items_category" class="modal-label-edit mb-1">Sub category Name<span style="color: red;">*</span></label>
+            <input type="text" class="form-control-new" formControlName="SubCategoryName" minlength="2">
+            <div *ngIf="this.AddSubCategoryForm.invalid"
+                class="invalid-feedback">
+                <div *ngIf="(this.AddSubCategoryForm.controls.SubCategoryName.dirty || this.AddSubCategoryForm.controls.SubCategoryName.touched) && this.AddSubCategoryForm.controls.SubCategoryName.errors?.required">Please fill the field</div>
+                <div *ngIf="(this.AddSubCategoryForm.controls.SubCategoryName.dirty || this.AddSubCategoryForm.controls.SubCategoryName.touched) && this.AddSubCategoryForm.controls.SubCategoryName.errors?.minlength">Sub Category name should be more than one character</div>
+              </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3 mt-1" >
+            <label for="items_category" class="modal-label-edit mb-1">Choose category</label>
+            <ng-select [items]="this.Category" placeholder="Select category" formControlName="category"></ng-select>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="mb-3 mt-1">
+            <label for="items_category" class="modal-label-edit mb-1">Status</label>
+            <ng-select [items]="['Active','InActive']" placeholder="Select status" formControlName="status"></ng-select>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('editsubcategory')">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;text-align: center;" (click)="EditSubCategoryfn(this.AddSubCategoryForm)" [disabled]="this.AddSubCategoryForm.invalid"><i class="mdi mdi-plus-circle-outline me-2" style="font-size: 16px;"></i>Update</button>
+      </div>
+    </form>
+    </div>
+  </div>
+</div>
 
 <div bsModal #export="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:298px !important;">
@@ -1347,4 +1457,31 @@
   </div>
 </div>
 
+<div bsModal #delete_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:300px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Delete
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="this.delete_modal?.hide()"
+          style="cursor: pointer">
+      </div>
 
+      <div class="d-flex flex-column align-items-center justify-content-between my-4">
+        <div class="mb-2">
+          <img src="assets/images/delete_modal_img.svg" style="width: 40px;height: 40px;">
+        </div>
+        <div class="mb-2">
+          <h1>Do you want to delete?</h1>
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-evenly p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="this.delete_modal?.hide()">Go back</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="DeleteTheCategory()">Yes,continue</button>
+      </div>
+    </div>
+  </div>
+</div>

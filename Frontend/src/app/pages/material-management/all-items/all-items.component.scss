@@ -343,10 +343,17 @@ border-bottom: none !important;
   padding-right: 30px !important;
  background-image: url(/assets/images/barcode_input_type.svg) !important;
     background-repeat: no-repeat !important;
-    background-position: 236px !important;
+    background-position: 266px !important;
     background-size: 16px 16px !important;
 }
 
+.barcode_img1{
+  padding-right: 30px !important;
+ background-image: url(/assets/images/barcode_input_type.svg) !important;
+    background-repeat: no-repeat !important;
+    background-position: 236px !important;
+    background-size: 16px 16px !important;
+}
 ::ng-deep .ag-horizontal-right-spacer{
   display: none !important;
 }
