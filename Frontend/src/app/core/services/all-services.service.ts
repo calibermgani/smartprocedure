@@ -28,6 +28,12 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/tags/store`,this.payload);
   }
 
+  UpdateTags(item_id:any,data:any){
+    this.payload["item_id"] = item_id;
+    this.payload["tags"] = data.value.Tags;
+    return this.http.post(`${this.apiUrl}/items/item_tags_update`,this.payload);
+  }
+
   AddVendor(data:any){
     this.payload["VendorName"] = data.value.VendorName;
     this.payload["VendorEmail"] = data.value.VendorEmail;
@@ -45,7 +51,7 @@ export class AllServicesService {
     this.payload["name"] = data.value.CategoryName;
     this.payload["category_shortcode"] = data.value.CategorySubCode;
     this.payload["status"] = data.value.Status;
-    this.payload["Added_by"]="1";
+    this.payload["added_by"]="1";
     return this.http.post(`${this.apiUrl}/categories/store`,this.payload);
   }
 
@@ -123,7 +129,21 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/vendors/show`,this.payload);
   }
 
-  DeleteItem(data:any){
+  DeleteMultipleItem(data:any){
+    console.log(data);
+    let indexArray:any = [];
+     Object.keys(data).forEach(index =>{
+      console.log(data[index]);
+
+       indexArray.push(data[index].id);
+    });
+    this.payload["item_id"] = indexArray;
+    this.payload["deleted_by"] = "1";
+    console.log(this.payload);
+    return this.http.post(`${this.apiUrl}/items/destroy`,this.payload);
+  }
+
+  DeleteSingleItem(data:any){
     this.payload["item_id"] = [data];
     this.payload["deleted_by"] = "1";
     return this.http.post(`${this.apiUrl}/items/destroy`,this.payload);
@@ -170,7 +190,7 @@ export class AllServicesService {
     this.payload["VendorEmail"] = data.value.VendorEmail;
     this.payload["VendorContactNo"] = data.value.VendorContactNo;
     this.payload["VendorAddress"] = data.value.VendorAddress;
-    this.payload["status"] = data.value.Status;
+    this.payload["status"] = data.value.Status.label;
     this.payload["ContactPerson"] = "";
     return this.http.post(`${this.apiUrl}/vendors/update`,this.payload);
   }

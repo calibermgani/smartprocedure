@@ -31,15 +31,18 @@ export class AllItemsTableViewComponent {
   selected_row_data_length:any;
   showEditablefields:boolean = false;
   AddItemForm : UntypedFormGroup;
+  AddtagForm:UntypedFormGroup;
+  dynamicForm:UntypedFormGroup;
   files: File[] = [];
   imageURL: any;
   ItemStatus:any = [
     { id: 1, label: "Active" },
-    { id: 2, label: "InActive" }
+    { id: 2, label: "Inactive" }
   ];
   format_value:any = [];
   StoreQty:number;
   CabinetQty:number;
+  AllItemsChecked:any;
 
 
   constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef){
@@ -67,8 +70,13 @@ export class AllItemsTableViewComponent {
       Unit:[,[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
       Itemdescription:[],
       Itemnotes:[]
-    })
+    });
 
+    this.AddtagForm= this.formbuilder.group({
+      Tags:['',Validators.required],
+    });
+
+    // this.dynamicForm = this.createGroup();
   }
 
   ngOnInit(): void {
@@ -154,9 +162,9 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'item_description')
     },
     {
-      field: 'procedure',
+      field: 'item_procedures.[0]?.procedure_name',
       headerName: 'Procedure',
-      cellRenderer: this.cellrendered.bind(this, 'procedure')
+      cellRenderer: this.cellrendered.bind(this, 'item_procedures.[0]?.procedure_name')
     },
     {
       field: 'cat_no',
@@ -268,7 +276,7 @@ export class AllItemsTableViewComponent {
       case 'item_description': {
         return params.value;
       }
-      case 'procedure': {
+      case 'item_procedures.[0]?.procedure_name': {
         return params.value;
       }
       case 'cat_no': {
@@ -388,8 +396,8 @@ export class AllItemsTableViewComponent {
                 ItemName:res.data.item_name,
                 ItemCategory:res.data.item_category?.name,
                 Barcodes:res.data.item_barcode,
-                procedure:res.data.item_procedure_id,
-                ItemStatus:res.data.item_status == '1' ? 'Active' : 'InActive',
+                procedure:res.data.item_procedures?.[0].procedure_name,
+                ItemStatus:res.data.item_status == '1' ? 'Active' : 'Inactive',
                 Vendor:res.data.item_vendor?.VendorName,
                 price:res.data.price,
                 size:res.data.size,
@@ -469,11 +477,20 @@ export class AllItemsTableViewComponent {
           this.showEditablefields = false;
         }
         else {
+          this.AllItemsChecked = true
           this.selected_row_data_length = this.selected_row_data.length;
           this.showEditablefields = true;
         }
       }
     });
+  }
+
+  UnSelectAllItems(data:any){
+    let value =!data;
+    console.log(value);
+    if(value == false){
+      this.gridApi_1.deselectAll()
+    }
   }
 
   onSelect(event: any) {
@@ -489,6 +506,7 @@ export class AllItemsTableViewComponent {
     reader.readAsDataURL(file)
   }
 
+  guidelines:any = {};
   OpenModal(modalname:string){
     switch(modalname){
       case 'editItem':{
@@ -501,6 +519,18 @@ export class AllItemsTableViewComponent {
       }
       case 'delete_modal':{
         this.delete_modal?.show();
+        break;
+      }
+      case 'add_tag':{
+        this.add_tag?.show();
+        this.getTags();
+        break;
+      }
+      case 'bulkupdate':{
+        this.bulkupdate?.show();
+        this.guidelines = this.selected_row_data;
+        console.log(this.guidelines);
+        this.createGroup();
         break;
       }
     }
@@ -521,6 +551,15 @@ export class AllItemsTableViewComponent {
         this.delete_modal?.hide();
         break;
       }
+      case 'add_tag':{
+        this.AddtagForm?.reset();
+        this.add_tag?.hide();
+        break;
+      }
+      case 'bulkupdate':{
+        this.bulkupdate?.hide();
+        break;
+      }
     }
   }
 
@@ -539,8 +578,8 @@ export class AllItemsTableViewComponent {
                 ItemName:res.data.item_name,
                 ItemCategory:res.data.item_category?.name,
                 Barcodes:res.data.item_barcode,
-                procedure:res.data.item_procedure_id,
-                ItemStatus:res.data.item_status == '1' ? 'Active' : 'InActive',
+                procedure:res.data.item_procedures?.[0].procedure_name,
+                ItemStatus:res.data.item_status == '1' ? 'Active' : 'Inactive',
                 Vendor:res.data.item_vendor?.VendorName,
                 price:res.data.price,
                 size:res.data.size,
@@ -786,20 +825,6 @@ export class AllItemsTableViewComponent {
           })
         }
       });
-
-      // console.log(this.AddItemForm.controls.ItemCategory.value);
-
-      // this.allServices.ItemSubCategoryOptions(this.AddItemForm.controls.ItemCategory.value).subscribe(({
-      //   next:((res:any)=>{
-      //     console.log(res);
-
-      //     this.SubCategories = [];
-      //     if(res.sub_categories.length>0){
-      //       this.SubcategoryOptions_Index = res.sub_categories;;
-      //     }
-      //   })
-      // }));
-
       let subcategory_value = data.value.subcategory;
       this.SubcategoryOptions_Index.forEach(element => {
         if(element.sub_category_name == subcategory_value){
@@ -898,7 +923,7 @@ export class AllItemsTableViewComponent {
           ItemStatus:1
         })
       }
-      else if(item_status == 'InActive'){
+      else if(item_status == 'Inactive'){
         this.AddItemForm.patchValue({
           ItemStatus:2
         })
@@ -928,26 +953,81 @@ export class AllItemsTableViewComponent {
   }
 
   DeleteItemfn(){
-    this.allServices.DeleteItem(this.Currently_Selected_row.id).subscribe({
-      next:((res:any)=>{
-        if(res.status=='Success'){
-          this.toastr.success(`${res.message}`,'Successful',{
+    if(this.Currently_Selected_row){
+      this.allServices.DeleteSingleItem(this.Currently_Selected_row.id).subscribe({
+        next:((res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('delete_modal');
+            this.ngAfterViewInit();
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
             positionClass: 'toast-top-center',
             timeOut:2000,
           });
-          this.CloseModal('delete_modal');
-          this.ngAfterViewInit();
-        }
+        })
+      })
+    }
+    else{
+      this.allServices.DeleteMultipleItem(this.selected_row_data).subscribe({
+        next:((res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('delete_modal');
+            this.selected_row_data = [];
+            this.showEditablefields = false;
+            this.ngAfterViewInit();
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      })
+    }
+  }
+
+  BulkUpdate(){
+
+  }
+
+  UpdateTagsfn(data:any){
+    console.log(this.selected_row_data);
+    let SelectedItemId:any = [];
+    this.selected_row_data.forEach(index =>{
+      SelectedItemId.push(index.id);
+    });
+    console.log(SelectedItemId);
+    console.log(data);
+    this.allServices.UpdateTags(SelectedItemId,data).subscribe({
+      next:((res:any)=>{
+        this.toastr.success(`${res.message}`,'Successful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+        this.CloseModal('add_tag');
+        this.selected_row_data = [];
+        this.showEditablefields = false;
+        this.ngAfterViewInit();
       }),
       error:((res:any)=>{
-        this.toastr.error(`${res}`,'UnSuccessful',{
+        this.toastr.error('Something went wrong','UnSuccessful',{
           positionClass: 'toast-top-center',
           timeOut:2000,
         });
       })
     })
   }
-
 
 
 
@@ -959,6 +1039,8 @@ export class AllItemsTableViewComponent {
     this.allServices.GetAllItemsGrid().subscribe({
       next:((res:any)=>{
         this.all_Items_gridData = res.data;
+        console.log(res.data?.[0].item_procedures?.[0].procedure_name);
+
         this.myGrid_1.api?.setRowData(this.all_Items_gridData);
       }),
       error:((res:any)=>{
@@ -973,5 +1055,41 @@ export class AllItemsTableViewComponent {
     if (changes.Updategrid.currentValue) {
       this.ngAfterViewInit();
     }
+  }
+
+  MainQuantity:number;
+  MainQuantityInput:number;
+  IncreaseQuantity(){
+    if(this.MainQuantity == null)
+    {
+      this,this.MainQuantity = 0;
+    }
+      this.MainQuantity = this.MainQuantity+1;
+  }
+
+  DecreaseQuantity(){
+      this.MainQuantity = this.MainQuantity-1;
+  }
+
+  individualIncreasequantity(data){
+    console.log(data);
+    data = data+1;
+
+  }
+
+  individualDecreasequantity(data){
+    console.log(data);
+  }
+
+  go(data:any){
+    console.log(data);
+  }
+
+
+  createGroup() {
+    this.dynamicForm = this.formbuilder.group({});
+    this.selected_row_data.forEach(control => this.dynamicForm.addControl(control.item_name, this.formbuilder.control('')));
+console.log(this.dynamicForm.controls);
+    return this.dynamicForm;
   }
 }

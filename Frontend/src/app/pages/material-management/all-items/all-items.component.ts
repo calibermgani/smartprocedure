@@ -76,14 +76,14 @@ export class AllItemsComponent implements OnInit {
     floor: 0,
     ceil: 250
   };
-  QuantityminValue: number;
-  QuantitymaxValue: number;
-  PriceminValue:number;
-  PricemaxValue:number;
-  StoreQtyminValue:number;
-  StoreQtymaxValue:number;
-  MinlevelMinimumValue:number;
-  MinlevelMaximumValue:number;
+  QuantityminValue: number = 0;
+  QuantitymaxValue: number = 0;
+  PriceminValue:number = 0;
+  PricemaxValue:number = 0;
+  StoreQtyminValue:number = 0;
+  StoreQtymaxValue:number = 0;
+  MinlevelMinimumValue:number = 0;
+  MinlevelMaximumValue:number = 0;
   ItemStatus:any = [];
   ReloadAllItemsGrid:boolean;
   ReloadVendorListGrid:boolean;
@@ -97,7 +97,7 @@ export class AllItemsComponent implements OnInit {
 
     this.ItemStatus= [
       { id: 1, label: "Active" },
-      { id: 2, label: "InActive" }
+      { id: 2, label: "Inactive" }
     ]
 
   }
@@ -155,7 +155,7 @@ export class AllItemsComponent implements OnInit {
       MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CatNo:[],
       LotNo:[],
-      Tags:[],
+      Tags:[''],
       Unit:[,[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
       Itemdescription:[],
       Itemnotes:[]
@@ -181,9 +181,9 @@ export class AllItemsComponent implements OnInit {
     });
 
     this.getCategoryOptions();
-    this.getVendors();
-    this.getTags();
-    this.getProcedures();
+    // this.getVendors();
+    // this.getTags();
+    // this.getProcedures();
   }
   get TagForm() { return this.AddtagForm.controls }
 
@@ -371,6 +371,7 @@ export class AllItemsComponent implements OnInit {
 
   hideAdvancedFilters(){
     this.resize =! this.resize;
+    this.AllItemsGridAdvanceFilterForm.reset();
   }
 
 
@@ -409,6 +410,10 @@ export class AllItemsComponent implements OnInit {
   OpenModal(modalname:string){
     switch(modalname){
       case 'additem':{
+        this.getCategoryOptions();
+        this.getTags();
+        this.getVendors();
+        this.getProcedures();
         this.additem?.show();
         break;
       }
@@ -454,16 +459,27 @@ export class AllItemsComponent implements OnInit {
       case 'addvendor':{
         this.AddVendorForm.reset();
         this.addvendor?.hide();
+        this.getCategoryOptions();
+        this.getTags();
+        this.getVendors();
+        this.getProcedures();
+        this.hideOpacity_Category = false;
         break;
       }
-      case 'addvendor':{
-        this.AddSubCategoryForm.reset();
-        this.subcategory?.hide();
-        break;
-      }
+      // case 'addvendor':{
+      //   this.AddSubCategoryForm.reset();
+      //   this.subcategory?.hide();
+      //   this.hideOpacity_Category = false;
+      //   break;
+      // }
       case 'addcategory':{
         this.AddCategoryForm.reset();
         this.addcategory?.hide();
+        this.getCategoryOptions();
+        this.getTags();
+        this.getVendors();
+        this.getProcedures();
+        this.hideOpacity_Category = false;
         break;
       }
       case 'editcategory':{
@@ -473,7 +489,13 @@ export class AllItemsComponent implements OnInit {
       }
       case 'subcategory':{
         this.AddSubCategoryForm.reset();
-        this.subcategory?.hide();break;
+        this.subcategory?.hide();
+        this.getCategoryOptions();
+        this.getTags();
+        this.getVendors();
+        this.getProcedures();
+        this.hideOpacity_Category = false;
+        break;
       }
       case 'additem':{
         this.AddItemForm.reset();
@@ -824,7 +846,7 @@ export class AllItemsComponent implements OnInit {
           ItemStatus:1
         })
       }
-      else if(item_status.label == 'InActive'){
+      else if(item_status.label == 'Inactive'){
         this.AddItemForm.patchValue({
           ItemStatus:2
         })
@@ -1060,10 +1082,7 @@ export class AllItemsComponent implements OnInit {
   }
 
   ResetBaseFilters(){
-    this.AllItemsGridBaseFilterForm.patchValue({
-      SearchFilter:'',
-      BarCodeSearch:''
-    });
+    this.AllItemsGridBaseFilterForm.reset();
   }
   SearchBaseFilters(data:any){
     console.log(data.value);
@@ -1074,18 +1093,22 @@ export class AllItemsComponent implements OnInit {
   }
 
   ReserAdvancedGridFilters(){
-    this.AllItemsGridAdvanceFilterForm.patchValue({
-      category:'',
-      Search:'',
-      ProcedureSearch:'',
-      StoreQty:'',
-      CabinetQty:'',
-      Price:'',
-      MinLevel:'',
-      QuantityAlert:'',
-      Tags:'',
-      Barcode:'',
-      Notes:''
-    })
+    this.AllItemsGridAdvanceFilterForm.reset();
+  }
+
+  hideOpacity_Category : boolean = false;
+  OpenNestedCategory(){
+    this.OpenModal("addcategory");
+    this.hideOpacity_Category = true;
+  }
+
+  OpenNestedSubCategory(){
+    this.OpenModal('subcategory');
+    this.hideOpacity_Category = true;
+  }
+
+  OpenNestedAddVednor(){
+    this.OpenModal('addvendor');
+    this.hideOpacity_Category = true;
   }
 }

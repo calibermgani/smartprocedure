@@ -507,7 +507,7 @@
 
 
 
-<div bsModal #additem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" [config]="{ignoreBackdropClick: true}">
+<div bsModal #additem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" [config]="{ignoreBackdropClick: true}" [ngClass]="{ 'ReduceOpacity' :hideOpacity_Category == true}">
   <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
     <div class="modal-content p-2">
       <div class="d-flex justify-content-between align-items-center p-2 m-2" style="background: #F3F4F8;border-radius: 6px;">
@@ -615,7 +615,7 @@
               </div>
               <div class="mt-4 ms-2">
                 <button class="btn-new"
-                  style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="OpenNestedCategory()"><i
                     class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
               </div>
             </div>
@@ -627,7 +627,7 @@
                 </div>
                 <div class="mt-4 ms-2">
                   <button class="btn-new"
-                    style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                    style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="OpenNestedSubCategory()"><i
                       class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
                 </div>
               </div>
@@ -640,7 +640,7 @@
           <div class="d-flex flex-row">
             <div class="">
               <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
-              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure"></ng-select>
+              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure" multiple="true"></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -663,7 +663,7 @@
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
-                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="OpenNestedAddVednor()"><i
                   class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div>
           </div>
@@ -674,7 +674,7 @@
           <div class="">
             <label for="items_no" class="modal-label-edit">Price<span
                 style="color: red;">*</span></label>
-            <input class="form-control-new price_field" type="text" style="text-align: right;" formControlName="price" step="0.01">
+            <input class="form-control-new" type="text" style="text-align: right;" formControlName="price" step="0.01">
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div
                 *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.required">
@@ -881,7 +881,7 @@
 </div>
 
 <div bsModal #addcategory="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
-  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
         <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add Category
@@ -922,7 +922,7 @@
           <div class="col-4">
             <div class="mb-3">
               <label for="lot_no" class="modal-label-edit">Status</label>
-              <ng-select [items]="['Active','InActive']" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
+              <ng-select [items]="['Active','Inactive']" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
             </div>
           </div>
         </div>
@@ -980,7 +980,7 @@
           <div class="col-4">
             <div class="mb-3">
               <label for="lot_no" class="modal-label-edit">Status</label>
-              <ng-select [items]="['Active','InActive']" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
+              <ng-select [items]="['Active','Inactive']" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
             </div>
           </div>
         </div>
@@ -1365,7 +1365,7 @@
         <div class="col-4">
           <div class="mb-3 mt-1">
             <label for="items_category" class="modal-label-edit mb-1">Status</label>
-            <ng-select [items]="['Active','InActive']" placeholder="Select status" formControlName="status"></ng-select>
+            <ng-select [items]="['Active','Inactive']" placeholder="Select status" formControlName="status"></ng-select>
           </div>
         </div>
       </div>
@@ -1411,7 +1411,7 @@
         <div class="col-4">
           <div class="mb-3 mt-1">
             <label for="items_category" class="modal-label-edit mb-1">Status</label>
-            <ng-select [items]="['Active','InActive']" placeholder="Select status" formControlName="status"></ng-select>
+            <ng-select [items]="['Active','Inactive']" placeholder="Select status" formControlName="status"></ng-select>
           </div>
         </div>
       </div>

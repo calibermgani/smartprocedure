@@ -157,3 +157,9 @@ border-bottom: none !important;
 :host ::ng-deep .ng-select-container{
   background: #f3f4f8 !important;
  }
+
+ .SelectedCheckbox{
+    width: 20px;
+    height: 20px;
+    border: 1px solid #855edb;
+ }

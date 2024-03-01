@@ -75,7 +75,7 @@ export class VendorListComponent implements OnInit {
     this.vendor_name=[];this.contact_person=[];this.status=[];
     this.ItemStatus= [
       { id: 1, label: "Active" },
-      { id: 2, label: "InActive" }
+      { id: 2, label: "Inactive" }
     ]
 
     this.VendorForm  = this.formbuilder.group({
@@ -105,13 +105,13 @@ export class VendorListComponent implements OnInit {
   }
 
   columnDefs1: ColDef[] = [
-    {
-      field: '',
-      checkboxSelection: true,
-      resizable:false,
-      headerCheckboxSelection: true,
-      width:10
-    },
+    // {
+    //   field: '',
+    //   checkboxSelection: true,
+    //   resizable:false,
+    //   headerCheckboxSelection: true,
+    //   width:10
+    // },
     {
       field: 'id',
       headerName: 'S.no',
@@ -144,11 +144,11 @@ export class VendorListComponent implements OnInit {
       headerName: 'Status',
       cellRenderer: this.cellrendered.bind(this, 'status')
     },
-    {
-      field: 'ContactPerson',
-      headerName: 'Contact Person',
-      cellRenderer: this.cellrendered.bind(this, 'ContactPerson')
-    },
+    // {
+    //   field: 'ContactPerson',
+    //   headerName: 'Contact Person',
+    //   cellRenderer: this.cellrendered.bind(this, 'ContactPerson')
+    // },
     {
       field: 'Added_by',
       headerName: 'Added By',
@@ -194,7 +194,7 @@ export class VendorListComponent implements OnInit {
         {
           return `<span style="color:#3BAC13">${params.value}</span>`;
         }
-        else if(params.value == 'InActive')
+        else if(params.value == 'Inactive')
         {
           return `<span style="color:#E31E1E">${params.value}</span>`;
         }
