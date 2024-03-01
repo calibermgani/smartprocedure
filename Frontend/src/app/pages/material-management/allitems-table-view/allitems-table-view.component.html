@@ -76,21 +76,21 @@
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" class="modal-label mb-1">Item number</label>
-                <h1 class="">{{ ViewItemData.item_number }}</h1>
+                <h1 class="">{{ ViewItemData.item_number ? ViewItemData.item_number : '-' }}</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" class="modal-label mb-1" >Item name</label>
-               <h1 class="">{{ ViewItemData.item_name }}</h1>
+               <h1 class="">{{ ViewItemData.item_name ? ViewItemData.item_name : '-' }}</h1>
               </div>
             </div>
             <div class="d-flex flex-row justify-centent-between align-items-center mb-3">
               <div class=" mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" class="modal-label mb-1">Item category</label>
-                <h1 class="">{{ ViewItemData.item_category?.name }}</h1>
+                <h1 class="">{{ ViewItemData.item_category?.name ? ViewItemData.item_category?.name : '-' }}</h1>
               </div>
               <div class="mb-3 mt-1" style="width: 100%;">
                 <label for="items_category" class="modal-label mb-1">Barcodes</label>
-                <h1 class="">{{ ViewItemData.item_barcode }}</h1>
+                <h1 class="">{{ ViewItemData.item_barcode ? ViewItemData.item_barcode : '-' }}</h1>
               </div>
             </div>
         </div>
@@ -99,19 +99,19 @@
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Procedure </label>
-            <h1 class="">{{ ViewItemData.item_procedure_id }}</h1>
+            <h1 class="">{{ ViewItemData.item_procedures ? ViewItemData.item_procedures : '-'}}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Item Status</label>
-            <h1 class="">{{ ViewItemData.item_status }}</h1>
+            <h1 class="">{{ ViewItemData.item_status == 1 ? 'Active': 'Inactive' }}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1" >Vendor</label>
-            <h1 class="">{{ ViewItemData.item_vendor?.VendorName }}</h1>
+            <h1 class="">{{ ViewItemData.item_vendor?.VendorName ? ViewItemData.item_vendor?.VendorName : '-' }}</h1>
           </div>
         </div>
       </div>
@@ -119,19 +119,19 @@
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Price</label>
-            <h1 class="">{{ ViewItemData.price }}</h1>
+            <h1 class="">{{ ViewItemData.price ? ViewItemData.price : '-' }}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Size</label>
-            <h1 class="">{{ ViewItemData.size }}</h1>
+            <h1 class="">{{ ViewItemData.size ? ViewItemData.size : '-' }}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Sub Category</label>
-            <h1 class="">{{ ViewItemData.item_sub_category?.sub_category_name }}</h1>
+            <h1 class="">{{ ViewItemData.item_sub_category?.sub_category_name ? ViewItemData.item_sub_category?.sub_category_name : '-' }}</h1>
           </div>
         </div>
       </div>
@@ -139,19 +139,19 @@
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1" >Store</label>
-            <h1 class="">{{ ViewItemData.store_qty }}</h1>
+            <h1 class="">{{ ViewItemData.store_qty ? ViewItemData.store_qty : '-' }}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Cabinet</label>
-            <h1 class="">{{ ViewItemData.cabinet_qty }}</h1>
+            <h1 class="">{{ ViewItemData.cabinet_qty ? ViewItemData.cabinet_qty : '-' }}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Expiry Date</label>
-            <h1 class="">{{ ViewItemData.expired_date }}</h1>
+            <h1 class="">{{ ViewItemData.expired_date ? ViewItemData.expired_date : '-' }}</h1>
           </div>
         </div>
       </div>
@@ -159,19 +159,19 @@
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Min level  </label>
-            <h1 class="">{{ ViewItemData.min_level }}</h1>
+            <h1 class="">{{ ViewItemData.min_level ? ViewItemData.min_level : '-' }}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1" >Cat No</label>
-            <h1 class="">{{ ViewItemData.cat_no }}</h1>
+            <h1 class="">{{ ViewItemData.cat_no ? ViewItemData.cat_no : '-' }}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Lot No</label>
-            <h1 class="">{{ ViewItemData.lot_no }}</h1>
+            <h1 class="">{{ ViewItemData.lot_no ? ViewItemData.lot_no : '-' }}</h1>
           </div>
         </div>
       </div>
@@ -180,27 +180,27 @@
           <div class="d-flex">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Tags</label>
-              <h1 >{{ ViewItemData.tag }}</h1>
+              <h1 >{{ ViewItemData.tag ?  ViewItemData.tag : '-' }}</h1>
             </div>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
             <label for="items_category" class="modal-label mb-1">Unit</label>
-            <h1 class="">{{ ViewItemData.unit }}</h1>
+            <h1 class="">{{ ViewItemData.unit ?  ViewItemData.unit : '-' }}</h1>
           </div>
         </div>
       </div>
       <div class="row m-3">
         <div class="col-12">
           <label for="items_category" class="modal-label mb-1">Item description</label>
-          <h1 class="">{{ ViewItemData.item_description }}</h1>
+          <h1 class="">{{ ViewItemData.item_description ? ViewItemData.item_description : '-' }}</h1>
         </div>
       </div>
       <div class="row m-3">
         <div class="col-12">
           <label for="items_category" class="modal-label mb-1">Notes</label>
-          <h1 class="">{{ ViewItemData.item_notes }}</h1>
+          <h1 class="">{{ ViewItemData.item_notes ? ViewItemData.item_notes : '-' }}</h1>
         </div>
       </div>
     </div>
@@ -361,7 +361,7 @@
           <div class="d-flex flex-row">
             <div class="">
               <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
-              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure"></ng-select>
+              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure" multiple="true"></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -395,7 +395,7 @@
           <div class="">
             <label for="items_no" class="modal-label-edit">Price<span
                 style="color: red;">*</span></label>
-            <input class="form-control-new price_field" type="text" style="text-align: right;" formControlName="price" step="0.01">
+            <input class="form-control-new price_field riyal" type="text" style="text-align: right;" formControlName="price" step="0.01">
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div
                 *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.required">

@@ -379,7 +379,7 @@
                   <div>
                     <ngx-slider [(value)]="PriceminValue" [(highValue)]="PricemaxValue" [options]="options" formControlName="Price"></ngx-slider>
                     <div class="d-flex flex-row mt-2">
-                      <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="PriceminValue" [ngModelOptions]="{standalone: true}">
+                      <input type="text" class="form-control-new me-2 " placeholder="Min" [(ngModel)]="PriceminValue" [ngModelOptions]="{standalone: true}">
                       <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="PricemaxValue" [ngModelOptions]="{standalone: true}">
                     </div>
                   </div>
@@ -674,7 +674,7 @@
           <div class="">
             <label for="items_no" class="modal-label-edit">Price<span
                 style="color: red;">*</span></label>
-            <input class="form-control-new" type="text" style="text-align: right;" formControlName="price" step="0.01">
+            <input class="form-control-new riyal" type="text" style="text-align: right;" formControlName="price" step="0.01">
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div
                 *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.required">
@@ -855,6 +855,10 @@
           <div class="">
             <label for="items_no" class="modal-label-edit">Item description</label>
             <textarea type="text" class="form-control-new" placeholder="" formControlName="Itemdescription" style="font-size: 0.6123rem !important;"></textarea>
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div *ngIf="(this.AddItemForm.controls.Itemdescription.dirty || this.AddItemForm.controls.Itemdescription.touched) && this.AddItemForm.controls.Itemdescription.errors?.maxlength">
+               Maximum length should be 250 characters</div>
+            </div>
            </div>
         </div>
       </div>
@@ -863,6 +867,10 @@
           <div class="mb-3">
             <label for="items_no" class="modal-label-edit">Notes</label>
             <textarea type="text" class="form-control-new" placeholder="" formControlName="Itemnotes" style="font-size: 0.6123rem !important;"></textarea>
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div *ngIf="(this.AddItemForm.controls.Itemnotes.dirty || this.AddItemForm.controls.Itemnotes.touched) && this.AddItemForm.controls.Itemnotes.errors?.maxlength">
+                Maximum length should be 250 characters</div>
+            </div>
            </div>
         </div>
       </div>

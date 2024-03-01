@@ -156,9 +156,9 @@ export class AllItemsComponent implements OnInit {
       CatNo:[],
       LotNo:[],
       Tags:[''],
-      Unit:[,[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
-      Itemdescription:[],
-      Itemnotes:[]
+      Unit:[,[Validators.required,Validators.min(0),Validators.pattern('^\\d*\\.?\\d*$')]],
+      Itemdescription:[,[Validators.maxLength(250)]],
+      Itemnotes:[,[Validators.maxLength(250)]]
     });
 
     this.AllItemsGridBaseFilterForm = this.formbuilder.group({
@@ -830,12 +830,19 @@ export class AllItemsComponent implements OnInit {
 
 
       let procedure_value = data.value.procedure;
+
+      let newArray:any = [];
       this.ProcedureOption_Index.forEach(element => {
-        if(element.procedure_name == procedure_value){
-          this.AddItemForm.patchValue({
-            procedure:element.id
-          })
-        }
+        procedure_value.forEach(ProcedurName => {
+          if(ProcedurName == element.procedure_name)
+          {
+            newArray.push(element.id);
+            let procedureStrings = newArray.map(num => num.toString());
+            this.AddItemForm.patchValue({
+            procedure:procedureStrings
+            })
+          }
+        });
       });
 
       let item_status = data.value.ItemStatus;
@@ -843,12 +850,12 @@ export class AllItemsComponent implements OnInit {
 
       if(item_status.label == 'Active'){
         this.AddItemForm.patchValue({
-          ItemStatus:1
+          ItemStatus:"1"
         })
       }
       else if(item_status.label == 'Inactive'){
         this.AddItemForm.patchValue({
-          ItemStatus:2
+          ItemStatus:"2"
         })
       }
 

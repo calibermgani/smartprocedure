@@ -349,7 +349,16 @@ export class AllItemsTableViewComponent {
         this.allServices.ViewItem(params.data.id).subscribe({
           next:(res:any)=>{
             if(res.status == 'Success'){
+              let procedure_values:any = [];
+              if(res.data.item_procedures.length>0)
+              {
+                let x = res.data.item_procedures;
+                x.forEach(element => {
+                  procedure_values.push(element.procedure_name)
+                });
+              }
               this.ViewItemData = res.data;
+              this.ViewItemData.item_procedures = procedure_values;
             }
           },
           error:(res:any)=>{
@@ -368,7 +377,16 @@ export class AllItemsTableViewComponent {
         this.allServices.ViewItem(params.data.id).subscribe({
           next:(res:any)=>{
             if(res.status == 'Success'){
+              let procedure_values:any = [];
+              if(res.data.item_procedures.length>0)
+              {
+                let x = res.data.item_procedures;
+                x.forEach(element => {
+                  procedure_values.push(element.procedure_name)
+                });
+              }
               this.ViewItemData = res.data;
+              this.ViewItemData.item_procedures = procedure_values;
             }
           },
           error:(res:any)=>{
@@ -386,17 +404,32 @@ export class AllItemsTableViewComponent {
         this.getVendors();
         this.getTags();
         this.getProcedures();
+        this.Currently_Selected_row = params.data;
         console.log(params.data.id);
         this.allServices.ViewItem(params.data.id).subscribe({
           next:(res:any)=>{
             if(res.status == 'Success'){
+              let procedure_values:any = [];
+              if(res.data.item_procedures.length>0)
+              {
+                let x = res.data.item_procedures;
+                x.forEach(element => {
+                  procedure_values.push(element.procedure_name)
+                });
+              }
+              let tag_values:any = [];
+              if(res.data.tag.length>0)
+              {
+                tag_values = res.data.tag.split(',');
+
+              }
               this.AddItemForm.patchValue({
                 imageURL:'',
                 ItemNumber:res.data.item_number,
                 ItemName:res.data.item_name,
                 ItemCategory:res.data.item_category?.name,
                 Barcodes:res.data.item_barcode,
-                procedure:res.data.item_procedures?.[0].procedure_name,
+                procedure: procedure_values ? procedure_values : '',
                 ItemStatus:res.data.item_status == '1' ? 'Active' : 'Inactive',
                 Vendor:res.data.item_vendor?.VendorName,
                 price:res.data.price,
@@ -409,7 +442,7 @@ export class AllItemsTableViewComponent {
                 MinStoreQty:res.data.min_level,
                 CatNo:res.data.cat_no,
                 LotNo:res.data.lot_no,
-                Tag:[res.data.tag],
+                Tag:tag_values,
                 Unit:res.data.unit,
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
@@ -572,13 +605,21 @@ export class AllItemsTableViewComponent {
         this.allServices.ViewItem(this.Currently_Selected_row.id).subscribe({
           next:(res:any)=>{
             if(res.status == 'Success'){
+              let procedure_values:any = [];
+              if(res.data.item_procedures.length>0)
+              {
+                let x = res.data.item_procedures;
+                x.forEach(element => {
+                  procedure_values.push(element.procedure_name)
+                });
+              }
               this.AddItemForm.patchValue({
                 imageURL:'',
                 ItemNumber:res.data.item_number,
                 ItemName:res.data.item_name,
                 ItemCategory:res.data.item_category?.name,
                 Barcodes:res.data.item_barcode,
-                procedure:res.data.item_procedures?.[0].procedure_name,
+                procedure:procedure_values,
                 ItemStatus:res.data.item_status == '1' ? 'Active' : 'Inactive',
                 Vendor:res.data.item_vendor?.VendorName,
                 price:res.data.price,
@@ -909,29 +950,38 @@ export class AllItemsTableViewComponent {
       });
 
       let procedure_value = data.value.procedure;
+      console.log(procedure_value);
+
+
+      let newArray:any = [];
       this.ProcedureOption_Index.forEach(element => {
-        if(element.procedure_name == procedure_value){
-          this.AddItemForm.patchValue({
-            procedure:element.id
-          })
-        }
+        procedure_value.forEach(ProcedurName => {
+          if(ProcedurName == element.procedure_name)
+          {
+            newArray.push(element.id);
+            let procedureStrings = newArray.map(num => num.toString());
+            this.AddItemForm.patchValue({
+            procedure:procedureStrings
+            })
+          }
+        });
       });
 
       let item_status = data.value.ItemStatus;
       if(item_status == 'Active'){
         this.AddItemForm.patchValue({
-          ItemStatus:1
+          ItemStatus:"1"
         })
       }
       else if(item_status == 'Inactive'){
         this.AddItemForm.patchValue({
-          ItemStatus:2
+          ItemStatus:"2"
         })
       }
 
       console.log(data.value);
 
-      this.allServices.UpdateItemfn(data).subscribe({
+      this.allServices.UpdateItemfn(this.Currently_Selected_row,data).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -1039,9 +1089,11 @@ export class AllItemsTableViewComponent {
     this.allServices.GetAllItemsGrid().subscribe({
       next:((res:any)=>{
         this.all_Items_gridData = res.data;
-        console.log(res.data?.[0].item_procedures?.[0].procedure_name);
-
-        this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+        if(this.all_Items_gridData.length>0)
+        {this.myGrid_1.api?.setRowData(this.all_Items_gridData);}
+        else{
+          this.myGrid_1.api?.setRowData([]);
+        }
       }),
       error:((res:any)=>{
         this.toastr.error('Something went wrong', 'UnSuccessful', {
