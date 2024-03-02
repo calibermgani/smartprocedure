@@ -868,24 +868,24 @@ export class AllItemsComponent implements OnInit {
       }
 
       console.log(data.value);
-      // this.allServices.Additemfn(data).subscribe({
-      //   next:(res:any)=>{
-      //     if(res.status=='Success'){
-      //       this.toastr.success(`${res.message}`,'Successful',{
-      //         positionClass: 'toast-top-center',
-      //         timeOut:2000,
-      //       });
-      //       this.ReloadAllItemsGrid = true;
-      //       this.CloseModal('additem');
-      //     }
-      //   },
-      //   error:(res)=>{
-      //     this.toastr.error(`${res}`,'UnSuccessful',{
-      //       positionClass: 'toast-top-center',
-      //       timeOut:2000,
-      //     });
-      //   }
-      // })
+      this.allServices.Additemfn(data).subscribe({
+        next:(res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.ReloadAllItemsGrid = true;
+            this.CloseModal('additem');
+          }
+        },
+        error:(res)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        }
+      })
     }
   }
 
