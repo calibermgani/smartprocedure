@@ -64,9 +64,9 @@ border-bottom: none !important;
   border-radius: 15px;
   font-family: poppins !important;
 }
-::ng-deep .ag-row-group-expanded
+:host ::ng-deep .ag-row-group-expanded
 {
-  background: #8B8B8B !important;
+  background: #bfbfbf !important;
 
 .ag-cell-value{
   color: #fff !important;
@@ -92,9 +92,9 @@ border-bottom: none !important;
 ::ng-deep .ag-details-grid .ag-theme-alpine{
 //  .ag-root-wrapper .ag-layout-normal .ag-ltr .ag-theme-alpine{
   --ag-row-hover-color: transparent !important;
-  // .ag-row :hover{
-  //   background: transparent !important;
-  // }
+  .ag-row :hover{
+    background: transparent !important;
+  }
 }
 
 ::ng-deep .ag-ltr .ag-cell-range-single-cell
@@ -170,4 +170,14 @@ border-bottom: none !important;
      background-repeat: no-repeat !important;
      background-position: 9px !important;
      background-size: 16px 16px !important;
+}
+
+
+:host ::ng-deep .ag-details-grid .ag-pinned-right-header{
+    background: #594585
+}
+
+
+:host ::ng-deep .ag-row-group-leaf-indent{
+  margin-left: 0px !important;
 }

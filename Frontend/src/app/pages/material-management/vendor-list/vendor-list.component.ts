@@ -20,6 +20,7 @@ export class VendorListComponent implements OnInit {
   status:string[];
   vendorList:string[];
   ItemStatus:any = [];
+  search_vendorlist:any;
 
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
   @ViewChild('addvendor', { static: true }) addvendor: ModalDirective;
@@ -328,6 +329,10 @@ export class VendorListComponent implements OnInit {
         })
       ])
     })
+  }
+
+  onSearch(){
+    this.myGrid_1.api?.setQuickFilter(this.search_vendorlist);
   }
 
   ngOnChanges(changes: SimpleChanges): void {

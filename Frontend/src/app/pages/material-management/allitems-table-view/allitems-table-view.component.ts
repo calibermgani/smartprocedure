@@ -2,10 +2,63 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { environment_new } from 'src/environments/environment';
+import 'ag-grid-enterprise';
+
+interface MainData {
+  item_no:string,
+  item_name:string,
+  item_category:string,
+  item_description:string,
+  item_procedures:string,
+  cat_no:string,
+  lot_no:string,
+  size:string,
+  item_vendor:string,
+  price:number,
+  unit:number,
+  expired_date:string,
+  store_qty:string,
+  cabinet_qty:string,
+  min_level:string,
+  tag:string,
+  item_notes:string,
+  image_url:string,
+  item_barcode:string,
+  view:string,
+  edit:string,
+  delete:string
+  item_clones:SubData[]
+}
+interface SubData {
+  "item_no":string,
+  "item_name":string,
+  "item_category":string,
+  "item_description":string,
+  "item_procedures":string,
+  "cat_no":string,
+  "lot_no":string,
+  "size":string,
+  "item_vendor":string,
+  "price":number,
+  "unit":number,
+  "expired_date":string,
+  "store_qty":string,
+  "cabinet_qty":string,
+  "min_level":string,
+  "tag":string,
+  "item_notes":string,
+  "image_url":string,
+  "item_barcode":string,
+  "view":string,
+  "edit":string,
+  "delete":string
+}
+
 
 @Component({
   selector: 'app-allitems-table-view',
@@ -15,6 +68,7 @@ import { AllServicesService } from 'src/app/core/services/all-services.service';
 export class AllItemsTableViewComponent {
 
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
+  @ViewChild('myGrid_2') myGrid_2: AgGridAngular;
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @ViewChild('setalert', { static: false }) setalert?: ModalDirective;
   @ViewChild('bulkupdate', { static: false }) bulkupdate?: ModalDirective;
@@ -45,93 +99,6 @@ export class AllItemsTableViewComponent {
   AllItemsChecked:any;
 
 
-  constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef){
-
-    this.AddItemForm = this.formbuilder.group({
-      imageURL:[''],
-      ItemNumber:[,[Validators.required]],
-      ItemName:[,[Validators.required]],
-      ItemCategory:[,[Validators.required]],
-      Barcodes:[,[Validators.required]],
-      procedure:[],
-      ItemStatus:[],
-      Vendor:[],
-      price:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
-      size:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
-      sizetype:[,Validators.required],
-      subcategory:[],
-      storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
-      CabinetQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
-      ExpiryDate:[,[Validators.required]],
-      MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
-      CatNo:[],
-      LotNo:[],
-      Tag:[],
-      Unit:[,[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
-      Itemdescription:[],
-      Itemnotes:[]
-    });
-
-    this.AddtagForm= this.formbuilder.group({
-      Tags:['',Validators.required],
-    });
-
-    // this.dynamicForm = this.createGroup();
-  }
-
-  ngOnInit(): void {
-    this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
-      this.folder_structure_value = res;
-      console.log('response',this.folder_structure_value);
-    });
-  }
-
-  public gridApi_1!: GridApi;
-  public defaultColDef: ColDef = {
-    editable: false,
-    sortable: true,
-    resizable: true,
-    filter: true,
-    // floatingFilter: true,
-  };
-  gridOptions1: GridOptions = {
-    defaultColDef: {
-      filter: false,
-    },
-    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Add Some Items</span>',
-    suppressMenuHide: false,
-    rowSelection: 'multiple',
-    rowHeight: 35,
-    pagination: true,
-    suppressRowClickSelection:true,
-    suppressHorizontalScroll: false,
-    suppressMovableColumns: true,
-    suppressDragLeaveHidesColumns: true,
-    suppressContextMenu: false,
-  };
-  public sideBar: SideBarDef | string | string[] | boolean | null = {
-    toolPanels: [
-      {
-        id: 'columns',
-        labelDefault: 'Columns Visibility',
-        labelKey: 'columns',
-        iconKey: 'columns',
-        toolPanel: 'agColumnsToolPanel',
-        toolPanelParams: {
-          suppressRowGroups: true,
-          suppressValues: true,
-          suppressPivots: true,
-          suppressPivotMode: true,
-          suppressColumnFilter: false,
-          suppressColumnSelectAll: false,
-        },
-      } as ToolPanelDef,
-    ],
-    defaultToolPanel: null,
-  };
-
-
-
   columnDefs1: ColDef[] = [
     {
       field: '',
@@ -143,7 +110,8 @@ export class AllItemsTableViewComponent {
     {
       field: 'item_number',
       headerName: 'Item No',
-      cellRenderer: this.cellrendered.bind(this, 'item_number'),
+      cellRenderer: 'agGroupCellRenderer',
+      // cellRenderer: this.cellrendered.bind(this, 'item_number'),
     },
     {
       field: 'item_name',
@@ -261,6 +229,385 @@ export class AllItemsTableViewComponent {
       onCellClicked: this.CellClicked.bind(this, 'delete')
     },
   ];
+
+  public gridOptionsDailyConsumed:GridOptions = {
+    suppressRowClickSelection:true,
+  };
+
+  // public daily_consumed_columnDef: ColDef[] = [
+  //   {
+  //     field: '',
+  //     checkboxSelection: true,
+  //     resizable:false,
+  //     headerCheckboxSelection: true,
+  //     width:10,
+  //   },
+  //   {
+  //     field: 'item_number',
+  //     headerName: 'Item No',
+  //     cellRenderer: this.cellrendered.bind(this, 'item_number'),
+  //   },
+  //   {
+  //     field: 'item_name',
+  //     headerName: 'Item Name',
+  //     cellRenderer: this.cellrendered.bind(this, 'item_name'),
+  //     onCellClicked: this.CellClicked.bind(this, 'item_name')
+  //   },
+  //   {
+  //     field: 'item_category',
+  //     headerName: 'Items Category',
+  //     cellRenderer: this.cellrendered.bind(this, 'item_category')
+  //   },
+  //   {
+  //     field: 'item_description',
+  //     headerName: 'Item Description',
+  //     cellRenderer: this.cellrendered.bind(this, 'item_description')
+  //   },
+  //   {
+  //     field: 'item_procedures',
+  //     headerName: 'Procedure',
+  //     cellRenderer: this.cellrendered.bind(this, 'item_procedures')
+  //   },
+  //   {
+  //     field: 'cat_no',
+  //     headerName: 'Cat No',
+  //     cellRenderer: this.cellrendered.bind(this, 'cat_no')
+  //   },
+  //   {
+  //     field: 'lot_no',
+  //     headerName: 'Lot No',
+  //     cellRenderer: this.cellrendered.bind(this, 'lot_no')
+  //   },
+  //   {
+  //     field: 'size',
+  //     headerName: 'Size',
+  //     cellRenderer: this.cellrendered.bind(this, 'size')
+  //   },
+  //   {
+  //     field: 'item_vendor',
+  //     headerName: 'Vendor',
+  //     cellRenderer: this.cellrendered.bind(this, 'item_vendor')
+  //   },
+  //   {
+  //     field: 'price',
+  //     headerName: 'Price',
+  //     cellRenderer: this.cellrendered.bind(this, 'price')
+  //   },
+  //   {
+  //     field: 'unit',
+  //     headerName: 'Unit',
+  //     cellRenderer: this.cellrendered.bind(this, 'unit')
+  //   },
+  //   {
+  //     field: 'expired_date',
+  //     headerName: 'Expiry Date',
+  //     cellRenderer: this.cellrendered.bind(this, 'expired_date')
+  //   },
+  //   {
+  //     field: 'store_qty',
+  //     headerName: 'Store',
+  //     cellRenderer: this.cellrendered.bind(this, 'store_qty')
+  //   },
+  //   {
+  //     field: 'cabinet_qty',
+  //     headerName: 'Cabinet',
+  //     cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
+  //   },
+  //   {
+  //     field: 'min_level',
+  //     headerName: 'Min Level',
+  //     cellRenderer: this.cellrendered.bind(this, 'min_level')
+  //   },
+  //   {
+  //     field: 'tag',
+  //     headerName: 'Tags',
+  //     cellRenderer: this.cellrendered.bind(this, 'tag')
+  //   },
+  //   {
+  //     field: 'item_notes',
+  //     headerName: 'Notes',
+  //     cellRenderer: this.cellrendered.bind(this, 'item_notes')
+  //   },
+  //   {
+  //     field: 'image_url',
+  //     headerName: 'Images',
+  //     cellRenderer: this.cellrendered.bind(this, 'image_url')
+  //   },
+  //   {
+  //     field: 'item_barcode',
+  //     headerName: 'Barcodes',
+  //     cellRenderer: this.cellrendered.bind(this, 'item_barcode')
+  //   },
+  //   {
+  //     field: 'view',
+  //     width:10,
+  //     resizable:false,
+  //     pinned:"right",
+  //     cellRenderer: this.cellrendered.bind(this, 'view'),
+  //     onCellClicked: this.CellClicked.bind(this, 'view')
+  //   },
+  //   {
+  //     field: 'edit',
+  //     width:10,
+  //     resizable:false,
+  //     pinned:"right",
+  //     cellRenderer: this.cellrendered.bind(this, 'edit'),
+  //     onCellClicked: this.CellClicked.bind(this, 'edit')
+  //   },
+  //   {
+  //     field: 'delete',
+  //     width:20,
+  //     resizable:false,
+  //     pinned:"right",
+  //     cellRenderer: this.cellrendered.bind(this, 'delete'),
+  //     onCellClicked: this.CellClicked.bind(this, 'delete')
+  //   },
+  // ];
+
+  public daily_consumed_columnDef : ColDef[] = this.columnDefs1;
+  public detailCellRendererParams: any = {
+    detailGridOptions: {
+      rowSelection: 'multiple',
+      suppressRowClickSelection: true,
+      enableRangeSelection: true,
+      pagination: false,
+      paginationAutoPageSize: false,
+      // columnDefs:[
+      //   {
+      //     field: '',
+      //     checkboxSelection: true,
+      //     resizable:false,
+      //     headerCheckboxSelection: true,
+      //     width:10,
+      //   },
+      //   {
+      //     field: 'item_number',
+      //     headerName: 'Item No',
+      //     cellRenderer: this.cellrendered.bind(this, 'item_number'),
+      //   },
+      //   {
+      //     field: 'item_name',
+      //     headerName: 'Item Name',
+      //     cellRenderer: this.cellrendered.bind(this, 'item_name'),
+      //     onCellClicked: this.CellClicked.bind(this, 'item_name')
+      //   },
+      //   {
+      //     field: 'item_category',
+      //     headerName: 'Items Category',
+      //     cellRenderer: this.cellrendered.bind(this, 'item_category')
+      //   },
+      //   {
+      //     field: 'item_description',
+      //     headerName: 'Item Description',
+      //     cellRenderer: this.cellrendered.bind(this, 'item_description')
+      //   },
+      //   {
+      //     field: 'item_procedures',
+      //     headerName: 'Procedure',
+      //     cellRenderer: this.cellrendered.bind(this, 'item_procedures')
+      //   },
+      //   {
+      //     field: 'cat_no',
+      //     headerName: 'Cat No',
+      //     cellRenderer: this.cellrendered.bind(this, 'cat_no')
+      //   },
+      //   {
+      //     field: 'lot_no',
+      //     headerName: 'Lot No',
+      //     cellRenderer: this.cellrendered.bind(this, 'lot_no')
+      //   },
+      //   {
+      //     field: 'size',
+      //     headerName: 'Size',
+      //     cellRenderer: this.cellrendered.bind(this, 'size')
+      //   },
+      //   {
+      //     field: 'item_vendor',
+      //     headerName: 'Vendor',
+      //     cellRenderer: this.cellrendered.bind(this, 'item_vendor')
+      //   },
+      //   {
+      //     field: 'price',
+      //     headerName: 'Price',
+      //     cellRenderer: this.cellrendered.bind(this, 'price')
+      //   },
+      //   {
+      //     field: 'unit',
+      //     headerName: 'Unit',
+      //     cellRenderer: this.cellrendered.bind(this, 'unit')
+      //   },
+      //   {
+      //     field: 'expired_date',
+      //     headerName: 'Expiry Date',
+      //     cellRenderer: this.cellrendered.bind(this, 'expired_date')
+      //   },
+      //   {
+      //     field: 'store_qty',
+      //     headerName: 'Store',
+      //     cellRenderer: this.cellrendered.bind(this, 'store_qty')
+      //   },
+      //   {
+      //     field: 'cabinet_qty',
+      //     headerName: 'Cabinet',
+      //     cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
+      //   },
+      //   {
+      //     field: 'min_level',
+      //     headerName: 'Min Level',
+      //     cellRenderer: this.cellrendered.bind(this, 'min_level')
+      //   },
+      //   {
+      //     field: 'tag',
+      //     headerName: 'Tags',
+      //     cellRenderer: this.cellrendered.bind(this, 'tag')
+      //   },
+      //   {
+      //     field: 'item_notes',
+      //     headerName: 'Notes',
+      //     cellRenderer: this.cellrendered.bind(this, 'item_notes')
+      //   },
+      //   {
+      //     field: 'image_url',
+      //     headerName: 'Images',
+      //     cellRenderer: this.cellrendered.bind(this, 'image_url')
+      //   },
+      //   {
+      //     field: 'item_barcode',
+      //     headerName: 'Barcodes',
+      //     cellRenderer: this.cellrendered.bind(this, 'item_barcode')
+      //   },
+      //   {
+      //     field: 'view',
+      //     width:10,
+      //     resizable:false,
+      //     pinned:"right",
+      //     cellRenderer: this.cellrendered.bind(this, 'view'),
+      //     onCellClicked: this.CellClicked.bind(this, 'view')
+      //   },
+      //   {
+      //     field: 'edit',
+      //     width:10,
+      //     resizable:false,
+      //     pinned:"right",
+      //     cellRenderer: this.cellrendered.bind(this, 'edit'),
+      //     onCellClicked: this.CellClicked.bind(this, 'edit')
+      //   },
+      //   {
+      //     field: 'delete',
+      //     width:20,
+      //     resizable:false,
+      //     pinned:"right",
+      //     cellRenderer: this.cellrendered.bind(this, 'delete'),
+      //     onCellClicked: this.CellClicked.bind(this, 'delete')
+      //   },
+      // ],
+      columnDefs : this.columnDefs1,
+      defaultColDef: {
+        flex: 1,
+        resizable:true,
+        width:100
+      },
+    },
+    getDetailRowData: (params) => {
+      console.log(params);
+      if(params.data){}
+      params.successCallback(params.data.item_clones);
+    },
+  } as IDetailCellRendererParams<MainData, SubData>;
+
+
+  constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef){
+
+    this.AddItemForm = this.formbuilder.group({
+      imageURL:[''],
+      ItemNumber:[,[Validators.required]],
+      ItemName:[,[Validators.required]],
+      ItemCategory:[,[Validators.required]],
+      Barcodes:[,[Validators.required]],
+      procedure:[],
+      ItemStatus:[],
+      Vendor:[],
+      price:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
+      size:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      sizetype:[,Validators.required],
+      subcategory:[],
+      storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      CabinetQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
+      ExpiryDate:[,[Validators.required]],
+      MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      CatNo:[],
+      LotNo:[],
+      Tag:[],
+      Unit:[,[Validators.required,Validators.min(0),Validators.pattern('\\d*')]],
+      Itemdescription:[],
+      Itemnotes:[]
+    });
+
+    this.AddtagForm= this.formbuilder.group({
+      Tags:['',Validators.required],
+    });
+
+    // this.dynamicForm = this.createGroup();
+  }
+
+  ngOnInit(): void {
+    this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
+      this.folder_structure_value = res;
+      console.log('response',this.folder_structure_value);
+    });
+  }
+
+  public gridApi_1!: GridApi;
+  public gridApi_2!: GridApi;
+  public defaultColDef: ColDef = {
+    editable: false,
+    sortable: true,
+    resizable: true,
+    filter: true,
+    // floatingFilter: true,
+  };
+  gridOptions1: GridOptions = {
+    defaultColDef: {
+      filter: false,
+    },
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Add Some Items</span>',
+    suppressMenuHide: false,
+    rowSelection: 'multiple',
+    rowHeight: 35,
+    pagination: true,
+    suppressRowClickSelection:true,
+    suppressHorizontalScroll: false,
+    suppressMovableColumns: true,
+    suppressDragLeaveHidesColumns: true,
+    suppressContextMenu: false,
+  };
+  public sideBar: SideBarDef | string | string[] | boolean | null = {
+    toolPanels: [
+      {
+        id: 'columns',
+        labelDefault: 'Columns Visibility',
+        labelKey: 'columns',
+        iconKey: 'columns',
+        toolPanel: 'agColumnsToolPanel',
+        toolPanelParams: {
+          suppressRowGroups: true,
+          suppressValues: true,
+          suppressPivots: true,
+          suppressPivotMode: true,
+          suppressColumnFilter: false,
+          suppressColumnSelectAll: false,
+        },
+      } as ToolPanelDef,
+    ],
+    defaultToolPanel: null,
+  };
+
+  onFirstDataRendered(params: FirstDataRenderedEvent) {
+    // arbitrarily expand a row for presentational purposes
+    // setTimeout(() => {
+    //   params.api.getDisplayedRowAtIndex(1)!.setExpanded(true);
+    // }, 0);
+  }
 
   cellrendered(headerName: any, params: any) {
     switch (headerName) {
@@ -418,10 +765,13 @@ export class AllItemsTableViewComponent {
                 });
               }
               let tag_values:any = [];
-              if(res.data.tag.length>0)
+              if(res.data.tag)
               {
                 tag_values = res.data.tag.split(',');
-
+              }
+              else
+              {
+                tag_values = null;
               }
               this.AddItemForm.patchValue({
                 imageURL:'',
@@ -512,7 +862,7 @@ export class AllItemsTableViewComponent {
         else {
           this.AllItemsChecked = true
           this.selected_row_data_length = this.selected_row_data.length;
-          this.showEditablefields = true;
+          this.showEditablefields = true;;
         }
       }
     });
@@ -563,7 +913,11 @@ export class AllItemsTableViewComponent {
         this.bulkupdate?.show();
         this.guidelines = this.selected_row_data;
         console.log(this.guidelines);
-        this.createGroup();
+        // this.createGroup();
+        break;
+      }
+       case 'clone_modal':{
+        this.clone_modal?.show();
         break;
       }
     }
@@ -582,15 +936,24 @@ export class AllItemsTableViewComponent {
       }
       case 'delete_modal':{
         this.delete_modal?.hide();
+        this.showEditablefields = false;
         break;
       }
       case 'add_tag':{
         this.AddtagForm?.reset();
         this.add_tag?.hide();
+        this.showEditablefields = false;
         break;
       }
       case 'bulkupdate':{
         this.bulkupdate?.hide();
+        this.showEditablefields = false;
+        break;
+      }
+      case 'clone_modal':{
+        this.clone_modal?.hide();
+        this.showEditablefields = false;
+        this.ngAfterViewInit();
         break;
       }
     }
@@ -918,6 +1281,8 @@ export class AllItemsTableViewComponent {
 
   UpdateItemfn(data:any){
     if(data.valid){
+      console.log('formData',data);
+
       let category_value = data.value.ItemCategory;
       this.CategoryOptions_Index.forEach(element => {
         if(element.categories == category_value){
@@ -989,6 +1354,7 @@ export class AllItemsTableViewComponent {
               timeOut:2000,
             });
             this.CloseModal('editItem');
+            // this.onGridReady_dailyconsumedgrid;
             this.ngAfterViewInit();
           }
         },
@@ -1051,6 +1417,28 @@ export class AllItemsTableViewComponent {
 
   }
 
+  CloneItem(){
+    console.log(this.selected_row_data);
+
+    this.allServices.CloneItem(this.selected_row_data).subscribe({
+      next:((res:any)=>{
+        this.toastr.success(`${res.message}`,'Successful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+        this.CloseModal('clone_modal');
+        this.showEditablefields = false;
+        this.ngAfterViewInit();
+      }),
+      error:((res:any) =>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
+  }
+
   UpdateTagsfn(data:any){
     console.log(this.selected_row_data);
     let SelectedItemId:any = [];
@@ -1079,8 +1467,20 @@ export class AllItemsTableViewComponent {
     })
   }
 
+  GoToNextItem(){
+    console.log(this.all_Items_gridData);
+    this.all_Items_gridData.forEach(element => {
+      console.log(element);
+    })
+  }
+
+  GoToPreviousItem(){
+
+  }
 
 
+  ChangeGrid:boolean = false;
+  DisableClone:boolean = false;
   ngAfterViewInit(): void {
     // this.http.get('http://127.0.0.1:8000/api/items/index',).subscribe((res:any)=>{
     //   this.all_Items_gridData = res;
@@ -1090,7 +1490,19 @@ export class AllItemsTableViewComponent {
       next:((res:any)=>{
         this.all_Items_gridData = res.data;
         if(this.all_Items_gridData.length>0)
-        {this.myGrid_1.api?.setRowData(this.all_Items_gridData);}
+        {
+          this.all_Items_gridData.forEach((element,index:any) => {
+            console.log(element.item_clones.length);
+            if(element.item_clones.length>0){
+              this.ChangeGrid = true;
+            }
+          });
+          if(this.ChangeGrid == false){
+            this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+          }
+
+          // this.DailyConsumedGridData = res.data;
+        }
         else{
           this.myGrid_1.api?.setRowData([]);
         }
@@ -1102,7 +1514,57 @@ export class AllItemsTableViewComponent {
         });
       })
     })
+
+    console.log(this.ChangeGrid);
+
+    // if(this.ChangeGrid == true)
+    // {
+      let payload:Object = {};
+      payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+      this.http.post<MainData[]>(
+        `${this.apiUrl}/items/index`,payload
+      )
+      .subscribe((res:any) => {
+        this.DailyConsumedGridData = res.data;
+      });
+    // }
+
   }
+  public apiUrl: any = environment_new.apiUrl;
+  DailyConsumedGridData:any = [];
+  onGridReady_dailyconsumedgrid(params: GridReadyEvent) {
+    this.DisableClone = false;
+    let payload:Object = {};
+    payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+    this.gridApi_2 = params.api;
+
+    this.gridApi_2.addEventListener('selectionChanged', () => {
+      this.selected_row_data = [];
+      const selectedNodes = this.gridApi_2.getSelectedNodes();
+      selectedNodes.forEach((element) => {
+        this.selected_row_data.push(element.data);
+      })
+      console.log(this.selected_row_data);
+      if (this.selected_row_data.length >= 0) {
+        if (this.selected_row_data.length == 0) {
+          this.showEditablefields = false;
+        }
+        else {
+          this.selected_row_data.forEach((element:any)=>{
+            if(element.item_clones.length>0){
+              this.DisableClone = true;
+            }
+          })
+          this.AllItemsChecked = true
+          this.selected_row_data_length = this.selected_row_data.length;
+          this.showEditablefields = true;;
+        }
+      }
+    });
+
+  }
+
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.Updategrid.currentValue) {
       this.ngAfterViewInit();
@@ -1137,11 +1599,16 @@ export class AllItemsTableViewComponent {
     console.log(data);
   }
 
-
-  createGroup() {
-    this.dynamicForm = this.formbuilder.group({});
-    this.selected_row_data.forEach(control => this.dynamicForm.addControl(control.item_name, this.formbuilder.control('')));
-console.log(this.dynamicForm.controls);
-    return this.dynamicForm;
+  ngOnDestroy() {
+    // Remove any references to the grid API
+    this.myGrid_1 = null;
   }
+
+
+//   createGroup() {
+//     this.dynamicForm = this.formbuilder.group({});
+//     this.selected_row_data.forEach(control => this.dynamicForm.addControl(control.item_name, this.formbuilder.control('')));
+// console.log(this.dynamicForm.controls);
+//     return this.dynamicForm;
+//   }
 }

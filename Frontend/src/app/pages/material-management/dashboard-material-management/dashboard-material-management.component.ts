@@ -76,6 +76,13 @@ export class DashboardMaterialManagementComponent implements OnInit {
   public themeClass: string ="ag-theme-quartz";
   public daily_consumed_columnDef: ColDef[] = [
     // group cell renderer needed for expand / collapse icons
+    {
+      field: '',
+      checkboxSelection: true,
+      resizable:false,
+      headerCheckboxSelection: true,
+      width:10,
+    },
     { field: 'mrn_no', headerName:'MRN No', cellRenderer: 'agGroupCellRenderer' },
     { field: 'accession_no',headerName:'Accession No' },
     { field: 'procedure_code', headerName:'Procedure code' },
@@ -89,6 +96,13 @@ export class DashboardMaterialManagementComponent implements OnInit {
       pagination: false,
       paginationAutoPageSize: false,
       columnDefs: [
+      {
+        field: '',
+        checkboxSelection: true,
+        resizable:false,
+        headerCheckboxSelection: true,
+        width:10,
+      },
         { field: 'item_no',headerName:'Item No'},
         { field: 'item_name',headerName:'Item Name',onCellClicked: this.cellClicked.bind(this, 'item_name') },
         { field: 'size',headerName:'Size' },
@@ -102,6 +116,8 @@ export class DashboardMaterialManagementComponent implements OnInit {
       },
     },
     getDetailRowData: (params) => {
+      console.log(params);
+
       params.successCallback(params.data.sub);
     },
   } as IDetailCellRendererParams<MainData, SubData>;
@@ -520,7 +536,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
   }
   onGridReady_dailyconsumedgrid(params: GridReadyEvent) {
     this.gridOptionsDailyConsumed = params;
-    this.Http.get<MainData[]>(
+    this.Http.get(
         'assets/json/daily_consumed_grid.json'
       )
       .subscribe((data) => {

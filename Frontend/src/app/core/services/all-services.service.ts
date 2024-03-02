@@ -45,7 +45,7 @@ export class AllServicesService {
     payload["VendorAddress"] = data.value.VendorAddress;
     payload["status"] = data.value.Status.label;
     payload["ContactPerson"] = "";
-    payload["Added_by"]="";
+    payload["Added_by"]="Admin";
     console.log(payload);
 
     return this.http.post(`${this.apiUrl}/vendors/store`,payload);
@@ -96,7 +96,7 @@ export class AllServicesService {
     payload["item_description"] = data.value.Itemdescription;
     payload["item_notes"] = data.value.Itemnotes;
     payload["tag"] = data.value.Tags;
-    payload["image_url"] = '';
+    payload["image_url"] = data.value.imageUrl;
     payload["created_by"]='1'; data.value.ItemNumber;
     return this.http.post(`${this.apiUrl}/items/store`,payload);
   }
@@ -297,6 +297,19 @@ export class AllServicesService {
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     return this.http.post(`${this.apiUrl}/vendors/index`,payload);
+  }
+
+  CloneItem(data:any){
+    let payload:Object = {};
+    console.log(data);
+    let Itemid :any = [];
+    data.forEach((element:any) => {
+      Itemid.push(element.id);
+    });
+    const itemIdAsString = Itemid.map(String);
+    payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+    payload["item_id"] = itemIdAsString;
+    return this.http.post(`${this.apiUrl}/items/item_clone`,payload);
   }
 
 }

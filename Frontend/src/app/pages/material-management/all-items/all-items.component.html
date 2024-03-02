@@ -523,7 +523,7 @@
           <div class="">
             <label class="modal-label-edit">Images</label>
             <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
-              <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'" >
+              <!-- <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'" >
                 <ngx-dropzone-label class="dz-message needsclick">
                   <div class="mt-4">
                     <i class="display-4 text-muted bx bxs-cloud-upload"></i>
@@ -547,10 +547,10 @@
                     </div>
                   </div>
                 </ngx-dropzone-label>
-              </ngx-dropzone-preview>
+              </ngx-dropzone-preview> -->
               <!-- end dropzon-preview -->
 
-              <!-- <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
+              <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
                 <div class="position-relative d-inline-block">
                   <div class="position-absolute bottom-0 end-0">
                       <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
@@ -562,13 +562,14 @@
                       </label>
                       <input  #imageInput class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput(imageInput)">
                   </div>
-                  <div class="avatar-lg">
-                      <div class="avatar-title bg-light rounded-circle">
-                          <img [src]="imageUrl" id="projectlogo-img" class="avatar-md h-auto rounded-circle" />
+                  <div class="avatar-lg" style="height: 9rem !important;
+                  width: 16rem !important;">
+                      <div class="avatar-title" style="width: 262px;height: 146px;background: transparent;">
+                          <img [src]="imageUrl" id="projectlogo-img" class="avatar-md h-auto" style="height: 146px !important;width: 263px;" *ngIf="showImage == true">
                       </div>
                   </div>
               </div>
-              </div> -->
+              </div>
           </div>
 
         </div>

@@ -137,7 +137,7 @@ export class AllItemsComponent implements OnInit {
     });
 
     this.AddItemForm = this.formbuilder.group({
-      imageURL:[''],
+      imageUrl:[''],
       ItemNumber:[,[Validators.required]],
       ItemName:[,[Validators.required]],
       ItemCategory:[,[Validators.required]],
@@ -188,6 +188,7 @@ export class AllItemsComponent implements OnInit {
   get TagForm() { return this.AddtagForm.controls }
 
   imageUrl: string | ArrayBuffer | null = null;
+  showImage:boolean = false;
 
   handleImageInput(input: HTMLInputElement): void {
     const file: File | null = input?.files?.[0];
@@ -197,6 +198,7 @@ export class AllItemsComponent implements OnInit {
       reader.onload = (e: any) => {
         this.imageUrl = e.target?.result;
       };
+      this.showImage = true;
       reader.readAsDataURL(file);
     }
   }
@@ -803,6 +805,12 @@ export class AllItemsComponent implements OnInit {
 
   AddItemfn(data:any){
     if(data.valid){
+
+      console.log(this.imageUrl);
+
+      // this.AddItemForm.patchValue({
+      //   imageUrl:this.imageUrl
+      // })
       let category_value = data.value.ItemCategory;
       this.CategoryOptions_Index.forEach(element => {
         if(element.categories == category_value){
@@ -860,24 +868,24 @@ export class AllItemsComponent implements OnInit {
       }
 
       console.log(data.value);
-      this.allServices.Additemfn(data).subscribe({
-        next:(res:any)=>{
-          if(res.status=='Success'){
-            this.toastr.success(`${res.message}`,'Successful',{
-              positionClass: 'toast-top-center',
-              timeOut:2000,
-            });
-            this.ReloadAllItemsGrid = true;
-            this.CloseModal('additem');
-          }
-        },
-        error:(res)=>{
-          this.toastr.error(`${res}`,'UnSuccessful',{
-            positionClass: 'toast-top-center',
-            timeOut:2000,
-          });
-        }
-      })
+      // this.allServices.Additemfn(data).subscribe({
+      //   next:(res:any)=>{
+      //     if(res.status=='Success'){
+      //       this.toastr.success(`${res.message}`,'Successful',{
+      //         positionClass: 'toast-top-center',
+      //         timeOut:2000,
+      //       });
+      //       this.ReloadAllItemsGrid = true;
+      //       this.CloseModal('additem');
+      //     }
+      //   },
+      //   error:(res)=>{
+      //     this.toastr.error(`${res}`,'UnSuccessful',{
+      //       positionClass: 'toast-top-center',
+      //       timeOut:2000,
+      //     });
+      //   }
+      // })
     }
   }
 

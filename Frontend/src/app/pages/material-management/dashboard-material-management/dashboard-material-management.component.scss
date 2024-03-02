@@ -59,7 +59,7 @@ border-bottom: none !important;
   border-radius: 15px;
   font-family: poppins !important;
 }
-::ng-deep .ag-row-group-expanded
+:host ::ng-deep .ag-row-group-expanded
 {
   background: #8B8B8B !important;
 
