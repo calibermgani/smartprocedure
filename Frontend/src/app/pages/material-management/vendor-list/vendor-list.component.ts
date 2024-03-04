@@ -177,7 +177,7 @@ export class VendorListComponent implements OnInit {
   cellrendered(headerName: any, params: any) {
     switch (headerName) {
       case'id':{
-        return this.Serial_no++;;
+        return this.Serial_no++;
       }
       case 'VendorName': {
         return params.value;
@@ -258,8 +258,6 @@ export class VendorListComponent implements OnInit {
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-    this.Serial_no = 1;
-
     this.allServices.GetVendorList().subscribe({
       next:((res:any)=>{
         this.vendorList = res.data;
@@ -319,6 +317,7 @@ export class VendorListComponent implements OnInit {
   }
 
   GetVendor(){
+    this.Serial_no = 1;
     this.allServices.GetVendorList().subscribe({
       next:((res:any)=>{
         this.vendorList = res.data;

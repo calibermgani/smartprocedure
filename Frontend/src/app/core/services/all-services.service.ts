@@ -43,7 +43,13 @@ export class AllServicesService {
     payload["VendorEmail"] = data.value.VendorEmail;
     payload["VendorContactNo"] = data.value.VendorContactNo;
     payload["VendorAddress"] = data.value.VendorAddress;
-    payload["status"] = data.value.Status.label;
+    // payload["status"] = data.value.Status.label;
+    if(data.value.Status){
+      payload["status"] = data.value.Status.label;
+    }
+    else{
+      payload["status"] = 'Active';
+    }
     payload["ContactPerson"] = "";
     payload["Added_by"]="Admin";
     console.log(payload);
@@ -56,7 +62,12 @@ export class AllServicesService {
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["name"] = data.value.CategoryName;
     payload["category_shortcode"] = data.value.CategorySubCode;
-    payload["status"] = data.value.Status;
+    if(data.value.Status){
+      payload["status"] = data.value.Status;
+    }
+    else{
+      payload["status"] = 'Active';
+    }
     payload["added_by"]="1";
     return this.http.post(`${this.apiUrl}/categories/store`,payload);
   }
@@ -66,7 +77,13 @@ export class AllServicesService {
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["sub_category_name"] = data.value.SubCategoryName;
     payload["category_id"] = index;
-    payload["status"] = data.value.status;
+    // payload["status"] = data.value.status;
+    if(data.value.Status){
+      payload["status"] = data.value.status;
+    }
+    else{
+      payload["status"] = 'Active';
+    }
     payload["created_by"]="1";
     return this.http.post(`${this.apiUrl}/sub_categories/store`,payload);
   }
@@ -80,7 +97,13 @@ export class AllServicesService {
     payload["item_sub_category_id"] = data.value.subcategory;
     payload["item_barcode"] = data.value.Barcodes;
     payload["item_procedure_id"] = data.value.procedure;;
-    payload["item_status"] = data.value.ItemStatus;
+    // payload["item_status"] = data.value.ItemStatus;
+    if(data.value.ItemStatus){
+      payload["item_status"] = data.value.ItemStatus;
+    }
+    else{
+      payload["item_status"] = 'Active';
+    }
     payload["vendor_id"] = data.value.Vendor;
     payload["price"] = data.value.price;
     payload["size"] = data.value.size;
@@ -111,7 +134,13 @@ export class AllServicesService {
     payload["item_sub_category_id"] = data.value.subcategory;
     payload["item_barcode"] = data.value.Barcodes;
     payload["item_procedure_id"] = data.value.procedure;
-    payload["item_status"] = data.value.ItemStatus;
+    // payload["item_status"] = data.value.ItemStatus;
+    if(data.value.ItemStatus){
+      payload["item_status"] = data.value.ItemStatus;
+    }
+    else{
+      payload["item_status"] = 'Active';
+    }
     payload["vendor_id"] = data.value.Vendor;
     payload["price"] = data.value.price;
     payload["size"] = data.value.size;
@@ -198,7 +227,13 @@ export class AllServicesService {
     payload["category_id"] = category_id;
     payload["name"] = data.value.CategoryName;
     payload["category_shortcode"] = data.value.CategorySubCode;
-    payload["status"] = data.value.Status;
+    // payload["status"] = data.value.Status;
+    if(data.value.Status){
+      payload["status"] = data.value.Status;
+    }
+    else{
+      payload["status"] = 'Active';
+    }
     payload["added_by"] = "1";
     return this.http.post(`${this.apiUrl}/categories/update`,payload)
   }
@@ -210,6 +245,12 @@ export class AllServicesService {
     payload["sub_category_name"] = data.value.SubCategoryName;
     payload["category_id"] = category_id;
     payload["status"] = data.value.status;
+    if(data.value.Status){
+      payload["status"] = data.value.status;
+    }
+    else{
+      payload["status"] = 'Active';
+    }
     payload["updated_by"] = "1";
     return this.http.post(`${this.apiUrl}/sub_categories/update`,payload);
   }
@@ -223,7 +264,13 @@ export class AllServicesService {
     payload["VendorEmail"] = data.value.VendorEmail;
     payload["VendorContactNo"] = data.value.VendorContactNo;
     payload["VendorAddress"] = data.value.VendorAddress;
-    payload["status"] = data.value.Status.label;
+    // payload["status"] = data.value.Status.label;
+    if(data.value.Status){
+      payload["status"] = data.value.Status.label;
+    }
+    else{
+      payload["status"] = 'Active';
+    }
     payload["ContactPerson"] = "";
     return this.http.post(`${this.apiUrl}/vendors/update`,payload);
   }

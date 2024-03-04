@@ -121,19 +121,19 @@ export class AllItemsComponent implements OnInit {
       VendorEmail:['',[Validators.required,Validators.email]],
       VendorContactNo:['',[Validators.required,Validators.pattern("([0-9]{10}$)")]],
       VendorAddress:[],
-      Status:[]
+      Status:['Active']
     });
 
     this.AddSubCategoryForm = this.formbuilder.group({
       SubCategoryName:['',[Validators.required]],
       category:[],
-      status:[]
+      status:['Active']
     });
 
     this.AddCategoryForm = this.formbuilder.group({
       CategoryName : ['',[Validators.required]],
       CategorySubCode : ['',[Validators.required]],
-      Status :[]
+      Status :['Active']
     });
 
     this.AddItemForm = this.formbuilder.group({
@@ -143,7 +143,7 @@ export class AllItemsComponent implements OnInit {
       ItemCategory:[,[Validators.required]],
       Barcodes:[,[Validators.required]],
       procedure:[],
-      ItemStatus:[],
+      ItemStatus:['Active'],
       Vendor:[],
       price:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
       size:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
@@ -808,8 +808,8 @@ export class AllItemsComponent implements OnInit {
     if(data.valid){
 
       console.log(this.imageUrl);
-
-      const byteCharacters = atob(this.imageUrl.split(',')[1]);
+      if(this.imageUrl){
+        const byteCharacters = atob(this.imageUrl.split(',')[1]);
       const byteNumbers = new Array(byteCharacters.length);
       for (let i = 0; i < byteCharacters.length; i++) {
         byteNumbers[i] = byteCharacters.charCodeAt(i);
@@ -822,6 +822,7 @@ export class AllItemsComponent implements OnInit {
       this.AddItemForm.patchValue({
         imageUrl: imageUrl
       })
+      }
       let category_value = data.value.ItemCategory;
       this.CategoryOptions_Index.forEach(element => {
         if(element.categories == category_value){
