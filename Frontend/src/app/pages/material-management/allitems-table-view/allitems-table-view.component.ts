@@ -858,6 +858,7 @@ export class AllItemsTableViewComponent {
       if (this.selected_row_data.length >= 0) {
         if (this.selected_row_data.length == 0) {
           this.showEditablefields = false;
+          this.selected_row_data_length = 0;
         }
         else {
           this.AllItemsChecked = true
@@ -936,7 +937,6 @@ export class AllItemsTableViewComponent {
       }
       case 'delete_modal':{
         this.delete_modal?.hide();
-        this.showEditablefields = false;
         break;
       }
       case 'add_tag':{

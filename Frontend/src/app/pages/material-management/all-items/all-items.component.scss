@@ -375,3 +375,9 @@ border-bottom: none !important;
      background-position: 9px !important;
      background-size: 16px 16px !important;
 }
+
+::ng-deep .ng-dropdown-panel .scroll-host
+
+{
+  background: #fff !important;
+}

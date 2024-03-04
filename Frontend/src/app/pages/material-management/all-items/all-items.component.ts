@@ -187,7 +187,7 @@ export class AllItemsComponent implements OnInit {
   }
   get TagForm() { return this.AddtagForm.controls }
 
-  imageUrl: string | ArrayBuffer | null = null;
+  imageUrl: any = null;
   showImage:boolean = false;
 
   handleImageInput(input: HTMLInputElement): void {
@@ -502,6 +502,7 @@ export class AllItemsComponent implements OnInit {
       case 'additem':{
         this.AddItemForm.reset();
         this.additem?.hide();
+        this.imageUrl = '';
         break;
       }
       case 'delete_modal':{
@@ -808,9 +809,19 @@ export class AllItemsComponent implements OnInit {
 
       console.log(this.imageUrl);
 
-      // this.AddItemForm.patchValue({
-      //   imageUrl:this.imageUrl
-      // })
+      const byteCharacters = atob(this.imageUrl.split(',')[1]);
+      const byteNumbers = new Array(byteCharacters.length);
+      for (let i = 0; i < byteCharacters.length; i++) {
+        byteNumbers[i] = byteCharacters.charCodeAt(i);
+      }
+      const byteArray = new Uint8Array(byteNumbers);
+      const blob = new Blob([byteArray], { type: 'image/png' });
+
+      const imageUrl = URL.createObjectURL(blob);
+      console.log(imageUrl);
+      this.AddItemForm.patchValue({
+        imageUrl: imageUrl
+      })
       let category_value = data.value.ItemCategory;
       this.CategoryOptions_Index.forEach(element => {
         if(element.categories == category_value){
@@ -819,39 +830,47 @@ export class AllItemsComponent implements OnInit {
           })
         }
       });
+
       let subcategory_value = data.value.subcategory;
-      this.SubcategoryOptions_Index.forEach(element => {
-        if(element.sub_category_name == subcategory_value){
-          this.AddItemForm.patchValue({
-            subcategory:element.id
-          })
-        }
-      });
-      let vendor_value = data.value.Vendor;
-      this.VendorsOption_Index.forEach(element => {
-        if(element.VendorName == vendor_value){
-          this.AddItemForm.patchValue({
-            Vendor:element.id
-          })
-        }
-      });
-
-
-      let procedure_value = data.value.procedure;
-
-      let newArray:any = [];
-      this.ProcedureOption_Index.forEach(element => {
-        procedure_value.forEach(ProcedurName => {
-          if(ProcedurName == element.procedure_name)
-          {
-            newArray.push(element.id);
-            let procedureStrings = newArray.map(num => num.toString());
+      if(this.SubcategoryOptions_Index){
+        this.SubcategoryOptions_Index.forEach(element => {
+          if(element.sub_category_name == subcategory_value){
             this.AddItemForm.patchValue({
-            procedure:procedureStrings
+              subcategory:element.id
             })
           }
         });
-      });
+      }
+
+
+      let vendor_value = data.value.Vendor;
+      if(this.VendorsOption_Index){
+        this.VendorsOption_Index.forEach(element => {
+          if(element.VendorName == vendor_value){
+            this.AddItemForm.patchValue({
+              Vendor:element.id
+            })
+          }
+        });
+      }
+
+      let procedure_value = data.value.procedure;
+      let newArray:any = [];
+      if(this.ProcedureOption_Index){
+        this.ProcedureOption_Index.forEach(element => {
+          procedure_value.forEach(ProcedurName => {
+            if(ProcedurName == element.procedure_name)
+            {
+              newArray.push(element.id);
+              let procedureStrings = newArray.map(num => num.toString());
+              this.AddItemForm.patchValue({
+              procedure:procedureStrings
+              })
+            }
+          });
+        });
+      }
+
 
       let item_status = data.value.ItemStatus;
       console.log(item_status);

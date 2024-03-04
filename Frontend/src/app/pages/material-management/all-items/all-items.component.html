@@ -6,7 +6,7 @@
           <h1 class="header_name">Overall List</h1>
         </div>
         <div class="mb-3">
-        <input class="form-control-new-sm mt-2" placeholder="Search by category,folder and item">
+        <input class="form-control-new-sm mt-2" placeholder="Search by category,folder and item" style="font-size: 0.5625rem !important;">
         </div>
         <div class="list_body" style="height: 600px;">
           <div class="row mb-3 align-items-center mx-1 pointer" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;margin-bottom: 0.6rem !important;">
@@ -717,7 +717,7 @@
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div
               *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.size.errors?.pattern">
-              Size value should not be in alphabets</div>
+              Size value must be in numbers</div>
           </div>
         </div>
         <div class="col-4">
@@ -755,7 +755,7 @@
           </div>
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.storeqty.dirty || this.AddItemForm.controls.storeqty.touched) && this.AddItemForm.controls.storeqty.errors?.pattern">
-              Store Qty should not be in alphabets</div>
+              Store Qty must be in numbers</div>
           </div>
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.storeqty.dirty || this.AddItemForm.controls.storeqty.touched) && this.AddItemForm.controls.storeqty.errors?.min">
@@ -804,7 +804,7 @@
             </div>
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.pattern">
-               Min Store Qtymust not be in alphabets</div>
+               Min Store Qty must be in numbers </div>
             </div>
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.min">
