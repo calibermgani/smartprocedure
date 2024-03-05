@@ -359,4 +359,16 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/item_clone`,payload);
   }
 
+  MoveItem(Item_id:any,category_id:any,subCategory_id:any){
+    let payload:Object = {};
+    const itemIdAsString = Item_id.map(String);
+    payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+    payload["item_id"] = itemIdAsString;
+    payload["item_category_id"] = category_id;
+    payload["item_sub_category_id"] = subCategory_id;
+    console.log(payload);
+    // return null;
+    return this.http.post(`${this.apiUrl}/items/item_move`,payload);
+  }
+
 }

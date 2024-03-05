@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, SideBarDef, ToolPanelDef } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, SelectionChangedEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
@@ -77,10 +77,11 @@ export class AllItemsTableViewComponent {
   @ViewChild('add_tag', { static: false }) add_tag: ModalDirective;
   @ViewChild('delete_modal', { static: false }) delete_modal: ModalDirective;
   @ViewChild('editItem', { static: false }) editItem?: ModalDirective;
+  @ViewChild('bulk_edit', { static: false }) bulk_edit?: ModalDirective;
 
   @Input() Updategrid: boolean = false;
   all_Items_gridData:any = [];
-  selected_row_data:any[];
+  selected_row_data:any[] = [];
   folder_structure_value:any = [];
   selected_row_data_length:any;
   showEditablefields:boolean = false;
@@ -97,9 +98,12 @@ export class AllItemsTableViewComponent {
   StoreQty:number;
   CabinetQty:number;
   AllItemsChecked:any;
+  ShowOverAlllist:boolean;
+  hideEditColumn:boolean = false;
+  DestinationValue;any;
 
 
-  columnDefs1: ColDef[] = [
+  columnMainDefs: ColDef[] = [
     {
       field: '',
       checkboxSelection: true,
@@ -230,141 +234,143 @@ export class AllItemsTableViewComponent {
     },
   ];
 
+
   public gridOptionsDailyConsumed:GridOptions = {
     suppressRowClickSelection:true,
+
   };
 
-  // public daily_consumed_columnDef: ColDef[] = [
-  //   {
-  //     field: '',
-  //     checkboxSelection: true,
-  //     resizable:false,
-  //     headerCheckboxSelection: true,
-  //     width:10,
-  //   },
-  //   {
-  //     field: 'item_number',
-  //     headerName: 'Item No',
-  //     cellRenderer: this.cellrendered.bind(this, 'item_number'),
-  //   },
-  //   {
-  //     field: 'item_name',
-  //     headerName: 'Item Name',
-  //     cellRenderer: this.cellrendered.bind(this, 'item_name'),
-  //     onCellClicked: this.CellClicked.bind(this, 'item_name')
-  //   },
-  //   {
-  //     field: 'item_category',
-  //     headerName: 'Items Category',
-  //     cellRenderer: this.cellrendered.bind(this, 'item_category')
-  //   },
-  //   {
-  //     field: 'item_description',
-  //     headerName: 'Item Description',
-  //     cellRenderer: this.cellrendered.bind(this, 'item_description')
-  //   },
-  //   {
-  //     field: 'item_procedures',
-  //     headerName: 'Procedure',
-  //     cellRenderer: this.cellrendered.bind(this, 'item_procedures')
-  //   },
-  //   {
-  //     field: 'cat_no',
-  //     headerName: 'Cat No',
-  //     cellRenderer: this.cellrendered.bind(this, 'cat_no')
-  //   },
-  //   {
-  //     field: 'lot_no',
-  //     headerName: 'Lot No',
-  //     cellRenderer: this.cellrendered.bind(this, 'lot_no')
-  //   },
-  //   {
-  //     field: 'size',
-  //     headerName: 'Size',
-  //     cellRenderer: this.cellrendered.bind(this, 'size')
-  //   },
-  //   {
-  //     field: 'item_vendor',
-  //     headerName: 'Vendor',
-  //     cellRenderer: this.cellrendered.bind(this, 'item_vendor')
-  //   },
-  //   {
-  //     field: 'price',
-  //     headerName: 'Price',
-  //     cellRenderer: this.cellrendered.bind(this, 'price')
-  //   },
-  //   {
-  //     field: 'unit',
-  //     headerName: 'Unit',
-  //     cellRenderer: this.cellrendered.bind(this, 'unit')
-  //   },
-  //   {
-  //     field: 'expired_date',
-  //     headerName: 'Expiry Date',
-  //     cellRenderer: this.cellrendered.bind(this, 'expired_date')
-  //   },
-  //   {
-  //     field: 'store_qty',
-  //     headerName: 'Store',
-  //     cellRenderer: this.cellrendered.bind(this, 'store_qty')
-  //   },
-  //   {
-  //     field: 'cabinet_qty',
-  //     headerName: 'Cabinet',
-  //     cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
-  //   },
-  //   {
-  //     field: 'min_level',
-  //     headerName: 'Min Level',
-  //     cellRenderer: this.cellrendered.bind(this, 'min_level')
-  //   },
-  //   {
-  //     field: 'tag',
-  //     headerName: 'Tags',
-  //     cellRenderer: this.cellrendered.bind(this, 'tag')
-  //   },
-  //   {
-  //     field: 'item_notes',
-  //     headerName: 'Notes',
-  //     cellRenderer: this.cellrendered.bind(this, 'item_notes')
-  //   },
-  //   {
-  //     field: 'image_url',
-  //     headerName: 'Images',
-  //     cellRenderer: this.cellrendered.bind(this, 'image_url')
-  //   },
-  //   {
-  //     field: 'item_barcode',
-  //     headerName: 'Barcodes',
-  //     cellRenderer: this.cellrendered.bind(this, 'item_barcode')
-  //   },
-  //   {
-  //     field: 'view',
-  //     width:10,
-  //     resizable:false,
-  //     pinned:"right",
-  //     cellRenderer: this.cellrendered.bind(this, 'view'),
-  //     onCellClicked: this.CellClicked.bind(this, 'view')
-  //   },
-  //   {
-  //     field: 'edit',
-  //     width:10,
-  //     resizable:false,
-  //     pinned:"right",
-  //     cellRenderer: this.cellrendered.bind(this, 'edit'),
-  //     onCellClicked: this.CellClicked.bind(this, 'edit')
-  //   },
-  //   {
-  //     field: 'delete',
-  //     width:20,
-  //     resizable:false,
-  //     pinned:"right",
-  //     cellRenderer: this.cellrendered.bind(this, 'delete'),
-  //     onCellClicked: this.CellClicked.bind(this, 'delete')
-  //   },
-  // ];
 
-  public daily_consumed_columnDef : ColDef[] = this.columnDefs1;
+  public daily_consumed_columnDef : ColDef[] = [
+    {
+      field: '',
+      checkboxSelection: true,
+      resizable:false,
+      headerCheckboxSelection: true,
+      width:10,
+    },
+    {
+      field: 'item_number',
+      headerName: 'Item No',
+      cellRenderer: 'agGroupCellRenderer',
+      // cellRenderer: this.cellrendered.bind(this, 'item_number'),
+    },
+    {
+      field: 'item_name',
+      headerName: 'Item Name',
+      cellRenderer: this.cellrendered.bind(this, 'item_name'),
+      onCellClicked: this.CellClicked.bind(this, 'item_name')
+    },
+    {
+      field: 'item_category.name',
+      headerName: 'Items Category',
+      cellRenderer: this.cellrendered.bind(this, 'item_category.name')
+    },
+    {
+      field: 'item_description',
+      headerName: 'Item Description',
+      cellRenderer: this.cellrendered.bind(this, 'item_description')
+    },
+    {
+      field: 'item_procedures.[0]?.procedure_name',
+      headerName: 'Procedure',
+      cellRenderer: this.cellrendered.bind(this, 'item_procedures.[0]?.procedure_name')
+    },
+    {
+      field: 'cat_no',
+      headerName: 'Cat No',
+      cellRenderer: this.cellrendered.bind(this, 'cat_no')
+    },
+    {
+      field: 'lot_no',
+      headerName: 'Lot No',
+      cellRenderer: this.cellrendered.bind(this, 'lot_no')
+    },
+    {
+      field: 'size',
+      headerName: 'Size',
+      cellRenderer: this.cellrendered.bind(this, 'size')
+    },
+    {
+      field: 'item_vendor.VendorName',
+      headerName: 'Vendor',
+      cellRenderer: this.cellrendered.bind(this, 'item_vendor.VendorName')
+    },
+    {
+      field: 'price',
+      headerName: 'Price',
+      cellRenderer: this.cellrendered.bind(this, 'price')
+    },
+    {
+      field: 'unit',
+      headerName: 'Unit',
+      cellRenderer: this.cellrendered.bind(this, 'unit')
+    },
+    {
+      field: 'expired_date',
+      headerName: 'Expiry Date',
+      cellRenderer: this.cellrendered.bind(this, 'expired_date')
+    },
+    {
+      field: 'store_qty',
+      headerName: 'Store',
+      cellRenderer: this.cellrendered.bind(this, 'store_qty')
+    },
+    {
+      field: 'cabinet_qty',
+      headerName: 'Cabinet',
+      cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
+    },
+    {
+      field: 'min_level',
+      headerName: 'Min Level',
+      cellRenderer: this.cellrendered.bind(this, 'min_level')
+    },
+    {
+      field: 'tag',
+      headerName: 'Tags',
+      cellRenderer: this.cellrendered.bind(this, 'tag')
+    },
+    {
+      field: 'item_notes',
+      headerName: 'Notes',
+      cellRenderer: this.cellrendered.bind(this, 'item_notes')
+    },
+    {
+      field: 'image_url',
+      headerName: 'Images',
+      cellRenderer: this.cellrendered.bind(this, 'image_url')
+    },
+    {
+      field: 'item_barcode',
+      headerName: 'Barcodes',
+      cellRenderer: this.cellrendered.bind(this, 'item_barcode')
+    },
+    {
+      field: 'view',
+      width:10,
+      resizable:false,
+      pinned:"right",
+      cellRenderer: this.cellrendered.bind(this, 'view'),
+      onCellClicked: this.CellClicked.bind(this, 'view')
+    },
+    {
+      field: 'edit',
+      width:10,
+      resizable:false,
+      pinned:"right",
+      cellRenderer: this.cellrendered.bind(this, 'edit'),
+      onCellClicked: this.CellClicked.bind(this, 'edit')
+    },
+    {
+      field: 'delete',
+      width:20,
+      resizable:false,
+      pinned:"right",
+      cellRenderer: this.cellrendered.bind(this, 'delete'),
+      onCellClicked: this.CellClicked.bind(this, 'delete')
+    },
+  ];
   public detailCellRendererParams: any = {
     detailGridOptions: {
       rowSelection: 'multiple',
@@ -372,141 +378,143 @@ export class AllItemsTableViewComponent {
       enableRangeSelection: true,
       pagination: false,
       paginationAutoPageSize: false,
-      // columnDefs:[
-      //   {
-      //     field: '',
-      //     checkboxSelection: true,
-      //     resizable:false,
-      //     headerCheckboxSelection: true,
-      //     width:10,
-      //   },
-      //   {
-      //     field: 'item_number',
-      //     headerName: 'Item No',
-      //     cellRenderer: this.cellrendered.bind(this, 'item_number'),
-      //   },
-      //   {
-      //     field: 'item_name',
-      //     headerName: 'Item Name',
-      //     cellRenderer: this.cellrendered.bind(this, 'item_name'),
-      //     onCellClicked: this.CellClicked.bind(this, 'item_name')
-      //   },
-      //   {
-      //     field: 'item_category',
-      //     headerName: 'Items Category',
-      //     cellRenderer: this.cellrendered.bind(this, 'item_category')
-      //   },
-      //   {
-      //     field: 'item_description',
-      //     headerName: 'Item Description',
-      //     cellRenderer: this.cellrendered.bind(this, 'item_description')
-      //   },
-      //   {
-      //     field: 'item_procedures',
-      //     headerName: 'Procedure',
-      //     cellRenderer: this.cellrendered.bind(this, 'item_procedures')
-      //   },
-      //   {
-      //     field: 'cat_no',
-      //     headerName: 'Cat No',
-      //     cellRenderer: this.cellrendered.bind(this, 'cat_no')
-      //   },
-      //   {
-      //     field: 'lot_no',
-      //     headerName: 'Lot No',
-      //     cellRenderer: this.cellrendered.bind(this, 'lot_no')
-      //   },
-      //   {
-      //     field: 'size',
-      //     headerName: 'Size',
-      //     cellRenderer: this.cellrendered.bind(this, 'size')
-      //   },
-      //   {
-      //     field: 'item_vendor',
-      //     headerName: 'Vendor',
-      //     cellRenderer: this.cellrendered.bind(this, 'item_vendor')
-      //   },
-      //   {
-      //     field: 'price',
-      //     headerName: 'Price',
-      //     cellRenderer: this.cellrendered.bind(this, 'price')
-      //   },
-      //   {
-      //     field: 'unit',
-      //     headerName: 'Unit',
-      //     cellRenderer: this.cellrendered.bind(this, 'unit')
-      //   },
-      //   {
-      //     field: 'expired_date',
-      //     headerName: 'Expiry Date',
-      //     cellRenderer: this.cellrendered.bind(this, 'expired_date')
-      //   },
-      //   {
-      //     field: 'store_qty',
-      //     headerName: 'Store',
-      //     cellRenderer: this.cellrendered.bind(this, 'store_qty')
-      //   },
-      //   {
-      //     field: 'cabinet_qty',
-      //     headerName: 'Cabinet',
-      //     cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
-      //   },
-      //   {
-      //     field: 'min_level',
-      //     headerName: 'Min Level',
-      //     cellRenderer: this.cellrendered.bind(this, 'min_level')
-      //   },
-      //   {
-      //     field: 'tag',
-      //     headerName: 'Tags',
-      //     cellRenderer: this.cellrendered.bind(this, 'tag')
-      //   },
-      //   {
-      //     field: 'item_notes',
-      //     headerName: 'Notes',
-      //     cellRenderer: this.cellrendered.bind(this, 'item_notes')
-      //   },
-      //   {
-      //     field: 'image_url',
-      //     headerName: 'Images',
-      //     cellRenderer: this.cellrendered.bind(this, 'image_url')
-      //   },
-      //   {
-      //     field: 'item_barcode',
-      //     headerName: 'Barcodes',
-      //     cellRenderer: this.cellrendered.bind(this, 'item_barcode')
-      //   },
-      //   {
-      //     field: 'view',
-      //     width:10,
-      //     resizable:false,
-      //     pinned:"right",
-      //     cellRenderer: this.cellrendered.bind(this, 'view'),
-      //     onCellClicked: this.CellClicked.bind(this, 'view')
-      //   },
-      //   {
-      //     field: 'edit',
-      //     width:10,
-      //     resizable:false,
-      //     pinned:"right",
-      //     cellRenderer: this.cellrendered.bind(this, 'edit'),
-      //     onCellClicked: this.CellClicked.bind(this, 'edit')
-      //   },
-      //   {
-      //     field: 'delete',
-      //     width:20,
-      //     resizable:false,
-      //     pinned:"right",
-      //     cellRenderer: this.cellrendered.bind(this, 'delete'),
-      //     onCellClicked: this.CellClicked.bind(this, 'delete')
-      //   },
-      // ],
-      columnDefs : this.columnDefs1,
+      columnDefs : [ {
+          field: '',
+          checkboxSelection: true,
+          resizable:false,
+          headerCheckboxSelection: true,
+          width:10,
+        },
+        {
+          field: 'item_number',
+          headerName: 'Item No',
+          cellRenderer: this.cellrendered.bind(this, 'item_number'),
+        },
+        {
+          field: 'item_name',
+          headerName: 'Item Name',
+          cellRenderer: this.cellrendered.bind(this, 'item_name'),
+          onCellClicked: this.CellClicked.bind(this, 'item_name')
+        },
+        {
+          field: 'item_category',
+          headerName: 'Items Category',
+          cellRenderer: this.cellrendered.bind(this, 'item_category')
+        },
+        {
+          field: 'item_description',
+          headerName: 'Item Description',
+          cellRenderer: this.cellrendered.bind(this, 'item_description')
+        },
+        {
+          field: 'item_procedures',
+          headerName: 'Procedure',
+          cellRenderer: this.cellrendered.bind(this, 'item_procedures')
+        },
+        {
+          field: 'cat_no',
+          headerName: 'Cat No',
+          cellRenderer: this.cellrendered.bind(this, 'cat_no')
+        },
+        {
+          field: 'lot_no',
+          headerName: 'Lot No',
+          cellRenderer: this.cellrendered.bind(this, 'lot_no')
+        },
+        {
+          field: 'size',
+          headerName: 'Size',
+          cellRenderer: this.cellrendered.bind(this, 'size')
+        },
+        {
+          field: 'item_vendor',
+          headerName: 'Vendor',
+          cellRenderer: this.cellrendered.bind(this, 'item_vendor')
+        },
+        {
+          field: 'price',
+          headerName: 'Price',
+          cellRenderer: this.cellrendered.bind(this, 'price')
+        },
+        {
+          field: 'unit',
+          headerName: 'Unit',
+          cellRenderer: this.cellrendered.bind(this, 'unit')
+        },
+        {
+          field: 'expired_date',
+          headerName: 'Expiry Date',
+          cellRenderer: this.cellrendered.bind(this, 'expired_date')
+        },
+        {
+          field: 'store_qty',
+          headerName: 'Store',
+          cellRenderer: this.cellrendered.bind(this, 'store_qty')
+        },
+        {
+          field: 'cabinet_qty',
+          headerName: 'Cabinet',
+          cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
+        },
+        {
+          field: 'min_level',
+          headerName: 'Min Level',
+          cellRenderer: this.cellrendered.bind(this, 'min_level')
+        },
+        {
+          field: 'tag',
+          headerName: 'Tags',
+          cellRenderer: this.cellrendered.bind(this, 'tag')
+        },
+        {
+          field: 'item_notes',
+          headerName: 'Notes',
+          cellRenderer: this.cellrendered.bind(this, 'item_notes')
+        },
+        {
+          field: 'image_url',
+          headerName: 'Images',
+          cellRenderer: this.cellrendered.bind(this, 'image_url')
+        },
+        {
+          field: 'item_barcode',
+          headerName: 'Barcodes',
+          cellRenderer: this.cellrendered.bind(this, 'item_barcode')
+        },
+        {
+          field: 'view',
+          width:10,
+          resizable:false,
+          pinned:"right",
+          headerName:'',
+          cellRenderer: this.cellrendered.bind(this, 'view'),
+          onCellClicked: this.CellClicked.bind(this, 'view')
+        },
+        {
+          field: 'edit',
+          width:10,
+          resizable:false,
+          pinned:"right",
+          headerName:'',
+          cellRenderer: this.cellrendered.bind(this, 'edit'),
+          onCellClicked: this.CellClicked.bind(this, 'edit')
+        },
+        {
+          field: 'delete',
+          width:20,
+          resizable:false,
+          headerName:'',
+          pinned:"right",
+          cellRenderer: this.cellrendered.bind(this, 'delete'),
+          onCellClicked: this.CellClicked.bind(this, 'delete')
+        },
+      ],
       defaultColDef: {
         flex: 1,
         resizable:true,
         width:100
       },
+      onSelectionChanged: this.onSelectionChangedMaster.bind(this)
     },
     getDetailRowData: (params) => {
       console.log(params);
@@ -516,6 +524,9 @@ export class AllItemsTableViewComponent {
   } as IDetailCellRendererParams<MainData, SubData>;
 
 
+  onSelectionChangedMaster(event: SelectionChangedEvent){
+    console.log(event.api.getSelectedNodes());
+  }
   constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef){
 
     this.AddItemForm = this.formbuilder.group({
@@ -528,7 +539,7 @@ export class AllItemsTableViewComponent {
       ItemStatus:[],
       Vendor:[],
       price:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
-      size:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      size:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
       sizetype:[,Validators.required],
       subcategory:[],
       storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
@@ -551,10 +562,10 @@ export class AllItemsTableViewComponent {
   }
 
   ngOnInit(): void {
-    this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
-      this.folder_structure_value = res;
-      console.log('response',this.folder_structure_value);
-    });
+    // this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
+    //   this.folder_structure_value = res;
+    //   console.log('response',this.folder_structure_value);
+    // });
   }
 
   public gridApi_1!: GridApi;
@@ -604,8 +615,10 @@ export class AllItemsTableViewComponent {
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     // arbitrarily expand a row for presentational purposes
+
     // setTimeout(() => {
-    //   params.api.getDisplayedRowAtIndex(1)!.setExpanded(true);
+    //   params.api.getDisplayedRowAtIndex(0)!.setExpanded(true);
+    //   params.api.sizeColumnsToFit()
     // }, 0);
   }
 
@@ -674,14 +687,14 @@ export class AllItemsTableViewComponent {
         return params.value;
       }
       case 'view':{
-        return `<div class="d-flex">
-        <div><i class="mdi mdi-eye-outline me-3" style="color:#855EDB;font-size:18px"></i></div></div>`
+        return `<div class="d-flex justify-content-center">
+        <div><i class="mdi mdi-eye-outline" style="color:#855EDB;font-size:18px"></i></div></div>`
       }
       case 'edit':{
-        return `<div class="d-flex"><div><i class="mdi mdi-pencil-outline me-3" style="color:#000;font-size:18px"></i></div></div>`
+        return `<div class="d-flex justify-content-center"><div><i class="mdi mdi-pencil-outline" style="color:#000;font-size:18px"></i></div></div>`
       }
       case 'delete':{
-        return `<div class="d-flex"><div><i class="mdi mdi-trash-can-outline me-3" style="color:red;font-size:18px"></i></div></div>`
+        return `<div class="d-flex justify-content-center"><div><i class="mdi mdi-trash-can-outline" style="color:red;font-size:18px"></i></div></div>`
       }
     }
   }
@@ -855,15 +868,43 @@ export class AllItemsTableViewComponent {
         this.selected_row_data.push(element.data);
       })
       console.log(this.selected_row_data);
+      console.log(this.selected_row_data.length);
       if (this.selected_row_data.length >= 0) {
         if (this.selected_row_data.length == 0) {
           this.showEditablefields = false;
           this.selected_row_data_length = 0;
+          this.hideEditColumn = false;
+          const newColumnDefs = this.columnMainDefs.map(colDef => {
+            if (colDef.field === 'edit') {
+              return { ...colDef, hide: false };
+            }
+            else if(colDef.field == 'delete'){
+              return { ...colDef, hide: false };
+            }
+            return colDef;
+          });
+          this.gridOptions1.api.setColumnDefs(newColumnDefs);
+
+          // this.gridOptions1.api.setColumnDefs(this.columnDefs2);
         }
         else {
           this.AllItemsChecked = true
           this.selected_row_data_length = this.selected_row_data.length;
-          this.showEditablefields = true;;
+          this.hideEditColumn = true;
+          // this.columnMainDefs = this.getEditColumnDef;
+          const newColumnDefs = this.columnMainDefs.map(colDef => {
+            if (colDef.field === 'edit') {
+              return { ...colDef, hide: true };
+            }
+            else if(colDef.field == 'delete'){
+              return { ...colDef, hide: true };
+            }
+            return colDef;
+          });
+          this.gridOptions1.api.setColumnDefs(newColumnDefs);
+          // this.gridOptions1.api.refreshHeader();
+          // this.gridOptions1.api.refreshCells();
+          this.showEditablefields = true;
         }
       }
     });
@@ -921,6 +962,20 @@ export class AllItemsTableViewComponent {
         this.clone_modal?.show();
         break;
       }
+      case 'move':{
+        this.getCategoryOptions();
+        this.getOverAllList();
+        this.changefolder = null;
+        this.changesubfolder = null;
+        this.SelectedMainFolderIndex = null;
+        this.SelectedSubFolderIndex = null;
+        this.move?.show();
+        break;
+      }
+      case 'bulk_edit':{
+        this.bulk_edit?.show();
+        break;
+      }
     }
   }
 
@@ -942,18 +997,25 @@ export class AllItemsTableViewComponent {
       case 'add_tag':{
         this.AddtagForm?.reset();
         this.add_tag?.hide();
-        this.showEditablefields = false;
         break;
       }
       case 'bulkupdate':{
         this.bulkupdate?.hide();
-        this.showEditablefields = false;
         break;
       }
       case 'clone_modal':{
         this.clone_modal?.hide();
-        this.showEditablefields = false;
-        this.ngAfterViewInit();
+        // this.ngAfterViewInit();
+        break;
+      }
+      case 'move':{
+        this.ShowOverAlllist = true;
+        this.DestinationValue = null;
+        this.move?.hide();
+        break;
+      }
+      case 'bulk_edit':{
+        this.bulk_edit?.hide();
         break;
       }
     }
@@ -1052,6 +1114,24 @@ export class AllItemsTableViewComponent {
     let Numdata = parseInt(data);
     if(Numdata>0)
     {this.CabinetQty = Numdata-1;}
+  }
+
+  getOverAllList(){
+    this.allServices.GetOverAllList().subscribe({
+      next:((res:any)=>{
+        if(res.status == 'Success'){
+          this.ShowOverAlllist = true;
+          console.log(res.data);
+          this.folder_structure_value = res.data;
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`Unable to get Category List`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
   }
 
   Category:any = [];
@@ -1422,6 +1502,7 @@ export class AllItemsTableViewComponent {
 
     this.allServices.CloneItem(this.selected_row_data).subscribe({
       next:((res:any)=>{
+        if(res.status=='Success'){
         this.toastr.success(`${res.message}`,'Successful',{
           positionClass: 'toast-top-center',
           timeOut:2000,
@@ -1429,6 +1510,7 @@ export class AllItemsTableViewComponent {
         this.CloseModal('clone_modal');
         this.showEditablefields = false;
         this.ngAfterViewInit();
+      }
       }),
       error:((res:any) =>{
         this.toastr.error('Something went wrong','UnSuccessful',{
@@ -1467,6 +1549,35 @@ export class AllItemsTableViewComponent {
     })
   }
 
+  MoveItemnf(){
+    console.log(this.selected_row_data);
+    let Selected_Index:any = [];
+    this.selected_row_data.forEach((element:any)=>{
+      Selected_Index.push(element.id);
+    });
+    console.log(Selected_Index);
+    this.allServices.MoveItem(Selected_Index,this.SelectedMainFolderIndex,this.SelectedSubFolderIndex).subscribe({
+      next:((res:any)=>{
+        if(res.status=='success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.CloseModal('move');
+          this.ngAfterViewInit();
+
+          this.showEditablefields = false;
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
+  }
+
   GoToNextItem(){
     console.log(this.all_Items_gridData);
     this.all_Items_gridData.forEach(element => {
@@ -1482,26 +1593,35 @@ export class AllItemsTableViewComponent {
   ChangeGrid:boolean = false;
   DisableClone:boolean = false;
   ngAfterViewInit(): void {
-    // this.http.get('http://127.0.0.1:8000/api/items/index',).subscribe((res:any)=>{
-    //   this.all_Items_gridData = res;
-    //   this.myGrid_1.api?.setRowData(this.all_Items_gridData);
-    // });
+    this.ChangeGrid = false;
     this.allServices.GetAllItemsGrid().subscribe({
       next:((res:any)=>{
         this.all_Items_gridData = res.data;
+        console.log(this.all_Items_gridData);
         if(this.all_Items_gridData.length>0)
         {
           this.all_Items_gridData.forEach((element,index:any) => {
             console.log(element.item_clones.length);
             if(element.item_clones.length>0){
               this.ChangeGrid = true;
+              let payload: Object = {};
+              payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+              this.http.post(
+                `${this.apiUrl}/items/index`, payload
+              )
+                .subscribe((res: any) => {
+                  this.DailyConsumedGridData = res.data;
+                  this.gridApi_1.deselectAll();
+                });
+                // this.gridOptionsDailyConsumed.api?.sizeColumnsToFit();
+                return;
             }
           });
           if(this.ChangeGrid == false){
+            this.columnMainDefs = this.columnMainDefs;
             this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+            this.gridApi_1.deselectAll();
           }
-
-          // this.DailyConsumedGridData = res.data;
         }
         else{
           this.myGrid_1.api?.setRowData([]);
@@ -1516,31 +1636,17 @@ export class AllItemsTableViewComponent {
     })
 
     console.log(this.ChangeGrid);
-
-    // if(this.ChangeGrid == true)
-    // {
-      let payload:Object = {};
-      payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
-      this.http.post<MainData[]>(
-        `${this.apiUrl}/items/index`,payload
-      )
-      .subscribe((res:any) => {
-        this.DailyConsumedGridData = res.data;
-      });
-    // }
-
   }
   public apiUrl: any = environment_new.apiUrl;
   DailyConsumedGridData:any = [];
   onGridReady_dailyconsumedgrid(params: GridReadyEvent) {
-    this.DisableClone = false;
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     this.gridApi_2 = params.api;
 
     this.gridApi_2.addEventListener('selectionChanged', () => {
       this.selected_row_data = [];
-      const selectedNodes = this.gridApi_2.getSelectedNodes();
+      const selectedNodes = this.gridOptionsDailyConsumed.api.getSelectedNodes();
       selectedNodes.forEach((element) => {
         this.selected_row_data.push(element.data);
       })
@@ -1585,25 +1691,88 @@ export class AllItemsTableViewComponent {
       this.MainQuantity = this.MainQuantity-1;
   }
 
-  individualIncreasequantity(data){
-    console.log(data);
-    data = data+1;
+  // individualIncreasequantity(data){
+  //   console.log(data);
+  //   data = data+1;
 
-  }
+  // }
 
-  individualDecreasequantity(data){
-    console.log(data);
-  }
+  // individualDecreasequantity(data){
+  //   console.log(data);
+  // }
 
-  go(data:any){
-    console.log(data);
-  }
 
   ngOnDestroy() {
     // Remove any references to the grid API
     this.myGrid_1 = null;
   }
 
+  OnChangeCategory(event:any){
+    let category_id:number = null;
+    if(event){
+      console.log(this.CategoryOptions_Index);
+      this.CategoryOptions_Index.forEach((element:any) => {
+        if(event == element.categories){
+          category_id = element;
+        }
+      });
+      this.allServices.GetCategory(category_id).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            this.ShowOverAlllist = false;
+            this.folder_structure_value = res.data;
+            console.log(this.folder_structure_value);
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error('Something went wrong', 'UnSuccessful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+        })
+      })
+    }
+  }
+
+  changefolder:any;
+  changesubfolder:any;
+  SelectedSubFolderIndex:number;
+  SelectedMainFolderIndex:number;
+  Selectfolder(data:any,index:any){
+    if(this.changefolder == data){
+      this.changefolder = '';
+      this.changesubfolder = '';
+      this.SelectedMainFolderIndex = null;
+    }
+    else{
+      this.changefolder = data;
+      this.changesubfolder = '';
+      this.SelectedMainFolderIndex = index.id;
+      this.SelectedSubFolderIndex = null;
+    }
+    console.log('SelectedMainFolderIndex',this.SelectedMainFolderIndex);
+    console.log('SelectedSubFolderIndex',this.SelectedSubFolderIndex)
+  }
+
+  SelectSubFolder(MainFolder:any,SubFolder:any,data:any){
+    console.log('MainFolder',MainFolder);
+    console.log('SubFolder',SubFolder);
+    if(this.changesubfolder == data){
+      this.changesubfolder = '';
+      this.changefolder = '';
+      this.SelectedMainFolderIndex = null;
+      this.SelectedSubFolderIndex = null;
+    }
+    else{
+      this.changesubfolder = data;
+      this.changefolder = MainFolder.name;
+      this.SelectedMainFolderIndex = MainFolder.id;
+      this.SelectedSubFolderIndex = SubFolder.id;
+    }
+
+    console.log('SelectedMainFolderIndex',this.SelectedMainFolderIndex);
+    console.log('SelectedSubFolderIndex',this.SelectedSubFolderIndex);
+  }
 
 //   createGroup() {
 //     this.dynamicForm = this.formbuilder.group({});

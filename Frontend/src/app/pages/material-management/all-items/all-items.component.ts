@@ -18,7 +18,6 @@ import { environment_new } from 'src/environments/environment';
 })
 export class AllItemsComponent implements OnInit {
 
-
   format_value:string[];
   folder_structure_value:any[];
   hide_Overall_list:boolean = false;
@@ -146,7 +145,7 @@ export class AllItemsComponent implements OnInit {
       ItemStatus:['Active'],
       Vendor:[],
       price:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
-      size:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      size:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
       sizetype:[,Validators.required],
       subcategory:[],
       storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
@@ -1145,5 +1144,28 @@ export class AllItemsComponent implements OnInit {
   OpenNestedAddVednor(){
     this.OpenModal('addvendor');
     this.hideOpacity_Category = true;
+  }
+
+  changefolder:any;
+  changesubfolder:any;
+  Selectfolder(data:any){
+    if(this.changefolder == data){
+      this.changefolder = '';
+      this.changesubfolder = '';
+    }
+    else{
+      this.changefolder = data;
+      this.changesubfolder = '';
+    }
+  }
+  SelectSubFolder(value:any,data:any){
+    if(this.changesubfolder == data){
+      this.changesubfolder = '';
+      this.changefolder = '';
+    }
+    else{
+      this.changesubfolder = data;
+      this.changefolder = value.name;
+    }
   }
 }

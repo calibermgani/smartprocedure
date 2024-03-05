@@ -181,3 +181,11 @@ border-bottom: none !important;
 :host ::ng-deep .ag-row-group-leaf-indent{
   margin-left: 0px !important;
 }
+
+:host ::ng-deep .ag-cell-first-right-pinned{
+  background: transparent !important;
+}
+
+// :host ::ng-deep .ag-details-row {
+//   width: 30% !important;
+// }

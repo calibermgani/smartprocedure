@@ -68,7 +68,7 @@
             <div class="">
               <label for="items_no" class="modal-label-edit">Vendor Contact No<span
                   style="color: red;">*</span></label>
-                  <input type="text" class="form-control-new" formControlName="VendorContactNo">
+                  <input type="text" class="form-control-new" formControlName="VendorContactNo" appPreventSpaces>
                   <div *ngIf="this.VendorForm.invalid" class="invalid-feedback">
                     <div
                       *ngIf="(this.VendorForm.controls.VendorContactNo.dirty || this.VendorForm.controls.VendorContactNo.touched) && this.VendorForm.controls.VendorContactNo.errors?.required">
@@ -90,7 +90,7 @@
         <div class="col-4">
           <div class="">
             <label for="size" class="modal-label-edit">Status</label>
-            <ng-select [items]="this.ItemStatus" placeholder="Choose Option" class="me-2" formControlName="Status"></ng-select>
+            <ng-select [items]="this.ItemStatus" placeholder="Choose Option" class="me-2" formControlName="Status" appPreventSpaces></ng-select>
           </div>
         </div>
       </div>

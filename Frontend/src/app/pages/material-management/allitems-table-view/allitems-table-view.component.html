@@ -18,7 +18,7 @@
         <div class="flex-grow-0 ms-auto">
           <div class="d-flex flex-row justify-centent-between align-items-center">
             <div class="me-4 pointer">
-              <h1 style="color: #fff !important;" class="mb-0" (click)="edit_modal?.show()"><i class="mdi mdi-pencil-outline me-1"
+              <h1 style="color: #fff !important;" class="mb-0" (click)="OpenModal('bulk_edit')"><i class="mdi mdi-pencil-outline me-1"
                   style="color:#fff;font-size:13px"></i>Edit</h1>
             </div>
             <div class="me-4 pointer" (click)="setalert?.show()">
@@ -27,7 +27,7 @@
             <div class="me-4 pointer" (click)="OpenModal('bulkupdate')">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg"  class="me-1" style="width: 13px;height:20px;">Update Qty</h1>
             </div>
-            <div class="me-4 pointer" (click)="move?.show()">
+            <div class="me-4 pointer" (click)="OpenModal('move')">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg" width="15px"
                   height="15px" class="me-1">Move</h1>
             </div>
@@ -47,7 +47,7 @@
         </div>
       </div>
       <div *ngIf="ChangeGrid == false">
-        <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
+        <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnMainDefs" [gridOptions]="gridOptions1" #myGrid_1
           style="width: 100%;height: 576px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
           (selectionChanged)="onSelectionChanged($event)" [sideBar]="sideBar"></ag-grid-angular>
       </div>
@@ -96,9 +96,9 @@
                 <label for="items_category" class="modal-label mb-1">Item category</label>
                 <h1 class="">{{ ViewItemData.item_category?.name ? ViewItemData.item_category?.name : '-' }}</h1>
               </div>
-              <div class="mb-3 mt-1" style="width: 100%;">
-                <label for="items_category" class="modal-label mb-1">Barcodes</label>
-                <h1 class="">{{ ViewItemData.item_barcode ? ViewItemData.item_barcode : '-' }}</h1>
+               <div class="mb-3 mt-1" style="width: 100%;">
+                <label for="items_category" class="modal-label mb-1">Sub Category</label>
+                <h1 class="">{{ ViewItemData.item_sub_category?.sub_category_name ? ViewItemData.item_sub_category?.sub_category_name : '-' }}</h1>
               </div>
             </div>
         </div>
@@ -137,22 +137,22 @@
           </div>
         </div>
         <div class="col-4">
-          <div class="mb-3">
-            <label for="items_category" class="modal-label mb-1">Sub Category</label>
-            <h1 class="">{{ ViewItemData.item_sub_category?.sub_category_name ? ViewItemData.item_sub_category?.sub_category_name : '-' }}</h1>
+          <div class="mb-3" style="width: 100%;">
+            <label for="items_category" class="modal-label mb-1">Barcodes</label>
+            <h1 class="">{{ ViewItemData.item_barcode ? ViewItemData.item_barcode : '-' }}</h1>
           </div>
         </div>
       </div>
       <div class="row m-3">
         <div class="col-4">
           <div class="mb-3">
-            <label for="items_category" class="modal-label mb-1" >Store</label>
+            <label for="items_category" class="modal-label mb-1" >Store Qty</label>
             <h1 class="">{{ ViewItemData.store_qty ? ViewItemData.store_qty : '-' }}</h1>
           </div>
         </div>
         <div class="col-4">
           <div class="mb-3">
-            <label for="items_category" class="modal-label mb-1">Cabinet</label>
+            <label for="items_category" class="modal-label mb-1">Cabinet Qty</label>
             <h1 class="">{{ ViewItemData.cabinet_qty ? ViewItemData.cabinet_qty : '-' }}</h1>
           </div>
         </div>
@@ -166,7 +166,7 @@
       <div class="row m-3">
         <div class="col-4">
           <div class="mb-3">
-            <label for="items_category" class="modal-label mb-1">Min level  </label>
+            <label for="items_category" class="modal-label mb-1">Min level Qty</label>
             <h1 class="">{{ ViewItemData.min_level ? ViewItemData.min_level : '-' }}</h1>
           </div>
         </div>
@@ -207,7 +207,7 @@
       </div>
       <div class="row m-3">
         <div class="col-12">
-          <label for="items_category" class="modal-label mb-1">Notes</label>
+          <label for="items_category" class="modal-label mb-1">Item Notes</label>
           <h1 class="">{{ ViewItemData.item_notes ? ViewItemData.item_notes : '-' }}</h1>
         </div>
       </div>
@@ -335,7 +335,7 @@
               <div class="mb-5" style="width: 100%;">
                 <label for="items_descrption" class="modal-label-edit">Item Category<span
                   style="color: red;">*</span></label>
-                <ng-select [items]="this.Category" placeholder="Select Category" formControlName="ItemCategory" (change)="OnChangeItemCategory(this.AddItemForm.controls.ItemCategory.value)"></ng-select>
+                <ng-select [items]="this.Category" placeholder="Select Category" formControlName="ItemCategory" (change)="OnChangeItemCategory(this.AddItemForm.controls.ItemCategory.value)" appPreventSpaces></ng-select>
                 <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
                   <div
                     *ngIf="(this.AddItemForm.controls.ItemCategory.dirty || this.AddItemForm.controls.ItemCategory.touched) && this.AddItemForm.controls.ItemCategory.errors?.required">
@@ -352,7 +352,7 @@
               <div class="d-flex flex-row" style="width: 100%;">
                 <div class="mb-5" style="width: 100%;">
                   <label for="lot_no" class="modal-label-edit">Sub Category</label>
-                  <ng-select [items]="this.SubCategories" placeholder="Choose option" formControlName="subcategory"></ng-select>
+                  <ng-select [items]="this.SubCategories" placeholder="Choose option" formControlName="subcategory" appPreventSpaces></ng-select>
                 </div>
                 <div class="mt-4 ms-2">
                   <button class="btn-new"
@@ -369,7 +369,7 @@
           <div class="d-flex flex-row">
             <div class="">
               <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
-              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure" multiple="true"></ng-select>
+              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure" multiple="true" appPreventSpaces></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -381,14 +381,14 @@
         <div class="col-4">
           <div class="me-4">
             <label for="items_status" class="modal-label-edit">Item Status</label>
-            <ng-select [items]="ItemStatus" placeholder="Select Status" formControlName="ItemStatus"></ng-select>
+            <ng-select [items]="ItemStatus" placeholder="Select Status" formControlName="ItemStatus" appPreventSpaces></ng-select>
           </div>
         </div>
         <div class="col-4">
           <div class="d-flex flex-row">
             <div class="" style="width: 100%;">
               <label for="items_status" class="modal-label-edit">Vendor</label>
-              <ng-select [items]="this.vendors" placeholder="Select Status" formControlName="Vendor" ></ng-select>
+              <ng-select [items]="this.vendors" placeholder="Select Status" formControlName="Vendor" appPreventSpaces></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -403,7 +403,7 @@
           <div class="">
             <label for="items_no" class="modal-label-edit">Price<span
                 style="color: red;">*</span></label>
-            <input class="form-control-new price_field riyal" type="text" style="text-align: right;" formControlName="price" step="0.01">
+            <input class="form-control-new price_field riyal" type="text" style="text-align: right;" formControlName="price" step="0.01" appPreventSpaces>
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div
                 *ngIf="(this.AddItemForm.controls.price.dirty || this.AddItemForm.controls.price.touched) && this.AddItemForm.controls.price.errors?.required">
@@ -425,8 +425,8 @@
           <div class="">
             <label for="size" class="modal-label-edit">Size<span style="color: red;">*</span></label>
             <div class="d-flex">
-              <input class="form-control-new me-2" type="text" formControlName="size">
-              <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-3" formControlName="sizetype"></ng-select>
+              <input class="form-control-new me-2" type="text" formControlName="size" appPreventSpaces>
+              <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-3" formControlName="sizetype" appPreventSpaces></ng-select>
             </div>
           </div>
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
@@ -451,7 +451,7 @@
         <div class="col-4">
           <div class="">
             <label for="notes" class="modal-label-edit">Barcodes<span style="color: red;">*</span></label>
-            <input class="form-control-new barcode_img" type="text" placeholder="scan or type" formControlName="Barcodes" minlength="2">
+            <input class="form-control-new barcode_img" type="text" placeholder="scan or type" formControlName="Barcodes" minlength="2" >
               <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
                 <div
                   *ngIf="(this.AddItemForm.controls.Barcodes.dirty || this.AddItemForm.controls.Barcodes.touched) && this.AddItemForm.controls.Barcodes.errors?.required">
@@ -472,7 +472,7 @@
             <div class="d-flex">
              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="DecreaseStoreQty(this.StoreQty)"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" style="width: 30% !important;padding-left: 0px 15px !important;text-align: center;" formControlName="storeqty" [(ngModel)]="StoreQty">
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" style="width: 30% !important;padding-left: 0px 15px !important;text-align: center;" formControlName="storeqty" [(ngModel)]="StoreQty" appPreventSpaces>
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="IncreaseStoreQty(this.StoreQty)"><i
                 class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div>
@@ -496,7 +496,7 @@
             <div class="d-flex">
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="DecreaseCabinetQty(this.CabinetQty)"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100"  style="width: 30% !important;padding: 0px 15px !important;text-align: center;" formControlName="CabinetQty" [(ngModel)]="CabinetQty">
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100"  style="width: 30% !important;padding: 0px 15px !important;text-align: center;" formControlName="CabinetQty" [(ngModel)]="CabinetQty" appPreventSpaces>
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="IncreaseCabinetQty(this.CabinetQty)"><i
                 class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div>
@@ -525,7 +525,7 @@
         <div class="col-4">
           <div class="">
             <label for="unit" class="modal-label-edit">Min store Qty<span style="color: red;">*</span></label>
-            <input class="form-control-new" type="text" formControlName="MinStoreQty">
+            <input class="form-control-new" type="text" formControlName="MinStoreQty" appPreventSpaces>
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.required">
                 Please fill the field</div>
@@ -557,13 +557,13 @@
         <div class="col-8">
           <div class="">
             <label for="items_no" class="modal-label-edit">Tags</label>
-            <ng-select [items]="Tags" formControlName="Tag"  placeholder="" [multiple]="true"></ng-select>
+            <ng-select [items]="Tags" formControlName="Tag"  placeholder="" [multiple]="true" appPreventSpaces></ng-select>
            </div>
         </div>
         <div class="col-4">
           <div class="">
             <label for="items_no" class="modal-label-edit">Unit<span style="color: red;">*</span></label>
-            <input type="text" class="form-control-new" placeholder="" formControlName="Unit">
+            <input type="text" class="form-control-new" placeholder="" formControlName="Unit" appPreventSpaces>
            </div>
            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.required">
@@ -609,57 +609,43 @@
   </div>
 </div>
 
-<div bsModal #edit_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5" [config]="{ignoreBackdropClick: true}">
+<div bsModal #bulk_edit="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:600px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
         style="background: #F3F4F8;border-radius: 8px;">
-        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Edit Modal
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Bulk Edit
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="edit_modal?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('bulk_edit')"
           style="cursor: pointer">
       </div>
-
-      <div class="row mx-2 my-2">
-        <div class="col-6">
-          <label for="items_category" class="modal-label-edit mb-1">Name</label>
-          <input type="text" class="form-control-new" placeholder="Enter the name">
-        </div>
-        <div class="col-6">
-          <label for="items_category" class="modal-label-edit mb-1" >Price</label>
-          <input type="text" class="form-control-new riyal" style="text-align: right;">
-        </div>
-      </div>
-
       <div class="row mx-2 my-2">
         <div class="col-6">
           <label for="items_category" class="modal-label-edit mb-1">More procedure</label>
          <ng-select items="" placeholder="Select Procedure"></ng-select>
         </div>
         <div class="col-6">
-          <label for="items_category" class="modal-label-edit mb-1">Min Level</label>
+          <label for="items_category" class="modal-label-edit mb-1">Quantity</label>
           <div class="d-flex justify-content-start">
             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
               class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-            <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+            <input name="demo_vertical"  type="text" class="form-control" min="0" max="100" style="width: 30% !important;">
             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
               class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
           </div>
         </div>
       </div>
-
-
       <div class="row mx-2 my-2">
         <div class="col-6">
-          <label for="items_category" class="modal-label-edit mb-1">Tags</label>
-          <input type="text" class="form-control-new" placeholder="">
+          <label for="items_category" class="modal-label-edit mb-1" >Price</label>
+          <input type="text" class="form-control-new riyal" style="text-align: right;">
         </div>
         <div class="col-6">
-          <label for="items_category" class="modal-label-edit mb-1">Quantity</label>
+          <label for="items_category" class="modal-label-edit mb-1">Min level</label>
           <div class="d-flex justify-content-start">
             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
               class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-            <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" readonly style="width: 30% !important;">
+            <input name="demo_vertical"  type="text" class="form-control" min="0" max="100" style="width: 30% !important;">
             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
               class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
           </div>
@@ -668,14 +654,21 @@
 
       <div class="row mx-2 my-2">
         <div class="col-12">
+          <label for="items_category" class="modal-label-edit mb-1">Tags</label>
+          <input type="text" class="form-control-new" placeholder="">
+        </div>
+      </div>
+
+      <div class="row mx-2 my-2">
+        <div class="col-12">
           <label for="items_category" class="modal-label-edit mb-1">Add Note</label>
-          <textarea class="form-control-new textarea-font-size">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+          <textarea class="form-control-new textarea-font-size" style="height: 80px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
         </div>
       </div>
 
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="edit_modal?.hide()">Close</button>
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('bulk_edit')">Close</button>
         <button type="button" class="btn-new" style="width: auto !important;">Update</button>
       </div>
     </div>
@@ -712,7 +705,7 @@
 
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Cancel</button>
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="setalert?.hide()">Cancel</button>
         <button type="button" class="btn-new" style="width: auto !important;">Set</button>
       </div>
     </div>
@@ -823,7 +816,7 @@
         style="background: #F3F4F8;border-radius: 8px;">
         <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Move
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="move?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('move')"
           style="cursor: pointer">
       </div>
 
@@ -831,28 +824,51 @@
         <div class="col-12 p-0">
           <div class="mt-3 pb-4" style=" border-bottom: 0.5px solid #8B8B8B;">
             <label class="modal-label-edit mb-1">Select Destination</label>
-            <ng-select items="" placeholder="Select Destination"></ng-select>
+            <ng-select [items]="this.Category" placeholder="Select Destination" (change)="OnChangeCategory($event)" appPreventSpaces [(ngModel)]="DestinationValue"></ng-select>
           </div>
 
-          <div class="row my-3 align-items-center mx-1" *ngFor="let x of folder_structure_value">
-            <div class="col-1 p-0"><img src="assets/images/files.svg" class="folder_img me-1"></div>
-            <div class="col-11 p-0">
-              <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 500 !important;">{{ x.foldername }}</h1>
-            </div>
-            <div class="ms-3 mt-1" *ngIf="x.sub">
-              <div class="row my-2" *ngFor="let y of x.sub">
-                <div class="col-1 p-0"><img src="assets/images/files.svg" class="folder_img me-1"></div>
-                <div class="col-11 p-0">
-                  <h1 class="folder_name mb-0"  style="text-wrap: nowrap;font-weight: 400 !important;">{{ y.subfoldername }}</h1>
+          <div class="" style="height: 300px;overflow-y: scroll;overflow-x: hidden;" *ngIf="ShowOverAlllist == true">
+            <!-- Multiple folder -->
+            <div class="row my-3 align-items-center mx-3" *ngFor="let x of folder_structure_value">
+              <div class="col-1 p-0"><img [src]="changefolder == x.name ? 'assets/images/selected_files.svg' : 'assets/images/files.svg'" class="folder_img me-1"></div>
+              <div class="col-11 p-0 pointer" (click)="Selectfolder(x.name,x)">
+                <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 500 !important;">{{ x.name }}</h1>
+              </div>
+              <div class="ms-3 mt-1" *ngIf="x.sub_category">
+                <div class="row align-items-center my-2" *ngFor="let y of x.sub_category;let j = index">
+                  <div class="col-1 p-0"><img [src]="changesubfolder == y.sub_category_name ? 'assets/images/selected_add_sub_category.svg' : 'assets/images/add_sub_category.svg'" class="folder_img me-1"></div>
+                  <div class="col-11 p-0 pointer" (click)="SelectSubFolder(x,y,y.sub_category_name)">
+                    <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 400 !important;">{{ y.sub_category_name }}
+                    </h1>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+            <!-- Only single Folder-->
+            <div class="" style="height: auto;overflow-y: scroll;overflow-x: hidden;" *ngIf="ShowOverAlllist == false">
+            <div class="row my-3 align-items-center mx-3">
+              <div class="col-1 p-0"><img [src]="changefolder == this.folder_structure_value.name ? 'assets/images/selected_files.svg' : 'assets/images/files.svg'" class="folder_img me-1"></div>
+              <div class="col-11 p-0 pointer" (click)="Selectfolder(this.folder_structure_value.name,this.folder_structure_value)">
+                <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 500 !important;">{{ this.folder_structure_value.name }}</h1>
+              </div>
+              <div class="ms-3 mt-1" *ngIf="this.folder_structure_value.sub_category">
+                <div class="row align-items-center my-2" *ngFor="let y of this.folder_structure_value.sub_category;let j = index">
+                  <div class="col-1 p-0"><img [src]="changesubfolder == y.sub_category_name ? 'assets/images/selected_add_sub_category.svg' : 'assets/images/add_sub_category.svg'" class="folder_img me-1"></div>
+                  <div class="col-11 p-0 pointer" (click)="SelectSubFolder(this.folder_structure_value,y,y.sub_category_name)">
+                    <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 400 !important;">{{ y.sub_category_name }}
+                    </h1>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
       </div>
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;">Close</button>
-        <button type="button" class="btn-new" style="width: auto !important;">Move</button>
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('move')">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="MoveItemnf()">Move</button>
       </div>
     </div>
   </div>

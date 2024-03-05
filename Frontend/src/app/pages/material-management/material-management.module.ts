@@ -30,6 +30,7 @@ import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-
 import { ToastrModule } from 'ngx-toastr';
 import { HistroyComponent } from './histroy/histroy.component';
 import { TrashComponent } from './trash/trash.component';
+import { PreventSpacesDirective } from './prevent-spaces.directive';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { TrashComponent } from './trash/trash.component';
     AllitemsListViewComponent,
     GridItemsDetailedViewComponent,
     HistroyComponent,
-    TrashComponent
+    TrashComponent,
+    PreventSpacesDirective
   ],
   imports: [
     CommonModule,
