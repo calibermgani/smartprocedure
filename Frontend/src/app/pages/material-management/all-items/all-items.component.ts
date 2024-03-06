@@ -28,6 +28,7 @@ export class AllItemsComponent implements OnInit {
   selectedTab_To_View:string;
   files: File[] = [];
   imageURL: any;
+  Search_AllItemstablelist:any;
   @ViewChild('additem', { static: false }) additem?: ModalDirective;
   @ViewChild('addcategory', { static: false }) addcategory?: ModalDirective;
   @ViewChild('addvendor', { static: false }) addvendor?: ModalDirective;
@@ -86,6 +87,7 @@ export class AllItemsComponent implements OnInit {
   ItemStatus:any = [];
   ReloadAllItemsGrid:boolean;
   ReloadVendorListGrid:boolean;
+  Search_OverAllList:any;
 
   constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient,private formbuilder : UntypedFormBuilder,private allServices : AllServicesService,private toastr: ToastrService,private cdr: ChangeDetectorRef) {
     this.format_value = ['KG'];
@@ -118,7 +120,7 @@ export class AllItemsComponent implements OnInit {
     this.AddVendorForm  = this.formbuilder.group({
       VendorName:['',Validators.required],
       VendorEmail:['',[Validators.required,Validators.email]],
-      VendorContactNo:['',[Validators.required,Validators.pattern("([0-9]{10}$)")]],
+      VendorContactNo:['',[Validators.required,Validators.pattern('\\d*'),Validators.minLength(10)]],
       VendorAddress:[],
       Status:['Active']
     });
@@ -148,8 +150,8 @@ export class AllItemsComponent implements OnInit {
       size:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
       sizetype:[,Validators.required],
       subcategory:[],
-      storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
-      CabinetQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
+      storeqty:[0,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      CabinetQty:[0,[Validators.pattern('\\d*'),Validators.min(0)]],
       ExpiryDate:[,[Validators.required]],
       MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CatNo:[],
@@ -167,7 +169,7 @@ export class AllItemsComponent implements OnInit {
 
     this.AllItemsGridAdvanceFilterForm = this.formbuilder.group({
       category:[],
-      Search:[],
+      ItemName:[],
       ProcedureSearch:[],
       StoreQty:[],
       CabinetQty:[],
@@ -188,23 +190,42 @@ export class AllItemsComponent implements OnInit {
 
   imageUrl: any = null;
   showImage:boolean = false;
+  result:any;
 
-  handleImageInput(input: HTMLInputElement): void {
-    const file: File | null = input?.files?.[0];
+  handleImageInput(event:any): void {
+    console.log(event.target.files[0]);
+    this.result = event.target.files[0];
+    // const file: File | null = event?.files?.[0];
 
-    if (file) {
-      const reader: FileReader = new FileReader();
-      reader.onload = (e: any) => {
-        this.imageUrl = e.target?.result;
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.readAsDataURL = (e: any) => {
+    //     this.imageUrl = e.target?.result;
+    //   };
+    //   this.showImage = true;
+    //   console.log(this.imageUrl);
+
+    //   reader.readAsDataURL(file);
+    // }
+    // const file = event.target.files[0];
+
+    // if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event2) => {
+        this.imageUrl = reader.result;
       };
       this.showImage = true;
-      reader.readAsDataURL(file);
-    }
+
   }
 
   IncreaseStoreQty(data:any){
-    let Numdata = parseInt(data);
-    this.StoreQty = Numdata+1;
+    let Numdata:any = parseInt(data);
+    if(Number.isNaN(Numdata)){
+      console.log('in');
+      Numdata = 0;
+    }
+      this.StoreQty = Numdata+1;
   }
   DecreaseStoreQty(data:any){
     let Numdata = parseInt(data);
@@ -214,6 +235,10 @@ export class AllItemsComponent implements OnInit {
 
   IncreaseCabinetQty(data:any){
     let Numdata = parseInt(data);
+    if(Number.isNaN(Numdata)){
+      console.log('in');
+      Numdata = 0;
+    }
     this.CabinetQty = Numdata+1;
   }
 
@@ -370,9 +395,22 @@ export class AllItemsComponent implements OnInit {
   }
 
 
-  hideAdvancedFilters(){
+  ShowAdvancedFilters(){
     this.resize =! this.resize;
+    if(this.resize != false){
+      this.getCategoryOptions();
+      this.getProcedures();
+      this.getTags()
+    }
     this.AllItemsGridAdvanceFilterForm.reset();
+    this.StoreQtyminValue = 0;
+    this.StoreQtymaxValue = 0;
+    this.QuantityminValue = 0;
+    this.QuantitymaxValue = 0;
+    this.PricemaxValue = 0;
+    this.PriceminValue = 0;
+    this.MinlevelMaximumValue = 0;
+    this.MinlevelMaximumValue = 0;
   }
 
 
@@ -808,20 +846,33 @@ export class AllItemsComponent implements OnInit {
 
       console.log(this.imageUrl);
       if(this.imageUrl){
-        const byteCharacters = atob(this.imageUrl.split(',')[1]);
-      const byteNumbers = new Array(byteCharacters.length);
-      for (let i = 0; i < byteCharacters.length; i++) {
-        byteNumbers[i] = byteCharacters.charCodeAt(i);
-      }
-      const byteArray = new Uint8Array(byteNumbers);
-      const blob = new Blob([byteArray], { type: 'image/png' });
+      // //   const byteCharacters = atob(this.imageUrl.split(',')[1]);
+      // // const byteNumbers = new Array(byteCharacters.length);
+      // // for (let i = 0; i < byteCharacters.length; i++) {
+      // //   byteNumbers[i] = byteCharacters.charCodeAt(i);
+      // // }
+      // // const byteArray = new Uint8Array(byteNumbers);
+      // // const blob = new Blob([byteArray], { type: 'image/png' });
 
-      const imageUrl = URL.createObjectURL(blob);
-      console.log(imageUrl);
+      // // const imageUrl = URL.createObjectURL(blob);
+      // // console.log(imageUrl);
       this.AddItemForm.patchValue({
-        imageUrl: imageUrl
+        imageUrl: this.result.size
       })
+      //   const byteCharacters = atob(this.imageUrl.split(',')[1]);
+      //   const byteNumbers = new Array(byteCharacters.length);
+      //   for (let i = 0; i < byteCharacters.length; i++) {
+      //     byteNumbers[i] = byteCharacters.charCodeAt(i);
+      //   }
+      //   const byteArray = new Uint8Array(byteNumbers);
+      //   console.log(byteNumbers);
+
+      //   const blob = new Blob([byteArray], { type: 'image/jpeg' });
+      //   console.log(blob);
       }
+
+
+
       let category_value = data.value.ItemCategory;
       this.CategoryOptions_Index.forEach(element => {
         if(element.categories == category_value){
@@ -875,12 +926,12 @@ export class AllItemsComponent implements OnInit {
       let item_status = data.value.ItemStatus;
       console.log(item_status);
 
-      if(item_status.label == 'Active'){
+      if(item_status == 'Active'){
         this.AddItemForm.patchValue({
           ItemStatus:"1"
         })
       }
-      else if(item_status.label == 'Inactive'){
+      else if(item_status == 'Inactive'){
         this.AddItemForm.patchValue({
           ItemStatus:"2"
         })
@@ -1123,11 +1174,102 @@ export class AllItemsComponent implements OnInit {
   }
 
   SearchAdvancedGridFiltes(data:any){
-    console.log(data.value);
+    // Changing category Id
+    let category_value = data.value.category;
+      this.CategoryOptions_Index.forEach(element => {
+        if(element.categories == category_value){
+          this.AllItemsGridAdvanceFilterForm.patchValue({
+            category:element.id
+          })
+        }
+      });
+
+      let procedure_value = data.value.ProcedureSearch;
+      if(this.ProcedureOption_Index){
+        this.ProcedureOption_Index.forEach(element => {
+            if(procedure_value == element.procedure_name)
+            {
+              this.AllItemsGridAdvanceFilterForm.patchValue({
+                ProcedureSearch:element.id
+              })
+            }
+        });
+      }
+
+      this.authfakeauthenticationService.PassAllItemsGridPayload(data);
+      // this.allServices.SearchAllItemsGrid(data).subscribe({
+      //   next:((res:any)=>{
+      //     if(res.status == 'Success')
+      //     {
+      //       this.authfakeauthenticationService.PassAllItemsGridPayload()
+      //     }
+      //   }),
+      //   error:((res:any)=>{
+      //     this.toastr.error('Something went wrong','UnSuccessful',{
+      //       positionClass: 'toast-top-center',
+      //       timeOut:2000,
+      //     });
+      //   })
+      // })
   }
 
   ReserAdvancedGridFilters(){
     this.AllItemsGridAdvanceFilterForm.reset();
+  }
+  ClearAdvancedFilterFields(data:any){
+    switch(data){
+      case 'category':{
+        this.AllItemsGridAdvanceFilterForm.patchValue({
+          category:''
+        })
+      }
+      case 'Search':{
+        this.AllItemsGridAdvanceFilterForm.patchValue({
+          Search:''
+        })
+      }
+      case 'ProcedureSearch':{
+        this.AllItemsGridAdvanceFilterForm.patchValue({
+          ProcedureSearch:''
+        })
+      }
+      case 'StoreQty':{
+        this.StoreQtyminValue = 0;
+        this.StoreQtymaxValue = 0;
+      }
+      case 'CabinetQty':{
+        this.QuantityminValue = 0;
+        this.QuantitymaxValue = 0;
+      }
+      case 'Price':{
+        this.PricemaxValue = 0;
+        this.PriceminValue = 0;
+      }
+      case 'MinLevel':{
+        this.MinlevelMaximumValue = 0;
+        this.MinlevelMaximumValue = 0;
+      }
+      case 'QuantityAlert':{
+        this.AllItemsGridAdvanceFilterForm.patchValue({
+          QuantityAlert:''
+        })
+      }
+      case 'Tags':{
+        this.AllItemsGridAdvanceFilterForm.patchValue({
+          Tags:''
+        })
+      }
+      case 'Barcode':{
+        this.AllItemsGridAdvanceFilterForm.patchValue({
+          Barcode:''
+        })
+      }
+      case 'Notes':{
+        this.AllItemsGridAdvanceFilterForm.patchValue({
+          Notes:''
+        })
+      }
+    }
   }
 
   hideOpacity_Category : boolean = false;
@@ -1144,6 +1286,24 @@ export class AllItemsComponent implements OnInit {
   OpenNestedAddVednor(){
     this.OpenModal('addvendor');
     this.hideOpacity_Category = true;
+  }
+
+  SearchOverAllList(data:any){
+    this.allServices.GetSearchOverAllList(data).subscribe({
+      next:((res:any)=>{
+        if(res.status == 'Success')
+        {
+          this.folder_structure_value = res.data;
+          console.log(res);
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
   }
 
   changefolder:any;
@@ -1167,5 +1327,9 @@ export class AllItemsComponent implements OnInit {
       this.changesubfolder = data;
       this.changefolder = value.name;
     }
+  }
+
+  onSearchGrid(data:any){
+    this.Search_AllItemstablelist = data;
   }
 }

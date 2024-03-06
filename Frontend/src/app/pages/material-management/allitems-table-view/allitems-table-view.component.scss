@@ -189,3 +189,8 @@ border-bottom: none !important;
 // :host ::ng-deep .ag-details-row {
 //   width: 30% !important;
 // }
+.disableItemButton{
+  opacity: 0.2;
+  cursor:not-allowed;
+  pointer-events:all !important;
+}

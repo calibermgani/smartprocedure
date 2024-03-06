@@ -21,6 +21,9 @@ export class AuthfakeauthenticationService {
     public selectedTabTypeSubject = new BehaviorSubject<String>('All Items');
     selectedTabTypeValue = this.selectedTabTypeSubject.asObservable();
 
+    public AllItemsGridPayload = new BehaviorSubject<any>('');
+    AllItemsPayload = this.AllItemsGridPayload.asObservable();
+
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -64,7 +67,10 @@ export class AuthfakeauthenticationService {
     }
 
     changeTabView_AllItems(data:any){
-      console.log('Pass Selcted tab',data);
       this.selectedTabTypeSubject.next(data);
+    }
+
+    PassAllItemsGridPayload(data:any){
+      this.AllItemsGridPayload.next(data);
     }
 }

@@ -99,6 +99,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
       // {
       //   field: '',
       //   checkboxSelection: true,
+      //   headerName:'',
       //   resizable:false,
       //   headerCheckboxSelection: true,
       //   width:10,

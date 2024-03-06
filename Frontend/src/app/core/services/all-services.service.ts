@@ -334,6 +334,13 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/categories/index`,payload);
   }
 
+  GetSearchOverAllList(data:any){
+    let payload:Object = {};
+    payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+    payload["category_search"] = data;
+    return this.http.post(`${this.apiUrl}/categories/index`,payload);
+  }
+
   GetAllItemsGrid(){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
@@ -344,6 +351,22 @@ export class AllServicesService {
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     return this.http.post(`${this.apiUrl}/vendors/index`,payload);
+  }
+
+  SearchAllItemsGrid(data){
+    let payload:Object = {};
+    payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+    payload["item_category_id"]=data.value.category;
+    payload["item_name"]=data.value.ItemName;
+    payload["item_procedure_id"]=data.value.ProcedureSearch;
+    payload["cabinet_qty"]=data.value.CabinetQty;
+    payload["price"]=data.value.Price;
+    payload["min_level"]=data.value.MinLevel;
+    payload["store_qty"]=data.value.StoreQty;
+    payload["tag"]=data.value.Tags;
+    payload["item_barcode"]=data.value.Barcode;
+    payload["item_notes"]=data.value.Notes;
+    return this.http.post(`${this.apiUrl}/items/index`,payload);
   }
 
   CloneItem(data:any){

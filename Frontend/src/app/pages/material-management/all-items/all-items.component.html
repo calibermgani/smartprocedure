@@ -6,7 +6,7 @@
           <h1 class="header_name">Overall List</h1>
         </div>
         <div class="mb-3">
-        <input class="form-control-new-sm mt-2" placeholder="Search by category,folder and item" style="font-size: 0.5625rem !important;">
+        <input class="form-control-new-sm mt-2" placeholder="Search" style="font-size: 0.5625rem !important;" [(ngModel)]="Search_OverAllList" (keyup)="SearchOverAllList(Search_OverAllList)">
         </div>
         <div class="list_body" style="height: 600px;">
           <div class="row mb-3 align-items-center mx-1 pointer" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;margin-bottom: 0.6rem !important;">
@@ -255,10 +255,10 @@
           <div class="d-flex flex-row align-items-center" style="background: #F3F4F8;border-radius: 8px;padding: 15px;">
             <div class="me-2">
               <button class="btn-new"
-                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="hideAdvancedFilters()"><i class="mdi mdi-filter-outline me-2"></i>Filter</button>
+                style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="ShowAdvancedFilters()"><i class="mdi mdi-filter-outline me-2"></i>Filter</button>
             </div>
             <div class="me-2" style="width: 20%;">
-              <input class="form-control" type="text" placeholder="Search" formControlName="SearchFilter">
+              <input class="form-control" type="text" placeholder="Search" formControlName="SearchFilter" [(ngModel)]="Search_AllItemstablelist" (keyup)="onSearchGrid(Search_AllItemstablelist)">
             </div>
             <div class="d-flex flex-row align-items-center me-2" style="width: 20%;">
               <input class="form-control" type="text" placeholder="scan or type" formControlName="BarCodeSearch"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;right: 10%;">
@@ -291,7 +291,7 @@
             <div class="col-3 mt-2" style="border: 0.5px solid #8B8B8B;border-radius: 6px; display: none;" [ngClass]="{'showAdvancedFilters':resize ==true}">
               <form [formGroup]="AllItemsGridAdvanceFilterForm">
               <div class="d-flex flex-row justify-centent-between align-items-center my-2">
-                <div (click)="hideAdvancedFilters()" class="pointer">
+                <div (click)="ShowAdvancedFilters()" class="pointer">
                  <h1 style="font-weight: 500 !important;"><img src="assets/images/back_arrow.svg" width="24px" height="24px" class="me-2">Filter</h1>
                 </div>
                 <div class="ms-auto pointer" (click)="ReserAdvancedGridFilters()">
@@ -311,7 +311,7 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Category</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('category')">Clear</h5>
                   </div>
                   <div>
                     <ng-select [items]="this.Category" placeholder="Select" formControlName="category"></ng-select>
@@ -322,10 +322,10 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Item search</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('Search')">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" placeholder="Search by item name" formControlName="Search">
+                    <input type="text" class="form-control-new" placeholder="Search by item name" formControlName="ItemName">
                   </div>
                 </div>
               </div>
@@ -333,10 +333,10 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Procedure search</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('ProcedureSearch')">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" placeholder="Search by procedure name" formControlName="ProcedureSearch">
+                    <ng-select [items]="this.Procedure" placeholder="Select Procedure" formControlName="ProcedureSearch"></ng-select>
                   </div>
                 </div>
               </div>
@@ -344,14 +344,14 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Store Qty</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('StoreQty')">Clear</h5>
                   </div>
                   <div>
                     <ngx-slider [(value)]="StoreQtyminValue" [(highValue)]="StoreQtymaxValue" [options]="options" formControlName="StoreQty"></ngx-slider>
-                    <div class="d-flex flex-row mt-2">
+                    <!-- <div class="d-flex flex-row mt-2">
                       <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="StoreQtyminValue" [ngModelOptions]="{standalone: true}">
                       <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="StoreQtymaxValue" [ngModelOptions]="{standalone: true}">
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -359,14 +359,14 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Cabinet Qty</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('CabinetQty')">Clear</h5>
                   </div>
                   <div>
                     <ngx-slider [(value)]="QuantityminValue" [(highValue)]="QuantitymaxValue" [options]="options" formControlName="CabinetQty"></ngx-slider>
-                    <div class="d-flex flex-row mt-2">
+                    <!-- <div class="d-flex flex-row mt-2">
                       <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="QuantityminValue" [ngModelOptions]="{standalone: true}">
                       <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="QuantitymaxValue" [ngModelOptions]="{standalone: true}">
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -374,14 +374,14 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Price</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('Price')">Clear</h5>
                   </div>
                   <div>
                     <ngx-slider [(value)]="PriceminValue" [(highValue)]="PricemaxValue" [options]="options" formControlName="Price"></ngx-slider>
-                    <div class="d-flex flex-row mt-2">
+                    <!-- <div class="d-flex flex-row mt-2">
                       <input type="text" class="form-control-new me-2 " placeholder="Min" [(ngModel)]="PriceminValue" [ngModelOptions]="{standalone: true}">
                       <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="PricemaxValue" [ngModelOptions]="{standalone: true}">
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -389,14 +389,14 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Min Level</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('MinLevel')">Clear</h5>
                   </div>
                   <div>
                     <ngx-slider [(value)]="MinlevelMinimumValue" [(highValue)]="MinlevelMaximumValue" [options]="options" formControlName="MinLevel"></ngx-slider>
-                    <div class="d-flex flex-row mt-2">
+                    <!-- <div class="d-flex flex-row mt-2">
                       <input type="text" class="form-control-new me-2" placeholder="Min" [(ngModel)]="MinlevelMinimumValue" [ngModelOptions]="{standalone: true}">
                       <input type="text" class="form-control-new" placeholder="Max" [(ngModel)]="MinlevelMaximumValue" [ngModelOptions]="{standalone: true}">
-                    </div>
+                    </div> -->
                   </div>
                 </div>
               </div>
@@ -404,7 +404,7 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Quantity alert<span style="font-size: 9px;color: #747474;" class="ms-1">With Qty alert setup</span></p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('QuantityAlert')">Clear</h5>
                   </div>
                   <div>
                     <ng-select [items]="" placeholder="Select" formControlName="QuantityAlert"></ng-select>
@@ -415,10 +415,11 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Tags</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('Tags')">Clear</h5>
                   </div>
                   <div>
-                    <input type="text" class="form-control-new" placeholder="Search by Tags" formControlName="Tags">
+                    <!-- <input type="text" class="form-control-new" placeholder="Search by Tags" formControlName="Tags"> -->
+                    <ng-select [items]="this.Tags" placeholder="Select Tags" formControlName="Tags"></ng-select>
                   </div>
                 </div>
               </div>
@@ -426,7 +427,7 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Barcode</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('Barcode')">Clear</h5>
                   </div>
                   <div class="d-flex flex-row align-items-center">
                     <input class="form-control-new barcode_img" type="text" placeholder="scan or type" formControlName="Barcode">
@@ -437,7 +438,7 @@
                 <div class="d-flex flex-column">
                   <div class="d-flex flex-row  align-items-center">
                     <p class="mb-1" style="font-weight: 400 !important;">Notes</p>
-                    <h5 class="ms-auto mb-1" style="color: #855EDB !important;">Clear</h5>
+                    <h5 class="ms-auto mb-1 pointer" style="color: #855EDB !important;" (click)="ClearAdvancedFilterFields('Notes')">Clear</h5>
                   </div>
                   <div>
                     <input type="text" class="form-control-new" placeholder="Search by Notes" formControlName="Notes">
@@ -453,7 +454,7 @@
             </div>
             <div class="col-9" [ngClass]="{'resizeGrid':resize ==false}">
               <div class="mt-2 me-3">
-                <app-allitems-table-view *ngIf="selectedView == 'table'" [Updategrid]="ReloadAllItemsGrid"></app-allitems-table-view>
+                <app-allitems-table-view *ngIf="selectedView == 'table'" [Updategrid]="ReloadAllItemsGrid" [SearchAllItemsGrid]="Search_AllItemstablelist"></app-allitems-table-view>
                 <app-allitems-grid-view *ngIf="selectedView == 'grid' "></app-allitems-grid-view>
                 <app-allitems-list-view *ngIf="selectedView == 'list' "></app-allitems-list-view>
               </div>
@@ -560,7 +561,7 @@
                               </div>
                           </div>
                       </label>
-                      <input  #imageInput class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput(imageInput)">
+                      <input  #imageInput class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput($event)">
                   </div>
                   <div class="avatar-lg" style="height: 9rem !important;
                   width: 16rem !important;">
@@ -1055,7 +1056,10 @@
                       Please fill the field</div>
                     <div
                       *ngIf="(AddVendorForm.controls.VendorContactNo.dirty || AddVendorForm.controls.VendorContactNo.touched) && AddVendorForm.controls.VendorContactNo.errors?.pattern">
-                      Please fill correct phone number</div>
+                      Please fill only number</div>
+                      <div
+                      *ngIf="(AddVendorForm.controls.VendorContactNo.dirty || AddVendorForm.controls.VendorContactNo.touched) && AddVendorForm.controls.VendorContactNo.errors?.minlength">
+                      Maximum length is ten</div>
                   </div>
             </div>
           </div>
