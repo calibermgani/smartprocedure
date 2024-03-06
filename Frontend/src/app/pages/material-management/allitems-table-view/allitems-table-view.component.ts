@@ -1524,21 +1524,22 @@ export class AllItemsTableViewComponent {
   disableNextPatientButton:boolean = false;
   disablePrevoiusPatientButton : boolean = false;
   GoToNextItem(data: any) {
+    this.disablePrevoiusPatientButton = false;
     for (let i = 0; i < this.all_Items_gridData.length; i++) {
       if (data.id == this.all_Items_gridData[i].id) {
         if (this.all_Items_gridData[i + 1]) {
           let procedure_values: any = [];
-          if (this.all_Items_gridData[i + 1].item_procedures.length > 0) {
+          console.log(this.all_Items_gridData[i + 1].item_procedures.length);
+          console.log(this.all_Items_gridData[i + 1]);
+          if (this.all_Items_gridData[i + 1].item_procedures.length >= 0) {
             let x = this.all_Items_gridData[i + 1].item_procedures;
             x.forEach(element => {
               procedure_values.push(element.procedure_name)
             });
           }
-
           this.ViewItemData = this.all_Items_gridData[i + 1];
           this.ViewItemData.item_procedures = procedure_values;
           console.log(this.ViewItemData);
-
           break;
         }
         else {
@@ -1549,11 +1550,12 @@ export class AllItemsTableViewComponent {
   }
 
   GoToPreviousItem(data: any) {
+    this.disableNextPatientButton = false;
     for (let i = 0; i < this.all_Items_gridData.length; i++) {
       if (data.id == this.all_Items_gridData[i].id) {
         if (this.all_Items_gridData[i - 1]) {
           let procedure_values: any = [];
-          if (this.all_Items_gridData[i - 1].item_procedures.length > 0) {
+          if (this.all_Items_gridData[i - 1].item_procedures.length >= 0) {
             let x = this.all_Items_gridData[i - 1].item_procedures;
             x.forEach(element => {
               procedure_values.push(element.procedure_name)
