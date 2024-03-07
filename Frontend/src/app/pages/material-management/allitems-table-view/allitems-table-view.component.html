@@ -112,8 +112,8 @@
       <div class="row m-3">
         <div class="col-4">
           <div class="mb-3">
-            <label for="items_category" class="modal-label mb-1">Procedure </label>
-            <h1 class="">{{ ViewItemData.item_procedures ? ViewItemData.item_procedures : '-'}}</h1>
+            <label for="items_category" class="modal-label mb-1">Procedure </label><br>
+            <span class="procedure_value" *ngFor="let x of ViewItemData.item_procedures;let i = index">{{ ViewItemData.item_procedures[i].procedure_name ? ViewItemData.item_procedures[i].procedure_name+' ' : '-'}}</span>
           </div>
         </div>
         <div class="col-4">

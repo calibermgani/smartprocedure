@@ -1197,6 +1197,7 @@ export class AllItemsComponent implements OnInit {
       }
 
       this.authfakeauthenticationService.PassAllItemsGridPayload(data);
+      this.ReserAdvancedGridFilters();
       // this.allServices.SearchAllItemsGrid(data).subscribe({
       //   next:((res:any)=>{
       //     if(res.status == 'Success')

@@ -607,16 +607,8 @@ export class AllItemsTableViewComponent {
         this.allServices.ViewItem(params.data.id).subscribe({
           next:(res:any)=>{
             if(res.status == 'Success'){
-              let procedure_values:any = [];
-              if(res.data.item_procedures.length>0)
-              {
-                let x = res.data.item_procedures;
-                x.forEach(element => {
-                  procedure_values.push(element.procedure_name)
-                });
-              }
               this.ViewItemData = res.data;
-              this.ViewItemData.item_procedures = procedure_values;
+              console.log(this.ViewItemData);
             }
           },
           error:(res:any)=>{
@@ -636,13 +628,6 @@ export class AllItemsTableViewComponent {
           next:(res:any)=>{
             if(res.status == 'Success'){
               let procedure_values:any = [];
-              if(res.data.item_procedures.length>0)
-              {
-                let x = res.data.item_procedures;
-                x.forEach(element => {
-                  procedure_values.push(element.procedure_name)
-                });
-              }
               this.ViewItemData = res.data;
               this.x= res.data.image_url;
               console.log(this.x);
@@ -654,8 +639,6 @@ export class AllItemsTableViewComponent {
               // this.y = 'data:image/jpeg;base64,' + this.x
               console.log(image);
               this.ViewItemData.image_url = image;
-
-              this.ViewItemData.item_procedures = procedure_values;
             }
           },
           error:(res:any)=>{
@@ -898,6 +881,7 @@ export class AllItemsTableViewComponent {
         this.gridApi_1.deselectAll();
         this.disableNextPatientButton = false;
         this.disablePrevoiusPatientButton = false;
+        this.ViewItemData = [];
         break;
       }
       case 'delete_modal':{
@@ -1525,20 +1509,12 @@ export class AllItemsTableViewComponent {
   disablePrevoiusPatientButton : boolean = false;
   GoToNextItem(data: any) {
     this.disablePrevoiusPatientButton = false;
-    for (let i = 0; i < this.all_Items_gridData.length; i++) {
-      if (data.id == this.all_Items_gridData[i].id) {
-        if (this.all_Items_gridData[i + 1]) {
-          let procedure_values: any = [];
-          console.log(this.all_Items_gridData[i + 1].item_procedures.length);
-          console.log(this.all_Items_gridData[i + 1]);
-          if (this.all_Items_gridData[i + 1].item_procedures.length >= 0) {
-            let x = this.all_Items_gridData[i + 1].item_procedures;
-            x.forEach(element => {
-              procedure_values.push(element.procedure_name)
-            });
-          }
-          this.ViewItemData = this.all_Items_gridData[i + 1];
-          this.ViewItemData.item_procedures = procedure_values;
+    for (let i = 0; i < this.tempGridData.length; i++) {
+      if (data.id == this.tempGridData[i].id) {
+        if (this.tempGridData[i + 1]) {
+          this.ViewItemData = this.tempGridData[i + 1];
+          console.log(this.ViewItemData.item_procedures.length);
+          console.log(this.ViewItemData);
           console.log(this.ViewItemData);
           break;
         }
@@ -1550,19 +1526,15 @@ export class AllItemsTableViewComponent {
   }
 
   GoToPreviousItem(data: any) {
+    console.log(this.tempGridData);
     this.disableNextPatientButton = false;
-    for (let i = 0; i < this.all_Items_gridData.length; i++) {
-      if (data.id == this.all_Items_gridData[i].id) {
-        if (this.all_Items_gridData[i - 1]) {
-          let procedure_values: any = [];
-          if (this.all_Items_gridData[i - 1].item_procedures.length >= 0) {
-            let x = this.all_Items_gridData[i - 1].item_procedures;
-            x.forEach(element => {
-              procedure_values.push(element.procedure_name)
-            });
-          }
-          this.ViewItemData = this.all_Items_gridData[i - 1];
-          this.ViewItemData.item_procedures = procedure_values;
+    for (let i = 0; i < this.tempGridData.length; i++) {
+      if (data.id == this.tempGridData[i].id) {
+        console.log(this.tempGridData[i-1]);
+        if (this.tempGridData[i - 1]) {
+          console.log(this.tempGridData[i - 1].item_procedures.length);
+          console.log(this.tempGridData[i - 1]);
+          this.ViewItemData = this.tempGridData[i - 1];
           break;
         }
         else {
@@ -1572,13 +1544,14 @@ export class AllItemsTableViewComponent {
     }
   }
 
+  tempGridData:any = [];
   ngAfterViewInit(): void {
     this.allServices.GetAllItemsGrid().subscribe({
       next:((res:any)=>{
         this.all_Items_gridData = res.data;
         this.myGrid_1.api?.setRowData(this.all_Items_gridData);
         console.log(this.all_Items_gridData);
-        // this.myGrid_1.api?.sizeColumnsToFit();
+        this.tempGridData = this.all_Items_gridData;
       }),
       error:((res:any)=>{
         this.toastr.error('Something went wrong', 'UnSuccessful', {
@@ -1675,6 +1648,23 @@ export class AllItemsTableViewComponent {
           this.toastr.error('Something went wrong', 'UnSuccessful', {
             positionClass: 'toast-top-center',
             timeOut: 2000,
+          });
+        })
+      })
+    }
+    else{
+      this.allServices.GetOverAllList().subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            this.ShowOverAlllist = true;
+            console.log(res.data);
+            this.folder_structure_value = res.data;
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`Unable to get Category List`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
           });
         })
       })
