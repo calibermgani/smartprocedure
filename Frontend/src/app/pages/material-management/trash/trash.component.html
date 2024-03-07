@@ -1,9 +1,97 @@
 <div class="row">
   <div class="col-12">
-    <div class="d-flex justify-content-start align-items-center mb-3 pointer" (click)="GoBackToAllItems()">
+    <div class="d-flex justify-content-start align-items-center mb-3 pointer pb-4" (click)="GoBackToAllItems()"
+      style="border-bottom: 0.5px solid #747474 !important;">
       <img src="assets/images/back_arrow.svg" class="me-2">
       <h1>Trash</h1>
     </div>
 
+    <div class="d-flex align-items-center p-2" style="background: #855EDB;border-radius: 6px;" *ngIf="ShowRestoreHeader">
+      <div><input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"></div>
+      <div class="ms-3 d-flex">
+        <div class="me-2">
+          <h1 style="color: #fff !important;font-weight: 500 !important;" class="mb-0">Deselect</h1>
+        </div>
+        <div>
+          <p style="font-family: 400 !important;color:#fff !important" class="mb-0">|&nbsp; 1 Item Selected</p>
+        </div>
+      </div>
+      <div class="ms-auto pointer" (click)="restore?.show()">
+        <h1 style="color: #fff !important;font-weight: 500 !important;"><i class="mdi mdi-restore font-size-12 me-2"
+            style="color: #fff;"></i>Restore</h1>
+      </div>
+    </div>
+    <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3"
+      *ngFor="let x of ListViewData;let i = index">
+      <div class="d-flex flex-wrap">
+        <div style="position: relative;right: 13px;">
+          <input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" style="position: relative;left: 17px;top:4px;" (click)="SelectItem()">
+          <img src="assets/images/listItems_img.png" style="width: 177px;height:86px;border-radius: 5px 0px 0px 5px;"
+            class="pointer">
+        </div>
+        <div class="d-flex flex-wrap flex-column  align-items-start me-5 my-1 justify-content-around">
+          <div class="d-flex flex-wrap my-2">
+            <p class="mb-0">{{ x.item_name }}</p>
+          </div>
+          <div class="d-flex flex-wrap align-items-center mb-2">
+            <h5 class="mb-0">MRN :</h5>
+            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.mrn }}
+              &nbsp;|</h5>
+            <h5 class="mb-0 ms-2" style="color: #D62424 !important;">Expiry :</h5>
+            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.date }}
+            </h5>
+          </div>
+          <div class="d-flex flex-wrap align-items-center mb-2">
+            <h5 class="mb-0">Procedure :</h5>
+            <h5 style="font-weight: 400 !important;" class="mb-0 ms-1">{{ x.procedure_value }}</h5>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap flex-column justify-centent-between ms-5 mt-2"
+          style="width: 500px;margin-left: 180px !important;">
+          <div class="mb-2">
+            <p class="mb-1 mt-1">Deleted</p>
+            <h5 style="color: #1B1B1B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0">{{
+              x.deleted
+              }}</h5>
+          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto">
+          <div class="dropdown me-2 ms-auto">
+            <i class="mdi mdi-restore font-size-12"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #restore="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:300px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Restore
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="restore?.hide()"
+          style="cursor: pointer">
+      </div>
+      <div class="d-flex flex-column align-items-center mt-2">
+        <div class="mb-3">
+          <img src="assets/images/restore.svg" style="width: 40px;;height: 40px;">
+        </div>
+        <div class="mb-2">
+          <h1>Do you want to restore folder?</h1>
+        </div>
+        <div class="mb-3">
+          <h4 style="color: #855EDB !important;">Plain cotton bandage roll</h4>
+        </div>
+      </div>
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="restore?.hide()">Go Back</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="restore?.hide()">Yes, continue</button>
+      </div>
+    </div>
   </div>
 </div>

@@ -1,9 +1,43 @@
 <div class="row">
   <div class="col-12">
-    <div class="d-flex justify-content-start align-items-center mb-3 pointer" (click)="GoBackToAllItems()">
+    <div class="d-flex justify-content-start align-items-center mb-3 pointer pb-4" (click)="GoBackToAllItems()"
+      style="border-bottom: 0.5px solid #747474 !important;">
       <img src="assets/images/back_arrow.svg" class="me-2">
       <h1>Histroy</h1>
     </div>
 
+    <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3"
+      *ngFor="let x of ListViewData;let i = index">
+      <div class="d-flex flex-wrap">
+        <div style="position: relative;right: 13px;">
+          <!-- <input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+            (click)="selectgrid()" style="position: relative;left: 17px;top:4px;"> -->
+          <img src="assets/images/listItems_img.png" style="width: 177px;height:86px;border-radius: 5px 0px 0px 5px;"
+            class="pointer">
+        </div>
+        <div class="d-flex flex-wrap flex-column  align-items-start me-5">
+          <div class="d-flex flex-wrap my-2">
+            <p class="mb-0">{{ x.item_name }}</p>
+          </div>
+          <div class="d-flex flex-wrap align-items-center mb-2">
+            <h5 class="mb-0">Date :</h5>
+            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.date }}
+              &nbsp;</h5>
+          </div>
+          <div class="d-flex flex-wrap align-items-center mb-2">
+            <h5 class="mb-0">Activity type :</h5>
+            <h5 style="font-weight: 400 !important;" class="mb-0 ms-2">{{ x.activity_type }}</h5>
+          </div>
+        </div>
+        <div class="d-flex flex-wrap flex-column justify-centent-between ms-5 mt-2" style="width: 700px;">
+          <div class="mb-2">
+            <p class="mb-1">Activity</p>
+            <h5 style="color: #1B1B1B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0">{{
+              x.activity
+              }}</h5>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

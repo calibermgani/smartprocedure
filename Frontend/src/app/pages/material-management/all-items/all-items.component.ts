@@ -1200,60 +1200,84 @@ export class AllItemsComponent implements OnInit {
   }
 
   ReserAdvancedGridFilters(){
-    this.AllItemsGridAdvanceFilterForm.reset();
+    this.AllItemsGridAdvanceFilterForm.patchValue({
+      category:[],
+      ItemName:[],
+      ProcedureSearch:[],
+      Price:[],
+      Tags:[],
+      Barcode:[],
+      Notes:[]
+    });
+    this.ClearAdvancedFilterFields('StoreQty');
+    this.ClearAdvancedFilterFields('CabinetQty');
+    this.ClearAdvancedFilterFields('Price');
+    this.ClearAdvancedFilterFields('MinLevel');
   }
+
   ClearAdvancedFilterFields(data:any){
     switch(data){
       case 'category':{
         this.AllItemsGridAdvanceFilterForm.patchValue({
           category:''
         })
+        break;
       }
       case 'Search':{
         this.AllItemsGridAdvanceFilterForm.patchValue({
           Search:''
         })
+        break;
       }
       case 'ProcedureSearch':{
         this.AllItemsGridAdvanceFilterForm.patchValue({
           ProcedureSearch:''
         })
+        break;
       }
       case 'StoreQty':{
         this.StoreQtyminValue = 0;
         this.StoreQtymaxValue = 0;
+        break;
       }
       case 'CabinetQty':{
         this.QuantityminValue = 0;
         this.QuantitymaxValue = 0;
+        break;
       }
       case 'Price':{
         this.PricemaxValue = 0;
         this.PriceminValue = 0;
+        break;
       }
       case 'MinLevel':{
         this.MinlevelMaximumValue = 0;
         this.MinlevelMaximumValue = 0;
+        break;
       }
       case 'QuantityAlert':{
         this.AllItemsGridAdvanceFilterForm.patchValue({
           QuantityAlert:''
         })
+        break;
       }
       case 'Tags':{
         this.AllItemsGridAdvanceFilterForm.patchValue({
           Tags:''
         })
+        break;
       }
       case 'Barcode':{
         this.AllItemsGridAdvanceFilterForm.patchValue({
           Barcode:''
         })
+        break;
       }
       case 'Notes':{
         this.AllItemsGridAdvanceFilterForm.patchValue({
           Notes:''
         })
+        break;
       }
     }
   }

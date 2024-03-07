@@ -146,6 +146,11 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'item_category.name')
     },
     {
+      field: 'item_sub_category.sub_category_name',
+      headerName: 'Items Sub Category',
+      cellRenderer: this.cellrendered.bind(this, 'item_sub_category.sub_category_name')
+    },
+    {
       field: 'item_description',
       headerName: 'Item Description',
       cellRenderer: this.cellrendered.bind(this, 'item_description')
@@ -301,6 +306,11 @@ export class AllItemsTableViewComponent {
           cellRenderer: this.cellrendered.bind(this, 'item_category.name')
         },
         {
+          field: 'item_sub_category.sub_category_name',
+          headerName: 'Items Sub Category',
+          cellRenderer: this.cellrendered.bind(this, 'item_sub_category.sub_category_name')
+        },
+        {
           field: 'item_description',
           headerName: 'Item Description',
           cellRenderer: this.cellrendered.bind(this, 'item_description')
@@ -421,11 +431,12 @@ export class AllItemsTableViewComponent {
 
 
   onSelectionChangedMaster(event: SelectionChangedEvent){
-    console.log(event);
+    const selectedNodes = event.api.getSelectedNodes();
+    console.log(selectedNodes);
+
   }
 
   constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef,private authfakeauthenticationService : AuthfakeauthenticationService){
-
     this.newItemEvent.next(this.myGrid_1);
     this.AddItemForm = this.formbuilder.group({
       imageURL:[''],
@@ -533,6 +544,9 @@ export class AllItemsTableViewComponent {
       }
       case 'item_category.name': {
         return params.value;
+      }
+      case 'item_sub_category.sub_category_name': {
+        return params.value ? params.value : '-Nil-';
       }
       case 'item_description': {
         return params.value;
@@ -755,17 +769,20 @@ export class AllItemsTableViewComponent {
     }
   }
 
-  onSelectionChanged(params:any){
-    // console.log(params);
- }
+  cloneIndex:any = [];
+  onSelectionChanged(event:SelectionChangedEvent){
+    const selectedNodes = event.api.getSelectedNodes();
+    this.detailCellRendererParams
+   }
 
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-
+    let cloneIndex:any = [];
     this.gridApi_1.addEventListener('selectionChanged', () => {
       this.selected_row_data = [];
       const selectedNodes = this.gridApi_1.getSelectedNodes();
+
       selectedNodes.forEach((element) => {
         this.selected_row_data.push(element.data);
       })
@@ -789,7 +806,6 @@ export class AllItemsTableViewComponent {
         else {
           this.AllItemsChecked = true
           this.selected_row_data_length = this.selected_row_data.length;
-          // this.columnMainDefs = this.getEditColumnDef;
           const newColumnDefs = this.columnMainDefs.map(colDef => {
             if (colDef.field === 'edit') {
               return { ...colDef, hide: true };
