@@ -1195,23 +1195,8 @@ export class AllItemsComponent implements OnInit {
             }
         });
       }
-
       this.authfakeauthenticationService.PassAllItemsGridPayload(data);
       this.ReserAdvancedGridFilters();
-      // this.allServices.SearchAllItemsGrid(data).subscribe({
-      //   next:((res:any)=>{
-      //     if(res.status == 'Success')
-      //     {
-      //       this.authfakeauthenticationService.PassAllItemsGridPayload()
-      //     }
-      //   }),
-      //   error:((res:any)=>{
-      //     this.toastr.error('Something went wrong','UnSuccessful',{
-      //       positionClass: 'toast-top-center',
-      //       timeOut:2000,
-      //     });
-      //   })
-      // })
   }
 
   ReserAdvancedGridFilters(){

@@ -90,6 +90,7 @@ export class AllItemsTableViewComponent {
   AddItemForm : UntypedFormGroup;
   AddtagForm:UntypedFormGroup;
   dynamicForm:UntypedFormGroup;
+  bulkEditForm : UntypedFormGroup;
   files: File[] = [];
   imageURL: any;
   ItemStatus:any = [
@@ -455,6 +456,14 @@ export class AllItemsTableViewComponent {
       Tags:['',Validators.required],
     });
 
+    this.bulkEditForm = this.formbuilder.group({
+      procedure:[''],
+      storeQuantity:[''],
+      price:[''],
+      minLevel:[''],
+      tags:[''],
+      notes:['']
+    })
     // this.dynamicForm = this.createGroup();
   }
 
@@ -898,6 +907,9 @@ export class AllItemsTableViewComponent {
       case 'bulkupdate':{
         this.bulkupdate?.hide();
         this.gridApi_1.deselectAll();
+        this.bulkEditForm.reset();
+        this.quantity_bulkEdit = 0;
+        this.minlevel_bulkEdit = 0;
         break;
       }
       case 'clone_modal':{
@@ -916,6 +928,7 @@ export class AllItemsTableViewComponent {
       case 'bulk_edit':{
         this.bulk_edit?.hide();
         this.gridApi_1.deselectAll();
+        this.bulkEditForm.reset();
         break;
       }
     }
@@ -1125,7 +1138,7 @@ export class AllItemsTableViewComponent {
           res.tags.forEach((element:any) => {
             this.Tags.push(element.tag_name);
           });
-          console.log('Vendors',this.Tags);
+          console.log('Tags',this.Tags);
         }
         else{
           this.Tags = ['No Vendors to show'];
@@ -1324,7 +1337,6 @@ export class AllItemsTableViewComponent {
 
       let procedure_value = data.value.procedure;
       console.log(procedure_value);
-
       let newArray:any = [];
       this.ProcedureOption_Index.forEach(element => {
         procedure_value.forEach(ProcedurName => {
@@ -1420,8 +1432,63 @@ export class AllItemsTableViewComponent {
     }
   }
 
-  BulkUpdate(){
+  BulkUpdate(data:any){
+    console.log(this.selected_row_data);
+    let SelectedIndex :any[] = [];
+    let SelectedindexStrings : any;
+    let procedureStrings :any = [];
+    this.selected_row_data.forEach((element:any)=>{
+      SelectedIndex.push(element.id);
+    });
+    SelectedindexStrings = SelectedIndex.map(num => num.toString());
+    console.log(SelectedindexStrings);
 
+    let procedure_value = data.value.procedure;
+    console.log(procedure_value);
+    if (procedure_value) {
+      let newArray: any = [];
+      this.ProcedureOption_Index.forEach(element => {
+        procedure_value.forEach(ProcedureName => {
+          if (ProcedureName == element.procedure_name) {
+            newArray.push(element.id);
+            procedureStrings = newArray.map(num => num.toString());
+          }
+        });
+      });
+      this.bulkEditForm.patchValue({
+        procedure: procedureStrings
+      })
+    }
+    else {
+      this.bulkEditForm.patchValue({
+        procedure: []
+      })
+    }
+
+    let tagValue = data.value.tags;
+    if(tagValue == ""){
+      this.bulkEditForm.patchValue({
+        tags:[]
+      })
+    }
+      this.allServices.BulkUpdate(SelectedindexStrings,this.bulkEditForm).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('bulk_edit');
+            this.ngAfterViewInit();
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error('Something went wrong','UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      })
   }
 
   CloneItem(){
@@ -1504,6 +1571,7 @@ export class AllItemsTableViewComponent {
       })
     })
   }
+
 
   disableNextPatientButton:boolean = false;
   disablePrevoiusPatientButton : boolean = false;

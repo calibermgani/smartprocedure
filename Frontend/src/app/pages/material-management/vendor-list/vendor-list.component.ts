@@ -329,7 +329,13 @@ export class VendorListComponent implements OnInit {
           timeOut:2000,
         })
       ])
-    })
+    });
+  }
+
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.myGrid_1.api?.sizeColumnsToFit();
+    }, 1000);
   }
 
   onSearch(){

@@ -625,17 +625,18 @@
         <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('bulk_edit')"
           style="cursor: pointer">
       </div>
+      <form [formGroup]="bulkEditForm">
       <div class="row mx-2 my-2">
         <div class="col-6">
-          <label for="items_category" class="modal-label-edit mb-1">More procedure</label>
-         <ng-select [items]="this.Procedure" placeholder="Select Procedure"></ng-select>
+          <label for="items_category" class="modal-label-edit mb-1">Select procedure</label>
+         <ng-select [items]="this.Procedure" placeholder="Select Procedure" formControlName="procedure" multiple="true"></ng-select>
         </div>
         <div class="col-6">
           <label for="items_category" class="modal-label-edit mb-1">Store Quantity</label>
           <div class="d-flex justify-content-start">
             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="DecreaseQuantityQty_bulkEdit(quantity_bulkEdit)"><i
               class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-            <input name="demo_vertical"  type="text" class="form-control" min="0" max="100" style="width: 30% !important;text-align: center;" [(ngModel)]="quantity_bulkEdit">
+            <input name="demo_vertical"  type="text" class="form-control" min="0" max="100" style="width: 30% !important;text-align: center;" [(ngModel)]="quantity_bulkEdit" formControlName="storeQuantity">
             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="IncreaseQuantityQty_bulkEdit(quantity_bulkEdit)"><i
               class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
           </div>
@@ -644,14 +645,14 @@
       <div class="row mx-2 my-2">
         <div class="col-6">
           <label for="items_category" class="modal-label-edit mb-1" >Price</label>
-          <input type="text" class="form-control-new riyal" style="text-align: right;">
+          <input type="text" class="form-control-new riyal" style="text-align: right;" formControlName="price">
         </div>
         <div class="col-6">
           <label for="items_category" class="modal-label-edit mb-1">Min level</label>
           <div class="d-flex justify-content-start">
             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="DecreaseMinlevelQty_bulkEdit(minlevel_bulkEdit)"><i
               class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-            <input name="demo_vertical"  type="text" class="form-control" min="0" max="100" style="width: 30% !important;text-align: center;" [(ngModel)]="minlevel_bulkEdit">
+            <input name="demo_vertical"  type="text" class="form-control" min="0" max="100" style="width: 30% !important;text-align: center;" [(ngModel)]="minlevel_bulkEdit" formControlName="minLevel">
             <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="IncreaseMinlevelQty_bulkEdit(minlevel_bulkEdit)"><i
               class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
           </div>
@@ -661,22 +662,23 @@
       <div class="row mx-2 my-2">
         <div class="col-12">
           <label for="items_category" class="modal-label-edit mb-1">Tags</label>
-          <ng-select [items]="this.Tags" placeholder="Select Tags" multiple="true"></ng-select>
+          <ng-select [items]="this.Tags" placeholder="Select Tags" multiple="true" formControlName="tags"></ng-select>
         </div>
       </div>
 
       <div class="row mx-2 my-2">
         <div class="col-12">
           <label for="items_category" class="modal-label-edit mb-1">Add Note</label>
-          <textarea class="form-control-new textarea-font-size" style="height: 80px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua Lorem ipsum dolor sit amet, consectetur adipiscing elit.</textarea>
+          <textarea class="form-control-new textarea-font-size" style="height: 80px;" formControlName="notes"></textarea>
         </div>
       </div>
 
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
           style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('bulk_edit')">Close</button>
-        <button type="button" class="btn-new" style="width: auto !important;">Update</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="BulkUpdate(this.bulkEditForm)">Update</button>
       </div>
+    </form>
     </div>
   </div>
 </div>

@@ -461,9 +461,9 @@
             </div>
           </div>
         </div>
-        <!-- <div [ngClass]="selectedTab_To_View == 'All Items' ? 'tab-pane active show': 'tab-pane'" id="allitems" role="tabpanel" *ngIf="overallview == false">
+        <div [ngClass]="selectedTab_To_View == 'All Items' ? 'tab-pane active show': 'tab-pane'" id="allitems" role="tabpanel" *ngIf="overallview == false">
             <app-grid-items-detailed-view></app-grid-items-detailed-view>
-        </div> -->
+        </div>
         <div  [ngClass]="selectedTab_To_View == 'Vendor list' ? 'tab-pane active show': 'tab-pane'"  id="vendor_list" role="tabpanel">
           <app-vendor-list *ngIf="enableTab=='Vendor list'" [Updategrid]="ReloadVendorListGrid"></app-vendor-list>
         </div>

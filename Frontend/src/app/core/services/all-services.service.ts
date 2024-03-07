@@ -161,6 +161,21 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/update`,payload);
   }
 
+  BulkUpdate(Item_id:any,data:any){
+    let payload:Object = {};
+    payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+    payload["item_id"] = Item_id;
+    payload["item_procedure_id"] = data.value.procedure;
+    payload["tags"] = data.value.tags;
+    payload["price"] = data.value.price;
+    payload["store_qty"] = data.value.storeQuantity;
+    payload["min_level"] = data.value.minLevel;
+    payload["item_notes"] = data.value.notes;
+    console.log(payload);
+    // return null;
+    return this.http.post(`${this.apiUrl}/items/item_bulk_edit`,payload);
+  }
+
   ViewItem(data:any){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
