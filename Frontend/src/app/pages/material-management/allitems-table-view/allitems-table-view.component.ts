@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { ChangeDetectorRef, Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, FirstDataRenderedEvent, GetRowIdFunc, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, IsRowMaster, SelectionChangedEvent, SideBarDef, ToolPanelDef, ValueFormatterParams } from 'ag-grid-community';
@@ -281,7 +281,6 @@ export class AllItemsTableViewComponent {
       enableRangeSelection: true,
       pagination: false,
       paginationAutoPageSize: false,
-
       columnDefs : [ {
           field: '',
           checkboxSelection: true,
@@ -436,7 +435,7 @@ export class AllItemsTableViewComponent {
 
   }
 
-  constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef,private authfakeauthenticationService : AuthfakeauthenticationService){
+  constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef,private authfakeauthenticationService : AuthfakeauthenticationService,private elementRef: ElementRef){
     this.newItemEvent.next(this.myGrid_1);
     this.AddItemForm = this.formbuilder.group({
       imageURL:[''],
@@ -475,7 +474,7 @@ export class AllItemsTableViewComponent {
       tags:[''],
       notes:['']
     })
-    // this.dynamicForm = this.createGroup();
+    this.dynamicForm = this.createGroup();
   }
 
   ngOnInit(): void {
@@ -867,7 +866,7 @@ export class AllItemsTableViewComponent {
         this.bulkupdate?.show();
         this.guidelines = this.selected_row_data;
         console.log(this.guidelines);
-        // this.createGroup();
+        this.createGroup();
         break;
       }
        case 'clone_modal':{
@@ -1027,7 +1026,9 @@ export class AllItemsTableViewComponent {
 
   IncreaseStoreQty(data:any){
     let Numdata = parseInt(data);
-    this.StoreQty = Numdata+1;
+    if(Numdata>0){
+      this.StoreQty = Numdata+1;
+    }
   }
   DecreaseStoreQty(data:any){
     let Numdata = parseInt(data);
@@ -1049,7 +1050,11 @@ export class AllItemsTableViewComponent {
   quantity_bulkEdit:number = 0;
   IncreaseQuantityQty_bulkEdit(data:any){
     let Numdata = parseInt(data);
-    this.quantity_bulkEdit = Numdata+1;
+    if(Numdata>0)
+    {this.quantity_bulkEdit = Numdata+1;}
+    else{
+      this.quantity_bulkEdit = 1;
+    }
   }
   DecreaseQuantityQty_bulkEdit(data:any){
     let Numdata = parseInt(data);
@@ -1061,7 +1066,11 @@ export class AllItemsTableViewComponent {
   minlevel_bulkEdit:number = 0;
   IncreaseMinlevelQty_bulkEdit(data:any){
     let Numdata = parseInt(data);
-    this.minlevel_bulkEdit = Numdata+1;
+    if(Numdata>0)
+    {this.minlevel_bulkEdit = Numdata+1;}
+    else{
+      this.minlevel_bulkEdit = 1;
+    }
   }
   DecreaseMinlevelQty_bulkEdit(data:any){
     let Numdata = parseInt(data);
@@ -1686,7 +1695,7 @@ export class AllItemsTableViewComponent {
   IncreaseQuantity(){
     if(this.MainQuantity == null)
     {
-      this,this.MainQuantity = 0;
+      this.MainQuantity = 0;
     }
       this.MainQuantity = this.MainQuantity+1;
   }
@@ -1795,10 +1804,15 @@ export class AllItemsTableViewComponent {
     console.log('SelectedSubFolderIndex',this.SelectedSubFolderIndex);
   }
 
-//   createGroup() {
-//     this.dynamicForm = this.formbuilder.group({});
-//     this.selected_row_data.forEach(control => this.dynamicForm.addControl(control.item_name, this.formbuilder.control('')));
-// console.log(this.dynamicForm.controls);
-//     return this.dynamicForm;
-//   }
+  createGroup() {
+    this.dynamicForm = this.formbuilder.group({});
+    this.selected_row_data.forEach(control => this.dynamicForm.addControl(control.item_name, this.formbuilder.control('')));
+console.log(this.dynamicForm.controls);
+    return this.dynamicForm;
+  }
+
+show(){
+  console.log(this.dynamicForm.value);
+}
+
 }

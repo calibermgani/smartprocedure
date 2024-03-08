@@ -959,7 +959,7 @@ export class AllItemsComponent implements OnInit {
             positionClass: 'toast-top-center',
             timeOut:2000,
           });
-          this.CloseModal('additem')
+          this.AddItemForm.reset();
         }
       })
     }

@@ -89,7 +89,10 @@ export class AllServicesService {
   }
 
   Additemfn(data:any ){
-    let payload:Object = {};
+    let payload:any = {};
+    console.log(data.value);
+    let x = data.value.item_image;
+    console.log(x);
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["item_number"] = data.value.ItemNumber;
     payload["item_name"] = data.value.ItemName;;
@@ -119,8 +122,13 @@ export class AllServicesService {
     payload["item_description"] = data.value.Itemdescription;
     payload["item_notes"] = data.value.Itemnotes;
     payload["tag"] = data.value.Tags;
-    payload["image_url"] = data.value.imageUrl;
-    payload["created_by"]='1'; data.value.ItemNumber;
+    let formData = new FormData();
+    formData.append('item_image', x);
+    payload["item_image"] = formData.get('item_image');
+    payload["created_by"]='1';
+    console.log(payload);
+    console.log(formData.get('item_image'));
+    // return null;
     return this.http.post(`${this.apiUrl}/items/store`,payload);
   }
 
