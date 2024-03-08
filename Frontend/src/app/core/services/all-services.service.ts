@@ -129,7 +129,7 @@ export class AllServicesService {
     console.log(payload);
     console.log(formData.get('item_image'));
     // return null;
-    return this.http.post(`${this.apiUrl}/items/store`,payload);
+return this.http.post(`${this.apiUrl}/items/store`,payload);
   }
 
   UpdateItemfn(item_id:any,data:any){

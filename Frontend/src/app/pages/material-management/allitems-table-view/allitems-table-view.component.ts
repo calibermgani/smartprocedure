@@ -1263,65 +1263,65 @@ export class AllItemsTableViewComponent {
   }
 
 
-  AddItemfn(data:any){
-    if(data.valid){
-      let category_value = data.value.ItemCategory;
-      this.CategoryOptions_Index.forEach(element => {
-        if(element.categories == category_value){
-          this.AddItemForm.patchValue({
-            ItemCategory:element.id
-          })
-        }
-      });
-      let subcategory_value = data.value.subcategory;
-      this.SubcategoryOptions_Index.forEach(element => {
-        if(element.sub_category_name == subcategory_value){
-          this.AddItemForm.patchValue({
-            subcategory:element.id
-          })
-        }
-      });
-      let vendor_value = data.value.Vendor;
-      this.VendorsOption_Index.forEach(element => {
-        if(element.VendorName == vendor_value){
-          this.AddItemForm.patchValue({
-            Vendor:element.id
-          })
-        }
-      });
+  // AddItemfn(data:any){
+  //   if(data.valid){
+  //     let category_value = data.value.ItemCategory;
+  //     this.CategoryOptions_Index.forEach(element => {
+  //       if(element.categories == category_value){
+  //         this.AddItemForm.patchValue({
+  //           ItemCategory:element.id
+  //         })
+  //       }
+  //     });
+  //     let subcategory_value = data.value.subcategory;
+  //     this.SubcategoryOptions_Index.forEach(element => {
+  //       if(element.sub_category_name == subcategory_value){
+  //         this.AddItemForm.patchValue({
+  //           subcategory:element.id
+  //         })
+  //       }
+  //     });
+  //     let vendor_value = data.value.Vendor;
+  //     this.VendorsOption_Index.forEach(element => {
+  //       if(element.VendorName == vendor_value){
+  //         this.AddItemForm.patchValue({
+  //           Vendor:element.id
+  //         })
+  //       }
+  //     });
 
-      let item_status = data.value.ItemStatus;
-      if(item_status.label == 'Active'){
-        this.AddItemForm.patchValue({
-          ItemStatus:1
-        })
-      }
-      else if(item_status.label == 'Inactive'){
-        this.AddItemForm.patchValue({
-          ItemStatus:2
-        })
-      }
+  //     let item_status = data.value.ItemStatus;
+  //     if(item_status.label == 'Active'){
+  //       this.AddItemForm.patchValue({
+  //         ItemStatus:1
+  //       })
+  //     }
+  //     else if(item_status.label == 'Inactive'){
+  //       this.AddItemForm.patchValue({
+  //         ItemStatus:2
+  //       })
+  //     }
 
-      console.log(data.value);
-      this.allServices.Additemfn(data).subscribe({
-        next:(res:any)=>{
-          if(res.status=='Success'){
-            this.toastr.success(`${res.message}`,'Successful',{
-              positionClass: 'toast-top-center',
-              timeOut:2000,
-            });
-            this.CloseModal('additem');
-          }
-        },
-        error:(res)=>{
-          this.toastr.error(`${res}`,'UnSuccessful',{
-            positionClass: 'toast-top-center',
-            timeOut:2000,
-          });
-        }
-      })
-    }
-  }
+  //     console.log(data.value);
+  //     this.allServices.Additemfn(data).subscribe({
+  //       next:(res:any)=>{
+  //         if(res.status=='Success'){
+  //           this.toastr.success(`${res.message}`,'Successful',{
+  //             positionClass: 'toast-top-center',
+  //             timeOut:2000,
+  //           });
+  //           this.CloseModal('additem');
+  //         }
+  //       },
+  //       error:(res)=>{
+  //         this.toastr.error(`${res}`,'UnSuccessful',{
+  //           positionClass: 'toast-top-center',
+  //           timeOut:2000,
+  //         });
+  //       }
+  //     })
+  //   }
+  // }
 
   UpdateItemfn(data:any){
     if(data.valid){

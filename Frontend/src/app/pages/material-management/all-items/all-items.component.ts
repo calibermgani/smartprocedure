@@ -942,6 +942,13 @@ export class AllItemsComponent implements OnInit {
         })
       }
 
+      let item_tag = data.value.Tags;
+      if(item_tag == ""){
+        this.AddItemForm.patchValue({
+          Tags:[]
+        })
+      }
+
       console.log(data.value);
       this.allServices.Additemfn(data).subscribe({
         next:(res:any)=>{
@@ -957,7 +964,7 @@ export class AllItemsComponent implements OnInit {
         error:(res)=>{
           this.toastr.error(`${res}`,'UnSuccessful',{
             positionClass: 'toast-top-center',
-            timeOut:2000,
+            timeOut:3000,
           });
           this.AddItemForm.reset();
         }
