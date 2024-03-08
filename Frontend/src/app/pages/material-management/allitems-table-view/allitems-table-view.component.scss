@@ -205,3 +205,13 @@ border-bottom: none !important;
   height: auto !important;
   text-wrap: wrap !important;
 }
+
+:host ::ng-deep .ag-group-expanded{
+  position: absolute;
+  left: 130px;
+}
+
+:host ::ng-deep .ag-group-contracted{
+  position: absolute;
+  left: 130px;
+}

@@ -138,7 +138,7 @@ export class AllItemsComponent implements OnInit {
     });
 
     this.AddItemForm = this.formbuilder.group({
-      imageUrl:[''],
+      item_image:[],
       ItemNumber:[,[Validators.required]],
       ItemName:[,[Validators.required]],
       ItemCategory:[,[Validators.required]],
@@ -195,7 +195,7 @@ export class AllItemsComponent implements OnInit {
   handleImageInput(event:any): void {
     console.log(event.target.files[0]);
     this.result = event.target.files[0];
-    // const file: File | null = event?.files?.[0];
+    // const file: File | null = event?.target?.[0];
 
     // if (file) {
     //   const reader = new FileReader();
@@ -207,16 +207,16 @@ export class AllItemsComponent implements OnInit {
 
     //   reader.readAsDataURL(file);
     // }
-    // const file = event.target.files[0];
+    const file = event.target.files[0];
 
-    // if (file) {
+    if (file) {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event2) => {
         this.imageUrl = reader.result;
       };
       this.showImage = true;
-
+    }
   }
 
   IncreaseStoreQty(data:any){
@@ -844,8 +844,7 @@ export class AllItemsComponent implements OnInit {
   AddItemfn(data:any){
     if(data.valid){
 
-      console.log(this.imageUrl);
-      if(this.imageUrl){
+
       // //   const byteCharacters = atob(this.imageUrl.split(',')[1]);
       // // const byteNumbers = new Array(byteCharacters.length);
       // // for (let i = 0; i < byteCharacters.length; i++) {
@@ -855,9 +854,8 @@ export class AllItemsComponent implements OnInit {
       // // const blob = new Blob([byteArray], { type: 'image/png' });
 
       // // const imageUrl = URL.createObjectURL(blob);
-      // // console.log(imageUrl);
       this.AddItemForm.patchValue({
-        imageUrl: this.result.size
+        item_image: this.result
       })
       //   const byteCharacters = atob(this.imageUrl.split(',')[1]);
       //   const byteNumbers = new Array(byteCharacters.length);
@@ -869,7 +867,7 @@ export class AllItemsComponent implements OnInit {
 
       //   const blob = new Blob([byteArray], { type: 'image/jpeg' });
       //   console.log(blob);
-      }
+
 
 
 
@@ -907,21 +905,28 @@ export class AllItemsComponent implements OnInit {
 
       let procedure_value = data.value.procedure;
       let newArray:any = [];
-      if(this.ProcedureOption_Index){
-        this.ProcedureOption_Index.forEach(element => {
-          procedure_value.forEach(ProcedurName => {
-            if(ProcedurName == element.procedure_name)
-            {
-              newArray.push(element.id);
-              let procedureStrings = newArray.map(num => num.toString());
-              this.AddItemForm.patchValue({
-              procedure:procedureStrings
-              })
-            }
+      if(procedure_value){
+        if(this.ProcedureOption_Index){
+          this.ProcedureOption_Index.forEach(element => {
+            procedure_value.forEach(ProcedurName => {
+              if(ProcedurName == element.procedure_name)
+              {
+                newArray.push(element.id);
+                let procedureStrings = newArray.map(num => num.toString());
+                this.AddItemForm.patchValue({
+                procedure:procedureStrings
+                })
+              }
+            });
           });
-        });
+        }
       }
-
+      else
+      {
+        this.AddItemForm.patchValue({
+          procedure:[]
+          })
+      }
 
       let item_status = data.value.ItemStatus;
       console.log(item_status);
@@ -954,6 +959,7 @@ export class AllItemsComponent implements OnInit {
             positionClass: 'toast-top-center',
             timeOut:2000,
           });
+          this.CloseModal('additem')
         }
       })
     }
