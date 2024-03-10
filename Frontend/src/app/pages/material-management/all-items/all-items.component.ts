@@ -64,8 +64,8 @@ export class AllItemsComponent implements OnInit {
   textcontent:any;
   resize:boolean = false;
   enableTab:any = '';
-  StoreQty:number = 0;
-  CabinetQty:number = 0;
+  StoreQty:number ;
+  CabinetQty:number ;
   public payload:Object = {
     "token":"1a32e71a46317b9cc6feb7388238c95d",
   };
@@ -150,8 +150,8 @@ export class AllItemsComponent implements OnInit {
       size:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
       sizetype:[,Validators.required],
       subcategory:[],
-      storeqty:[0,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
-      CabinetQty:[0,[Validators.pattern('\\d*'),Validators.min(0)]],
+      storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      CabinetQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
       ExpiryDate:[,[Validators.required]],
       MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CatNo:[],
@@ -948,8 +948,15 @@ export class AllItemsComponent implements OnInit {
           Tags:[]
         })
       }
-
       console.log(data.value);
+      // let formData = new FormData();
+      // formData.append('token', '1a32e71a46317b9cc6feb7388238c95d');
+      // formData.append('tag', '1');
+      // formData.append('item_procedure_id', '2');
+      // for(let i of formData.keys()){
+      //   console.log(i);
+      // }
+
       this.allServices.Additemfn(data).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){

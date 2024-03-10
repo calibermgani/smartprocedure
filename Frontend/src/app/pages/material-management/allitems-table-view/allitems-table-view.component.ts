@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, FirstDataRenderedEvent, GetRowIdFunc, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, IsRowMaster, SelectionChangedEvent, SideBarDef, ToolPanelDef, ValueFormatterParams } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -473,8 +473,7 @@ export class AllItemsTableViewComponent {
       minLevel:[''],
       tags:[''],
       notes:['']
-    })
-    this.dynamicForm = this.createGroup();
+    });
   }
 
   ngOnInit(): void {
@@ -865,7 +864,6 @@ export class AllItemsTableViewComponent {
       case 'bulkupdate':{
         this.bulkupdate?.show();
         this.guidelines = this.selected_row_data;
-        console.log(this.guidelines);
         this.createGroup();
         break;
       }
@@ -1047,7 +1045,7 @@ export class AllItemsTableViewComponent {
     {this.CabinetQty = Numdata-1;}
   }
 
-  quantity_bulkEdit:number = 0;
+  quantity_bulkEdit:number;
   IncreaseQuantityQty_bulkEdit(data:any){
     let Numdata = parseInt(data);
     if(Numdata>0)
@@ -1063,7 +1061,7 @@ export class AllItemsTableViewComponent {
     }
   }
 
-  minlevel_bulkEdit:number = 0;
+  minlevel_bulkEdit:number ;
   IncreaseMinlevelQty_bulkEdit(data:any){
     let Numdata = parseInt(data);
     if(Numdata>0)
@@ -1377,6 +1375,8 @@ export class AllItemsTableViewComponent {
       });
 
       let item_status = data.value.ItemStatus;
+      console.log(item_status);
+
       if(item_status == 'Active'){
         this.AddItemForm.patchValue({
           ItemStatus:"1"
@@ -1804,15 +1804,45 @@ export class AllItemsTableViewComponent {
     console.log('SelectedSubFolderIndex',this.SelectedSubFolderIndex);
   }
 
+  createObject: { [k: string]: any } = {};
   createGroup() {
-    this.dynamicForm = this.formbuilder.group({});
-    this.selected_row_data.forEach(control => this.dynamicForm.addControl(control.item_name, this.formbuilder.control('')));
-console.log(this.dynamicForm.controls);
-    return this.dynamicForm;
+    const formGroupFields = this.getFormControlsFields();
+    console.log(formGroupFields)
+    // this.dynamicForm = new FormGroup(formGroupFields);
+    this.dynamicForm = this.formbuilder.group(formGroupFields);
+    console.log(this.dynamicForm);
   }
 
-show(){
-  console.log(this.dynamicForm.value);
-}
+  fields: any[] = [];
+  getFormControlsFields() {
+    console.log(this.guidelines);
+    this.fields = [];
+    this.createObject = {};
+    if (this.guidelines) {
+      this.guidelines.forEach((element, index1) => {
+        if (element.item_name) {
+          this.createObject['increasefield' + index1] = '';
+          this.createObject['field' + index1] = '';
+        }
+      });
+      console.log(this.createObject);
+      Object.keys(this.createObject).forEach((field, index) => {
+        if(field == 'increasefield'+index){
+          this.createObject[field] = new FormControl("",[Validators.required]);
+        }
+        else{
+          this.createObject[field] = new FormControl("",[Validators.minLength(0),Validators.required]);
+        }
+        // this.createObject[field] = new FormControl("",[Validators.minLength(0)]);
+        this.fields.push(field);
+      });
+    }
+    console.log(this.fields);
+    return this.createObject;
+  }
+
+  show(data: any) {
+    console.log(data.value);
+  }
 
 }

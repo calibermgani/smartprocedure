@@ -99,13 +99,13 @@ export class AllServicesService {
     payload["item_category_id"] = data.value.ItemCategory;
     payload["item_sub_category_id"] = data.value.subcategory;
     payload["item_barcode"] = data.value.Barcodes;
-    payload["item_procedure_id"] = data.value.procedure;;
+    payload["item_procedure_id"] = data.value.procedure;
     // payload["item_status"] = data.value.ItemStatus;
     if(data.value.ItemStatus){
       payload["item_status"] = data.value.ItemStatus;
     }
     else{
-      payload["item_status"] = 'Active';
+      payload["item_status"] = 1;
     }
     payload["vendor_id"] = data.value.Vendor;
     payload["price"] = data.value.price;
@@ -124,12 +124,12 @@ export class AllServicesService {
     payload["tag"] = data.value.Tags;
     let formData = new FormData();
     formData.append('item_image', x);
-    payload["item_image"] = formData.get('item_image');
+    payload["item_image"] = "";
     payload["created_by"]='1';
     console.log(payload);
     console.log(formData.get('item_image'));
     // return null;
-return this.http.post(`${this.apiUrl}/items/store`,payload);
+    return this.http.post(`${this.apiUrl}/items/store`,payload);
   }
 
   UpdateItemfn(item_id:any,data:any){
@@ -147,7 +147,7 @@ return this.http.post(`${this.apiUrl}/items/store`,payload);
       payload["item_status"] = data.value.ItemStatus;
     }
     else{
-      payload["item_status"] = 'Active';
+      payload["item_status"] = 1;
     }
     payload["vendor_id"] = data.value.Vendor;
     payload["price"] = data.value.price;
