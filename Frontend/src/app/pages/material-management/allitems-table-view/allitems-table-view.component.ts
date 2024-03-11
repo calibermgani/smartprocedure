@@ -799,7 +799,9 @@ export class AllItemsTableViewComponent {
             }
             return colDef;
           });
-          this.gridOptions1.api.setColumnDefs(newColumnDefs);
+          this.gridOptions1.api?.setColumnDefs(newColumnDefs);
+          // this.ngAfterViewInit();
+
         }
         else {
           this.AllItemsChecked = true
@@ -813,7 +815,7 @@ export class AllItemsTableViewComponent {
             }
             return colDef;
           });
-          this.gridOptions1.api.setColumnDefs(newColumnDefs);
+          this.gridOptions1.api?.setColumnDefs(newColumnDefs);
           this.showEditablefields = true;
         }
       }
@@ -842,6 +844,7 @@ export class AllItemsTableViewComponent {
   }
 
   guidelines:any = {};
+  copiedGuidelines:any ={};
   OpenModal(modalname:string){
     switch(modalname){
       case 'editItem':{
@@ -864,7 +867,13 @@ export class AllItemsTableViewComponent {
       case 'bulkupdate':{
         this.bulkupdate?.show();
         this.guidelines = this.selected_row_data;
+        this.copiedGuidelines = JSON.parse(JSON.stringify(this.guidelines));
+        this.selva = 0;
         this.createGroup();
+        // this.dynamicForm.reset();
+        // this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+        // console.log(this.all_Items_gridData);
+        // this.showEditablefields = false;
         break;
       }
        case 'clone_modal':{
@@ -920,9 +929,11 @@ export class AllItemsTableViewComponent {
       case 'bulkupdate':{
         this.bulkupdate?.hide();
         this.gridApi_1.deselectAll();
-        this.bulkEditForm.reset();
-        this.quantity_bulkEdit = 0;
-        this.minlevel_bulkEdit = 0;
+        // this.dynamicForm.reset();
+        this.guidelines = [];
+        this.dynamicForm.reset();
+        //  this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+        // console.log(this.all_Items_gridData);
         break;
       }
       case 'clone_modal':{
@@ -1693,26 +1704,27 @@ export class AllItemsTableViewComponent {
   MainQuantity:number;
   MainQuantityInput:number;
   IncreaseQuantity(){
-    if(this.MainQuantity == null)
+    if(Number.isNaN(this.MainQuantity) || this.MainQuantity == undefined)
     {
       this.MainQuantity = 0;
+      this.selva = this.MainQuantity;
     }
+    else{
       this.MainQuantity = this.MainQuantity+1;
+      this.selva = this.MainQuantity;
+    }
   }
 
   DecreaseQuantity(){
+    if(Number.isNaN(this.MainQuantity)|| this.MainQuantity == undefined){
+      this.MainQuantity = 0;
+      this.selva = this.MainQuantity;
+    }
+    else{
       this.MainQuantity = this.MainQuantity-1;
+      this.selva = this.MainQuantity;
+    }
   }
-
-  // individualIncreasequantity(data){
-  //   console.log(data);
-  //   data = data+1;
-
-  // }
-
-  // individualDecreasequantity(data){
-  //   console.log(data);
-  // }
 
 
   ngOnDestroy() {
@@ -1808,14 +1820,33 @@ export class AllItemsTableViewComponent {
   createGroup() {
     const formGroupFields = this.getFormControlsFields();
     console.log(formGroupFields)
-    // this.dynamicForm = new FormGroup(formGroupFields);
+    // this.dynamicForm = ;
     this.dynamicForm = this.formbuilder.group(formGroupFields);
     console.log(this.dynamicForm);
+    // Object.keys(formGroupFields).forEach((element:any,index)=>{
+    //   console.log('field'+index);
+    //   console.log(element);
+    //   if( element == 'field'+index){
+    //     this.dynamicForm.get(element).patchValue(this.guidelines?.[0].unit);
+    //   }
+    // })
+    this.selected_row_data.forEach((element,index) => {
+      console.log(element);
+      let x = element.unit
+      // if(this.dynamicForm?.get('field'+index)){
+      //   this.dynamicForm?.get('field'+index).setValue(x);
+      // }
+      this.dynamicForm?.get('increasefield' + index).setValue(0);
+      console.log(this.dynamicForm?.get('increasefield' + index));
+    });
+    console.log(this.dynamicForm.value);
+
   }
 
   fields: any[] = [];
+  unit:any;
   getFormControlsFields() {
-    console.log(this.guidelines);
+    console.log('GuideLines',this.guidelines);
     this.fields = [];
     this.createObject = {};
     if (this.guidelines) {
@@ -1825,21 +1856,154 @@ export class AllItemsTableViewComponent {
           this.createObject['field' + index1] = '';
         }
       });
-      console.log(this.createObject);
+      console.log('CreateObject',this.createObject);
       Object.keys(this.createObject).forEach((field, index) => {
         if(field == 'increasefield'+index){
-          this.createObject[field] = new FormControl("",[Validators.required]);
+          this.createObject[field] = new FormControl('',[Validators.required]);
         }
         else{
-          this.createObject[field] = new FormControl("",[Validators.minLength(0),Validators.required]);
+          this.createObject[field] = new FormControl('',[Validators.min(0),Validators.required]);
         }
         // this.createObject[field] = new FormControl("",[Validators.minLength(0)]);
         this.fields.push(field);
       });
     }
-    console.log(this.fields);
+    console.log('Fields',this.fields);
     return this.createObject;
   }
+
+  increseField:number = 0;
+  MainField:number = 0;
+  ChangeQuantity(value: any, fieldName: string,fieldNameMain:string,index:any){
+    // console.log(value);
+    let x:any = parseInt(this.dynamicForm.get(fieldName).value);
+    let y:any = parseInt(this.dynamicForm?.get(fieldNameMain).value);
+    if(index == 0)
+    {
+      index = 0
+    }
+    else{
+      index = (index/2);
+    }
+    let unit : any = this.guidelines?.[index].unit;
+    if(Number.isNaN(x)|| Number.isNaN(y)){
+      x = 0;
+      y=0;
+      this.dynamicForm?.get(fieldNameMain).setValue(unit);
+    }
+    const regex = /\d/g;
+    const str = x.toString();
+    const matches = str.match(regex);
+    if(matches.length>1){
+      if(x>0){
+        this.dynamicForm?.get(fieldNameMain).setValue(+(x+unit));
+      }
+      else if(x<0){
+        this.dynamicForm?.get(fieldNameMain).setValue((x+unit));
+      }
+    }
+    else{
+      if(x>0){
+        this.dynamicForm?.get(fieldNameMain).setValue(+(x+unit));
+      }
+      else if(x<0){
+        this.dynamicForm?.get(fieldNameMain).setValue((x+unit));
+      }
+    }
+
+    // else if(x<0){
+    //   this.dynamicForm?.get(fieldNameMain).setValue(x+y);
+    // }
+    // console.log(this.dynamicForm.get(fieldName).value);
+    // if(this.dynamicForm.get(fieldName).value){
+    //   let value:any = this.dynamicForm.get(fieldNameMain).value;
+    //   value = value+x;
+    //   console.log(value);
+    // }
+    // this.dynamicForm.get(fieldNameMain).patchValue(value);
+  }
+  ChangeSubQuantity(fieldName:string,fieldNameMain:string,index:any){
+    let x:any = parseInt(this.dynamicForm?.get(fieldName).value);
+    let y:any = parseInt(this.dynamicForm?.get(fieldNameMain).value);
+    console.log(fieldName,fieldNameMain);
+     if(index == 0)
+    {
+      index = 0
+    }
+    else{
+      index = (index/2);
+    }
+    let unit : any = this.selected_row_data?.[index].unit;
+    if(Number.isNaN(x)|| Number.isNaN(y)){
+      x=0;
+      y=0;
+    }
+    const regex = /\d/g;
+    const str = x.toString();
+    const matches = str.match(regex);
+    if(x>0 && x<unit){
+      this.dynamicForm?.get(fieldNameMain).setValue(-(unit-x));
+    }
+    else if(x==0){
+      this.dynamicForm?.get(fieldNameMain).setValue(-unit);
+    }
+    else if(x==unit){
+      this.dynamicForm?.get(fieldNameMain).setValue(0);
+    }
+    else if(x<0){
+      let result = (unit+(-x));
+      console.log(result);
+      this.dynamicForm?.get(fieldNameMain).setValue(-(result));
+    }
+    else if(x>unit){
+      this.dynamicForm?.get(fieldNameMain).setValue(+(x-unit));
+    }
+  }
+
+  selva:number = 0;
+  MainQuantityfn(value:any){
+    console.log(value);
+this.selva = value;
+  }
+
+  individualIncreasequantity(fieldName:string,fieldNameMain:string,index:any){
+    let x = this.dynamicForm?.get(fieldName).value;
+    let y = this.dynamicForm?.get(fieldNameMain).value;
+    if(index == 0)
+    {
+      index = 0
+    }
+    else{
+      index = (index/2);
+    }
+    let unit : any = this.selected_row_data?.[index].unit;
+    if(!x){
+      x=0;
+    }
+    this.dynamicForm?.get(fieldName).setValue(x+1);
+    let updatedvalue = this.dynamicForm?.get(fieldName).value;
+    this.dynamicForm?.get(fieldNameMain).setValue(unit+updatedvalue);
+  }
+
+  individualDecreasequantity(fieldName:string,fieldNameMain:string,index:any){
+    let x = this.dynamicForm?.get(fieldName).value;
+    if(index == 0)
+    {
+      index = 0
+    }
+    else{
+      index = (index/2);
+    }
+    let unit : any = this.selected_row_data?.[index].unit;
+    if(!x){
+      x=0;
+    }
+    this.dynamicForm?.get(fieldName).setValue(parseInt(x)-1);
+    let y = this.dynamicForm?.get(fieldNameMain).value;
+    let updatedvalue = this.dynamicForm?.get(fieldName).value;
+    this.dynamicForm?.get(fieldNameMain).setValue(unit+updatedvalue);
+  }
+
 
   show(data: any) {
     console.log(data.value);

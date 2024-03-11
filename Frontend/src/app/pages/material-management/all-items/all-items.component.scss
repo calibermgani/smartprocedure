@@ -86,9 +86,9 @@ li::marker{
 
 .ag-theme-alpine
 {
-  --ag-row-hover-color: transparent !important;
+  // --ag-row-hover-color: transparent !important;
   --ag-header-background-color : #594585 !important;
-  --ag-selected-row-background-color : transparent !important;
+  // --ag-selected-row-background-color : transparent !important;
 }
 ::ng-deep .ag-row{
   border-bottom : none !important
@@ -97,9 +97,9 @@ li::marker{
 // ::ng-deep .ag-row :hover{
 //   // background: none !important;
 // }
-::ng-deep .ag-row-selected::before
+:host ::ng-deep .ag-row-selected::before
 {
-  background-color: transparent !important;
+  // background-color: transparent !important;
 }
 ::ng-deep .ag-row-odd{
   margin: 10px 0px !important;
@@ -145,17 +145,17 @@ border-bottom: none !important;
   border-radius: 15px;
   font-family: poppins !important;
 }
-::ng-deep .ag-row-group-expanded
-{
-  background: #8B8B8B !important;
+// :host ::ng-deep .ag-row-group-expanded
+// {
+//   background: #8B8B8B !important;
 
-.ag-cell-value{
-  color: #fff !important;
-}
-.ag-icon-tree-open{
-  color: #fff !important;
-}
-}
+// .ag-cell-value{
+//   color: #fff !important;
+// }
+// .ag-icon-tree-open{
+//   color: #fff !important;
+// }
+// }
 
 ::ng-deep .ag-theme-alpine .ag-group-contracted .ag-icon:hover{
   color: #181d1f !important;
