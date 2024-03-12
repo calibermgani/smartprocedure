@@ -138,7 +138,7 @@ export class AllItemsComponent implements OnInit {
     });
 
     this.AddItemForm = this.formbuilder.group({
-      item_image:[],
+      // item_image:[],
       ItemNumber:[,[Validators.required]],
       ItemName:[,[Validators.required]],
       ItemCategory:[,[Validators.required]],
@@ -355,6 +355,10 @@ export class AllItemsComponent implements OnInit {
   changeTab(tabs:any){
     switch(tabs)
     {
+      case 'All Items':{
+        this.enableTab = 'All Items';
+        break;
+      }
       case 'Vendor list':{
         this.enableTab = 'Vendor list';
         break;
@@ -854,9 +858,9 @@ export class AllItemsComponent implements OnInit {
       // // const blob = new Blob([byteArray], { type: 'image/png' });
 
       // // const imageUrl = URL.createObjectURL(blob);
-      this.AddItemForm.patchValue({
-        item_image: this.result
-      })
+      // this.AddItemForm.patchValue({
+      //   item_image: this.result
+      // })
       //   const byteCharacters = atob(this.imageUrl.split(',')[1]);
       //   const byteNumbers = new Array(byteCharacters.length);
       //   for (let i = 0; i < byteCharacters.length; i++) {

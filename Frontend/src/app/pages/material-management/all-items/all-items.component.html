@@ -6,7 +6,7 @@
           <h1 class="header_name">Overall List</h1>
         </div>
         <div class="mb-3">
-        <input class="form-control-new-sm mt-2" placeholder="Search" style="font-size: 0.5625rem !important;" [(ngModel)]="Search_OverAllList" (keyup)="SearchOverAllList(Search_OverAllList)">
+        <input class="form-control-new-sm mt-2" placeholder="Search" style="font-size: 0.5625rem !important;" [(ngModel)]="Search_OverAllList" [ngModelOptions]="{standalone: true}" (keyup)="SearchOverAllList(Search_OverAllList)">
         </div>
         <div class="list_body" style="height: 600px;">
           <div class="row mb-3 align-items-center mx-1 pointer" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;margin-bottom: 0.6rem !important;">
@@ -258,7 +258,7 @@
                 style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="ShowAdvancedFilters()"><i class="mdi mdi-filter-outline me-2"></i>Filter</button>
             </div>
             <div class="me-2" style="width: 20%;">
-              <input class="form-control" type="text" placeholder="Search" formControlName="SearchFilter" [(ngModel)]="Search_AllItemstablelist" (keyup)="onSearchGrid(Search_AllItemstablelist)">
+              <input class="form-control" type="text" placeholder="Search" formControlName="SearchFilter" [(ngModel)]="Search_AllItemstablelist" [ngModelOptions]="{standalone: true}" (keyup)="onSearchGrid(Search_AllItemstablelist)">
             </div>
             <div class="d-flex flex-row align-items-center me-2" style="width: 20%;">
               <input class="form-control" type="text" placeholder="scan or type" formControlName="BarCodeSearch"><img src="assets/images/barcode_input_type.svg" width="16px" height="16px" style="position: relative;right: 10%;">
@@ -454,9 +454,9 @@
             </div>
             <div class="col-9" [ngClass]="{'resizeGrid':resize ==false}">
               <div class="mt-2 me-3">
-                <app-allitems-table-view *ngIf="selectedView == 'table'" [Updategrid]="ReloadAllItemsGrid" [SearchAllItemsGrid]="Search_AllItemstablelist"></app-allitems-table-view>
-                <app-allitems-grid-view *ngIf="selectedView == 'grid' "></app-allitems-grid-view>
-                <app-allitems-list-view *ngIf="selectedView == 'list' "></app-allitems-list-view>
+                <app-allitems-table-view *ngIf="selectedView == 'table' && enableTab=='All Items'" [Updategrid]="ReloadAllItemsGrid" [SearchAllItemsGrid]="Search_AllItemstablelist"></app-allitems-table-view>
+                <app-allitems-grid-view *ngIf="selectedView == 'grid' && enableTab=='All Items'" ></app-allitems-grid-view>
+                <app-allitems-list-view *ngIf="selectedView == 'list' && enableTab=='All Items'"></app-allitems-list-view>
               </div>
             </div>
           </div>
@@ -745,7 +745,7 @@
             <div class="d-flex">
              <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="DecreaseStoreQty(this.StoreQty)"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" style="width: 30% !important;padding-left: 0px 15px !important;text-align: center;" formControlName="storeqty" [(ngModel)]="StoreQty" appPreventSpaces>
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100" style="width: 30% !important;padding-left: 0px 15px !important;text-align: center;" formControlName="storeqty" [(ngModel)]="StoreQty"   appPreventSpaces>
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="IncreaseStoreQty(this.StoreQty)"><i
                 class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div>
@@ -769,7 +769,7 @@
             <div class="d-flex">
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="DecreaseCabinetQty(this.CabinetQty)"><i
                 class="mdi mdi-minus" style="color: #fff !important;font-size: 15px;"></i></button>
-              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100"  style="width: 30% !important;padding: 0px 15px !important;text-align: center;" formControlName="CabinetQty" [(ngModel)]="CabinetQty" appPreventSpaces>
+              <input name="demo_vertical"  type="text" class="form-control-new" min="0" max="100"  style="width: 30% !important;padding: 0px 15px !important;text-align: center;" formControlName="CabinetQty" [(ngModel)]="CabinetQty"  appPreventSpaces>
               <button class="btn-new" style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;" (click)="IncreaseCabinetQty(this.CabinetQty)"><i
                 class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
             </div>

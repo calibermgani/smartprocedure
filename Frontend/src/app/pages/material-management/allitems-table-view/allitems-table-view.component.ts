@@ -36,6 +36,7 @@ interface MainData {
   item_clones:SubData[]
 }
 interface SubData {
+  "id":number,
   "item_no":string,
   "item_name":string,
   "item_category":string,
@@ -68,7 +69,7 @@ interface SubData {
 })
 export class AllItemsTableViewComponent {
 
-  @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
+  @ViewChild('myGrid_1') myGrid_1!: AgGridAngular;
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @ViewChild('setalert', { static: false }) setalert?: ModalDirective;
   @ViewChild('bulkupdate', { static: false }) bulkupdate?: ModalDirective;
@@ -82,15 +83,16 @@ export class AllItemsTableViewComponent {
 
   @Input() Updategrid: boolean = false;
   @Input() SearchAllItemsGrid:any;
-  all_Items_gridData:any = [];
-  selected_row_data:any[] = [];
+  all_Items_gridData:any = {};
+  selected_row_data:any = [];
   folder_structure_value:any = [];
   selected_row_data_length:any;
   showEditablefields:boolean = false;
-  AddItemForm : UntypedFormGroup;
+  AddItemForm !: FormGroup;
   AddtagForm:UntypedFormGroup;
   dynamicForm:UntypedFormGroup;
   bulkEditForm : UntypedFormGroup;
+  setAlertForm : UntypedFormGroup;
   files: File[] = [];
   imageURL: any;
   ItemStatus:any = [
@@ -420,6 +422,7 @@ export class AllItemsTableViewComponent {
       defaultColDef: {
         resizable:true,
       },
+
       onSelectionChanged: this.onSelectionChangedMaster.bind(this),
       detailRowAutoHeight:false,
     },
@@ -431,8 +434,6 @@ export class AllItemsTableViewComponent {
 
   onSelectionChangedMaster(event: SelectionChangedEvent){
     const selectedNodes = event.api.getSelectedNodes();
-    console.log(selectedNodes);
-
   }
 
   constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private cdr: ChangeDetectorRef,private authfakeauthenticationService : AuthfakeauthenticationService,private elementRef: ElementRef){
@@ -474,6 +475,12 @@ export class AllItemsTableViewComponent {
       tags:[''],
       notes:['']
     });
+
+    this.setAlertForm = this.formbuilder.group({
+      set_alert_type:[],
+      min_level:[],
+      vendor:[]
+    })
   }
 
   ngOnInit(): void {
@@ -501,6 +508,10 @@ export class AllItemsTableViewComponent {
     suppressMovableColumns: true,
     suppressDragLeaveHidesColumns: true,
     suppressContextMenu: false,
+    getRowId: (params) => {
+      // use 'account' as the row ID
+      return params.data.id;
+    },
   };
   public sideBar: SideBarDef | string | string[] | boolean | null = {
     toolPanels: [
@@ -769,25 +780,55 @@ export class AllItemsTableViewComponent {
 
   cloneIndex:any = [];
   onSelectionChanged(event:SelectionChangedEvent){
-    const selectedNodes = event.api.getSelectedNodes();
-    this.detailCellRendererParams
-   }
+    const selectedNodes:any = event.api.getSelectedRows();
+    // console.log(selectedNodes?.[0].id);
+    const selectedRowId = selectedNodes?.[0]?.item_clones?.[0]?.id;
+    let index = 0;
+
+
+  //   setTimeout(() => {
+  //     let x = this.gridApi_1.getDetailGridInfo('');
+  //     console.log(x);
+  // }, 1000);
+  // const detailGrid = this.gridApi_1!.getDetailGridInfo('IN3932092');
+  // console.log(detailGrid);
+  // if (detailGrid) {
+  //     detailGrid.api.flashCells();
+  // } else {
+  //     console.log('Detail grid not found for selected row');
+  // }
+  // this.gridApi_1!.forEachDetailGridInfo(function (detailGridApi) {
+  //   detailGridApi.api!.flashCells();
+  // });
+
+  // this.gridApi_1!.forEachDetailGridInfo((detailGridApi, index) => {
+  //   if (index === 0) {
+  //       // Apply flashCells only to the detail grid of the first row
+  //       detailGridApi.api!.flashCells();
+  //   }
+// });
+}
 
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-    let cloneIndex:any = [];
+    const selectedIndexes:any = [];
     this.gridApi_1.addEventListener('selectionChanged', () => {
       this.selected_row_data = [];
       const selectedNodes = this.gridApi_1.getSelectedNodes();
-
       selectedNodes.forEach((element) => {
         this.selected_row_data.push(element.data);
+        selectedIndexes.push(element.id);
       })
       console.log(this.selected_row_data);
-      console.log(this.selected_row_data.length);
       if (this.selected_row_data.length >= 0) {
         if (this.selected_row_data.length == 0) {
+
+          this.gridApi_1!.forEachDetailGridInfo((detailGridApi, index) => {
+              detailGridApi.api.forEachNode((node)=>{
+                node.setSelected(false);
+              })
+          });
           this.showEditablefields = false;
           this.selected_row_data_length = 0;
           const newColumnDefs = this.columnMainDefs.map(colDef => {
@@ -801,9 +842,33 @@ export class AllItemsTableViewComponent {
           });
           this.gridOptions1.api?.setColumnDefs(newColumnDefs);
           // this.ngAfterViewInit();
-
         }
         else {
+          // selectedNodes.forEach(element => {
+          //     selectedIndexes.forEach(element => {
+          //       if(element.id )
+          //     });
+          // });
+          selectedNodes.forEach((element,index)=>{
+            element.setExpanded(true);
+            setTimeout(() => {
+              const detailGridApi = this.gridApi_1.getDetailGridInfo(`detail_${element.id}`);
+              if (detailGridApi) {
+                // detailGridApi.api.flashCells();
+                detailGridApi.api.forEachNode(node => {
+                  if (node.data) {
+                      node.setSelected(true);
+                  }
+              });
+
+            } else {
+                console.log(`Detail grid not found for row with id detail_${element.id}`);
+                detailGridApi.api.deselectAll();
+            }
+            }, 100);
+
+           })
+
           this.AllItemsChecked = true
           this.selected_row_data_length = this.selected_row_data.length;
           const newColumnDefs = this.columnMainDefs.map(colDef => {
@@ -843,8 +908,8 @@ export class AllItemsTableViewComponent {
     reader.readAsDataURL(file)
   }
 
-  guidelines:any = {};
-  copiedGuidelines:any ={};
+  guidelines:any = [];
+  copiedGuidelines:any =[];
   OpenModal(modalname:string){
     switch(modalname){
       case 'editItem':{
@@ -868,7 +933,6 @@ export class AllItemsTableViewComponent {
         this.bulkupdate?.show();
         this.guidelines = this.selected_row_data;
         this.copiedGuidelines = JSON.parse(JSON.stringify(this.guidelines));
-        this.selva = 0;
         this.createGroup();
         // this.dynamicForm.reset();
         // this.myGrid_1.api?.setRowData(this.all_Items_gridData);
@@ -894,6 +958,11 @@ export class AllItemsTableViewComponent {
         this.getProcedures();
         this.getTags();
         this.bulk_edit?.show();
+        break;
+      }
+      case 'setalert':{
+        this.setalert?.show();
+        this.getVendors();
         break;
       }
     }
@@ -928,12 +997,9 @@ export class AllItemsTableViewComponent {
       }
       case 'bulkupdate':{
         this.bulkupdate?.hide();
-        this.gridApi_1.deselectAll();
-        // this.dynamicForm.reset();
+        // this.gridApi_1.deselectAll();
         this.guidelines = [];
         this.dynamicForm.reset();
-        //  this.myGrid_1.api?.setRowData(this.all_Items_gridData);
-        // console.log(this.all_Items_gridData);
         break;
       }
       case 'clone_modal':{
@@ -953,6 +1019,11 @@ export class AllItemsTableViewComponent {
         this.bulk_edit?.hide();
         this.gridApi_1.deselectAll();
         this.bulkEditForm.reset();
+        break;
+      }
+      case 'setalert':{
+        this.setalert?.hide();
+        this.setAlertForm.reset();
         break;
       }
     }
@@ -1608,6 +1679,43 @@ export class AllItemsTableViewComponent {
     })
   }
 
+  SetAlertfn(data:any){
+    let Selected_Index:any = [];
+    this.selected_row_data.forEach((element:any)=>{
+      Selected_Index.push(element.id);
+    });
+    console.log(Selected_Index);
+    if(data.value.set_alert_type == 'Below Min Level'){
+      this.setAlertForm.patchValue({
+        set_alert_type:'1'
+      })
+    }else{
+      this.setAlertForm.patchValue({
+        set_alert_type:'2'
+      })
+    }
+    this.allServices.SetItemAlert(Selected_Index,data).subscribe({
+      next:((res:any)=>{
+        if(res.status=='Success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.CloseModal('setalert');
+          this.ngAfterViewInit();
+
+          this.showEditablefields = false;
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
+
+  }
 
   disableNextPatientButton:boolean = false;
   disablePrevoiusPatientButton : boolean = false;
@@ -1665,7 +1773,6 @@ export class AllItemsTableViewComponent {
       })
     });
     this.authfakeauthenticationService.AllItemsPayload.subscribe((res:any)=>{
-      console.log(res.value);
       if(res.value){
         this.allServices.SearchAllItemsGrid(res).subscribe({
         next:((res:any)=>{
@@ -1701,30 +1808,7 @@ export class AllItemsTableViewComponent {
 
   }
 
-  MainQuantity:number;
-  MainQuantityInput:number;
-  IncreaseQuantity(){
-    if(Number.isNaN(this.MainQuantity) || this.MainQuantity == undefined)
-    {
-      this.MainQuantity = 0;
-      this.selva = this.MainQuantity;
-    }
-    else{
-      this.MainQuantity = this.MainQuantity+1;
-      this.selva = this.MainQuantity;
-    }
-  }
 
-  DecreaseQuantity(){
-    if(Number.isNaN(this.MainQuantity)|| this.MainQuantity == undefined){
-      this.MainQuantity = 0;
-      this.selva = this.MainQuantity;
-    }
-    else{
-      this.MainQuantity = this.MainQuantity-1;
-      this.selva = this.MainQuantity;
-    }
-  }
 
 
   ngOnDestroy() {
@@ -1820,18 +1904,9 @@ export class AllItemsTableViewComponent {
   createGroup() {
     const formGroupFields = this.getFormControlsFields();
     console.log(formGroupFields)
-    // this.dynamicForm = ;
     this.dynamicForm = this.formbuilder.group(formGroupFields);
     console.log(this.dynamicForm);
-    // Object.keys(formGroupFields).forEach((element:any,index)=>{
-    //   console.log('field'+index);
-    //   console.log(element);
-    //   if( element == 'field'+index){
-    //     this.dynamicForm.get(element).patchValue(this.guidelines?.[0].unit);
-    //   }
-    // })
     this.selected_row_data.forEach((element,index) => {
-      console.log(element);
       let x = element.unit
       // if(this.dynamicForm?.get('field'+index)){
       //   this.dynamicForm?.get('field'+index).setValue(x);
@@ -1839,7 +1914,6 @@ export class AllItemsTableViewComponent {
       this.dynamicForm?.get('increasefield' + index).setValue(0);
       console.log(this.dynamicForm?.get('increasefield' + index));
     });
-    console.log(this.dynamicForm.value);
 
   }
 
@@ -1875,7 +1949,6 @@ export class AllItemsTableViewComponent {
   increseField:number = 0;
   MainField:number = 0;
   ChangeQuantity(value: any, fieldName: string,fieldNameMain:string,index:any){
-    // console.log(value);
     let x:any = parseInt(this.dynamicForm.get(fieldName).value);
     let y:any = parseInt(this.dynamicForm?.get(fieldNameMain).value);
     if(index == 0)
@@ -1910,17 +1983,6 @@ export class AllItemsTableViewComponent {
         this.dynamicForm?.get(fieldNameMain).setValue((x+unit));
       }
     }
-
-    // else if(x<0){
-    //   this.dynamicForm?.get(fieldNameMain).setValue(x+y);
-    // }
-    // console.log(this.dynamicForm.get(fieldName).value);
-    // if(this.dynamicForm.get(fieldName).value){
-    //   let value:any = this.dynamicForm.get(fieldNameMain).value;
-    //   value = value+x;
-    //   console.log(value);
-    // }
-    // this.dynamicForm.get(fieldNameMain).patchValue(value);
   }
   ChangeSubQuantity(fieldName:string,fieldNameMain:string,index:any){
     let x:any = parseInt(this.dynamicForm?.get(fieldName).value);
@@ -1960,10 +2022,8 @@ export class AllItemsTableViewComponent {
     }
   }
 
-  selva:number = 0;
   MainQuantityfn(value:any){
     console.log(value);
-this.selva = value;
   }
 
   individualIncreasequantity(fieldName:string,fieldNameMain:string,index:any){
@@ -2004,9 +2064,29 @@ this.selva = value;
     this.dynamicForm?.get(fieldNameMain).setValue(unit+updatedvalue);
   }
 
+  MainQuantity:number;
+  MainQuantityInput:number;
+  IncreaseQuantity(){
+    if(Number.isNaN(this.MainQuantity) || this.MainQuantity == undefined)
+    {
+      this.MainQuantity = 0;
+    }
+    else{
+      this.MainQuantity = this.MainQuantity+1;
+    }
+  }
 
-  show(data: any) {
-    console.log(data.value);
+  DecreaseQuantity(){
+    if(Number.isNaN(this.MainQuantity)|| this.MainQuantity == undefined){
+      this.MainQuantity = 0;
+    }
+    else{
+      this.MainQuantity = this.MainQuantity-1;
+    }
+  }
+
+  show() {
+    console.log(this.dynamicForm.value);
   }
 
 }

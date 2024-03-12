@@ -3,6 +3,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
 
 @Component({
   selector: 'app-recall',
@@ -14,6 +16,7 @@ export class RecallComponent {
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
   @ViewChild('viewitem') viewitem: ModalDirective;
   procedure_list:string[];
+  SeacrchRecallgrid:any;
   damagedGriddata:any[];
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
@@ -27,7 +30,7 @@ export class RecallComponent {
     defaultColDef: {
       filter: false,
     },
-    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">No Rows to show</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
     rowHeight: 35,
@@ -61,13 +64,13 @@ export class RecallComponent {
 
   ngOnInit(): void {}
 
-  constructor(private http : HttpClient){}
+  constructor(private http : HttpClient,private allservices : AllServicesService,private toastr : ToastrService){}
 
   columnDefs1: ColDef[] = [
     {
-      field: 'item_no',
+      field: 'item_number',
       headerName: 'Item no',
-      cellRenderer: this.cellrendered.bind(this, 'item_no'),
+      cellRenderer: this.cellrendered.bind(this, 'item_number'),
       width:100,
     },
     {
@@ -87,24 +90,21 @@ export class RecallComponent {
     //   cellRenderer: this.cellrendered.bind(this, 'expiry_date'),
     // },
     {
-      field: 'quantity',
+      field: 'store_qty',
       headerName: 'Quantity',
-      cellRenderer: this.cellrendered.bind(this, 'quantity')
+      cellRenderer: this.cellrendered.bind(this, 'store_qty')
     },
   ];
 
   cellrendered(headerName: any, params: any) {
     switch (headerName) {
-      case'item_no':{
+      case'item_number':{
         return params.value;
       }
       case 'item_name': {
         return params.value;
       }
-      case 'quantity': {
-        return params.value;
-      }
-      case 'expiry_date':{
+      case 'store_qty': {
         return params.value;
       }
       case 'lot_no':{
@@ -123,14 +123,35 @@ export class RecallComponent {
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-    let x = params.api
-    this.http.get('assets/json/damaged-list.json').subscribe((res:any)=>{
-      this.damagedGriddata = res;
-      this.myGrid_1.api?.setRowData(this.damagedGriddata);
-      this.gridApi_1.sizeColumnsToFit();
+    // this.http.get('assets/json/damaged-list.json').subscribe((res:any)=>{
+    //   this.damagedGriddata = res;
+    //   this.myGrid_1.api?.setRowData(this.damagedGriddata);
+    //   this.gridApi_1.sizeColumnsToFit();
+    // })
+    this.allservices.getItemsRecall().subscribe({
+      next:((res:any)=>{
+        if(res.status=='Success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.damagedGriddata = res.data;
+          this.myGrid_1.api?.setRowData(this.damagedGriddata);
+          this.gridApi_1.sizeColumnsToFit();
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
     })
   }
 
+  OnSearch(){
+    this.gridApi_1.setQuickFilter(this.SeacrchRecallgrid)
+  }
   ngAfterViewInit(): void {
       this.myGrid_1.api.sizeColumnsToFit();
   }

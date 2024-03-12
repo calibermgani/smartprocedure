@@ -91,8 +91,8 @@ export class AllServicesService {
   Additemfn(data:any ){
     let payload:any = {};
     console.log(data.value);
-    let x = data.value.item_image;
-    console.log(x);
+    // let x = data.value.item_image;
+    // console.log(x);
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["item_number"] = data.value.ItemNumber;
     payload["item_name"] = data.value.ItemName;;
@@ -123,11 +123,11 @@ export class AllServicesService {
     payload["item_notes"] = data.value.Itemnotes;
     payload["tag"] = data.value.Tags;
     let formData = new FormData();
-    formData.append('item_image', x);
+    // formData.append('item_image', x);
     payload["item_image"] = "";
     payload["created_by"]='1';
     console.log(payload);
-    console.log(formData.get('item_image'));
+    // console.log(formData.get('item_image'));
     // return null;
     return this.http.post(`${this.apiUrl}/items/store`,payload);
   }
@@ -417,4 +417,22 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/item_move`,payload);
   }
 
+  SetItemAlert(Item_id:any,data:any){
+    let payload:Object = {};
+    const itemIdAsString = Item_id.map(String);
+    payload["token"]="1a32e71a46317b9cc6feb7388238c95d";
+    payload["item_id"]=itemIdAsString;
+    payload["vendor_id"] = null;
+    payload["set_alert_type_id"] = data.value.set_alert_type;
+    payload["min_level"] = data.value.min_level;
+    payload["created_by"] = "1";
+    console.log(payload);
+    return this.http.post(`${this.apiUrl}/items/item_set_alert`,payload);
+  }
+
+  getItemsRecall(){
+    let payload:Object = {};
+    payload["token"]="1a32e71a46317b9cc6feb7388238c95d";
+    return this.http.post(`${this.apiUrl}/items/item_recall`,payload);
+  }
 }
