@@ -8,7 +8,7 @@
         <div class="mb-3">
         <input class="form-control-new-sm mt-2" placeholder="Search" style="font-size: 0.5625rem !important;" [(ngModel)]="Search_OverAllList" [ngModelOptions]="{standalone: true}" (keyup)="SearchOverAllList(Search_OverAllList)">
         </div>
-        <div class="list_body" style="height: 600px;">
+        <div class="list_body" style="height: 600px;overflow-y: scroll;overflow-x: hidden;">
           <div class="row mb-3 align-items-center mx-1 pointer" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;margin-bottom: 0.6rem !important;">
             <div class="col-1 p-0"><img [src]="changefolder == x.name ? 'assets/images/selected_files.svg' : 'assets/images/files.svg'" class="folder_img me-1"></div>
             <div class="col-10 p-0 ps-1 pointer" (click)="Selectfolder(x.name)">

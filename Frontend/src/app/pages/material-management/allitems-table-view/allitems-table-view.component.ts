@@ -114,7 +114,7 @@ export class AllItemsTableViewComponent {
       checkboxSelection: true,
       resizable:false,
       headerCheckboxSelection: true,
-      width:10,
+      width:20,
     },
     {
       field: 'item_number',
@@ -509,7 +509,7 @@ export class AllItemsTableViewComponent {
     suppressDragLeaveHidesColumns: true,
     suppressContextMenu: false,
     getRowId: (params) => {
-      // use 'account' as the row ID
+      // use 'id' as the row ID
       return params.data.id;
     },
   };
@@ -781,11 +781,8 @@ export class AllItemsTableViewComponent {
   cloneIndex:any = [];
   onSelectionChanged(event:SelectionChangedEvent){
     const selectedNodes:any = event.api.getSelectedRows();
-    // console.log(selectedNodes?.[0].id);
     const selectedRowId = selectedNodes?.[0]?.item_clones?.[0]?.id;
     let index = 0;
-
-
   //   setTimeout(() => {
   //     let x = this.gridApi_1.getDetailGridInfo('');
   //     console.log(x);
@@ -823,7 +820,9 @@ export class AllItemsTableViewComponent {
       console.log(this.selected_row_data);
       if (this.selected_row_data.length >= 0) {
         if (this.selected_row_data.length == 0) {
-
+          this.myGrid_1.api?.forEachNode((node)=>{
+            node.setExpanded(false);
+          })
           this.gridApi_1!.forEachDetailGridInfo((detailGridApi, index) => {
               detailGridApi.api.forEachNode((node)=>{
                 node.setSelected(false);
@@ -844,15 +843,24 @@ export class AllItemsTableViewComponent {
           // this.ngAfterViewInit();
         }
         else {
-          // selectedNodes.forEach(element => {
-          //     selectedIndexes.forEach(element => {
-          //       if(element.id )
-          //     });
-          // });
-          selectedNodes.forEach((element,index)=>{
-            element.setExpanded(true);
+          this.myGrid_1.api?.forEachNode((node)=>{
+            if(!node.isSelected()){
+              node.setExpanded(false);
+              const detailGridApi = this.gridApi_1.getDetailGridInfo(`detail_${node.id}`);
+              if(detailGridApi){
+                detailGridApi.api.forEachNode(node => {
+                  if (node.data) {
+                      node.setSelected(false);
+                  }
+              });
+              console.log(node);
+              }
+            }
+          })
+          selectedNodes.forEach((Node,index)=>{
+            Node.setExpanded(true);
             setTimeout(() => {
-              const detailGridApi = this.gridApi_1.getDetailGridInfo(`detail_${element.id}`);
+              const detailGridApi = this.gridApi_1.getDetailGridInfo(`detail_${Node.id}`);
               if (detailGridApi) {
                 // detailGridApi.api.flashCells();
                 detailGridApi.api.forEachNode(node => {
@@ -860,9 +868,9 @@ export class AllItemsTableViewComponent {
                       node.setSelected(true);
                   }
               });
-
-            } else {
-                console.log(`Detail grid not found for row with id detail_${element.id}`);
+            }
+            else {
+                console.log(`Detail grid not found for row with id detail_${Node.id}`);
                 detailGridApi.api.deselectAll();
             }
             }, 100);
@@ -885,6 +893,8 @@ export class AllItemsTableViewComponent {
         }
       }
     });
+    console.log(this.gridApi_1.getSelectedNodes());
+
   }
 
   UnSelectAllItems(data:any){
@@ -1573,7 +1583,8 @@ export class AllItemsTableViewComponent {
     }
 
     let tagValue = data.value.tags;
-    if(tagValue == ""){
+    console.log(tagValue);
+    if(!tagValue){
       this.bulkEditForm.patchValue({
         tags:[]
       })

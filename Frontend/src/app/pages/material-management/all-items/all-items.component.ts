@@ -947,7 +947,7 @@ export class AllItemsComponent implements OnInit {
       }
 
       let item_tag = data.value.Tags;
-      if(item_tag == ""){
+      if(!item_tag){
         this.AddItemForm.patchValue({
           Tags:[]
         })
