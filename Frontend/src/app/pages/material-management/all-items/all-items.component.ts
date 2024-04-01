@@ -65,7 +65,7 @@ export class AllItemsComponent implements OnInit {
   resize:boolean = false;
   enableTab:any = '';
   StoreQty:number ;
-  CabinetQty:number ;
+  CabinetQty:number = null ;
   public payload:Object = {
     "token":"1a32e71a46317b9cc6feb7388238c95d",
   };
@@ -147,17 +147,17 @@ export class AllItemsComponent implements OnInit {
       ItemStatus:['Active'],
       Vendor:[],
       price:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
-      size:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
-      sizetype:[,Validators.required],
+      size:[,[Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
+      sizetype:[],
       subcategory:[],
       storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CabinetQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
-      ExpiryDate:[,[Validators.required]],
+      ExpiryDate:[],
       MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CatNo:[],
       LotNo:[],
-      Tags:[''],
-      Unit:[,[Validators.required,Validators.min(0),Validators.pattern('^\\d*\\.?\\d*$')]],
+      Tags:[],
+      Unit:[,[Validators.min(0),Validators.pattern('^\\d*\\.?\\d*$')]],
       Itemdescription:[,[Validators.maxLength(250)]],
       Itemnotes:[,[Validators.maxLength(250)]]
     });
@@ -961,7 +961,7 @@ export class AllItemsComponent implements OnInit {
       //   console.log(i);
       // }
 
-      this.allServices.Additemfn(data).subscribe({
+      this.allServices.Additemfn(data,this.result).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -977,7 +977,7 @@ export class AllItemsComponent implements OnInit {
             positionClass: 'toast-top-center',
             timeOut:3000,
           });
-          this.AddItemForm.reset();
+          // this.AddItemForm.reset();
         }
       })
     }

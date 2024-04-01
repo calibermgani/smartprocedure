@@ -696,20 +696,22 @@
         </div>
         <div class="col-4">
           <div class="">
-            <label for="size" class="modal-label-edit">Size<span style="color: red;">*</span></label>
+            <label for="size" class="modal-label-edit">Size
+              <!-- <span style="color: red;">*</span> -->
+            </label>
             <div class="d-flex">
               <input class="form-control-new me-2" type="text" formControlName="size" appPreventSpaces>
               <ng-select [items]="format_value" placeholder="" style="width: 30%;" class="me-3" formControlName="sizetype" appPreventSpaces></ng-select>
             </div>
           </div>
-          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+          <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.size.errors?.required">
               Please fill the field</div>
           </div>
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.sizetype.errors?.required">
               Please select atleast one size type</div>
-          </div>
+          </div> -->
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div
               *ngIf="(this.AddItemForm.controls.size.dirty || this.AddItemForm.controls.size.touched) && this.AddItemForm.controls.size.errors?.min">
@@ -785,13 +787,15 @@
         </div>
         <div class="col-4">
           <div class="">
-            <label for="price" class="modal-label-edit">Expiry Date<span style="color: red;">*</span></label>
+            <label for="price" class="modal-label-edit">Expiry Date
+              <!-- <span style="color: red;">*</span> -->
+            </label>
             <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }" formControlName="ExpiryDate" appPreventSpaces>
           </div>
-          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+          <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.ExpiryDate.dirty || this.AddItemForm.controls.ExpiryDate.touched) && this.AddItemForm.controls.ExpiryDate.errors?.required">
               Please fill the field</div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="row p-3">
@@ -835,10 +839,12 @@
         </div>
         <div class="col-4">
           <div class="">
-            <label for="items_no" class="modal-label-edit">Unit<span style="color: red;">*</span></label>
+            <label for="items_no" class="modal-label-edit">Unit
+              <!-- <span style="color: red;">*</span> -->
+            </label>
             <input type="text" class="form-control-new" placeholder="" formControlName="Unit" appPreventSpaces>
            </div>
-           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+           <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.required">
               Please fill the field</div>
           </div>
@@ -849,7 +855,7 @@
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.pattern">
               Unit Value must not be alphabets</div>
-          </div>
+          </div> -->
         </div>
       </div>
       <div class="row p-3">
