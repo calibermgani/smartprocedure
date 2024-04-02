@@ -253,28 +253,126 @@
           style="cursor: pointer">
       </div>
       <div style="overflow-y: scroll !important;height: 500px;">
-        <div class="p-2 mx-2 my-3" style="height: 160px;background-color: #594585;border-radius: 6px;">
+        <div class="p-3 mx-3" style="height: auto;background-color: #594585;border-radius: 6px;">
           <div class="d-flex flex-row">
             <div>
-              <img src="assets/images/view_item_update.svg" style="width: 185px;height: 146px;">
+              <img [src]="ViewItemData.image_url" style="width: 185px;height: 146px;">
             </div>
             <div class="d-flex flex-column mx-3" style="width: 100%;">
               <div class="d-flex flex-row justify-content-between align-items-center" style="width: 100%;height: 69px;">
                 <div>
-                  <label for="items_category" class="modal-label-white mb-1" >Item name</label>
-                  <h1 class="" style="color: #fff !important;font-weight: 500 !important;">{{ ViewItemData.item_name ? ViewItemData.item_name : '-' }}</h1>
+                  <label for="items_category" class="modal-label-white mb-1" style="color: #E8E5F5 !important;">Item name</label>
+                  <h1 class="" style="color: #fff !important;font-weight: 500 !important;">{{ ViewItemData.item_name ? ViewItemData.item_name +'-'+ViewItemData.size : '-' }}</h1>
                 </div>
                 <div class="" style="height: auto;background: #fff;border-radius: 2px;">
-                  <img src="assets/images/barcode.svg" style="width: 130px;height: 46px;">
+                  <img src="assets/images/barcode_new.svg" style="width: 130px;height: 46px;">
                   <h1 class="" style="text-align: center;">{{ ViewItemData.item_barcode ? ViewItemData.item_barcode : '-' }}</h1>
                 </div>
               </div>
               <div style="margin-top: 18px;">
-                <label for="items_category" class="modal-label-white mb-1">Procedure</label>
-                <div  style="display: flex;flex-direction: row;">
+                <label for="items_category" class="modal-label-white mb-1" style="color: #E8E5F5 !important;">Procedure</label>
+                <div  style="display: flex;flex-direction: row;flex-wrap: wrap;height: 40px;overflow-y: auto;">
                   <h1 class="dis_procedure"  *ngFor="let x of ViewItemData.item_procedures;let i = index">{{ ViewItemData.item_procedures[i].procedure_name ? ViewItemData.item_procedures[i].procedure_name+' ' : '-'}}</h1>
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Item number</label>
+              <h1 class="">{{ ViewItemData.item_number ? ViewItemData.item_number : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1" >Item category</label>
+              <h1 class="">{{ ViewItemData.item_category?.name ? ViewItemData.item_category?.name : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Sub Category</label>
+              <h1 class="">{{ ViewItemData.item_sub_category?.sub_category_name ? ViewItemData.item_sub_category?.sub_category_name : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Expiry Date</label>
+              <h1 class="">{{ ViewItemData.expired_date ? ViewItemData.expired_date : '-' }}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Store Qty</label>
+              <h1 class="">{{ ViewItemData.store_qty ? ViewItemData.store_qty : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1" >Cabinet Qty</label>
+              <h1 class="">{{ ViewItemData.cabinet_qty ? ViewItemData.cabinet_qty : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Min store Qty</label>
+              <h1 class="">{{ ViewItemData.min_level ? ViewItemData.min_level : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Size</label>
+              <h1 class="">{{ ViewItemData.size ? ViewItemData.size : '-' }}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">LOT No</label>
+              <h1 class="">{{ ViewItemData.lot_no ? ViewItemData.lot_no : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1" >CAT No</label>
+              <h1 class="">{{ ViewItemData.cat_no ? ViewItemData.cat_no : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Price</label>
+              <h1 class="">{{ ViewItemData.price ? ViewItemData.price : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Unit</label>
+              <h1 class="">{{ ViewItemData.unit ?  ViewItemData.unit : '-' }}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Item Status</label>
+              <h1 class="">{{ ViewItemData.item_status == 1 ? 'Active': 'Inactive' }}</h1>
+            </div>
+          </div>
+          <div class="col-3">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1" >Vendor</label>
+              <h1 class="">{{ ViewItemData.item_vendor?.VendorName ? ViewItemData.item_vendor?.VendorName : '-' }}</h1>
+            </div>
+          </div>
+          <div class="col-6">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Tags</label>
+              <h1 class="">{{ ViewItemData.tag ?  ViewItemData.tag : '-' }}</h1>
             </div>
           </div>
         </div>
@@ -320,7 +418,7 @@
           <div class="">
             <label class="modal-label-edit">Images</label>
             <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
-              <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'" >
+              <!-- <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'" >
                 <ngx-dropzone-label class="dz-message needsclick">
                   <div class="mt-4">
                     <i class="display-4 text-muted bx bxs-cloud-upload"></i>
@@ -344,7 +442,7 @@
                     </div>
                   </div>
                 </ngx-dropzone-label>
-              </ngx-dropzone-preview>
+              </ngx-dropzone-preview> -->
               <!-- end dropzon-preview -->
 
               <!-- <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
@@ -362,6 +460,26 @@
                   <div class="avatar-lg">
                       <div class="avatar-title bg-light rounded-circle">
                           <img [src]="imageUrl" id="projectlogo-img" class="avatar-md h-auto rounded-circle" />
+                      </div>
+                  </div>
+              </div>
+              </div> -->
+              <!-- <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
+                <div class="position-relative d-inline-block">
+                  <div class="position-absolute bottom-0 end-0">
+                      <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
+                          <div class="avatar-xs">
+                              <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16">
+                                  <i class='bx bxs-image-alt'></i>
+                              </div>
+                          </div>
+                      </label>
+                      <input  #imageInput class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput_Update($event)">
+                  </div>
+                  <div class="avatar-lg" style="height: 9rem !important;
+                  width: 16rem !important;">
+                      <div class="avatar-title" style="width: 262px;height: 146px;background: transparent;">
+                          <img [src]="imageUrl" id="projectlogo-img" class="avatar-md h-auto" style="height: 146px !important;width: 263px;" *ngIf="showImage == true">
                       </div>
                   </div>
               </div>

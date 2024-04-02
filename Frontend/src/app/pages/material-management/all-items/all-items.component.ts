@@ -920,6 +920,7 @@ export class AllItemsComponent implements OnInit {
               {
                 newArray.push(element.id);
                 let procedureStrings = newArray.map(num => num.toString());
+                console.log(procedureStrings);
                 this.AddItemForm.patchValue({
                 procedure:procedureStrings
                 })
@@ -931,7 +932,7 @@ export class AllItemsComponent implements OnInit {
       else
       {
         this.AddItemForm.patchValue({
-          procedure:[]
+          procedure:null
           })
       }
 
@@ -952,7 +953,7 @@ export class AllItemsComponent implements OnInit {
       let item_tag = data.value.Tags;
       if(!item_tag){
         this.AddItemForm.patchValue({
-          Tags:[]
+          Tags:null
         })
       }
       console.log(data.value);

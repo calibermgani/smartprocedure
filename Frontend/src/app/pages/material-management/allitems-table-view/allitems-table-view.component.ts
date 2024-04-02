@@ -121,21 +121,21 @@ export class AllItemsTableViewComponent {
       field: 'item_number',
       headerName: 'Item No',
       cellRenderer: 'agGroupCellRenderer',
-      cellRendererParams:(params:any)=>{
-        if(params.data.item_clones.length>0){
-          return { innerRenderer: (params: any) => `<div class="d-flex justify-content-center align-items-center">
-          <div class="me-2">${params.data.item_number}</div>
-          <div style="padding: 2px 4px 2px 4px;
-          background: #000;
-          color: #fff;
-          border-radius: 5px;
-          height: 17px;
-          line-height:12px !important;text-align:center;
-          width: 50px;}">
-          ${params.data.item_clones.length}&nbsp items</div>
-          </div>` };
-        }
-      }
+      // cellRendererParams:(params:any)=>{
+      //   if(params.data.item_clones.length>0){
+      //     return { innerRenderer: (params: any) => `<div class="d-flex justify-content-center align-items-center">
+      //     <div class="me-2">${params.data.item_number}</div>
+      //     <div style="padding: 2px 4px 2px 4px;
+      //     background: #000;
+      //     color: #fff;
+      //     border-radius: 5px;
+      //     height: 17px;
+      //     line-height:12px !important;text-align:center;
+      //     width: 50px;}">
+      //     ${params.data.item_clones.length}&nbsp items</div>
+      //     </div>` };
+      //   }
+      // }
     },
     {
       field: 'item_name',
@@ -504,6 +504,7 @@ export class AllItemsTableViewComponent {
     rowSelection: 'multiple',
     rowHeight: 35,
     pagination: true,
+    paginationPageSize:15,
     suppressRowClickSelection:true,
     suppressHorizontalScroll: false,
     suppressMovableColumns: true,
@@ -685,15 +686,15 @@ export class AllItemsTableViewComponent {
         break;
       }
       case 'edit': {
-        this.getCategoryOptions();
-        this.getVendors();
-        this.getTags();
-        this.getProcedures();
         this.Currently_Selected_row = params.data;
         console.log(params.data.id);
         this.allServices.ViewItem(params.data.id).subscribe({
           next:(res:any)=>{
             if(res.status == 'Success'){
+              this.getCategoryOptions();
+              this.getVendors();
+              this.getTags();
+              this.getProcedures();
               let procedure_values:any = [];
               if(res.data.item_procedures.length>0)
               {
@@ -990,6 +991,7 @@ export class AllItemsTableViewComponent {
       }
       case 'item_name':{
         this.viewitem?.hide();
+        this.viewitem_update?.hide()
         this.gridApi_1.deselectAll();
         this.disableNextPatientButton = false;
         this.disablePrevoiusPatientButton = false;
@@ -1355,6 +1357,37 @@ export class AllItemsTableViewComponent {
   }
 
 
+  imageUrl: any = null;
+  showImage:boolean = false;
+  result:any;
+  handleImageInput_Update(event:any): void {
+    console.log(event.target.files[0]);
+    this.result = event.target.files[0];
+    // const file: File | null = event?.target?.[0];
+
+    // if (file) {
+    //   const reader = new FileReader();
+    //   reader.readAsDataURL = (e: any) => {
+    //     this.imageUrl = e.target?.result;
+    //   };
+    //   this.showImage = true;
+    //   console.log(this.imageUrl);
+
+    //   reader.readAsDataURL(file);
+    // }
+    const file = event.target.files[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(event.target.files[0]);
+      reader.onload = (event2) => {
+        this.imageUrl = reader.result;
+      };
+      this.showImage = true;
+    }
+  }
+
+
   // AddItemfn(data:any){
   //   if(data.valid){
   //     let category_value = data.value.ItemCategory;
@@ -1461,6 +1494,7 @@ export class AllItemsTableViewComponent {
           {
             newArray.push(element.id);
             let procedureStrings = newArray.map(num => num.toString());
+            console.log(procedureStrings);
             this.AddItemForm.patchValue({
             procedure:procedureStrings
             })
@@ -1484,7 +1518,7 @@ export class AllItemsTableViewComponent {
 
       console.log(data.value);
 
-      this.allServices.UpdateItemfn(this.Currently_Selected_row,data).subscribe({
+      this.allServices.UpdateItemfn(this.Currently_Selected_row,data,this.result).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -1805,7 +1839,7 @@ export class AllItemsTableViewComponent {
       }
     })
   }
-  public apiUrl: any = environment_new.apiUrl;
+  public apiUrl: any = environment_new.imageUrl;
 
   ngOnChanges(changes: SimpleChanges): void {
     console.log(changes);

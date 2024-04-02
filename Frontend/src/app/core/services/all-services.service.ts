@@ -94,11 +94,11 @@ export class AllServicesService {
     console.log(data.value);
     console.log(image);
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
-    payload["item_number"] = data.value.ItemNumber;
-    payload["item_name"] = data.value.ItemName;;
-    payload["item_category_id"] = data.value.ItemCategory;
-    payload["item_sub_category_id"] = data.value.subcategory;
-    payload["item_barcode"] = data.value.Barcodes;
+    payload["item_number"] = data.value.ItemNumber ? data.value.ItemNumber : '';
+    payload["item_name"] = data.value.ItemName ? data.value.ItemName : '';
+    payload["item_category_id"] = data.value.ItemCategory ? data.value.ItemCategory : '';
+    payload["item_sub_category_id"] = data.value.subcategory ? data.value.subcategory : '';
+    payload["item_barcode"] = data.value.Barcodes ? data.value.Barcodes : '';
     payload["item_procedure_id"] = data.value.procedure;
     payload["vendor_id"] = data.value.Vendor;
     payload["price"] = data.value.price;
@@ -117,41 +117,42 @@ export class AllServicesService {
     // let x = data.value.item_image;
     // console.log(x);
     formData.append("token","1a32e71a46317b9cc6feb7388238c95d");
-    formData.append("item_number",data.value.ItemNumber);
-    formData.append("item_name",data.value.ItemName);
-    formData.append("item_category_id",data.value.ItemCategory);
+    formData.append("item_number",data.value.ItemNumber ? data.value.ItemNumber : '');
+    formData.append("item_name",data.value.ItemName ? data.value.ItemName : '');
+    formData.append("item_category_id",data.value.ItemCategory ? data.value.ItemCategory : '');
 
-    formData.append("item_sub_category_id",data.value.subcategory);
-    formData.append("item_barcode",data.value.Barcodes);
-    formData.append("item_procedure_id",JSON.stringify(data.value.procedure));
+    formData.append("item_sub_category_id",data.value.subcategory ? data.value.subcategory : '');
+    formData.append("item_barcode",data.value.Barcodes ? data.value.Barcodes : '');
+    formData.append("item_procedure_id",data.value.procedure != null ? JSON.stringify(data.value.procedure) : '');
 
 
     // payload["item_status"] = data.value.ItemStatus;
     if(data.value.ItemStatus){
       payload["item_status"] = data.value.ItemStatus;
-      formData.append("item_status",data.value.ItemStatus);
+      formData.append("item_status",data.value.ItemStatus ? data.value.ItemStatus : '' );
     }
     else{
       payload["item_status"] = 1;
       formData.append("item_status","1");
     }
 
-    formData.append("vendor_id",data.value.Vendor);
-    formData.append("price",data.value.price);
-    formData.append("size",data.value.size);
-    formData.append("size_type",data.value.sizetype);
-    formData.append("unit",data.value.Unit);
-    formData.append("store_qty",data.value.storeqty);
-    formData.append("cabinet_qty",data.value.CabinetQty);
-    formData.append("expired_date",this.formatDate(data.value.ExpiryDate));
+    formData.append("vendor_id",data.value.Vendor ? data.value.Vendor : '');
+    formData.append("price",data.value.price ? data.value.price : '');
+    formData.append("size",data.value.size ? data.value.size : '');
+    formData.append("size_type",data.value.sizetype ?  data.value.sizetype : '');
+    formData.append("unit",data.value.Unit ? data.value.Unit : '');
+    formData.append("store_qty",data.value.storeqty ? data.value.storeqty : '');
+    formData.append("cabinet_qty",data.value.CabinetQty ? data.value.CabinetQty : '');
+    formData.append("expired_date",data.value.ExpiryDate ? this.formatDate(data.value.ExpiryDate) :  '');
     // formData.append("cabinet_qty",data.value.CabinetQty);
-    formData.append("min_level",data.value.MinStoreQty);
-    formData.append("cat_no",data.value.CatNo);
-    formData.append("lot_no",data.value.LotNo);
-    formData.append("item_description",data.value.Itemdescription);
-    formData.append("item_notes",data.value.Itemnotes);
+    formData.append("min_level",data.value.MinStoreQty ? data.value.MinStoreQty : '');
+    formData.append("cat_no",data.value.CatNo ? data.value.CatNo : '');
+    formData.append("lot_no",data.value.LotNo ? data.value.LotNo : '');
+    formData.append("item_description",data.value.Itemdescription ? data.value.Itemdescription : '');
+    formData.append("item_notes",data.value.Itemnotes ? data.value.Itemnotes : '');
     console.log('sub id',data.value.Tags);
-    formData.append("tag",JSON.stringify(data.value.Tags));
+    formData.append("tag", data.value.Tags ? data.value.Tags : '');
+    formData.append("created_by","1")
     // payload["expired_date"] = data.value.ExpiryDate;
 
 
@@ -167,18 +168,21 @@ export class AllServicesService {
     payload["item_image"] = "";
     payload["created_by"]='1';
     payload["image"] = formData;
-    console.log(payload);
+    // console.log(payload);
     console.log(formData.get('item_image'));
     formData.forEach((value, key) => {
       const values = formData.getAll(key);
       console.log(`${key}: ${values}`);
+      console.log('KEY',typeof(key));
+      console.log('VALUES',typeof(values));
     });
 
     // return null;
     return this.http.post(`${this.apiUrl}/items/store`,formData);
   }
 
-  UpdateItemfn(item_id:any,data:any){
+  UpdateItemfn(item_id:any,data:any,image:any){
+    let formData = new FormData();
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["item_number"] = data.value.ItemNumber;
@@ -211,8 +215,54 @@ export class AllServicesService {
     payload["item_notes"] = data.value.Itemnotes;
     payload["tag"] = data.value.Tag;
     payload["image_url"] = '';
-    payload["created_by"]='1'; data.value.ItemNumber;
-    return this.http.post(`${this.apiUrl}/items/update`,payload);
+    payload["updated_by"]='1';
+
+
+    formData.append('token','1a32e71a46317b9cc6feb7388238c95d');
+    formData.append('item_number',data.value.ItemNumber?data.value.ItemNumber : '');
+    formData.append('item_name',data.value.ItemName?data.value.ItemName : '');
+    formData.append('item_id',item_id.id?item_id.id : '');
+    formData.append('item_category_id',data.value.ItemCategory?data.value.ItemCategory : '');
+    formData.append('item_sub_category_id',data.value.subcategory?data.value.subcategory : '');
+    formData.append('item_barcode',data.value.Barcodes?data.value.Barcodes : '');
+    formData.append('item_procedure_id',data.value.procedure !=null ? JSON.stringify(data.value.procedure) : '');
+
+    if(data.value.ItemStatus){
+      formData.append('item_status',data.value.ItemStatus?data.value.ItemStatus : '');
+    }
+    else{
+      formData.append('item_status', '1');
+    }
+
+    formData.append('vendor_id', data.value.Vendor ? data.value.Vendor : '');
+    formData.append('price', data.value.price ? data.value.price : '');
+    formData.append('size', data.value.size ? data.value.size : '');
+    formData.append('size_type', data.value.size_type ? data.value.size_type : '');
+    formData.append('unit', data.value.Unit ? data.value.Unit : '');
+    formData.append('store_qty', data.value.storeqty ? data.value.storeqty : '');
+    formData.append('cabinet_qty', data.value.CabinetQty ? data.value.CabinetQty : '');
+    formData.append('expired_date', data.value.ExpiryDate ? this.formatDate(data.value.ExpiryDate) : '');
+    formData.append('min_level', data.value.MinStoreQty ? data.value.MinStoreQty : '');
+    formData.append('cat_no', data.value.CatNo ? data.value.CatNo : '');
+    formData.append('lot_no', data.value.LotNo ? data.value.LotNo : '');
+    formData.append('item_description', data.value.Itemdescription ? data.value.Itemdescription : '');
+    formData.append('item_notes', data.value.Itemnotes ? data.value.Itemnotes : '');
+    formData.append('tag', data.value.Tags !=null ? JSON.stringify(data.value.Tags) : '');
+    if(image){
+      formData.append("item_image", image, image.name);
+    }
+    else{
+      formData.append("item_image", '');
+    }
+    formData.append('updated_by',"1");
+    formData.forEach((value, key) => {
+      const values = formData.getAll(key);
+      console.log(`${key}: ${values}`);
+      console.log('KEY',typeof(key));
+      console.log('VALUES',typeof(values));
+    });
+
+    return this.http.post(`${this.apiUrl}/items/update`,formData);
   }
 
   BulkUpdate(Item_id:any,data:any){
