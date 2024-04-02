@@ -150,11 +150,11 @@ export class VendorListComponent implements OnInit {
     //   headerName: 'Contact Person',
     //   cellRenderer: this.cellrendered.bind(this, 'ContactPerson')
     // },
-    {
-      field: 'Added_by',
-      headerName: 'Added By',
-      cellRenderer: this.cellrendered.bind(this, 'Added_by')
-    },
+    // {
+    //   field: 'Added_by',
+    //   headerName: 'Added By',
+    //   cellRenderer: this.cellrendered.bind(this, 'Added_by')
+    // },
     {
       field: 'edit',
       width:10,
@@ -339,6 +339,8 @@ export class VendorListComponent implements OnInit {
   }
 
   onSearch(){
+    console.log(this.search_vendorlist);
+    this.Serial_no = 1;
     this.myGrid_1.api?.setQuickFilter(this.search_vendorlist);
   }
 

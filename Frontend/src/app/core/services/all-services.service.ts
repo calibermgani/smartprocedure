@@ -89,7 +89,7 @@ export class AllServicesService {
   }
 
   Additemfn(data:any,image:any){
-    let formData = new FormData();
+    let formData = new FormData;
     let payload:any = {};
     console.log(data.value);
     console.log(image);
@@ -123,7 +123,16 @@ export class AllServicesService {
 
     formData.append("item_sub_category_id",data.value.subcategory ? data.value.subcategory : '');
     formData.append("item_barcode",data.value.Barcodes ? data.value.Barcodes : '');
-    formData.append("item_procedure_id",data.value.procedure != null ? JSON.stringify(data.value.procedure) : '');
+    let procedure = data.value.procedure;
+    console.log('Procedure',procedure);
+    console.log('TYpe of Procedure',typeof(procedure));
+    if(procedure !=null){
+      procedure.forEach((item:any) => formData.append("item_procedure_id[]", item))
+    }
+    else{
+      formData.append("item_procedure_id","")
+    }
+    // formData.append("item_procedure_id", stringArray);
 
 
     // payload["item_status"] = data.value.ItemStatus;
@@ -151,7 +160,16 @@ export class AllServicesService {
     formData.append("item_description",data.value.Itemdescription ? data.value.Itemdescription : '');
     formData.append("item_notes",data.value.Itemnotes ? data.value.Itemnotes : '');
     console.log('sub id',data.value.Tags);
-    formData.append("tag", data.value.Tags ? data.value.Tags : '');
+    let tags = data.value.Tags;
+    if(tags != null){
+      tags.forEach(element => {
+        formData.append("tag[]", element);
+      });
+    }
+    else{
+      formData.append("tag", '');
+    }
+
     formData.append("created_by","1")
     // payload["expired_date"] = data.value.ExpiryDate;
 
@@ -184,6 +202,8 @@ export class AllServicesService {
   UpdateItemfn(item_id:any,data:any,image:any){
     let formData = new FormData();
     let payload:Object = {};
+    console.log("image",image);
+
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["item_number"] = data.value.ItemNumber;
     payload["item_name"] = data.value.ItemName;
@@ -225,7 +245,15 @@ export class AllServicesService {
     formData.append('item_category_id',data.value.ItemCategory?data.value.ItemCategory : '');
     formData.append('item_sub_category_id',data.value.subcategory?data.value.subcategory : '');
     formData.append('item_barcode',data.value.Barcodes?data.value.Barcodes : '');
-    formData.append('item_procedure_id',data.value.procedure !=null ? JSON.stringify(data.value.procedure) : '');
+    let procedure = data.value.procedure;
+    console.log('Procedure',procedure);
+    console.log('TYpe of Procedure',typeof(procedure));
+    if(procedure !=null){
+      procedure.forEach((item:any) => formData.append("item_procedure_id[]", item))
+    }
+    else{
+      formData.append("item_procedure_id","")
+    }
 
     if(data.value.ItemStatus){
       formData.append('item_status',data.value.ItemStatus?data.value.ItemStatus : '');
@@ -247,7 +275,17 @@ export class AllServicesService {
     formData.append('lot_no', data.value.LotNo ? data.value.LotNo : '');
     formData.append('item_description', data.value.Itemdescription ? data.value.Itemdescription : '');
     formData.append('item_notes', data.value.Itemnotes ? data.value.Itemnotes : '');
-    formData.append('tag', data.value.Tags !=null ? JSON.stringify(data.value.Tags) : '');
+    let tags = data.value.Tags;
+    console.log("Tags",tags);
+
+    if(tags != null){
+      tags.forEach(element => {
+        formData.append("tag[]", element);
+      });
+    }
+    else{
+      formData.append("tag", '');
+    }
     if(image){
       formData.append("item_image", image, image.name);
     }

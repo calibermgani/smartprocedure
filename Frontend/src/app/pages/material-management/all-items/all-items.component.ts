@@ -143,7 +143,7 @@ export class AllItemsComponent implements OnInit {
       ItemName:[,[Validators.required]],
       ItemCategory:[,[Validators.required]],
       Barcodes:[,[Validators.required]],
-      procedure:[],
+      procedure:'',
       ItemStatus:['Active'],
       Vendor:[],
       price:[,[Validators.required,Validators.pattern('^\\d*\\.?\\d*$'),Validators.min(0)]],
@@ -192,7 +192,7 @@ export class AllItemsComponent implements OnInit {
   showImage:boolean = false;
   result:any;
 
-  handleImageInput(event:any): void {
+  handleImageInput_allItem(event:any): void {
     console.log(event.target.files[0]);
     this.result = event.target.files[0];
     // const file: File | null = event?.target?.[0];
@@ -453,6 +453,8 @@ export class AllItemsComponent implements OnInit {
   OpenModal(modalname:string){
     switch(modalname){
       case 'additem':{
+        this.imageUrl = '';
+        this.showImage = false;
         this.getCategoryOptions();
         this.getTags();
         this.getVendors();
@@ -469,15 +471,24 @@ export class AllItemsComponent implements OnInit {
       }
       case 'addvendor':{
         this.addvendor?.show();
+        this.AddVendorForm.patchValue({
+          Status:'Active'
+        })
         break;
       }
       case 'subcategory':{
         this.getCategoryOptions();
         this.subcategory?.show();
+        this.AddSubCategoryForm.patchValue({
+          status:'Active'
+        })
         break;
       }
       case 'addcategory':{
         this.addcategory?.show();
+        this.AddCategoryForm.patchValue({
+          Status:'Active'
+        })
         break;
       }
       case 'editcategory':{
@@ -546,7 +557,8 @@ export class AllItemsComponent implements OnInit {
       case 'additem':{
         this.AddItemForm.reset();
         this.additem?.hide();
-        this.imageUrl = '';
+        // this.imageUrl = '';
+        // this.showImage = false;
         break;
       }
       case 'delete_modal':{
@@ -919,7 +931,7 @@ export class AllItemsComponent implements OnInit {
               if(ProcedurName == element.procedure_name)
               {
                 newArray.push(element.id);
-                let procedureStrings = newArray.map(num => num.toString());
+                let procedureStrings:any = newArray.map(num => num.toString());
                 console.log(procedureStrings);
                 this.AddItemForm.patchValue({
                 procedure:procedureStrings
@@ -998,6 +1010,7 @@ export class AllItemsComponent implements OnInit {
             });
             this.CloseModal('editcategory');
             this.GetOverAllList();
+            this.authfakeauthenticationService.PassAllItemsGridPayload(this.AllItemsGridAdvanceFilterForm);
           }
         }),
         error:((res:any)=>{
@@ -1031,6 +1044,7 @@ export class AllItemsComponent implements OnInit {
             });
             this.CloseModal('editsubcategory');
             this.GetOverAllList();
+            this.authfakeauthenticationService.PassAllItemsGridPayload(this.AllItemsGridAdvanceFilterForm);
           }
         }),
         error:((res:any)=>{
@@ -1223,11 +1237,13 @@ export class AllItemsComponent implements OnInit {
             }
         });
       }
+      console.log('aew',data);
+
       this.authfakeauthenticationService.PassAllItemsGridPayload(data);
-      this.ReserAdvancedGridFilters();
+      // this.ResetAdvancedGridFilters(data);
   }
 
-  ReserAdvancedGridFilters(){
+  ResetAdvancedGridFilters(data:any){
     this.AllItemsGridAdvanceFilterForm.patchValue({
       category:[],
       ItemName:[],
@@ -1241,6 +1257,7 @@ export class AllItemsComponent implements OnInit {
     this.ClearAdvancedFilterFields('CabinetQty');
     this.ClearAdvancedFilterFields('Price');
     this.ClearAdvancedFilterFields('MinLevel');
+    this.authfakeauthenticationService.PassAllItemsGridPayload(data);
   }
 
   ClearAdvancedFilterFields(data:any){

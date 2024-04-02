@@ -294,7 +294,7 @@
                 <div (click)="ShowAdvancedFilters()" class="pointer">
                  <h1 style="font-weight: 500 !important;"><img src="assets/images/back_arrow.svg" width="24px" height="24px" class="me-2">Filter</h1>
                 </div>
-                <div class="ms-auto pointer" (click)="ReserAdvancedGridFilters()">
+                <div class="ms-auto pointer" (click)="ResetAdvancedGridFilters(this.AllItemsGridAdvanceFilterForm)">
                   <p class="mb-0" style="color: #747474 !important;">Clear all</p>
                 </div>
               </div>
@@ -561,7 +561,7 @@
                               </div>
                           </div>
                       </label>
-                      <input  #imageInput class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput($event)">
+                      <input class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput_allItem($event)">
                   </div>
                   <div class="avatar-lg" style="height: 9rem !important;
                   width: 16rem !important;">

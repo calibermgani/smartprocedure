@@ -121,21 +121,21 @@ export class AllItemsTableViewComponent {
       field: 'item_number',
       headerName: 'Item No',
       cellRenderer: 'agGroupCellRenderer',
-      // cellRendererParams:(params:any)=>{
-      //   if(params.data.item_clones.length>0){
-      //     return { innerRenderer: (params: any) => `<div class="d-flex justify-content-center align-items-center">
-      //     <div class="me-2">${params.data.item_number}</div>
-      //     <div style="padding: 2px 4px 2px 4px;
-      //     background: #000;
-      //     color: #fff;
-      //     border-radius: 5px;
-      //     height: 17px;
-      //     line-height:12px !important;text-align:center;
-      //     width: 50px;}">
-      //     ${params.data.item_clones.length}&nbsp items</div>
-      //     </div>` };
-      //   }
-      // }
+      cellRendererParams:(params:any)=>{
+        if(params.data.item_entry_status == 'clone'){
+          return { innerRenderer: (params: any) => `<div class="d-flex justify-content-center align-items-center">
+          <div class="me-2">${params.data.item_number}</div>
+          <div style="padding: 2px 4px 2px 4px;
+          background: #000;
+          color: #fff;
+          border-radius: 5px;
+          height: 17px;
+          line-height:12px !important;text-align:center;
+          width: 50px;}">
+          New</div>
+          </div>` };
+        }
+      }
     },
     {
       field: 'item_name',
@@ -458,7 +458,7 @@ export class AllItemsTableViewComponent {
       MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CatNo:[],
       LotNo:[],
-      Tag:[],
+      Tags:[],
       Unit:[,[Validators.min(0),Validators.pattern('\\d*')]],
       Itemdescription:[],
       Itemnotes:[]
@@ -663,16 +663,16 @@ export class AllItemsTableViewComponent {
             if(res.status == 'Success'){
               let procedure_values:any = [];
               this.ViewItemData = res.data;
-              this.x= res.data.image_url;
-              console.log(this.x);
-              const bytes = new TextEncoder().encode(this.x);
-              // Convert the Uint8Array to a base64 string
-              const base64String = btoa(String.fromCharCode(...bytes));
-              console.log(base64String);
-               let image = `data:image/jpeg;base64,${this.x}`
-              // this.y = 'data:image/jpeg;base64,' + this.x
-              console.log(image);
-              this.ViewItemData.image_url = image;
+              // this.x= res.data.image_url;
+              // console.log(this.x);
+              // const bytes = new TextEncoder().encode(this.x);
+              // // Convert the Uint8Array to a base64 string
+              // const base64String = btoa(String.fromCharCode(...bytes));
+              // console.log(base64String);
+              //  let image = `data:image/jpeg;base64,${this.x}`
+              // // this.y = 'data:image/jpeg;base64,' + this.x
+              // console.log(image);
+              // this.ViewItemData.image_url = image;
             }
           },
           error:(res:any)=>{
@@ -713,7 +713,7 @@ export class AllItemsTableViewComponent {
                 tag_values = null;
               }
               this.AddItemForm.patchValue({
-                imageURL:'',
+                imageURL:res.data.image_url,
                 ItemNumber:res.data.item_number,
                 ItemName:res.data.item_name,
                 ItemCategory:res.data.item_category?.name,
@@ -731,11 +731,15 @@ export class AllItemsTableViewComponent {
                 MinStoreQty:res.data.min_level,
                 CatNo:res.data.cat_no,
                 LotNo:res.data.lot_no,
-                Tag:tag_values,
+                Tags:tag_values,
                 Unit:res.data.unit,
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
               });
+              // this.handleImageInput();
+              this.imageUrl = res.data.image_url;
+              console.log('url',this.imageUrl);
+              if(this.imageUrl){this.showImage = true;}
             }
 
             console.log(res.data.item_category?.id);
@@ -784,29 +788,9 @@ export class AllItemsTableViewComponent {
   onSelectionChanged(event:SelectionChangedEvent){
     const selectedNodes:any = event.api.getSelectedRows();
     const selectedRowId = selectedNodes?.[0]?.item_clones?.[0]?.id;
-    let index = 0;
-  //   setTimeout(() => {
-  //     let x = this.gridApi_1.getDetailGridInfo('');
-  //     console.log(x);
-  // }, 1000);
-  // const detailGrid = this.gridApi_1!.getDetailGridInfo('IN3932092');
-  // console.log(detailGrid);
-  // if (detailGrid) {
-  //     detailGrid.api.flashCells();
-  // } else {
-  //     console.log('Detail grid not found for selected row');
-  // }
-  // this.gridApi_1!.forEachDetailGridInfo(function (detailGridApi) {
-  //   detailGridApi.api!.flashCells();
-  // });
-
-  // this.gridApi_1!.forEachDetailGridInfo((detailGridApi, index) => {
-  //   if (index === 0) {
-  //       // Apply flashCells only to the detail grid of the first row
-  //       detailGridApi.api!.flashCells();
-  //   }
-// });
 }
+
+
 
 
   onGridReady_1(params: GridReadyEvent) {
@@ -822,14 +806,14 @@ export class AllItemsTableViewComponent {
       console.log(this.selected_row_data);
       if (this.selected_row_data.length >= 0) {
         if (this.selected_row_data.length == 0) {
-          this.myGrid_1.api?.forEachNode((node)=>{
-            node.setExpanded(false);
-          })
-          this.gridApi_1!.forEachDetailGridInfo((detailGridApi, index) => {
-              detailGridApi.api.forEachNode((node)=>{
-                node.setSelected(false);
-              })
-          });
+          // this.myGrid_1.api?.forEachNode((node)=>{
+          //   node.setExpanded(false);
+          // })
+          // this.gridApi_1!.forEachDetailGridInfo((detailGridApi, index) => {
+          //     detailGridApi.api.forEachNode((node)=>{
+          //       node.setSelected(false);
+          //     })
+          // });
           this.showEditablefields = false;
           this.selected_row_data_length = 0;
           const newColumnDefs = this.columnMainDefs.map(colDef => {
@@ -845,39 +829,39 @@ export class AllItemsTableViewComponent {
           // this.ngAfterViewInit();
         }
         else {
-          this.myGrid_1.api?.forEachNode((node)=>{
-            if(!node.isSelected()){
-              node.setExpanded(false);
-              const detailGridApi = this.gridApi_1.getDetailGridInfo(`detail_${node.id}`);
-              if(detailGridApi){
-                detailGridApi.api.forEachNode(node => {
-                  if (node.data) {
-                      node.setSelected(false);
-                  }
-              });
-              console.log(node);
-              }
-            }
-          })
-          selectedNodes.forEach((Node,index)=>{
-            Node.setExpanded(true);
-            setTimeout(() => {
-              const detailGridApi = this.gridApi_1.getDetailGridInfo(`detail_${Node.id}`);
-              if (detailGridApi) {
-                // detailGridApi.api.flashCells();
-                detailGridApi.api.forEachNode(node => {
-                  if (node.data) {
-                      node.setSelected(true);
-                  }
-              });
-            }
-            else {
-                console.log(`Detail grid not found for row with id detail_${Node.id}`);
-                detailGridApi.api.deselectAll();
-            }
-            }, 100);
+          // this.myGrid_1.api?.forEachNode((node)=>{
+          //   if(!node.isSelected()){
+          //     node.setExpanded(false);
+          //     const detailGridApi = this.gridApi_1.getDetailGridInfo(`detail_${node.id}`);
+          //     if(detailGridApi){
+          //       detailGridApi.api.forEachNode(node => {
+          //         if (node.data) {
+          //             node.setSelected(false);
+          //         }
+          //     });
+          //     console.log(node);
+          //     }
+          //   }
+          // })
+          // selectedNodes.forEach((Node,index)=>{
+          //   Node.setExpanded(true);
+          //   setTimeout(() => {
+          //     const detailGridApi = this.gridApi_1.getDetailGridInfo(`detail_${Node.id}`);
+          //     if (detailGridApi) {
+          //       // detailGridApi.api.flashCells();
+          //       detailGridApi.api.forEachNode(node => {
+          //         if (node.data) {
+          //             node.setSelected(true);
+          //         }
+          //     });
+          //   }
+          //   else {
+          //       console.log(`Detail grid not found for row with id detail_${Node.id}`);
+          //       detailGridApi.api.deselectAll();
+          //   }
+          //   }, 100);
 
-           })
+          //  })
 
           this.AllItemsChecked = true
           this.selected_row_data_length = this.selected_row_data.length;
@@ -925,6 +909,8 @@ export class AllItemsTableViewComponent {
   OpenModal(modalname:string){
     switch(modalname){
       case 'editItem':{
+        this.imageUrl = '';
+        this.showImage = false;
         this.viewitem?.show();
         break;
       }
@@ -986,6 +972,8 @@ export class AllItemsTableViewComponent {
       case 'editItem':{
         this.AddItemForm.reset();
         this.editItem?.hide();
+        this.imageUrl = '';
+        this.showImage = false;
         this.gridApi_1.deselectAll();
         break;
       }
@@ -1360,7 +1348,7 @@ export class AllItemsTableViewComponent {
   imageUrl: any = null;
   showImage:boolean = false;
   result:any;
-  handleImageInput_Update(event:any): void {
+  handleImageInput_edit(event:any): void {
     console.log(event.target.files[0]);
     this.result = event.target.files[0];
     // const file: File | null = event?.target?.[0];
@@ -1513,6 +1501,13 @@ export class AllItemsTableViewComponent {
       else if(item_status == 'Inactive'){
         this.AddItemForm.patchValue({
           ItemStatus:"2"
+        })
+      }
+
+      let item_tag = data.value.Tags;
+      if(!item_tag){
+        this.AddItemForm.patchValue({
+          Tags:null
         })
       }
 
@@ -1850,6 +1845,9 @@ export class AllItemsTableViewComponent {
         }
       }
       if(changes.SearchAllItemsGrid.currentValue){
+        this.myGrid_1.api?.setQuickFilter(changes.SearchAllItemsGrid.currentValue);
+      }
+      else{
         this.myGrid_1.api?.setQuickFilter(changes.SearchAllItemsGrid.currentValue);
       }
 

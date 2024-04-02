@@ -10,8 +10,8 @@
               <input class="form-check-input SelectedCheckbox" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="AllItemsChecked"
                 value="option1" (click)="UnSelectAllItems(AllItemsChecked)">
             </div>
-            <div>
-              <h1 style="color: #fff !important;">Deselect | {{selected_row_data_length }} Item selected</h1>
+            <div class="d-flex flex-row">
+              <h1 style="color: #fff !important;" class="pointer" (click)="UnSelectAllItems(AllItemsChecked)">Deselect |</h1><h1 style="color: #fff !important;" class="ps-2">{{selected_row_data_length }} Item selected</h1>
             </div>
           </div>
         </div>
@@ -282,25 +282,25 @@
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Item number</label>
-              <h1 class="">{{ ViewItemData.item_number ? ViewItemData.item_number : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.item_number ? ViewItemData.item_number : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1" >Item category</label>
-              <h1 class="">{{ ViewItemData.item_category?.name ? ViewItemData.item_category?.name : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.item_category?.name ? ViewItemData.item_category?.name : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Sub Category</label>
-              <h1 class="">{{ ViewItemData.item_sub_category?.sub_category_name ? ViewItemData.item_sub_category?.sub_category_name : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.item_sub_category?.sub_category_name ? ViewItemData.item_sub_category?.sub_category_name : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Expiry Date</label>
-              <h1 class="">{{ ViewItemData.expired_date ? ViewItemData.expired_date : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.expired_date ? ViewItemData.expired_date : '-' }}</h1>
             </div>
           </div>
         </div>
@@ -308,25 +308,25 @@
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Store Qty</label>
-              <h1 class="">{{ ViewItemData.store_qty ? ViewItemData.store_qty : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.store_qty ? ViewItemData.store_qty : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1" >Cabinet Qty</label>
-              <h1 class="">{{ ViewItemData.cabinet_qty ? ViewItemData.cabinet_qty : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.cabinet_qty ? ViewItemData.cabinet_qty : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Min store Qty</label>
-              <h1 class="">{{ ViewItemData.min_level ? ViewItemData.min_level : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.min_level ? ViewItemData.min_level : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Size</label>
-              <h1 class="">{{ ViewItemData.size ? ViewItemData.size : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.size ? ViewItemData.size : '-' }}</h1>
             </div>
           </div>
         </div>
@@ -334,25 +334,25 @@
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">LOT No</label>
-              <h1 class="">{{ ViewItemData.lot_no ? ViewItemData.lot_no : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.lot_no ? ViewItemData.lot_no : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1" >CAT No</label>
-              <h1 class="">{{ ViewItemData.cat_no ? ViewItemData.cat_no : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.cat_no ? ViewItemData.cat_no : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Price</label>
-              <h1 class="">{{ ViewItemData.price ? ViewItemData.price : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.price ? ViewItemData.price : '-' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Unit</label>
-              <h1 class="">{{ ViewItemData.unit ?  ViewItemData.unit : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.unit ?  ViewItemData.unit : '-' }}</h1>
             </div>
           </div>
         </div>
@@ -360,19 +360,35 @@
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Item Status</label>
-              <h1 class="">{{ ViewItemData.item_status == 1 ? 'Active': 'Inactive' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.item_status == 1 ? 'Active': 'Inactive' }}</h1>
             </div>
           </div>
           <div class="col-3">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1" >Vendor</label>
-              <h1 class="">{{ ViewItemData.item_vendor?.VendorName ? ViewItemData.item_vendor?.VendorName : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.item_vendor?.VendorName ? ViewItemData.item_vendor?.VendorName : '-' }}</h1>
             </div>
           </div>
           <div class="col-6">
             <div class="mb-3">
               <label for="items_category" class="modal-label mb-1">Tags</label>
-              <h1 class="">{{ ViewItemData.tag ?  ViewItemData.tag : '-' }}</h1>
+              <h1 class="viewItem_data">{{ ViewItemData.tag ?  ViewItemData.tag : '-' }}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col-12">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Item description</label>
+              <h1 class="viewItem_data">{{ ViewItemData.item_description ?  ViewItemData.item_description : '-' }}</h1>
+            </div>
+          </div>
+        </div>
+        <div class="row m-3">
+          <div class="col-12">
+            <div class="mb-3">
+              <label for="items_category" class="modal-label mb-1">Notes</label>
+              <h1 class="viewItem_data">{{ ViewItemData.item_notes ?  ViewItemData.item_notes : '-' }}</h1>
             </div>
           </div>
         </div>
@@ -445,36 +461,17 @@
               </ngx-dropzone-preview> -->
               <!-- end dropzon-preview -->
 
-              <!-- <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
+              <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
                 <div class="position-relative d-inline-block">
                   <div class="position-absolute bottom-0 end-0">
-                      <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
+                      <label for="project-image-input1" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
                           <div class="avatar-xs">
                               <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16">
                                   <i class='bx bxs-image-alt'></i>
                               </div>
                           </div>
                       </label>
-                      <input  #imageInput class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput(imageInput)">
-                  </div>
-                  <div class="avatar-lg">
-                      <div class="avatar-title bg-light rounded-circle">
-                          <img [src]="imageUrl" id="projectlogo-img" class="avatar-md h-auto rounded-circle" />
-                      </div>
-                  </div>
-              </div>
-              </div> -->
-              <!-- <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
-                <div class="position-relative d-inline-block">
-                  <div class="position-absolute bottom-0 end-0">
-                      <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
-                          <div class="avatar-xs">
-                              <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16">
-                                  <i class='bx bxs-image-alt'></i>
-                              </div>
-                          </div>
-                      </label>
-                      <input  #imageInput class="form-control d-none" value="" id="project-image-input" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput_Update($event)">
+                      <input class="form-control d-none" value="" id="project-image-input1" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput_edit($event)">
                   </div>
                   <div class="avatar-lg" style="height: 9rem !important;
                   width: 16rem !important;">
@@ -483,7 +480,9 @@
                       </div>
                   </div>
               </div>
-              </div> -->
+              </div>
+
+
           </div>
 
         </div>
@@ -747,7 +746,7 @@
         <div class="col-8">
           <div class="">
             <label for="items_no" class="modal-label-edit">Tags</label>
-            <ng-select [items]="Tags" formControlName="Tag"  placeholder="" [multiple]="true" appPreventSpaces></ng-select>
+            <ng-select [items]="Tags" formControlName="Tags"  placeholder="" [multiple]="true" appPreventSpaces></ng-select>
            </div>
         </div>
         <div class="col-4">
