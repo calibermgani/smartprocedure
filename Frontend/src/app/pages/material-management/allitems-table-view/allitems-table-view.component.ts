@@ -79,6 +79,7 @@ export class AllItemsTableViewComponent {
   @ViewChild('delete_modal', { static: false }) delete_modal: ModalDirective;
   @ViewChild('editItem', { static: false }) editItem?: ModalDirective;
   @ViewChild('bulk_edit', { static: false }) bulk_edit?: ModalDirective;
+  @ViewChild('viewitem_update', { static: false }) viewitem_update?: ModalDirective;
   @Output() newItemEvent = new EventEmitter;
 
   @Input() Updategrid: boolean = false;
@@ -927,7 +928,8 @@ export class AllItemsTableViewComponent {
         break;
       }
       case 'item_name':{
-        this.viewitem?.show();
+        // this.viewitem?.show();
+        this.viewitem_update?.show();
         break;
       }
       case 'delete_modal':{

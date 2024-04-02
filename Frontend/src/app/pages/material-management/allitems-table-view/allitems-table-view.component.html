@@ -242,6 +242,68 @@
   </div>
 </div>
 
+<div bsModal #viewitem_update="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" [config]="{ignoreBackdropClick: true}">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">View Item
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('item_name')"
+          style="cursor: pointer">
+      </div>
+      <div style="overflow-y: scroll !important;height: 500px;">
+        <div class="p-2 mx-2 my-3" style="height: 160px;background-color: #594585;border-radius: 6px;">
+          <div class="d-flex flex-row">
+            <div>
+              <img src="assets/images/view_item_update.svg" style="width: 185px;height: 146px;">
+            </div>
+            <div class="d-flex flex-column mx-3" style="width: 100%;">
+              <div class="d-flex flex-row justify-content-between align-items-center" style="width: 100%;height: 69px;">
+                <div>
+                  <label for="items_category" class="modal-label-white mb-1" >Item name</label>
+                  <h1 class="" style="color: #fff !important;font-weight: 500 !important;">{{ ViewItemData.item_name ? ViewItemData.item_name : '-' }}</h1>
+                </div>
+                <div class="" style="height: auto;background: #fff;border-radius: 2px;">
+                  <img src="assets/images/barcode.svg" style="width: 130px;height: 46px;">
+                  <h1 class="" style="text-align: center;">{{ ViewItemData.item_barcode ? ViewItemData.item_barcode : '-' }}</h1>
+                </div>
+              </div>
+              <div style="margin-top: 18px;">
+                <label for="items_category" class="modal-label-white mb-1">Procedure</label>
+                <div  style="display: flex;flex-direction: row;">
+                  <h1 class="dis_procedure"  *ngFor="let x of ViewItemData.item_procedures;let i = index">{{ ViewItemData.item_procedures[i].procedure_name ? ViewItemData.item_procedures[i].procedure_name+' ' : '-'}}</h1>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-flex flex-row justify-content-end p-3">
+        <div>
+          <button type="button" class="btn-new me-4"
+            style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"
+            (click)="CloseModal('item_name')">Close</button>
+        </div>
+        <div>
+          <button type="button" class="btn-new me-2" style="width: auto !important;"
+            (click)="OpenNestedModal()">Edit</button>
+        </div>
+      </div>
+      <div class="d-flex flex-row">
+        <div class="previousitem pointer" (click)="GoToPreviousItem(ViewItemData)"
+          [ngClass]="{'disableItemButton': this.disablePrevoiusPatientButton == true}">
+          <img src="assets/images/go_previous_patient.svg" width="30px" height="30px">
+        </div>
+        <div class="nextitem pointer" (click)="GoToNextItem(ViewItemData)"
+          [ngClass]="{'disableItemButton': this.disableNextPatientButton == true}">
+          <img src="assets/images/go_next_patient.svg" width="30px" height="30px">
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div bsModal #editItem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 888px !important;">
     <div class="modal-content p-2">

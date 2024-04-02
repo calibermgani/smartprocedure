@@ -9,7 +9,7 @@
         <input class="form-control-new-sm mt-2" placeholder="Search" style="font-size: 0.5625rem !important;" [(ngModel)]="Search_OverAllList" [ngModelOptions]="{standalone: true}" (keyup)="SearchOverAllList(Search_OverAllList)">
         </div>
         <div class="list_body" style="height: 600px;overflow-y: scroll;overflow-x: hidden;">
-          <div class="row mb-3 align-items-center mx-1 pointer" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;margin-bottom: 0.6rem !important;">
+          <div class="row mb-3 align-items-center mx-1 pointer" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;margin-bottom: 0.6rem !important;width: 100%;">
             <div class="col-1 p-0"><img [src]="changefolder == x.name ? 'assets/images/selected_files.svg' : 'assets/images/files.svg'" class="folder_img me-1"></div>
             <div class="col-10 p-0 ps-1 pointer" (click)="Selectfolder(x.name)">
               <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 500 !important;">{{ x.name }}</h1>
@@ -27,14 +27,14 @@
                 </div>
             </div>
             </div>
-            <div class="ms-3" *ngIf="x.sub_category">
-              <div class="row my-2 align-items-center" *ngFor="let y of x.sub_category;let j = index" style="word-break: wrap;">
+            <div class="mx-2 p-0" style="width: 100%;" *ngIf="x.sub_category">
+              <div class="row m-2 align-items-center" *ngFor="let y of x.sub_category;let j = index" style="word-break: break-all;">
                 <div class="col-1 p-0"><img [src]="changesubfolder == y.sub_category_name ? 'assets/images/selected_add_sub_category.svg' : 'assets/images/add_sub_category.svg' " class="folder_img me-1"></div>
-                <div class="col-9 p-0 ps-1 pointer" (click)="SelectSubFolder(x,y.sub_category_name)">
+                <div class="col-10 p-0 ps-1 pointer" (click)="SelectSubFolder(x,y.sub_category_name)">
                   <h1 class="folder_name mb-0"  style="text-wrap: nowrap;font-weight: 400 !important;">{{ y.sub_category_name }}</h1>
                 </div>
-                <div class="col-2 p-0">
-                  <div class="dropdown" dropdown style="padding-left: 0.4rem;">
+                <div class="col-1 p-0" style="text-align: end;">
+                  <div class="dropdown" dropdown style="padding-left: 0.0rem;">
                     <a class="text-muted dropdown-toggle" href="javascript: void(0);" role="button"
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" dropdownToggle>
                         <i class="mdi mdi-dots-vertical"></i>

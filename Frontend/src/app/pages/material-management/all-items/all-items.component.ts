@@ -458,6 +458,9 @@ export class AllItemsComponent implements OnInit {
         this.getVendors();
         this.getProcedures();
         this.additem?.show();
+        this.AddItemForm.patchValue({
+          ItemStatus:'Active'
+        })
         break;
       }
       case 'addtag':{
