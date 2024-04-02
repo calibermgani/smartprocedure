@@ -70,7 +70,7 @@ interface SubData {
 export class AllItemsTableViewComponent {
 
   @ViewChild('myGrid_1') myGrid_1!: AgGridAngular;
-  @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
+  // @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @ViewChild('setalert', { static: false }) setalert?: ModalDirective;
   @ViewChild('bulkupdate', { static: false }) bulkupdate?: ModalDirective;
   @ViewChild('move', { static: false }) move?: ModalDirective;
@@ -79,7 +79,7 @@ export class AllItemsTableViewComponent {
   @ViewChild('delete_modal', { static: false }) delete_modal: ModalDirective;
   @ViewChild('editItem', { static: false }) editItem?: ModalDirective;
   @ViewChild('bulk_edit', { static: false }) bulk_edit?: ModalDirective;
-  @ViewChild('viewitem_update', { static: false }) viewitem_update?: ModalDirective;
+  @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @Output() newItemEvent = new EventEmitter;
 
   @Input() Updategrid: boolean = false;
@@ -911,12 +911,12 @@ export class AllItemsTableViewComponent {
       case 'editItem':{
         this.imageUrl = '';
         this.showImage = false;
-        this.viewitem?.show();
+        this.editItem?.show();
         break;
       }
       case 'item_name':{
         // this.viewitem?.show();
-        this.viewitem_update?.show();
+        this.viewitem?.show();
         break;
       }
       case 'delete_modal':{
@@ -978,8 +978,7 @@ export class AllItemsTableViewComponent {
         break;
       }
       case 'item_name':{
-        this.viewitem?.hide();
-        this.viewitem_update?.hide()
+        this.viewitem?.hide()
         this.gridApi_1.deselectAll();
         this.disableNextPatientButton = false;
         this.disablePrevoiusPatientButton = false;
@@ -1048,6 +1047,15 @@ export class AllItemsTableViewComponent {
                   procedure_values.push(element.procedure_name)
                 });
               }
+              let tag_values:any = [];
+              if(res.data.tag)
+              {
+                tag_values = res.data.tag.split(',');
+              }
+              else
+              {
+                tag_values = null;
+              }
               this.AddItemForm.patchValue({
                 imageURL:'',
                 ItemNumber:res.data.item_number,
@@ -1067,7 +1075,7 @@ export class AllItemsTableViewComponent {
                 MinStoreQty:res.data.min_level,
                 CatNo:res.data.cat_no,
                 LotNo:res.data.lot_no,
-                Tags:res.data.tag,
+                Tags:tag_values,
                 Unit:res.data.unit,
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
@@ -1103,7 +1111,8 @@ export class AllItemsTableViewComponent {
             });
           }
         })
-        this.editItem?.show();
+        // this.editItem?.show();
+        this.OpenModal('editItem');
 }
 
   IncreaseStoreQty(data:any){
