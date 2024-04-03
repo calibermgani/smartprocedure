@@ -385,7 +385,8 @@ export class AllServicesService {
     payload["name"] = data.value.CategoryName;
     payload["category_shortcode"] = data.value.CategorySubCode;
     // payload["status"] = data.value.Status;
-    if(data.value.Status){
+    let Status = data.value.Status
+    if(Status.length>0){
       payload["status"] = data.value.Status;
     }
     else{
@@ -402,7 +403,9 @@ export class AllServicesService {
     payload["sub_category_name"] = data.value.SubCategoryName;
     payload["category_id"] = category_id;
     payload["status"] = data.value.status;
-    if(data.value.Status){
+    console.log('Statats',data.value.status);
+    let Status = data.value.status
+    if(Status.length>0){
       payload["status"] = data.value.status;
     }
     else{
@@ -568,5 +571,20 @@ export class AllServicesService {
     let payload:Object = {};
     payload["token"]="1a32e71a46317b9cc6feb7388238c95d";
     return this.http.post(`${this.apiUrl}/items/item_recall`,payload);
+  }
+
+  getTrashItems(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/items/trashed_items`,payload);
+  }
+
+  RestoreItems(data:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["item_id"] = data;
+    console.log(payload);
+    // return null;
+    return this.http.post(`${this.apiUrl}/items/restored_items`,payload);
   }
 }

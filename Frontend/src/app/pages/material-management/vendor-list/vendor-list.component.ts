@@ -113,12 +113,12 @@ export class VendorListComponent implements OnInit {
     //   headerCheckboxSelection: true,
     //   width:10
     // },
-    {
-      field: 'id',
-      headerName: 'S.no',
-      cellRenderer: this.cellrendered.bind(this, 'id'),
-      width:100,
-    },
+    // {
+    //   field: 'id',
+    //   headerName: 'S.no',
+    //   cellRenderer: this.cellrendered.bind(this, 'id'),
+    //   width:100,
+    // },
     {
       field: 'VendorName',
       headerName: 'Vendor Name',
@@ -157,7 +157,7 @@ export class VendorListComponent implements OnInit {
     // },
     {
       field: 'edit',
-      width:10,
+      width:20,
       resizable:false,
       pinned:"right",
       cellRenderer: this.cellrendered.bind(this, 'edit'),
@@ -165,7 +165,7 @@ export class VendorListComponent implements OnInit {
     },
     {
       field: 'delete',
-      width:10,
+      width:20,
       resizable:false,
       pinned:"right",
       cellRenderer: this.cellrendered.bind(this, 'delete'),
@@ -176,9 +176,9 @@ export class VendorListComponent implements OnInit {
   Serial_no:number = 1;
   cellrendered(headerName: any, params: any) {
     switch (headerName) {
-      case'id':{
-        return this.Serial_no++;
-      }
+      // case'id':{
+      //   return this.Serial_no++;
+      // }
       case 'VendorName': {
         return params.value;
       }
@@ -213,10 +213,10 @@ export class VendorListComponent implements OnInit {
         return params.value;
       }
       case 'edit':{
-        return `<i class="mdi mdi-pencil-outline me-3 edit-row" style="color:#000;font-size:18px;cursor:pointer"></i>`
+        return `<i class="mdi mdi-pencil-outline  edit-row" style="color:#000;font-size:18px;cursor:pointer;padding:5px"></i>`
       }
       case 'delete':{
-        return `<i class="mdi mdi-trash-can-outline me-3 delete-row" style="color:red;font-size:18px;cursor:pointer"></i>`
+        return `<i class="mdi mdi-trash-can-outline delete-row" style="color:red;font-size:18px;cursor:pointer;padding:5px"></i>`
       }
     }
   }

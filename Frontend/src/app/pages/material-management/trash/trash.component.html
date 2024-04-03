@@ -1,16 +1,15 @@
 <div class="row">
   <div class="col-12">
-    <div class="d-flex justify-content-start align-items-center mb-3 pointer pb-4" (click)="GoBackToAllItems()"
+    <div class="d-flex justify-content-start align-items-center mb-3 pb-4"
       style="border-bottom: 0.5px solid #747474 !important;">
-      <img src="assets/images/back_arrow.svg" class="me-2">
-      <h1>Trash</h1>
+      <div (click)="GoBackToAllItems()" class="pointer"><h1><img src="assets/images/back_arrow.svg" class="me-2">Trash</h1></div>
     </div>
 
     <div class="d-flex align-items-center p-2" style="background: #855EDB;border-radius: 6px;" *ngIf="ShowRestoreHeader">
-      <div><input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"></div>
-      <div class="ms-3 d-flex">
-        <div class="me-2">
-          <h1 style="color: #fff !important;font-weight: 500 !important;" class="mb-0">Deselect</h1>
+      <div class="pointer"><input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" [(ngModel)]="SelectAllItems" (click)="DisSelectAllItems($event)"></div>
+      <div class="ms-1 d-flex">
+        <div class="me-2 pointer">
+          <h1 style="color: #fff !important;font-weight: 500 !important;" class="mb-0" (click)="DisSelectAllItems_h1(false)">Deselect</h1>
         </div>
         <div>
           <p style="font-family: 400 !important;color:#fff !important" class="mb-0">|&nbsp; 1 Item Selected</p>
@@ -21,29 +20,30 @@
             style="color: #fff;"></i>Restore</h1>
       </div>
     </div>
+    <div style="height: 663px;overflow-y: auto;" class="mb-3">
     <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3"
       *ngFor="let x of ListViewData;let i = index">
       <div class="d-flex flex-wrap">
         <div style="position: relative;right: 13px;">
-          <input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" style="position: relative;left: 17px;top:4px;" (click)="SelectItem()">
-          <img src="assets/images/listItems_img.png" style="width: 177px;height:86px;border-radius: 5px 0px 0px 5px;"
+          <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" style="position: relative;left: 17px;top:4px;" (click)="SelectItem(x.id)">
+          <img [src]="apiUrl +'/'+ x.image_url" style="width: 177px;height:86px;border-radius: 5px 0px 0px 5px;"
             class="pointer">
         </div>
-        <div class="d-flex flex-wrap flex-column  align-items-start me-5 my-1 justify-content-around">
+        <div class="d-flex flex-wrap flex-column  align-items-start me-5 my-1 justify-content-around" style="width: 150px;">
           <div class="d-flex flex-wrap my-2">
             <p class="mb-0">{{ x.item_name }}</p>
           </div>
           <div class="d-flex flex-wrap align-items-center mb-2">
             <h5 class="mb-0">MRN :</h5>
-            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.mrn }}
+            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.mrn ? x.mrn : '-' }}
               &nbsp;|</h5>
             <h5 class="mb-0 ms-2" style="color: #D62424 !important;">Expiry :</h5>
-            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.date }}
+            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.expired_date ? x.expired_date: '-' }}
             </h5>
           </div>
           <div class="d-flex flex-wrap align-items-center mb-2">
             <h5 class="mb-0">Procedure :</h5>
-            <h5 style="font-weight: 400 !important;" class="mb-0 ms-1">{{ x.procedure_value }}</h5>
+            <h5 style="font-weight: 400 !important;" class="mb-0 ms-1">{{ x.procedure_value ? x.procedure_value : '-'  }}</h5>
           </div>
         </div>
         <div class="d-flex flex-wrap flex-column justify-centent-between ms-5 mt-2"
@@ -51,17 +51,19 @@
           <div class="mb-2">
             <p class="mb-1 mt-1">Deleted</p>
             <h5 style="color: #1B1B1B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0">{{
-              x.deleted
+              x.deleted_at | date
               }}</h5>
           </div>
         </div>
         <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto">
-          <div class="dropdown me-2 ms-auto">
+          <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems(x.id)">
             <i class="mdi mdi-restore font-size-12"></i>
           </div>
         </div>
       </div>
     </div>
+  </div>
+
   </div>
 </div>
 
@@ -90,7 +92,7 @@
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
           style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="restore?.hide()">Go Back</button>
-        <button type="button" class="btn-new" style="width: auto !important;" (click)="restore?.hide()">Yes, continue</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="RestoreItems()">Yes, continue</button>
       </div>
     </div>
   </div>

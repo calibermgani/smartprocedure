@@ -608,7 +608,7 @@ export class AllItemsTableViewComponent {
       }
       case 'image_url': {
         if(params.value)
-        {return `<img src="${params.value}" width="52px" height="16px">`}
+        {return `<img src="${this.apiUrl}${params.value}" width="52px" height="16px">`}
         else{
           return '-';
         }
@@ -737,9 +737,7 @@ export class AllItemsTableViewComponent {
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
               });
-              // this.handleImageInput();
-              this.imageUrl = res.data.image_url;
-              console.log('url',this.imageUrl);
+              this.imageUrl = this.apiUrl + res.data.image_url;
               if(this.imageUrl){this.showImage = true;}
             }
 
@@ -750,7 +748,7 @@ export class AllItemsTableViewComponent {
                 this.SubCategories = [];
                 this.SubcategoryOptions_Index = [];
                 console.log(res);
-                if(res.sub_categories.length>0){
+                if(res.sub_categories){
                   this.SubcategoryOptions_Index = res.sub_categories;
                   res.sub_categories.forEach(element => {
                     this.SubCategories.push(element.sub_category_name);
@@ -760,7 +758,7 @@ export class AllItemsTableViewComponent {
                 }
                 else{
                   this.AddItemForm.patchValue({
-                    subcategory:''
+                    subcategory:null
                   })
                   this.SubCategories = ['No Sub Categories to show'];
                 }
@@ -774,7 +772,7 @@ export class AllItemsTableViewComponent {
             });
           }
         });
-        this.editItem?.show();
+        this.OpenModal('editItem');
         break;
       }
       case 'delete': {
@@ -1081,7 +1079,7 @@ export class AllItemsTableViewComponent {
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
               });
-              this.imageUrl = res.data.image_url;
+              this.imageUrl = this.apiUrl + res.data.image_url;
               this.showImage = true
             }
 
@@ -1100,7 +1098,7 @@ export class AllItemsTableViewComponent {
                 }
                 else{
                   this.AddItemForm.patchValue({
-                    subcategory:''
+                    subcategory:null
                   })
                   this.SubCategories = ['No Sub Categories to show'];
                 }
@@ -1204,9 +1202,9 @@ export class AllItemsTableViewComponent {
       res.categories.forEach((element) => {
         this.Category.push(element.categories);
       });
-      this.AddItemForm.patchValue({
-        subcategory:[]
-      })
+      // this.AddItemForm.patchValue({
+      //   subcategory:[]
+      // })
           console.log(this.Category);
       }),
       error:((res:any)=>{
@@ -1302,9 +1300,9 @@ export class AllItemsTableViewComponent {
   SubcategoryOptions_Index:any = [];
   OnChangeItemCategory(data:any){
     console.log('Selected Category',data);
-    this.AddItemForm.patchValue({
-      subcategory:[]
-    })
+    // this.AddItemForm.patchValue({
+    //   subcategory:[]
+    // })
     let category_id:number;
     // Object.keys(this.CategoryOptions_Index).forEach(index =>{
     //   if(this.CategoryOptions_Index[index].value == data)
@@ -1333,6 +1331,9 @@ export class AllItemsTableViewComponent {
           // })
           // console.log(this.SubcategoryOptions_Index);
           // console.log(this.SubCategories);
+          this.AddItemForm.patchValue({
+            subcategory:null
+          })
           res.sub_categories.forEach(element => {
             this.SubCategories.push(element.sub_category_name);
           });
@@ -1341,7 +1342,7 @@ export class AllItemsTableViewComponent {
         }
         else{
           this.AddItemForm.patchValue({
-            subcategory:''
+            subcategory:null
           })
           this.SubCategories = ['No Sub Categories to show'];
         }
@@ -1453,15 +1454,17 @@ export class AllItemsTableViewComponent {
       console.log('formData',data);
 
       let category_value = data.value.ItemCategory;
+      console.log(this.CategoryOptions_Index);
       this.CategoryOptions_Index.forEach(element => {
         if(element.categories == category_value){
+          console.log(element);
           this.AddItemForm.patchValue({
             ItemCategory:element.id
           })
         }
       });
 
-      console.log(this.AddItemForm.controls.ItemCategory.value);
+      console.log('selca',this.AddItemForm.controls.ItemCategory.value);
 
       let subcategory_value = data.value.subcategory;
       console.log(this.SubcategoryOptions_Index);
@@ -1845,6 +1848,25 @@ export class AllItemsTableViewComponent {
       })
       }
     })
+
+    this.authfakeauthenticationService.ReloadGrid.subscribe((res:any)=>{
+      if(res==true){
+        this.allServices.GetAllItemsGrid().subscribe({
+          next:((res:any)=>{
+            this.all_Items_gridData = res.data;
+            this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+            console.log(this.all_Items_gridData);
+            this.tempGridData = this.all_Items_gridData;
+          }),
+          error:((res:any)=>{
+            this.toastr.error('Something went wrong', 'UnSuccessful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+          })
+        });
+      }
+    })
   }
   public apiUrl: any = environment_new.imageUrl;
 
@@ -1860,7 +1882,9 @@ export class AllItemsTableViewComponent {
         this.myGrid_1.api?.setQuickFilter(changes.SearchAllItemsGrid.currentValue);
       }
       else{
-        this.myGrid_1.api?.setQuickFilter(changes.SearchAllItemsGrid.currentValue);
+        setTimeout(() => {
+          this.myGrid_1.api?.setQuickFilter(changes.SearchAllItemsGrid.currentValue);
+        }, 100);
       }
 
   }

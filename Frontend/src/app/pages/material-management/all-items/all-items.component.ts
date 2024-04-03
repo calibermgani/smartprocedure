@@ -713,6 +713,9 @@ export class AllItemsComponent implements OnInit {
           // })
           // console.log(this.SubcategoryOptions_Index);
           // console.log(this.SubCategories);
+          this.AddItemForm.patchValue({
+            subcategory:null
+          })
           res.sub_categories.forEach(element => {
             this.SubCategories.push(element.sub_category_name);
           });
@@ -721,7 +724,7 @@ export class AllItemsComponent implements OnInit {
         }
         else{
           this.AddItemForm.patchValue({
-            subcategory:''
+            subcategory:null
           })
           this.SubCategories = ['No Sub Categories to show'];
         }
@@ -1008,7 +1011,7 @@ export class AllItemsComponent implements OnInit {
             });
             this.CloseModal('editcategory');
             this.GetOverAllList();
-            this.authfakeauthenticationService.PassAllItemsGridPayload(this.AllItemsGridAdvanceFilterForm);
+            this.authfakeauthenticationService.ReloadAllItemsGrid(true);
           }
         }),
         error:((res:any)=>{
@@ -1042,7 +1045,7 @@ export class AllItemsComponent implements OnInit {
             });
             this.CloseModal('editsubcategory');
             this.GetOverAllList();
-            this.authfakeauthenticationService.PassAllItemsGridPayload(this.AllItemsGridAdvanceFilterForm);
+            this.authfakeauthenticationService.ReloadAllItemsGrid(true);
           }
         }),
         error:((res:any)=>{
@@ -1080,6 +1083,9 @@ export class AllItemsComponent implements OnInit {
             this.deleteCategoryIndex = null;
             this.delete_modal?.hide();
             this.GetOverAllList();
+            let x = this.AllItemsGridAdvanceFilterForm.reset();
+            // this.authfakeauthenticationService.PassAllItemsGridPayload(this.AllItemsGridAdvanceFilterForm);
+            this.authfakeauthenticationService.ReloadAllItemsGrid(true);
           }
         }),
         error:((res:any)=>{
@@ -1101,6 +1107,9 @@ export class AllItemsComponent implements OnInit {
             this.deleteCategoryIndex = null;
             this.delete_modal?.hide();
             this.GetOverAllList();
+            let x = this.AllItemsGridAdvanceFilterForm.reset();
+            // this.authfakeauthenticationService.PassAllItemsGridPayload(this.AllItemsGridAdvanceFilterForm);
+            this.authfakeauthenticationService.ReloadAllItemsGrid(true);
           }
         }),
         error:((res:any)=>{
@@ -1132,7 +1141,7 @@ export class AllItemsComponent implements OnInit {
   }
 
 
-  currentview:string = 'all'
+  currentview:string = 'trash'
   GoToRespectiveView(data:any){
     switch(data){
       case 'histroy':{

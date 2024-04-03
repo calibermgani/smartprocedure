@@ -24,6 +24,9 @@ export class AuthfakeauthenticationService {
     public AllItemsGridPayload = new BehaviorSubject<any>('');
     AllItemsPayload = this.AllItemsGridPayload.asObservable();
 
+    public ReloadAllItemsGridData = new BehaviorSubject<any>('');
+    ReloadGrid = this.ReloadAllItemsGridData.asObservable();
+
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -72,5 +75,9 @@ export class AuthfakeauthenticationService {
 
     PassAllItemsGridPayload(data:any){
       this.AllItemsGridPayload.next(data);
+    }
+
+    ReloadAllItemsGrid(data:boolean){
+      this.ReloadAllItemsGridData.next(data);
     }
 }
