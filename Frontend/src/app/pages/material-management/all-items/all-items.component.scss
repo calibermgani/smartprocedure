@@ -273,7 +273,7 @@ border-bottom: none !important;
     display: block !important ;
 }
 .resizeGrid{
-  width: 100% !important;
+  width: -webkit-fill-available !important;
   height: 588px;
   overflow-y:hidden;
   overflow-x: hidden;
@@ -380,4 +380,11 @@ border-bottom: none !important;
 
 {
   background: #fff !important;
+}
+
+.list-footer
+{
+  position: relative;
+    width: 100%;
+    bottom: 3px;
 }

@@ -188,12 +188,12 @@ export class AllItemsComponent implements OnInit {
   }
   get TagForm() { return this.AddtagForm.controls }
 
-  imageUrl: any = null;
+  imageUrl_allItems: any = null;
   showImage:boolean = false;
   result:any;
 
   handleImageInput_allItem(event:any): void {
-    console.log(event.target.files[0]);
+    console.log('sdd',event.target.files[0]);
     this.result = event.target.files[0];
     // const file: File | null = event?.target?.[0];
 
@@ -213,7 +213,7 @@ export class AllItemsComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(event.target.files[0]);
       reader.onload = (event2) => {
-        this.imageUrl = reader.result;
+        this.imageUrl_allItems = reader.result;
       };
       this.showImage = true;
     }
@@ -453,8 +453,6 @@ export class AllItemsComponent implements OnInit {
   OpenModal(modalname:string){
     switch(modalname){
       case 'additem':{
-        this.imageUrl = '';
-        this.showImage = false;
         this.getCategoryOptions();
         this.getTags();
         this.getVendors();
@@ -557,8 +555,8 @@ export class AllItemsComponent implements OnInit {
       case 'additem':{
         this.AddItemForm.reset();
         this.additem?.hide();
-        // this.imageUrl = '';
-        // this.showImage = false;
+        this.imageUrl_allItems = '';
+        this.showImage = false;
         break;
       }
       case 'delete_modal':{

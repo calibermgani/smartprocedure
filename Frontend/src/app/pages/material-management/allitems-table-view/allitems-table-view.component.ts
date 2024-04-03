@@ -548,73 +548,74 @@ export class AllItemsTableViewComponent {
   cellrendered(headerName: any, params: any) {
     switch (headerName) {
       case 'item_number': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'item_name': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'item_category.name': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'item_sub_category.sub_category_name': {
-        return params.value ? params.value : '-Nil-';
+        return params.value ? params.value : '-';
       }
       case 'item_description': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'item_procedures': {
         let newArray :any = [];
         params.value.forEach(element => {
           newArray.push(element.procedure_name);
         });
-        return `${newArray}`;
+        if(newArray.length>0){return `${newArray}`;}
+        else{return '-';}
       }
       case 'cat_no': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'lot_no': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'size': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'item_vendor.VendorName': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'price': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'unit': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'expired_date': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'store_qty': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'cabinet_qty': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'min_level': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'tag': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'item_notes': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'image_url': {
         if(params.value)
         {return `<img src="${params.value}" width="52px" height="16px">`}
         else{
-          return null;
+          return '-';
         }
 
       }
       case 'item_barcode': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
       case 'view':{
         return `<div class="d-flex justify-content-center">
@@ -1080,6 +1081,8 @@ export class AllItemsTableViewComponent {
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
               });
+              this.imageUrl = res.data.image_url;
+              this.showImage = true
             }
 
             this.allServices.ItemSubCategoryOptions(res.data.item_category?.id).subscribe(({

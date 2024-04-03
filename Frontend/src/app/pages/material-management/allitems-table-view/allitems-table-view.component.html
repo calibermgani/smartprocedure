@@ -1,8 +1,8 @@
 <div class="row">
-  <div class="col-12">
+  <div class="col-12 p-0">
     <div class="mt-2">
       <div class="d-flex flex-row p-3 editable_header"
-        style="background: #855EDB;border: 1px solid #855EDB;border-radius: 17px 17px 0px 0px;position: relative;z-index: 9;height: 50px;top: -6px;"
+        style="background: #855EDB;border: 1px solid #855EDB;border-radius: 17px 17px 0px 0px;position: relative;z-index: 9;height: 51px;top: -6px;"
         *ngIf="showEditablefields == true">
         <div class="flex-shrink-1">
           <div class="d-flex flex-row align-items-center">
@@ -464,14 +464,14 @@
               <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
                 <div class="position-relative d-inline-block">
                   <div class="position-absolute bottom-0 end-0">
-                      <label for="project-image-input1" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
+                      <label for="project-image-input-1" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
                           <div class="avatar-xs">
                               <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16">
                                   <i class='bx bxs-image-alt'></i>
                               </div>
                           </div>
                       </label>
-                      <input class="form-control d-none" value="" id="project-image-input1" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput_edit($event)">
+                      <input class="form-control d-none" value="" id="project-image-input-1" type="file" accept="image/png, image/gif, image/jpeg" (change)="handleImageInput_edit($event)">
                   </div>
                   <div class="avatar-lg" style="height: 9rem !important;
                   width: 16rem !important;">

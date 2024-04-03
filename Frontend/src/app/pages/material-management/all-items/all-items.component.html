@@ -1,7 +1,7 @@
 <div class="cards">
   <div class="row">
     <div class="col-2" [ngClass]="{'hide0veralllist':hide_Overall_list == true}">
-      <div style="border:1px solid #1B1B1B;border-radius: 4px;width: 100%;height: auto;" class="overAlllist p-2">
+      <div style="border:1px solid #1B1B1B;border-radius: 4px;width: 100%;height: auto" class="overAlllist p-2">
         <div class="mt-1">
           <h1 class="header_name">Overall List</h1>
         </div>
@@ -89,10 +89,10 @@
         </div>
         <div class="list-footer">
           <div class="d-flex flex-row justify-content-between align-items-center" style="flex-wrap: wrap;">
-            <div style="width: 50% !important;">
+            <div>
               <button type="button" class="btn btn-grey" style="width: 100px !important;" (click)="GoToRespectiveView('histroy')"><i class="mdi mdi-timer-outline"></i>Histroy</button>
             </div>
-            <div style="width: 50% !important;">
+            <div>
               <button type="button" class="btn btn-grey" style="width: 100px !important;" (click)="GoToRespectiveView('trash')"><i class="mdi mdi-trash-can-outline"></i>Trash</button>
             </div>
           </div>
@@ -287,7 +287,7 @@
             </div>
           </div>
         </form>
-          <div class="row">
+          <div class="row mx-1">
             <div class="col-3 mt-2" style="border: 0.5px solid #8B8B8B;border-radius: 6px; display: none;" [ngClass]="{'showAdvancedFilters':resize ==true}">
               <form [formGroup]="AllItemsGridAdvanceFilterForm">
               <div class="d-flex flex-row justify-centent-between align-items-center my-2">
@@ -452,8 +452,8 @@
             </div>
           </form>
             </div>
-            <div class="col-9" [ngClass]="{'resizeGrid':resize ==false}">
-              <div class="mt-2 me-3">
+            <div class="col-9" [ngClass]="{'resizeGrid mx-1':resize ==false}">
+              <div class="mt-2">
                 <app-allitems-table-view *ngIf="selectedView == 'table' && enableTab=='All Items'" [Updategrid]="ReloadAllItemsGrid" [SearchAllItemsGrid]="Search_AllItemstablelist"></app-allitems-table-view>
                 <app-allitems-grid-view *ngIf="selectedView == 'grid' && enableTab=='All Items'" ></app-allitems-grid-view>
                 <app-allitems-list-view *ngIf="selectedView == 'list' && enableTab=='All Items'"></app-allitems-list-view>
@@ -566,7 +566,7 @@
                   <div class="avatar-lg" style="height: 9rem !important;
                   width: 16rem !important;">
                       <div class="avatar-title" style="width: 262px;height: 146px;background: transparent;">
-                          <img [src]="imageUrl" id="projectlogo-img" class="avatar-md h-auto" style="height: 146px !important;width: 263px;" *ngIf="showImage == true">
+                          <img [src]="imageUrl_allItems" id="projectlogo-img" class="avatar-md h-auto" style="height: 146px !important;width: 263px;" *ngIf="showImage == true">
                       </div>
                   </div>
               </div>
