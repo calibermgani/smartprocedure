@@ -982,7 +982,8 @@ export class AllItemsComponent implements OnInit {
               positionClass: 'toast-top-center',
               timeOut:2000,
             });
-            this.ReloadAllItemsGrid = true;
+            // this.ReloadAllItemsGrid = true;
+            this.authfakeauthenticationService.ReloadAllItemsGrid(true);
             this.CloseModal('additem');
           }
         },
