@@ -256,7 +256,7 @@
         <div class="p-3 mx-3" style="height: auto;background-color: #594585;border-radius: 6px;">
           <div class="d-flex flex-row">
             <div>
-              <img [src]="apiUrl+ViewItemData.image_url" style="width: 185px;height: 146px;">
+              <img [src]="apiUrl+ViewItemData.image_url  != apiUrl + 'null' ? apiUrl+ViewItemData.image_url : 'assets/images/default_image.svg'" style="width: 185px;height: 146px;">
             </div>
             <div class="d-flex flex-column mx-3" style="width: 100%;">
               <div class="d-flex flex-row justify-content-between align-items-center" style="width: 100%;height: 69px;">
@@ -700,25 +700,27 @@
         <div class="col-4">
           <div class="">
             <label for="price" class="modal-label-edit">Expiry Date
-              <!-- <span style="color: red;">*</span> -->
+              <span style="color: red;">*</span>
             </label>
             <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }" formControlName="ExpiryDate">
           </div>
-          <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.ExpiryDate.dirty || this.AddItemForm.controls.ExpiryDate.touched) && this.AddItemForm.controls.ExpiryDate.errors?.required">
               Please fill the field</div>
-          </div> -->
+          </div>
         </div>
       </div>
       <div class="row p-3">
         <div class="col-4">
           <div class="">
-            <label for="unit" class="modal-label-edit">Min store Qty<span style="color: red;">*</span></label>
+            <label for="unit" class="modal-label-edit">Min store Qty
+              <!-- <span style="color: red;">*</span> -->
+            </label>
             <input class="form-control-new" type="text" formControlName="MinStoreQty" appPreventSpaces>
-            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.required">
                 Please fill the field</div>
-            </div>
+            </div> -->
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.pattern">
                Min Store Qtymust not be in alphabets</div>
@@ -775,6 +777,10 @@
           <div class="">
             <label for="items_no" class="modal-label-edit">Item description</label>
             <textarea type="text" class="form-control-new" placeholder="" formControlName="Itemdescription" style="font-size: 0.6123rem !important;"></textarea>
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div *ngIf="(this.AddItemForm.controls.Itemdescription.dirty || this.AddItemForm.controls.Itemdescription.touched) && this.AddItemForm.controls.Itemdescription.errors?.maxlength">
+               Maximum length should be 250 characters</div>
+            </div>
            </div>
         </div>
       </div>
@@ -783,6 +789,10 @@
           <div class="mb-3">
             <label for="items_no" class="modal-label-edit">Notes</label>
             <textarea type="text" class="form-control-new" placeholder="" formControlName="Itemnotes" style="font-size: 0.6123rem !important;"></textarea>
+            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+              <div *ngIf="(this.AddItemForm.controls.Itemnotes.dirty || this.AddItemForm.controls.Itemnotes.touched) && this.AddItemForm.controls.Itemnotes.errors?.maxlength">
+                Maximum length should be 250 characters</div>
+            </div>
            </div>
         </div>
       </div>

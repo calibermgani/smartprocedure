@@ -100,7 +100,7 @@ export class AllItemsTableViewComponent {
     { id: 1, label: "Active" },
     { id: 2, label: "Inactive" }
   ];
-  format_value:any = [];
+  format_value:any = ['KG'];
   StoreQty:number;
   CabinetQty:number;
   AllItemsChecked:any;
@@ -454,14 +454,14 @@ export class AllItemsTableViewComponent {
       subcategory:[],
       storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CabinetQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
-      ExpiryDate:[],
-      MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      ExpiryDate:[,[Validators.required]],
+      MinStoreQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
       CatNo:[],
       LotNo:[],
       Tags:[],
       Unit:[,[Validators.min(0),Validators.pattern('\\d*')]],
-      Itemdescription:[],
-      Itemnotes:[]
+      Itemdescription:[,[Validators.maxLength(250)]],
+      Itemnotes:[,[Validators.maxLength(250)]]
     });
 
     this.AddtagForm= this.formbuilder.group({
@@ -720,7 +720,7 @@ export class AllItemsTableViewComponent {
                 ItemCategory:res.data.item_category?.name,
                 Barcodes:res.data.item_barcode,
                 procedure: procedure_values ? procedure_values : '',
-                ItemStatus:res.data.item_status == '1' ? 'Active' : 'Inactive',
+                ItemStatus:res.data.item_status == '1' ? this.ItemStatus[0] : this.ItemStatus[1],
                 Vendor:res.data.item_vendor?.VendorName,
                 price:res.data.price,
                 size:res.data.size,
@@ -737,8 +737,14 @@ export class AllItemsTableViewComponent {
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
               });
-              this.imageUrl = this.apiUrl + res.data.image_url;
+              if(res.data.image_url != null){
+                this.imageUrl = this.apiUrl + res.data.image_url;
               if(this.imageUrl){this.showImage = true;}
+              }
+              else{
+                this.imageUrl = 'assets/images/default_image.svg';
+                this.showImage = true;
+              }
             }
 
             console.log(res.data.item_category?.id);
@@ -1062,7 +1068,7 @@ export class AllItemsTableViewComponent {
                 ItemCategory:res.data.item_category?.name,
                 Barcodes:res.data.item_barcode,
                 procedure:procedure_values,
-                ItemStatus:res.data.item_status == '1' ? 'Active' : 'Inactive',
+                ItemStatus:res.data.item_status == '1' ? this.ItemStatus[0] : this.ItemStatus[1],
                 Vendor:res.data.item_vendor?.VendorName,
                 price:res.data.price,
                 size:res.data.size,
@@ -1079,8 +1085,17 @@ export class AllItemsTableViewComponent {
                 Itemdescription:res.data.item_description,
                 Itemnotes:res.data.item_notes
               });
-              this.imageUrl = this.apiUrl + res.data.image_url;
-              this.showImage = true
+              // this.imageUrl = this.apiUrl + res.data.image_url;
+              // this.showImage = true
+
+              if(res.data.image_url != null){
+                this.imageUrl = this.apiUrl + res.data.image_url;
+              if(this.imageUrl){this.showImage = true;}
+              }
+              else{
+                this.imageUrl = 'assets/images/default_image.svg';
+                this.showImage = true;
+              }
             }
 
             this.allServices.ItemSubCategoryOptions(res.data.item_category?.id).subscribe(({
@@ -1508,12 +1523,12 @@ export class AllItemsTableViewComponent {
       let item_status = data.value.ItemStatus;
       console.log(item_status);
 
-      if(item_status == 'Active'){
+      if(item_status.label == 'Active'){
         this.AddItemForm.patchValue({
           ItemStatus:"1"
         })
       }
-      else if(item_status == 'Inactive'){
+      else if(item_status.label == 'Inactive'){
         this.AddItemForm.patchValue({
           ItemStatus:"2"
         })

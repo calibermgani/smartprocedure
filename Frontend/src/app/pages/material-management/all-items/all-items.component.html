@@ -642,7 +642,7 @@
           <div class="d-flex flex-row">
             <div class="">
               <label for="items_status" class="modal-label-edit">Procedure <span style="color: #D62424;font-size: 6px;text-align: center;">You can also link the item to multiple procedure</span></label>
-              <ng-select [items]="Procedure" placeholder="Select Status" formControlName="procedure" multiple="true" appPreventSpaces></ng-select>
+              <ng-select [items]="Procedure" placeholder="Select Procedure" formControlName="procedure" multiple="true" appPreventSpaces></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -654,14 +654,14 @@
         <div class="col-4">
           <div class="me-4">
             <label for="items_status" class="modal-label-edit">Item Status</label>
-            <ng-select [items]="ItemStatus" placeholder="Select Status" formControlName="ItemStatus" appPreventSpaces></ng-select>
+            <ng-select [items]="ItemStatus"  placeholder="Select Status" formControlName="ItemStatus" appPreventSpaces [(ngModel)]="SelectedItemStatus"></ng-select>
           </div>
         </div>
         <div class="col-4">
           <div class="d-flex flex-row">
             <div class="" style="width: 100%;">
               <label for="items_status" class="modal-label-edit">Vendor</label>
-              <ng-select [items]="this.vendors" placeholder="Select Status" formControlName="Vendor" appPreventSpaces></ng-select>
+              <ng-select [items]="this.vendors" placeholder="Select Vendor" formControlName="Vendor" appPreventSpaces></ng-select>
             </div>
             <div class="mt-4 ms-2">
               <button class="btn-new"
@@ -788,25 +788,27 @@
         <div class="col-4">
           <div class="">
             <label for="price" class="modal-label-edit">Expiry Date
-              <!-- <span style="color: red;">*</span> -->
+              <span style="color: red;">*</span>
             </label>
             <input type="text" placeholder="Select Date" class="form-control-new" bsDatepicker [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }" formControlName="ExpiryDate" appPreventSpaces>
           </div>
-          <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+          <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.ExpiryDate.dirty || this.AddItemForm.controls.ExpiryDate.touched) && this.AddItemForm.controls.ExpiryDate.errors?.required">
-              Please fill the field</div>
-          </div> -->
+              Please select the Date</div>
+          </div>
         </div>
       </div>
       <div class="row p-3">
         <div class="col-4">
           <div class="">
-            <label for="unit" class="modal-label-edit">Min store Qty<span style="color: red;">*</span></label>
+            <label for="unit" class="modal-label-edit">Min store Qty
+              <!-- <span style="color: red;">*</span> -->
+            </label>
             <input class="form-control-new" type="text" formControlName="MinStoreQty" appPreventSpaces>
-            <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
+            <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.required">
                 Please fill the field</div>
-            </div>
+            </div> -->
             <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
               <div *ngIf="(this.AddItemForm.controls.MinStoreQty.dirty || this.AddItemForm.controls.MinStoreQty.touched) && this.AddItemForm.controls.MinStoreQty.errors?.pattern">
                Min Store Qty must be in numbers </div>
@@ -832,10 +834,17 @@
       </div>
       <div class="row p-3">
         <div class="col-8">
-          <div class="">
-            <label for="items_no" class="modal-label-edit">Tags</label>
-            <ng-select [items]="Tags" formControlName="Tags"  placeholder="" [multiple]="true"></ng-select>
-           </div>
+          <div class="d-flex flex-row align-items-center">
+            <div class="" style="width: 100%;">
+              <label for="items_no" class="modal-label-edit">Tags</label>
+              <ng-select [items]="Tags" formControlName="Tags"  placeholder="" [multiple]="true"></ng-select>
+             </div>
+             <div class="mt-4 ms-2">
+              <button class="btn-new" (click)="OpenNestedTagsCategory()"
+                style="padding: 2px 12px 2px 12px !important;width: auto !important;height: 36px !important;"><i
+                  class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i></button>
+            </div>
+          </div>
         </div>
         <div class="col-4">
           <div class="">

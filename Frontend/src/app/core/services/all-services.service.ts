@@ -314,8 +314,8 @@ export class AllServicesService {
     payload["min_level"] = data.value.minLevel;
     payload["item_notes"] = data.value.notes;
     console.log(payload);
-    // return null;
-    return this.http.post(`${this.apiUrl}/items/item_bulk_edit`,payload);
+    return null;
+    // return this.http.post(`${this.apiUrl}/items/item_bulk_edit`,payload);
   }
 
   ViewItem(data:any){

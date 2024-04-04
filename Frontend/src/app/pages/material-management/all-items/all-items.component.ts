@@ -84,10 +84,12 @@ export class AllItemsComponent implements OnInit {
   StoreQtymaxValue:number = 0;
   MinlevelMinimumValue:number = 0;
   MinlevelMaximumValue:number = 0;
-  ItemStatus:any = [];
+  ItemStatus:any = [ {  label: "Active"},
+  {  label: "Inactive" }];
   ReloadAllItemsGrid:boolean;
   ReloadVendorListGrid:boolean;
   Search_OverAllList:any;
+  SelectedItemStatus = this.ItemStatus[0]
 
   constructor(private authfakeauthenticationService: AuthfakeauthenticationService,private http : HttpClient,private formbuilder : UntypedFormBuilder,private allServices : AllServicesService,private toastr: ToastrService,private cdr: ChangeDetectorRef) {
     this.format_value = ['KG'];
@@ -95,11 +97,6 @@ export class AllItemsComponent implements OnInit {
     this.authfakeauthenticationService.GridDetailedView_value.subscribe((res:any)=>{
       this.overallview = res;
     });
-
-    this.ItemStatus= [
-      { id: 1, label: "Active" },
-      { id: 2, label: "Inactive" }
-    ]
 
   }
 
@@ -152,8 +149,8 @@ export class AllItemsComponent implements OnInit {
       subcategory:[],
       storeqty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
       CabinetQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
-      ExpiryDate:[],
-      MinStoreQty:[,[Validators.required,Validators.pattern('\\d*'),Validators.min(0)]],
+      ExpiryDate:[,[Validators.required]],
+      MinStoreQty:[,[Validators.pattern('\\d*'),Validators.min(0)]],
       CatNo:[],
       LotNo:[],
       Tags:[],
@@ -458,9 +455,7 @@ export class AllItemsComponent implements OnInit {
         this.getVendors();
         this.getProcedures();
         this.additem?.show();
-        this.AddItemForm.patchValue({
-          ItemStatus:'Active'
-        })
+        this.SelectedItemStatus = this.ItemStatus[0];
         break;
       }
       case 'addtag':{
@@ -509,6 +504,8 @@ export class AllItemsComponent implements OnInit {
       case 'addtag':{
         this.AddtagForm.reset();
         this.addtag?.hide();
+        this.getTags();
+        this.hideOpacity_Category = false;
         break;
       }
       case 'addvendor':{
@@ -952,12 +949,12 @@ export class AllItemsComponent implements OnInit {
       let item_status = data.value.ItemStatus;
       console.log(item_status);
 
-      if(item_status == 'Active'){
+      if(item_status.label == 'Active'){
         this.AddItemForm.patchValue({
           ItemStatus:"1"
         })
       }
-      else if(item_status == 'Inactive'){
+      else if(item_status.label == 'Inactive'){
         this.AddItemForm.patchValue({
           ItemStatus:"2"
         })
@@ -1347,6 +1344,11 @@ export class AllItemsComponent implements OnInit {
 
   OpenNestedAddVednor(){
     this.OpenModal('addvendor');
+    this.hideOpacity_Category = true;
+  }
+
+  OpenNestedTagsCategory(){
+    this.OpenModal('addtag');
     this.hideOpacity_Category = true;
   }
 
