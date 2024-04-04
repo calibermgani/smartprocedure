@@ -195,6 +195,12 @@ export class NearExpiredComponent {
     }
   }
 
+  SearchbyNearItems:any = ''
+  SearchNearItems_OnChange(){
+    // this.gridApi_1.setQuickFilter(this.SearchbyNearItems)
+    this.myGrid_nearexpired.api?.setQuickFilter(this.SearchbyNearItems);
+  }
+
   ngAfterViewInit(): void {
       this.myGrid_nearexpired.api.sizeColumnsToFit();
   }
