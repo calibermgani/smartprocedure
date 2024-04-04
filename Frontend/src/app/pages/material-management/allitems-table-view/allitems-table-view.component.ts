@@ -499,7 +499,7 @@ export class AllItemsTableViewComponent {
     defaultColDef: {
       filter: false,
     },
-    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Add Some Items</span>',
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">No rows to show</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
     rowHeight: 35,
@@ -1881,6 +1881,44 @@ export class AllItemsTableViewComponent {
           })
         });
       }
+    })
+
+
+    this.authfakeauthenticationService.SearchItembyCategoryObservable.subscribe((res:any)=>{
+      console.log(res);
+      if(res[0] !=null){
+        this.allServices.SearchItemByCategory(res[0],res[1]).subscribe({
+          next:((res:any)=>{
+            this.all_Items_gridData = res.items;
+            this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+            console.log(this.all_Items_gridData);
+            this.tempGridData = this.all_Items_gridData;
+          }),
+          error:((res:any)=>{
+            this.toastr.error('Something went wrong', 'UnSuccessful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+          })
+        })
+      }
+      else if(res[0] == null && res[1] == null){
+        this.allServices.GetAllItemsGrid().subscribe({
+          next:((res:any)=>{
+            this.all_Items_gridData = res.data;
+            this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+            console.log(this.all_Items_gridData);
+            this.tempGridData = this.all_Items_gridData;
+          }),
+          error:((res:any)=>{
+            this.toastr.error('Something went wrong', 'UnSuccessful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+          })
+        });
+      }
+
     })
   }
   public apiUrl: any = environment_new.imageUrl;

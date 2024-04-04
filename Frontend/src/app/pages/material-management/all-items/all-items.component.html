@@ -11,7 +11,7 @@
         <div class="list_body" style="height: 600px;overflow-y: scroll;overflow-x: hidden;">
           <div class="row mb-3 align-items-center mx-1 pointer" *ngFor="let x of folder_structure_value;let i = index" style="word-break: wrap;margin-bottom: 0.6rem !important;width: 100%;">
             <div class="col-1 p-0"><img [src]="changefolder == x.name ? 'assets/images/selected_files.svg' : 'assets/images/files.svg'" class="folder_img me-1"></div>
-            <div class="col-10 p-0 ps-1 pointer" (click)="Selectfolder(x.name)">
+            <div class="col-10 p-0 ps-1 pointer" (click)="Selectfolder(x.name,x)">
               <h1 class="folder_name mb-0" style="text-wrap: nowrap;font-weight: 500 !important;">{{ x.name }}</h1>
             </div>
             <div class="col-1 p-0">
@@ -30,7 +30,7 @@
             <div class="mx-2 p-0" style="width: 100%;" *ngIf="x.sub_category">
               <div class="row m-2 align-items-center" *ngFor="let y of x.sub_category;let j = index" style="word-break: break-all;">
                 <div class="col-1 p-0"><img [src]="changesubfolder == y.sub_category_name ? 'assets/images/selected_add_sub_category.svg' : 'assets/images/add_sub_category.svg' " class="folder_img me-1"></div>
-                <div class="col-10 p-0 ps-1 pointer" (click)="SelectSubFolder(x,y.sub_category_name)">
+                <div class="col-10 p-0 ps-1 pointer" (click)="SelectSubFolder(x,y.sub_category_name,y)">
                   <h1 class="folder_name mb-0"  style="text-wrap: nowrap;font-weight: 400 !important;">{{ y.sub_category_name }}</h1>
                 </div>
                 <div class="col-1 p-0" style="text-align: end;">

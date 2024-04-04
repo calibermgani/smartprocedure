@@ -1372,24 +1372,31 @@ export class AllItemsComponent implements OnInit {
 
   changefolder:any;
   changesubfolder:any;
-  Selectfolder(data:any){
+  Selectfolder(data:any,categoryvalue:any){
     if(this.changefolder == data){
       this.changefolder = '';
       this.changesubfolder = '';
+      this.authfakeauthenticationService.SearchItemByCategory(null,null);
     }
     else{
       this.changefolder = data;
       this.changesubfolder = '';
+      console.log('categoryvalue',categoryvalue);
+      this.authfakeauthenticationService.SearchItemByCategory(categoryvalue.id,null);
     }
   }
-  SelectSubFolder(value:any,data:any){
+  SelectSubFolder(cateogryValue:any,data:any,subcategoryvalue:any){
     if(this.changesubfolder == data){
       this.changesubfolder = '';
       this.changefolder = '';
+      this.authfakeauthenticationService.SearchItemByCategory(null,null);
     }
     else{
       this.changesubfolder = data;
-      this.changefolder = value.name;
+      this.changefolder = cateogryValue.name;
+      console.log('cateogryValue',cateogryValue);
+      console.log('subcategoryvalue',subcategoryvalue);
+      this.authfakeauthenticationService.SearchItemByCategory(cateogryValue.id,subcategoryvalue.id);
     }
   }
 

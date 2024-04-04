@@ -27,6 +27,9 @@ export class AuthfakeauthenticationService {
     public ReloadAllItemsGridData = new BehaviorSubject<any>('');
     ReloadGrid = this.ReloadAllItemsGridData.asObservable();
 
+    public SearchItembyCategory = new BehaviorSubject<any>('');
+    SearchItembyCategoryObservable = this.SearchItembyCategory.asObservable();
+
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -79,5 +82,12 @@ export class AuthfakeauthenticationService {
 
     ReloadAllItemsGrid(data:boolean){
       this.ReloadAllItemsGridData.next(data);
+    }
+
+    SearchItemByCategory(categoryId:any,subcategoryId:any){
+      let x:any = [];
+      x.push(categoryId);
+      x.push(subcategoryId)
+      this.SearchItembyCategory.next(x);
     }
 }

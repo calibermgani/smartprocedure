@@ -587,4 +587,18 @@ export class AllServicesService {
     // return null;
     return this.http.post(`${this.apiUrl}/items/restored_items`,payload);
   }
+
+  GetNearExpiredItems(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/items/near_expired_items`,payload);
+  }
+
+  SearchItemByCategory(Category_id:any,SubCategory_id:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["item_category_id"] = Category_id;
+    payload["item_sub_category_id"] = SubCategory_id;
+    return this.http.post(`${this.apiUrl}/items/items_category_search`,payload);
+  }
 }
