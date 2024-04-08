@@ -1003,7 +1003,7 @@ export class AllItemsTableViewComponent {
       }
       case 'bulkupdate':{
         this.bulkupdate?.hide();
-        // this.gridApi_1.deselectAll();
+        this.gridApi_1.deselectAll();
         this.guidelines = [];
         this.dynamicForm.reset();
         break;
@@ -1030,6 +1030,7 @@ export class AllItemsTableViewComponent {
       case 'setalert':{
         this.setalert?.hide();
         this.setAlertForm.reset();
+        this.gridApi_1.deselectAll();
         break;
       }
     }
