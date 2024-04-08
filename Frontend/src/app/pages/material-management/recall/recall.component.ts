@@ -131,10 +131,10 @@ export class RecallComponent {
     this.allservices.getItemsRecall().subscribe({
       next:((res:any)=>{
         if(res.status=='Success'){
-          this.toastr.success(`${res.message}`,'Successful',{
-            positionClass: 'toast-top-center',
-            timeOut:2000,
-          });
+          // this.toastr.success(`${res.message}`,'Successful',{
+          //   positionClass: 'toast-top-center',
+          //   timeOut:2000,
+          // });
           this.damagedGriddata = res.data;
           this.myGrid_1.api?.setRowData(this.damagedGriddata);
           this.gridApi_1.sizeColumnsToFit();

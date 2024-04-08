@@ -594,6 +594,14 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/near_expired_items`,payload);
   }
 
+  SearchNearItemsByDate(data:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["expired_date"]=data;
+    return this.http.post(`${this.apiUrl}/items/near_expired_items`,payload);
+
+  }
+
   SearchItemByCategory(Category_id:any,SubCategory_id:any){
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';

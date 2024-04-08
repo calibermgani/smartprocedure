@@ -5,18 +5,18 @@
        <input type="type" class="form-control" placeholder="Search" (input)="SearchNearItems_OnChange()" [(ngModel)]="SearchbyNearItems">
       </div>
       <div class="me-3" style="width: 20%;">
-        <input type="text" placeholder="Select Date" class="form-control-new "
+        <input type="text" placeholder="Select Date" class="form-control-new" [(ngModel)]="NearItemsDate"
         style="height: 36px;background: #fff !important;"
-        [bsConfig]="{withTimepicker: false, rangeInputFormat : 'MMMM Do YYYY, h:mm:ss a', dateInputFormat: 'MMMM Do YYYY, h:mm:ss a'}"
+        [bsConfig]="{withTimepicker: false, rangeInputFormat : 'YYYY/MM/DD', dateInputFormat: 'YYYY/MM/DD'}"
         bsDaterangepicker>
       </div>
       <div class="me-2">
         <button class="btn-new"
-          style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;">Search</button>
+          style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;" (click)="SearchNearItemsByDate(NearItemsDate)">Search</button>
       </div>
       <div class="me-2">
         <button class="btn-2"
-          style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;border: 0.5px solid #855EDB;">Reset</button>
+          style="height:36px !important;width: 100px !important;padding: 6px 16px 6px 16px !important;border: 0.5px solid #855EDB;" (click)="ResetAllFilters()">Reset</button>
       </div>
     </div>
     <div class="mt-2">

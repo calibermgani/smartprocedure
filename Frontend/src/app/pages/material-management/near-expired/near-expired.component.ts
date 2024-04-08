@@ -6,6 +6,7 @@ import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, I
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { environment_new } from 'src/environments/environment';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-near-expired',
@@ -20,7 +21,9 @@ export class NearExpiredComponent {
   procedure_list:string[];
   damagedGriddata:any[];
   ViewItemData:any = [];
+  tempGridData:any = [];
   public gridApi_1!: GridApi;
+  NearItemsDate:any;
   public defaultColDef: ColDef = {
     editable: false,
     sortable: true,
@@ -66,7 +69,7 @@ export class NearExpiredComponent {
 
   ngOnInit(): void {}
 
-  constructor(private http : HttpClient,private allService : AllServicesService,private toastr : ToastrService){}
+  constructor(private http : HttpClient,private allService : AllServicesService,private toastr : ToastrService,private datePipe: DatePipe){}
 
   columnDefs1: ColDef[] = [
     {
@@ -79,7 +82,7 @@ export class NearExpiredComponent {
       field: 'item_name',
       headerName: 'Item Name',
       cellRenderer: this.cellrendered.bind(this, 'item_name'),
-      // onCellClicked: this.cellClicked.bind(this, 'item_name')
+      onCellClicked: this.cellClicked.bind(this, 'item_name')
     },
     {
       field: 'expired_date',
@@ -87,9 +90,9 @@ export class NearExpiredComponent {
       cellRenderer: this.cellrendered.bind(this, 'expired_date'),
     },
     {
-      field: 'total_store_qty',
+      field: 'store_qty',
       headerName: 'Quantity',
-      cellRenderer: this.cellrendered.bind(this, 'total_store_qty')
+      cellRenderer: this.cellrendered.bind(this, 'store_qty')
     },
   ];
 
@@ -104,7 +107,7 @@ export class NearExpiredComponent {
       case 'expired_date': {
         return params.value;
       }
-      case 'total_store_qty':{
+      case 'store_qty':{
         return params.value;
       }
     }
@@ -131,18 +134,18 @@ export class NearExpiredComponent {
       }
   }
 }
-
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
     let x = params.api
-    this.http.get('assets/json/damaged-list.json').subscribe((res:any)=>{
-      this.damagedGriddata = res;
-      this.myGrid_nearexpired.api?.setRowData(this.damagedGriddata);
-    })
+    // this.http.get('assets/json/damaged-list.json').subscribe((res:any)=>{
+    //   this.damagedGriddata = res;
+    //   this.myGrid_nearexpired.api?.setRowData(this.damagedGriddata);
+    // })
     this.allService.GetNearExpiredItems().subscribe({
       next: ((res: any) => {
         if (res.status == 'Success') {
           this.damagedGriddata = res.data;
+          this.tempGridData = this.damagedGriddata;
           this.myGrid_nearexpired.api?.setRowData(this.damagedGriddata);
         }
       }),
@@ -155,7 +158,7 @@ export class NearExpiredComponent {
     })
   }
 
-  tempGridData:any = [];
+
   disableNextPatientButton:boolean = false;
   disablePrevoiusPatientButton : boolean = false;
   GoToNextItem(data: any) {
@@ -165,7 +168,6 @@ export class NearExpiredComponent {
         if (this.tempGridData[i + 1]) {
           this.ViewItemData = this.tempGridData[i + 1];
           console.log(this.ViewItemData.item_procedures.length);
-          console.log(this.ViewItemData);
           console.log(this.ViewItemData);
           break;
         }
@@ -199,6 +201,70 @@ export class NearExpiredComponent {
   SearchNearItems_OnChange(){
     // this.gridApi_1.setQuickFilter(this.SearchbyNearItems)
     this.myGrid_nearexpired.api?.setQuickFilter(this.SearchbyNearItems);
+  }
+
+  SearchDate:any = [];
+  SearchNearItemsByDate(date:any){
+    this.SearchDate = [];
+    console.log(date);
+    if(date == undefined){
+      this.allService.GetNearExpiredItems().subscribe({
+        next: ((res: any) => {
+          if (res.status == 'Success') {
+            this.damagedGriddata = res.data;
+            this.myGrid_nearexpired.api?.setRowData(this.damagedGriddata);
+          }
+        }),
+        error: ((error: any) => {
+          this.toastr.error(`Something went wrong`, 'UnSuccessful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+        })
+      })
+    }
+    else{
+      date.forEach(element => {
+        let x =  this.datePipe.transform(element, 'yyyy-MM-dd');
+        this.SearchDate.push(x);
+      });
+      console.log(this.SearchDate);
+      this.allService.SearchNearItemsByDate(this.SearchDate).subscribe({
+        next:((res:any)=>{
+          if (res.status == 'Success') {
+            this.damagedGriddata = res.data;
+            this.myGrid_nearexpired.api?.setRowData(this.damagedGriddata);
+          }
+        }),
+        error: ((error: any) => {
+          this.toastr.error(`Something went wrong`, 'UnSuccessful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+        })
+      })
+    }
+
+
+  }
+
+  ResetAllFilters(){
+    this.NearItemsDate = '';
+    this.SearchbyNearItems = '';
+    this.allService.GetNearExpiredItems().subscribe({
+      next: ((res: any) => {
+        if (res.status == 'Success') {
+          this.damagedGriddata = res.data;
+          this.myGrid_nearexpired.api?.setRowData(this.damagedGriddata);
+        }
+      }),
+      error: ((error: any) => {
+        this.toastr.error(`Something went wrong`, 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      })
+    })
   }
 
   ngAfterViewInit(): void {
