@@ -584,6 +584,7 @@ export class AllItemsComponent implements OnInit {
         break;
       }
       case 'exportModal':{
+        this.selectedExportType = '';
         this.export?.hide();
         break;
       }
