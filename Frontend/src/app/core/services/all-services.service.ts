@@ -286,12 +286,23 @@ export class AllServicesService {
     else{
       formData.append("tag", '');
     }
-    if(image){
-      formData.append("item_image", image, image.name);
+    if(image.name){
+      if(image){
+        formData.append("item_image", image, image.name);
+      }
+      else{
+        formData.append("item_image", '');
+      }
     }
     else{
-      formData.append("item_image", '');
+      if(image){
+        formData.append("item_image", image);
+      }
+      else{
+        formData.append("item_image", '');
+      }
     }
+
     formData.append('updated_by',"1");
     formData.forEach((value, key) => {
       const values = formData.getAll(key);
@@ -300,6 +311,7 @@ export class AllServicesService {
       console.log('VALUES',typeof(values));
     });
 
+    // return null;
     return this.http.post(`${this.apiUrl}/items/update`,formData);
   }
 

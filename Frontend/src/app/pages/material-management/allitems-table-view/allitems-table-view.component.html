@@ -18,24 +18,24 @@
         <div class="flex-grow-0 ms-auto">
           <div class="d-flex flex-row justify-centent-between align-items-center">
             <div class="me-4 pointer">
-              <h1 style="color: #fff !important;" class="mb-0" (click)="OpenModal('bulk_edit')"><i class="mdi mdi-pencil-outline me-1"
+              <h1 style="color: #fff !important;" class="mb-0"  (click)="OpenModal('bulk_edit')"><i class="mdi mdi-pencil-outline me-1"
                   style="color:#fff;font-size:13px"></i>Edit</h1>
             </div>
-            <div class="me-4 pointer" (click)="OpenModal('setalert')">
+            <div [ngClass]="disableheaderButtons == true ? 'disableItemButton me-4' : 'me-4 pointer'" (click)="OpenModal('setalert')">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg"  class="me-1" style="width: 13px;height:20px;">Set Alert</h1>
             </div>
-            <div class="me-4 pointer" (click)="OpenModal('bulkupdate')">
+            <div [ngClass]="disableheaderButtons == true ? 'disableItemButton me-4' : 'me-4 pointer'" (click)="OpenModal('bulkupdate')">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/update_qty.svg"  class="me-1" style="width: 13px;height:20px;">Update Qty</h1>
             </div>
-            <div class="me-4 pointer" (click)="OpenModal('move')">
+            <div [ngClass]="disableheaderButtons == true ? 'disableItemButton me-4' : 'me-4 pointer'" (click)="OpenModal('move')">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/move_img.svg" width="15px"
                   height="15px" class="me-1">Move</h1>
             </div>
-            <div class="me-4 pointer" (click)="OpenModal('clone_modal')">
+            <div [ngClass]="disableheaderButtons == true ? 'disableItemButton me-4' : 'me-4 pointer'" (click)="OpenModal('clone_modal')">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/clone_img.svg" width="15px"
                   height="15px" class="me-1">Clone</h1>
             </div>
-            <div class="me-4 pointer" (click)="OpenModal('add_tag')">
+            <div [ngClass]="disableheaderButtons == true ? 'disableItemButton me-4' : 'me-4 pointer'" (click)="OpenModal('add_tag')">
               <h1 style="color: #fff !important;" class="mb-0"> <img src="assets/images/add_tag_white.svg" width="15px"
                   height="15px" class="me-1">Add Tag</h1>
             </div>

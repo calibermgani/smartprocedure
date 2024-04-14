@@ -234,6 +234,15 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'item_barcode')
     },
     {
+      field: 'item_status',
+      width:60,
+      resizable:false,
+      headerName:'',
+      pinned:"right",
+      cellRenderer: this.cellrendered.bind(this, 'item_status'),
+      // onCellClicked: this.CellClicked.bind(this, 'view')
+    },
+    {
       field: 'view',
       width:10,
       resizable:false,
@@ -617,6 +626,17 @@ export class AllItemsTableViewComponent {
       case 'item_barcode': {
         return params.value ? params.value : '-';
       }
+      case 'item_status':{
+        if(params.value == 1){
+          return `<div class="d-flex justify-content-center">
+          <div style="position:relative;top:10px"><h5 class="mb-0" style="background:#E8F8EA;border-radius:16px;padding:2px 8px 2px 8px;color:#17B927;font-weight:400 !important">Active</h5></div></div>`
+        }
+        else{
+          return `<div class="d-flex justify-content-center">
+          <div style="position:relative;top:10px"><h5 class="mb-0" style="background:#FBE9E9;border-radius:16px;padding:2px 8px 2px 8px;color:#D62424;font-weight:400 !important">Inactive</h5></div></div>`
+        }
+
+      }
       case 'view':{
         return `<div class="d-flex justify-content-center">
         <div><i class="mdi mdi-eye-outline" style="color:#855EDB;font-size:18px"></i></div></div>`
@@ -797,7 +817,7 @@ export class AllItemsTableViewComponent {
 
 
 
-
+disableheaderButtons:boolean = false;
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
     const selectedIndexes:any = [];
@@ -808,7 +828,24 @@ export class AllItemsTableViewComponent {
         this.selected_row_data.push(element.data);
         selectedIndexes.push(element.id);
       })
+      this.disableheaderButtons = false;
       console.log(this.selected_row_data);
+      if (this.selected_row_data.length > 0) {
+        if (this.selected_row_data[0].item_status == 2) {
+          this.disableheaderButtons = true;
+        }
+        if (this.selected_row_data[0].item_category) {
+          if (this.selected_row_data[0].item_category.status == 'Inactive') {
+            this.disableheaderButtons = true;
+          }
+        }
+        if (this.selected_row_data[0].item_sub_category) {
+          if (this.selected_row_data[0].item_sub_category.status == 'Inactive') {
+            this.disableheaderButtons = true;
+          }
+        }
+      }
+
       if (this.selected_row_data.length >= 0) {
         if (this.selected_row_data.length == 0) {
           // this.myGrid_1.api?.forEachNode((node)=>{
@@ -819,6 +856,7 @@ export class AllItemsTableViewComponent {
           //       node.setSelected(false);
           //     })
           // });
+          this.disableheaderButtons = false;
           this.showEditablefields = false;
           this.selected_row_data_length = 0;
           const newColumnDefs = this.columnMainDefs.map(colDef => {
@@ -973,6 +1011,7 @@ export class AllItemsTableViewComponent {
   }
 
   CloseModal(modalname:string){
+    this.disableheaderButtons = false;
     switch(modalname){
       case 'editItem':{
         this.AddItemForm.reset();
@@ -1543,6 +1582,11 @@ export class AllItemsTableViewComponent {
       }
 
       console.log(data.value);
+      if(!this.result){
+        console.log('w');
+        this.result = this.AddItemForm.controls.imageURL.value;
+      }
+
 
       this.allServices.UpdateItemfn(this.Currently_Selected_row,data,this.result).subscribe({
         next:(res:any)=>{
@@ -1884,7 +1928,6 @@ export class AllItemsTableViewComponent {
       }
     })
 
-
     this.authfakeauthenticationService.SearchItembyCategoryObservable.subscribe((res:any)=>{
       console.log(res);
       if(res[0] !=null){
@@ -1920,6 +1963,24 @@ export class AllItemsTableViewComponent {
         });
       }
 
+    })
+
+    this.authfakeauthenticationService.ExportAstypeObservable.subscribe({
+      next:((res:any)=>{
+        console.log(res);
+        if(res == 'excel'){
+          this.gridApi_1.exportDataAsCsv()
+        }
+        else if(res == 'pdf'){
+
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong', 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      })
     })
   }
   public apiUrl: any = environment_new.imageUrl;

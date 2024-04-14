@@ -30,6 +30,9 @@ export class AuthfakeauthenticationService {
     public SearchItembyCategory = new BehaviorSubject<any>('');
     SearchItembyCategoryObservable = this.SearchItembyCategory.asObservable();
 
+    public ExportAstype = new BehaviorSubject<any>('');
+    ExportAstypeObservable = this.ExportAstype.asObservable();
+
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -90,4 +93,10 @@ export class AuthfakeauthenticationService {
       x.push(subcategoryId)
       this.SearchItembyCategory.next(x);
     }
+
+    GridExportType(data:string){
+      this.ExportAstype.next(data);
+    }
+
+
 }

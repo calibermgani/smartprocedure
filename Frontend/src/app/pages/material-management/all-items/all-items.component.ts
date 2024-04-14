@@ -445,6 +445,20 @@ export class AllItemsComponent implements OnInit {
       }
     }
   }
+  ExportGrid(){
+    switch(this.selectedExportType){
+      case 'excel':{
+        this.authfakeauthenticationService.GridExportType('excel');
+        this.CloseModal('exportModal');
+        break;
+      }
+      case 'pdf':{
+        this.authfakeauthenticationService.GridExportType('pdf');
+        this.CloseModal('exportModal');
+        break;
+      }
+    }
+  }
 
 
   OpenModal(modalname:string){
@@ -494,6 +508,10 @@ export class AllItemsComponent implements OnInit {
       }
       case 'editsubcategory':{
         this.editsubcategory?.show();
+        break;
+      }
+      case 'exportModal':{
+        this.export?.show();
         break;
       }
     }
@@ -563,6 +581,10 @@ export class AllItemsComponent implements OnInit {
       case 'editsubcategory':{
         this.AddSubCategoryForm.reset();
         this.editsubcategory?.hide();
+        break;
+      }
+      case 'exportModal':{
+        this.export?.hide();
         break;
       }
     }
@@ -1121,6 +1143,9 @@ export class AllItemsComponent implements OnInit {
 
   }
 
+  ReloadGrid(){
+    this.authfakeauthenticationService.ReloadAllItemsGrid(true);
+  }
 
   GetOverAllList(){
     this.allServices.GetOverAllList().subscribe({
