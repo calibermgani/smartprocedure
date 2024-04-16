@@ -234,11 +234,22 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'item_barcode')
     },
     {
+      field: 'histroy',
+      width:10,
+      resizable:false,
+      headerName:'',
+      filter:false,
+      pinned:"right",
+      cellRenderer: this.cellrendered.bind(this, 'histroy'),
+      // onCellClicked: this.CellClicked.bind(this, 'view')
+    },
+    {
       field: 'item_status',
       width:60,
       resizable:false,
       headerName:'',
       pinned:"right",
+      filter:false,
       cellRenderer: this.cellrendered.bind(this, 'item_status'),
       // onCellClicked: this.CellClicked.bind(this, 'view')
     },
@@ -246,6 +257,7 @@ export class AllItemsTableViewComponent {
       field: 'view',
       width:10,
       resizable:false,
+      filter:false,
       pinned:"right",
       cellRenderer: this.cellrendered.bind(this, 'view'),
       onCellClicked: this.CellClicked.bind(this, 'view')
@@ -253,6 +265,7 @@ export class AllItemsTableViewComponent {
     {
       field: 'edit',
       width:10,
+      filter:false,
       resizable:false,
       pinned:"right",
       cellRenderer: this.cellrendered.bind(this, 'edit'),
@@ -262,6 +275,7 @@ export class AllItemsTableViewComponent {
       field: 'delete',
       width:20,
       resizable:false,
+      filter:false,
       pinned:"right",
       cellRenderer: this.cellrendered.bind(this, 'delete'),
       onCellClicked: this.CellClicked.bind(this, 'delete')
@@ -286,160 +300,160 @@ export class AllItemsTableViewComponent {
   //   return params.data.item_clones;
   // };
 
-  public detailCellRendererParams: any = {
-    detailGridOptions: {
-      rowSelection: 'multiple',
-      suppressRowClickSelection: true,
-      enableRangeSelection: true,
-      pagination: false,
-      paginationAutoPageSize: false,
-      columnDefs : [ {
-          field: '',
-          checkboxSelection: true,
-          resizable:false,
-          headerCheckboxSelection: true,
-          width:10,
-        },
-        {
-          field: 'item_number',
-          headerName: 'Item No',
-          cellRenderer: this.cellrendered.bind(this, 'item_number'),
-        },
-        {
-          field: 'item_name',
-          headerName: 'Item Name',
-          cellRenderer: this.cellrendered.bind(this, 'item_name'),
-          onCellClicked: this.CellClicked.bind(this, 'item_name')
-        },
-        {
-          field: 'item_category.name',
-          headerName: 'Items Category',
-          cellRenderer: this.cellrendered.bind(this, 'item_category.name')
-        },
-        {
-          field: 'item_sub_category.sub_category_name',
-          headerName: 'Items Sub Category',
-          cellRenderer: this.cellrendered.bind(this, 'item_sub_category.sub_category_name')
-        },
-        {
-          field: 'item_description',
-          headerName: 'Item Description',
-          cellRenderer: this.cellrendered.bind(this, 'item_description')
-        },
-        {
-          field: 'item_procedures',
-          headerName: 'Procedure',
-          cellRenderer: this.cellrendered.bind(this, 'item_procedures')
-        },
-        {
-          field: 'cat_no',
-          headerName: 'Cat No',
-          cellRenderer: this.cellrendered.bind(this, 'cat_no')
-        },
-        {
-          field: 'lot_no',
-          headerName: 'Lot No',
-          cellRenderer: this.cellrendered.bind(this, 'lot_no')
-        },
-        {
-          field: 'size',
-          headerName: 'Size',
-          cellRenderer: this.cellrendered.bind(this, 'size')
-        },
-        {
-          field: 'item_vendor.VendorName',
-          headerName: 'Vendor',
-          cellRenderer: this.cellrendered.bind(this, 'item_vendor.VendorName')
-        },
-        {
-          field: 'price',
-          headerName: 'Price',
-          cellRenderer: this.cellrendered.bind(this, 'price')
-        },
-        {
-          field: 'unit',
-          headerName: 'Unit',
-          cellRenderer: this.cellrendered.bind(this, 'unit')
-        },
-        {
-          field: 'expired_date',
-          headerName: 'Expiry Date',
-          cellRenderer: this.cellrendered.bind(this, 'expired_date')
-        },
-        {
-          field: 'store_qty',
-          headerName: 'Store',
-          cellRenderer: this.cellrendered.bind(this, 'store_qty')
-        },
-        {
-          field: 'cabinet_qty',
-          headerName: 'Cabinet',
-          cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
-        },
-        {
-          field: 'min_level',
-          headerName: 'Min Level',
-          cellRenderer: this.cellrendered.bind(this, 'min_level')
-        },
-        {
-          field: 'tag',
-          headerName: 'Tags',
-          cellRenderer: this.cellrendered.bind(this, 'tag')
-        },
-        {
-          field: 'item_notes',
-          headerName: 'Notes',
-          cellRenderer: this.cellrendered.bind(this, 'item_notes')
-        },
-        {
-          field: 'image_url',
-          headerName: 'Images',
-          cellRenderer: this.cellrendered.bind(this, 'image_url')
-        },
-        {
-          field: 'item_barcode',
-          headerName: 'Barcodes',
-          cellRenderer: this.cellrendered.bind(this, 'item_barcode')
-        },
-        {
-          field: 'view',
-          width:10,
-          resizable:false,
-          pinned:"right",
-          headerName:'',
-          cellRenderer: this.cellrendered.bind(this, 'view'),
-          onCellClicked: this.CellClicked.bind(this, 'view')
-        },
-        // {
-        //   field: 'edit',
-        //   width:10,
-        //   resizable:false,
-        //   pinned:"right",
-        //   headerName:'',
-        //   cellRenderer: this.cellrendered.bind(this, 'edit'),
-        //   onCellClicked: this.CellClicked.bind(this, 'edit')
-        // },
-        {
-          field: 'delete',
-          width:20,
-          resizable:false,
-          headerName:'',
-          pinned:"right",
-          cellRenderer: this.cellrendered.bind(this, 'delete'),
-          onCellClicked: this.CellClicked.bind(this, 'delete')
-        },
-      ],
-      defaultColDef: {
-        resizable:true,
-      },
+  // public detailCellRendererParams: any = {
+  //   detailGridOptions: {
+  //     rowSelection: 'multiple',
+  //     suppressRowClickSelection: true,
+  //     enableRangeSelection: true,
+  //     pagination: false,
+  //     paginationAutoPageSize: false,
+  //     columnDefs : [ {
+  //         field: '',
+  //         checkboxSelection: true,
+  //         resizable:false,
+  //         headerCheckboxSelection: true,
+  //         width:10,
+  //       },
+  //       {
+  //         field: 'item_number',
+  //         headerName: 'Item No',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_number'),
+  //       },
+  //       {
+  //         field: 'item_name',
+  //         headerName: 'Item Name',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_name'),
+  //         onCellClicked: this.CellClicked.bind(this, 'item_name')
+  //       },
+  //       {
+  //         field: 'item_category.name',
+  //         headerName: 'Items Category',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_category.name')
+  //       },
+  //       {
+  //         field: 'item_sub_category.sub_category_name',
+  //         headerName: 'Items Sub Category',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_sub_category.sub_category_name')
+  //       },
+  //       {
+  //         field: 'item_description',
+  //         headerName: 'Item Description',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_description')
+  //       },
+  //       {
+  //         field: 'item_procedures',
+  //         headerName: 'Procedure',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_procedures')
+  //       },
+  //       {
+  //         field: 'cat_no',
+  //         headerName: 'Cat No',
+  //         cellRenderer: this.cellrendered.bind(this, 'cat_no')
+  //       },
+  //       {
+  //         field: 'lot_no',
+  //         headerName: 'Lot No',
+  //         cellRenderer: this.cellrendered.bind(this, 'lot_no')
+  //       },
+  //       {
+  //         field: 'size',
+  //         headerName: 'Size',
+  //         cellRenderer: this.cellrendered.bind(this, 'size')
+  //       },
+  //       {
+  //         field: 'item_vendor.VendorName',
+  //         headerName: 'Vendor',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_vendor.VendorName')
+  //       },
+  //       {
+  //         field: 'price',
+  //         headerName: 'Price',
+  //         cellRenderer: this.cellrendered.bind(this, 'price')
+  //       },
+  //       {
+  //         field: 'unit',
+  //         headerName: 'Unit',
+  //         cellRenderer: this.cellrendered.bind(this, 'unit')
+  //       },
+  //       {
+  //         field: 'expired_date',
+  //         headerName: 'Expiry Date',
+  //         cellRenderer: this.cellrendered.bind(this, 'expired_date')
+  //       },
+  //       {
+  //         field: 'store_qty',
+  //         headerName: 'Store',
+  //         cellRenderer: this.cellrendered.bind(this, 'store_qty')
+  //       },
+  //       {
+  //         field: 'cabinet_qty',
+  //         headerName: 'Cabinet',
+  //         cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
+  //       },
+  //       {
+  //         field: 'min_level',
+  //         headerName: 'Min Level',
+  //         cellRenderer: this.cellrendered.bind(this, 'min_level')
+  //       },
+  //       {
+  //         field: 'tag',
+  //         headerName: 'Tags',
+  //         cellRenderer: this.cellrendered.bind(this, 'tag')
+  //       },
+  //       {
+  //         field: 'item_notes',
+  //         headerName: 'Notes',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_notes')
+  //       },
+  //       {
+  //         field: 'image_url',
+  //         headerName: 'Images',
+  //         cellRenderer: this.cellrendered.bind(this, 'image_url')
+  //       },
+  //       {
+  //         field: 'item_barcode',
+  //         headerName: 'Barcodes',
+  //         cellRenderer: this.cellrendered.bind(this, 'item_barcode')
+  //       },
+  //       {
+  //         field: 'view',
+  //         width:10,
+  //         resizable:false,
+  //         pinned:"right",
+  //         headerName:'',
+  //         cellRenderer: this.cellrendered.bind(this, 'view'),
+  //         onCellClicked: this.CellClicked.bind(this, 'view')
+  //       },
+  //       // {
+  //       //   field: 'edit',
+  //       //   width:10,
+  //       //   resizable:false,
+  //       //   pinned:"right",
+  //       //   headerName:'',
+  //       //   cellRenderer: this.cellrendered.bind(this, 'edit'),
+  //       //   onCellClicked: this.CellClicked.bind(this, 'edit')
+  //       // },
+  //       {
+  //         field: 'delete',
+  //         width:20,
+  //         resizable:false,
+  //         headerName:'',
+  //         pinned:"right",
+  //         cellRenderer: this.cellrendered.bind(this, 'delete'),
+  //         onCellClicked: this.CellClicked.bind(this, 'delete')
+  //       },
+  //     ],
+  //     defaultColDef: {
+  //       resizable:true,
+  //     },
 
-      onSelectionChanged: this.onSelectionChangedMaster.bind(this),
-      detailRowAutoHeight:false,
-    },
-    getDetailRowData: (params) => {
-      params.successCallback(params.data.item_clones);
-    },
-  } as IDetailCellRendererParams<MainData, SubData>;
+  //     onSelectionChanged: this.onSelectionChangedMaster.bind(this),
+  //     detailRowAutoHeight:false,
+  //   },
+  //   getDetailRowData: (params) => {
+  //     params.successCallback(params.data.item_clones);
+  //   },
+  // } as IDetailCellRendererParams<MainData, SubData>;
 
 
   onSelectionChangedMaster(event: SelectionChangedEvent){
@@ -625,6 +639,10 @@ export class AllItemsTableViewComponent {
       }
       case 'item_barcode': {
         return params.value ? params.value : '-';
+      }
+      case 'histroy':{
+        return `<div class="d-flex justify-content-center">
+        <div><img src="assets/images/histroy.svg"></div></div>`
       }
       case 'item_status':{
         if(params.value == 1){
