@@ -159,9 +159,9 @@ export class AllItemsTableViewComponent {
       cellRenderer: this.cellrendered.bind(this, 'item_description')
     },
     {
-      field: 'item_procedures',
+      field: 'item_procedure_id',
       headerName: 'Procedure',
-      cellRenderer: this.cellrendered.bind(this, 'item_procedures')
+      cellRenderer: this.cellrendered.bind(this, 'item_procedure_id')
     },
     {
       field: 'cat_no',
@@ -247,6 +247,7 @@ export class AllItemsTableViewComponent {
       field: 'item_status',
       width:60,
       resizable:false,
+      filter:false,
       headerName:'',
       pinned:"right",
       filter:false,
@@ -585,13 +586,14 @@ export class AllItemsTableViewComponent {
       case 'item_description': {
         return params.value ? params.value : '-';
       }
-      case 'item_procedures': {
-        let newArray :any = [];
-        params.value.forEach(element => {
-          newArray.push(element.procedure_name);
-        });
-        if(newArray.length>0){return `${newArray}`;}
-        else{return '-';}
+      case 'item_procedure_id': {
+        // let newArray :any = [];
+        // params.value.forEach(element => {
+        //   newArray.push(element.procedure_name);
+        // });
+        // if(newArray.length>0){return `${newArray}`;}
+        // else{return '-';}
+        return params.value ? params.value : '-';
       }
       case 'cat_no': {
         return params.value ? params.value : '-';
@@ -645,7 +647,7 @@ export class AllItemsTableViewComponent {
         <div><img src="assets/images/histroy.svg"></div></div>`
       }
       case 'item_status':{
-        if(params.value == 1){
+        if(params.value == 'Active'){
           return `<div class="d-flex justify-content-center">
           <div style="position:relative;top:10px"><h5 class="mb-0" style="background:#E8F8EA;border-radius:16px;padding:2px 8px 2px 8px;color:#17B927;font-weight:400 !important">Active</h5></div></div>`
         }
@@ -836,32 +838,57 @@ export class AllItemsTableViewComponent {
 
 
 disableheaderButtons:boolean = false;
+SelectedItemStatus:string = '';
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
+     this.disableheaderButtons = false;
     const selectedIndexes:any = [];
     this.gridApi_1.addEventListener('selectionChanged', () => {
       this.selected_row_data = [];
+      console.log(this.gridApi_1.getSelectedNodes());
+
       const selectedNodes = this.gridApi_1.getSelectedNodes();
+      if(selectedNodes.length>0){
+        console.log('SelectedNode',selectedNodes)
+        console.log('SelectedItemStatus',this.SelectedItemStatus);
+        if(this.SelectedItemStatus.length>0){
+          selectedNodes.forEach((node)=>{
+            if(node.data.item_status != this.SelectedItemStatus){
+              node.setSelected(false);
+                this.toastr.warning(`Please select only ${this.SelectedItemStatus} Items`,'',{
+              positionClass: 'toast-top-center',
+              timeOut:5000,
+            });
+              return;
+            }
+          })
+        }
+        else{
+          if(selectedNodes[0].data.item_status == 'Inactive'){
+            this.disableheaderButtons = true;
+            this.SelectedItemStatus = selectedNodes[0].data.item_status;
+          }
+          else{
+            this.disableheaderButtons = false;
+            this.SelectedItemStatus = selectedNodes[0].data.item_status;
+          }
+        }
+
+        console.log(this.SelectedItemStatus);
+      }
       selectedNodes.forEach((element) => {
         this.selected_row_data.push(element.data);
         selectedIndexes.push(element.id);
       })
-      this.disableheaderButtons = false;
       console.log(this.selected_row_data);
-      if (this.selected_row_data.length > 0) {
-        if (this.selected_row_data[0].item_status == 2) {
-          this.disableheaderButtons = true;
-        }
-        if (this.selected_row_data[0].item_category) {
-          if (this.selected_row_data[0].item_category.status == 'Inactive') {
-            this.disableheaderButtons = true;
-          }
-        }
-        if (this.selected_row_data[0].item_sub_category) {
-          if (this.selected_row_data[0].item_sub_category.status == 'Inactive') {
-            this.disableheaderButtons = true;
-          }
-        }
+      if (this.selected_row_data.length  == 0) {
+        // if (this.selected_row_data[0].item_status == 'Inctive') {
+        //   this.disableheaderButtons = true;
+        // }
+        // else{
+        //   this.disableheaderButtons = false;
+        // }
+        this.SelectedItemStatus = '';
       }
 
       if (this.selected_row_data.length >= 0) {
@@ -950,6 +977,8 @@ disableheaderButtons:boolean = false;
     if(value == false){
       this.gridApi_1.deselectAll();
     }
+    this.SelectedItemStatus = '';
+    this.disableheaderButtons = false;
   }
 
   onSelect(event: any) {
@@ -1987,7 +2016,10 @@ disableheaderButtons:boolean = false;
       next:((res:any)=>{
         console.log(res);
         if(res == 'excel'){
-          this.gridApi_1.exportDataAsCsv()
+          var params = {
+            columnKeys: ['item_number', 'item_name', 'item_category.name','item_sub_category.sub_category_name','item_description','item_procedure_id','cat_no','lot_no','size','item_vendor.VendorName','price','unit','expired_date','store_qty','cabinet_qty','min_level','tag','item_notes','item_barcode','']
+        };
+          this.gridApi_1.exportDataAsCsv(params)
         }
         else if(res == 'pdf'){
 
