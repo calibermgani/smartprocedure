@@ -4,7 +4,14 @@
       style="border-bottom: 0.5px solid #747474 !important;">
       <div (click)="GoBackToAllItems()" class="pointer"><h1><img src="assets/images/back_arrow.svg" class="me-2">Trash</h1></div>
     </div>
-
+    <div class="d-flex flex-row" style="background-color: #F3F4F8;padding: 5px;">
+      <div class="me-2">
+        <input class="form-control" type="text" placeholder="Search" formControlName="SearchFilter" >
+      </div>
+      <div>
+        <button type="button" class="btn btn-grey px-1 py-2" style="width: 75px !important;">Reset</button>
+      </div>
+    </div>
     <div class="d-flex align-items-center p-2" style="background: #855EDB;border-radius: 6px;" *ngIf="ShowRestoreHeader">
       <div class="pointer"><input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" [(ngModel)]="SelectAllItems" (click)="DisSelectAllItems($event)"></div>
       <div class="ms-1 d-flex">
@@ -24,38 +31,54 @@
     <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3"
       *ngFor="let x of ListViewData;let i = index">
       <div class="d-flex flex-wrap">
-        <div style="position: relative;right: 13px;">
-          <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" style="position: relative;left: 17px;top:4px;" (click)="SelectItem(x.id)">
-          <img [src]="apiUrl +'/'+ x.image_url != apiUrl + '/null' ? apiUrl + x.image_url : 'assets/images/default_image.svg'" style="width: auto;height:86px;border-radius: 5px 0px 0px 5px;"
+        <div>
+          <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectItem(x.id)">
+          <img [src]="apiUrl +'/'+ x.image_url != apiUrl + '/null' ? apiUrl + x.image_url : 'assets/images/default_image.svg'" style="width: auto;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
             class="pointer">
         </div>
-        <div class="d-flex flex-wrap flex-column  align-items-start my-1 justify-content-around" style="width: 200px;">
-          <div class="d-flex flex-wrap my-2">
-            <p class="mb-0">{{ x.item_name }}</p>
+        <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1" style="width: 180px;">
+          <div class="mb-2 d-flex flex-wrap">
+            <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.item_name }}</h1>
           </div>
           <div class="d-flex flex-wrap align-items-center mb-2">
-            <h5 class="mb-0">Item No :</h5>
-            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.item_number ? x.item_number : '-' }}
-              &nbsp;|</h5>
-            <h5 class="mb-0 ms-2" style="color: #D62424 !important;">Expiry :</h5>
-            <h5 style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.expired_date ? x.expired_date: '-' }}
-            </h5>
+            <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Item number :</h1>
+            <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.item_number ? x.item_number : '-' }}
+              </p>
           </div>
           <div class="d-flex flex-wrap align-items-center mb-2">
-            <h5 class="mb-0">Procedure :</h5>
-            <h5 style="font-weight: 400 !important;" class="mb-0 ms-1" *ngFor="let y of x.item_procedures">{{ y.procedure_name ? y.procedure_name : '-'  }}</h5>
+            <h1 class="my-1" style="font-weight: 500 !important;color: #D62424 !important;">Expiry :</h1>
+            <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.expired_date ? x.expired_date: '-' }} </p>
           </div>
         </div>
-        <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2"
-          style="">
-          <div class="mb-2">
-            <p class="mb-1 mt-1">Deleted</p>
-            <h5 style="color: #1B1B1B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0">{{
+        <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1" style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;">
+          <div class="mb-2 d-flex flex-wrap align-items-center">
+            <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
+            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
               x.deleted_at | date
-              }}</h5>
+              }}</p>
+          </div>
+          <div class="mb-2 d-flex flex-wrap align-items-center">
+            <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
+            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
+              x.deleted_at | date
+              }}</p>
+          </div>
+          <div class="mb-2 d-flex flex-wrap align-items-center ">
+            <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
+              x.deleted_at | date
+              }}</p>
           </div>
         </div>
-        <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto">
+        <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1" style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;">
+          <div class="mb-2 d-flex flex-wrap align-items-center">
+            <h1 class="my-1" style="font-weight: 500 !important">Reason :</h1>
+            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
+              x.deleted_at | date
+              }}</p>
+          </div>
+        </div>
+        <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background" style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
           <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems(x.id)">
             <i class="mdi mdi-restore font-size-12"></i>
           </div>

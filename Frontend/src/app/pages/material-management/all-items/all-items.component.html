@@ -90,10 +90,16 @@
         <div class="list-footer">
           <div class="d-flex flex-row justify-content-between align-items-center" style="flex-wrap: wrap;">
             <div>
-              <button type="button" class="btn btn-grey" style="width: 100px !important;" (click)="GoToRespectiveView('histroy')"><i class="mdi mdi-timer-outline"></i>Histroy</button>
+              <button type="button" class="btn btn-grey px-1 py-2" style="width: 75px !important;"
+                (click)="GoToRespectiveView('histroy')"><i class="mdi mdi-timer-outline me-1"></i>Histroy</button>
             </div>
             <div>
-              <button type="button" class="btn btn-grey" style="width: 100px !important;" (click)="GoToRespectiveView('trash')"><i class="mdi mdi-trash-can-outline"></i>Trash</button>
+              <button type="button" class="btn btn-grey px-1 py-2" style="width: 75px !important;"
+                (click)="GoToRespectiveView('trash')"><i class="mdi mdi-trash-can-outline me-1"></i>Trash</button>
+            </div>
+            <div>
+              <button type="button" class="btn btn-grey px-1 py-2"  style="width: 75px !important;"
+                (click)="GoToRespectiveView('inactive')"><i class="mdi mdi-block-helper me-1"></i>Inactive</button>
             </div>
           </div>
         </div>
@@ -501,6 +507,10 @@
 
     <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'trash' ">
       <app-trash (GoBackToAllItemsEvent_trash)="ChangeOverAllViewTra($event)"></app-trash>
+    </div>
+
+    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'inactive' ">
+      <app-inactive (GoBackToAllItemsEvent_trash)="ChangeOverAllViewTra($event)"></app-inactive>
     </div>
   </div>
 </div>

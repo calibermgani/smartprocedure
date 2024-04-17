@@ -1165,11 +1165,15 @@ export class AllItemsComponent implements OnInit {
   }
 
 
-  currentview:string = 'all'
+  currentview:string = 'trash'
   GoToRespectiveView(data:any){
     switch(data){
       case 'histroy':{
         this.currentview = 'histroy';
+        break;
+      }
+      case 'inactive':{
+        this.currentview = 'inactive';
         break;
       }
       case 'trash':{

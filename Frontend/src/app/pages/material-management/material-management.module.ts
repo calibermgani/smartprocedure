@@ -31,6 +31,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { HistroyComponent } from './histroy/histroy.component';
 import { TrashComponent } from './trash/trash.component';
 import { PreventSpacesDirective } from './prevent-spaces.directive';
+import { InactiveComponent } from './inactive/inactive.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { PreventSpacesDirective } from './prevent-spaces.directive';
     GridItemsDetailedViewComponent,
     HistroyComponent,
     TrashComponent,
-    PreventSpacesDirective
+    PreventSpacesDirective,
+    InactiveComponent
   ],
   imports: [
     CommonModule,
