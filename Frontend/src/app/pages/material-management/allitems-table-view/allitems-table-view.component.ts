@@ -80,6 +80,7 @@ export class AllItemsTableViewComponent {
   @ViewChild('editItem', { static: false }) editItem?: ModalDirective;
   @ViewChild('bulk_edit', { static: false }) bulk_edit?: ModalDirective;
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
+  @ViewChild('histroy', { static: false }) histroy?: ModalDirective;
   @Output() newItemEvent = new EventEmitter;
 
   @Input() Updategrid: boolean = false;
@@ -235,13 +236,13 @@ export class AllItemsTableViewComponent {
     },
     {
       field: 'histroy',
-      width:10,
+      width:20,
       resizable:false,
       headerName:'',
       filter:false,
       pinned:"right",
       cellRenderer: this.cellrendered.bind(this, 'histroy'),
-      // onCellClicked: this.CellClicked.bind(this, 'view')
+      onCellClicked: this.CellClicked.bind(this, 'histroy')
     },
     {
       field: 'item_status',
@@ -250,7 +251,6 @@ export class AllItemsTableViewComponent {
       filter:false,
       headerName:'',
       pinned:"right",
-      filter:false,
       cellRenderer: this.cellrendered.bind(this, 'item_status'),
       // onCellClicked: this.CellClicked.bind(this, 'view')
     },
@@ -293,168 +293,6 @@ export class AllItemsTableViewComponent {
   public isRowMaster: IsRowMaster = (dataItem: any) => {
     return dataItem ? dataItem.item_clones.length > 0 : false;
   };
-
-  // [getRowId]="getRowId"
-  // public getRowId: GetRowIdFunc = (params: GetRowIdParams) => {
-  //   console.log(params);
-  //   // return null;
-  //   return params.data.item_clones;
-  // };
-
-  // public detailCellRendererParams: any = {
-  //   detailGridOptions: {
-  //     rowSelection: 'multiple',
-  //     suppressRowClickSelection: true,
-  //     enableRangeSelection: true,
-  //     pagination: false,
-  //     paginationAutoPageSize: false,
-  //     columnDefs : [ {
-  //         field: '',
-  //         checkboxSelection: true,
-  //         resizable:false,
-  //         headerCheckboxSelection: true,
-  //         width:10,
-  //       },
-  //       {
-  //         field: 'item_number',
-  //         headerName: 'Item No',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_number'),
-  //       },
-  //       {
-  //         field: 'item_name',
-  //         headerName: 'Item Name',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_name'),
-  //         onCellClicked: this.CellClicked.bind(this, 'item_name')
-  //       },
-  //       {
-  //         field: 'item_category.name',
-  //         headerName: 'Items Category',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_category.name')
-  //       },
-  //       {
-  //         field: 'item_sub_category.sub_category_name',
-  //         headerName: 'Items Sub Category',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_sub_category.sub_category_name')
-  //       },
-  //       {
-  //         field: 'item_description',
-  //         headerName: 'Item Description',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_description')
-  //       },
-  //       {
-  //         field: 'item_procedures',
-  //         headerName: 'Procedure',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_procedures')
-  //       },
-  //       {
-  //         field: 'cat_no',
-  //         headerName: 'Cat No',
-  //         cellRenderer: this.cellrendered.bind(this, 'cat_no')
-  //       },
-  //       {
-  //         field: 'lot_no',
-  //         headerName: 'Lot No',
-  //         cellRenderer: this.cellrendered.bind(this, 'lot_no')
-  //       },
-  //       {
-  //         field: 'size',
-  //         headerName: 'Size',
-  //         cellRenderer: this.cellrendered.bind(this, 'size')
-  //       },
-  //       {
-  //         field: 'item_vendor.VendorName',
-  //         headerName: 'Vendor',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_vendor.VendorName')
-  //       },
-  //       {
-  //         field: 'price',
-  //         headerName: 'Price',
-  //         cellRenderer: this.cellrendered.bind(this, 'price')
-  //       },
-  //       {
-  //         field: 'unit',
-  //         headerName: 'Unit',
-  //         cellRenderer: this.cellrendered.bind(this, 'unit')
-  //       },
-  //       {
-  //         field: 'expired_date',
-  //         headerName: 'Expiry Date',
-  //         cellRenderer: this.cellrendered.bind(this, 'expired_date')
-  //       },
-  //       {
-  //         field: 'store_qty',
-  //         headerName: 'Store',
-  //         cellRenderer: this.cellrendered.bind(this, 'store_qty')
-  //       },
-  //       {
-  //         field: 'cabinet_qty',
-  //         headerName: 'Cabinet',
-  //         cellRenderer: this.cellrendered.bind(this, 'cabinet_qty')
-  //       },
-  //       {
-  //         field: 'min_level',
-  //         headerName: 'Min Level',
-  //         cellRenderer: this.cellrendered.bind(this, 'min_level')
-  //       },
-  //       {
-  //         field: 'tag',
-  //         headerName: 'Tags',
-  //         cellRenderer: this.cellrendered.bind(this, 'tag')
-  //       },
-  //       {
-  //         field: 'item_notes',
-  //         headerName: 'Notes',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_notes')
-  //       },
-  //       {
-  //         field: 'image_url',
-  //         headerName: 'Images',
-  //         cellRenderer: this.cellrendered.bind(this, 'image_url')
-  //       },
-  //       {
-  //         field: 'item_barcode',
-  //         headerName: 'Barcodes',
-  //         cellRenderer: this.cellrendered.bind(this, 'item_barcode')
-  //       },
-  //       {
-  //         field: 'view',
-  //         width:10,
-  //         resizable:false,
-  //         pinned:"right",
-  //         headerName:'',
-  //         cellRenderer: this.cellrendered.bind(this, 'view'),
-  //         onCellClicked: this.CellClicked.bind(this, 'view')
-  //       },
-  //       // {
-  //       //   field: 'edit',
-  //       //   width:10,
-  //       //   resizable:false,
-  //       //   pinned:"right",
-  //       //   headerName:'',
-  //       //   cellRenderer: this.cellrendered.bind(this, 'edit'),
-  //       //   onCellClicked: this.CellClicked.bind(this, 'edit')
-  //       // },
-  //       {
-  //         field: 'delete',
-  //         width:20,
-  //         resizable:false,
-  //         headerName:'',
-  //         pinned:"right",
-  //         cellRenderer: this.cellrendered.bind(this, 'delete'),
-  //         onCellClicked: this.CellClicked.bind(this, 'delete')
-  //       },
-  //     ],
-  //     defaultColDef: {
-  //       resizable:true,
-  //     },
-
-  //     onSelectionChanged: this.onSelectionChangedMaster.bind(this),
-  //     detailRowAutoHeight:false,
-  //   },
-  //   getDetailRowData: (params) => {
-  //     params.successCallback(params.data.item_clones);
-  //   },
-  // } as IDetailCellRendererParams<MainData, SubData>;
 
 
   onSelectionChangedMaster(event: SelectionChangedEvent){
@@ -508,7 +346,11 @@ export class AllItemsTableViewComponent {
     })
   }
 
+  timeline_data:any = [];
   ngOnInit(): void {
+    this.http.get('assets/json/timeline.json').subscribe((res: any) => {
+      this.timeline_data = res;
+    });
   }
 
   public gridApi_1!: GridApi;
@@ -672,8 +514,6 @@ export class AllItemsTableViewComponent {
 
   ViewItemData:any = [];
   Currently_Selected_row:any;
-  x:any
-  y:any
   CellClicked(headerName: any, params: any) {
     switch (headerName) {
       case 'item_name': {
@@ -696,6 +536,11 @@ export class AllItemsTableViewComponent {
         this.OpenModal('item_name');
         break;
       }
+      case 'histroy':{
+        this.Currently_Selected_row = params.data;
+        this.OpenModal('histroy');
+        break;
+      }
       case 'view': {
         this.Currently_Selected_row = params.data;
         this.ViewItemData = [];
@@ -704,16 +549,6 @@ export class AllItemsTableViewComponent {
             if(res.status == 'Success'){
               let procedure_values:any = [];
               this.ViewItemData = res.data;
-              // this.x= res.data.image_url;
-              // console.log(this.x);
-              // const bytes = new TextEncoder().encode(this.x);
-              // // Convert the Uint8Array to a base64 string
-              // const base64String = btoa(String.fromCharCode(...bytes));
-              // console.log(base64String);
-              //  let image = `data:image/jpeg;base64,${this.x}`
-              // // this.y = 'data:image/jpeg;base64,' + this.x
-              // console.log(image);
-              // this.ViewItemData.image_url = image;
             }
           },
           error:(res:any)=>{
@@ -881,15 +716,6 @@ SelectedItemStatus:string = '';
         selectedIndexes.push(element.id);
       })
       console.log(this.selected_row_data);
-      if (this.selected_row_data.length  == 0) {
-        // if (this.selected_row_data[0].item_status == 'Inctive') {
-        //   this.disableheaderButtons = true;
-        // }
-        // else{
-        //   this.disableheaderButtons = false;
-        // }
-        this.SelectedItemStatus = '';
-      }
 
       if (this.selected_row_data.length >= 0) {
         if (this.selected_row_data.length == 0) {
@@ -901,6 +727,7 @@ SelectedItemStatus:string = '';
           //       node.setSelected(false);
           //     })
           // });
+          this.SelectedItemStatus = '';
           this.disableheaderButtons = false;
           this.showEditablefields = false;
           this.selected_row_data_length = 0;
@@ -1054,6 +881,10 @@ SelectedItemStatus:string = '';
         this.getVendors();
         break;
       }
+      case 'histroy':{
+        this.histroy?.show();
+        break;
+      }
     }
   }
 
@@ -1117,6 +948,10 @@ SelectedItemStatus:string = '';
         this.setalert?.hide();
         this.setAlertForm.reset();
         this.gridApi_1.deselectAll();
+        break;
+      }
+      case 'histroy':{
+        this.histroy.hide();
         break;
       }
     }
