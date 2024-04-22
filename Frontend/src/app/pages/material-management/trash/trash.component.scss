@@ -6,3 +6,9 @@
     color: #fff !important;
   }
 }
+
+.disableItemButton{
+  opacity: 0.2;
+  cursor:not-allowed;
+  pointer-events:all !important;
+}

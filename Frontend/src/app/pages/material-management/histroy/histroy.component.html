@@ -6,12 +6,10 @@
       <h1>Histroy</h1>
     </div>
 
-    <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3"
+    <!-- <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3"
       *ngFor="let x of ListViewData;let i = index">
       <div class="d-flex flex-wrap">
         <div style="position: relative;right: 13px;">
-          <!-- <input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
-            (click)="selectgrid()" style="position: relative;left: 17px;top:4px;"> -->
           <img src="assets/images/listItems_img.png" style="width: 177px;height:86px;border-radius: 5px 0px 0px 5px;"
             class="pointer">
         </div>
@@ -38,6 +36,275 @@
           </div>
         </div>
       </div>
+    </div> -->
+
+
+    <div style="height: 600px;overflow-y: auto;" class="mb-3">
+
+      <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3">
+        <div class="d-flex flex-wrap">
+          <div>
+            <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              style="position: relative;left: 5px;top:4px;z-index: 9;">
+            <img src="assets/images/Item_default_img.svg"
+              style="width: auto;height:106px;border-radius: 6px 0px 0px 6px;position: relative;left: -13px;"
+              class="pointer">
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
+            style="width: 180px;">
+            <div class="mb-2 d-flex flex-wrap">
+              <h1 class="my-1 header_name" style="font-weight: 600 !important;">Plain cotton bandage roll</h1>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Item number :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">8745729</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #D62424 !important;">Expiry :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">25-4-2024</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;">
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                05-08-2024</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Neurology</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Store Qty :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">150
+              </p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 12px 0px 12px !important;">
+            <div class="mb-2 d-flex flex-wrap align-items-center ">
+              <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Jenny Wilson</p>
+              <p style="color: #594585 !important;padding: 0px 6px 0px 6px;background: #F3F1F9;border-radius: 10px;"
+                class="mb-0 ms-1">Admin</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Activity :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                User23124 have restored folder plain cotton bandage roll to Urology from trash</p>
+            </div>
+          </div>
+          <!-- <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
+                        style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
+                        <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems()">
+                          <i class="mdi mdi-restore font-size-12"></i>
+                        </div>
+                      </div> -->
+        </div>
+      </div>
+
+      <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3">
+        <div class="d-flex flex-wrap">
+          <div>
+            <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              style="position: relative;left: 5px;top:4px;z-index: 9;">
+            <img src="assets/images/default_category.svg"
+              style="width: auto;height:106px;border-radius: 6px 0px 0px 6px;position: relative;left: -13px;"
+              class="pointer">
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
+            style="width: 180px;">
+            <div class="mb-2 d-flex flex-wrap">
+              <h1 class="my-1 header_name" style="font-weight: 600 !important;">Category B</h1>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Sub Category :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">8745729</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #D62424 !important;">Deleted Date :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">25-4-2024</p>
+            </div>
+          </div>
+          <!-- <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+                    style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;">
+                    <div class="mb-2 d-flex flex-wrap align-items-center">
+                      <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
+                      <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                        05-08-2024</p>
+                    </div>
+                    <div class="mb-2 d-flex flex-wrap align-items-center">
+                      <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
+                      <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                        Neurology</p>
+                    </div>
+                    <div class="mb-2 d-flex flex-wrap align-items-center">
+                      <h1 class="my-1" style="font-weight: 500 !important">Store Qty :</h1>
+                      <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">150</p>
+                    </div>
+                  </div> -->
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 12px 0px 12px !important;">
+            <div class="mb-2 d-flex flex-wrap align-items-center ">
+              <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Jenny Wilson</p>
+              <p style="color: #594585 !important;padding: 0px 6px 0px 6px;background: #F3F1F9;border-radius: 10px;"
+                class="mb-0 ms-1">Admin</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Activity :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                User23124 have restored folder plain cotton bandage roll to Urology from trash</p>
+            </div>
+          </div>
+          <!-- <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
+                        style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
+                        <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems()">
+                          <i class="mdi mdi-restore font-size-12"></i>
+                        </div>
+                      </div> -->
+        </div>
+      </div>
+
+      <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3">
+        <div class="d-flex flex-wrap">
+          <div>
+            <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              style="position: relative;left: 5px;top:4px;z-index: 9;">
+            <img src="assets/images/default_subcategory.svg"
+              style="width: auto;height:106px;border-radius: 6px 0px 0px 6px;position: relative;left: -13px;"
+              class="pointer">
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
+            style="width: 180px;">
+            <div class="mb-2 d-flex flex-wrap">
+              <h1 class="my-1 header_name" style="font-weight: 600 !important;">Sub Category D</h1>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Parent category :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">Urology</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #D62424 !important;">Deleted Date :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">25-4-2024</p>
+            </div>
+          </div>
+          <!-- <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+                    style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;">
+                    <div class="mb-2 d-flex flex-wrap align-items-center">
+                      <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
+                      <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                        05-08-2024</p>
+                    </div>
+                    <div class="mb-2 d-flex flex-wrap align-items-center">
+                      <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
+                      <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                        Neurology</p>
+                    </div>
+                    <div class="mb-2 d-flex flex-wrap align-items-center">
+                      <h1 class="my-1" style="font-weight: 500 !important">Store Qty :</h1>
+                      <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">150</p>
+                    </div>
+                  </div> -->
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 12px 0px 12px !important;">
+            <div class="mb-2 d-flex flex-wrap align-items-center ">
+              <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Jenny Wilson</p>
+              <p style="color: #594585 !important;padding: 0px 6px 0px 6px;background: #F3F1F9;border-radius: 10px;"
+                class="mb-0 ms-1">Admin</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Activity :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                User23124 have restored folder plain cotton bandage roll to Urology from trash</p>
+            </div>
+          </div>
+          <!-- <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
+                        style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
+                        <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems()">
+                          <i class="mdi mdi-restore font-size-12"></i>
+                        </div>
+                      </div> -->
+        </div>
+      </div>
+
+      <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3">
+        <div class="d-flex flex-wrap">
+          <div>
+            <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              style="position: relative;left: 5px;top:4px;z-index: 9;">
+            <img src="assets/images/default_vendor.svg"
+              style="width: auto;height:106px;border-radius: 6px 0px 0px 6px;position: relative;left: -13px;"
+              class="pointer">
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
+            style="width: 180px;">
+            <div class="mb-2 d-flex flex-wrap">
+              <h1 class="my-1 header_name" style="font-weight: 600 !important;">Vendor A</h1>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Email :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">milesesther&copy;gmail.com
+              </p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;">Contact :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">(684) 555-0102</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;">
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                05-08-2024</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Neurology</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Item :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">05
+              </p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 12px 0px 12px !important;">
+            <div class="mb-2 d-flex flex-wrap align-items-center ">
+              <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Jenny Wilson</p>
+              <p style="color: #594585 !important;padding: 0px 6px 0px 6px;background: #F3F1F9;border-radius: 10px;"
+                class="mb-0 ms-1">Admin</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Vendor Address :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                775 Rolling Green Rd.</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Activity :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                User23124 have restored folder plain cotton bandage roll to Urology from trash</p>
+            </div>
+          </div>
+          <!-- <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
+                        style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
+                        <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems()">
+                          <i class="mdi mdi-restore font-size-12"></i>
+                        </div>
+                      </div> -->
+        </div>
+      </div>
+
     </div>
   </div>
 </div>

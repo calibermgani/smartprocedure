@@ -591,10 +591,14 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/trashed_items`,payload);
   }
 
-  RestoreItems(data:any){
+  RestoreItems(items:any,vendor:any,category:any,subcategory:any){
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
-    payload["item_id"] = data;
+    payload["item_id"] = items;
+    payload["vendor_id"] = vendor;
+    payload["category_id"] = category;
+    payload["subcategory_id"] = subcategory;
+    payload["procedure_id"] = null;
     console.log(payload);
     // return null;
     return this.http.post(`${this.apiUrl}/items/restored_items`,payload);
@@ -620,5 +624,24 @@ export class AllServicesService {
     payload["item_category_id"] = Category_id;
     payload["item_sub_category_id"] = SubCategory_id;
     return this.http.post(`${this.apiUrl}/items/items_category_search`,payload);
+  }
+
+  GetInactiveItems(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/items/inactive_items`,payload);
+  }
+
+  ActivateAllItems(items:any,category:any,subcategory:any,vendor:any,procedure:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["item_id"] = items;
+    payload["category_id"] = category;
+    payload["sub_category_id"] = subcategory;
+    payload["vendor_id"] = vendor;
+    payload["procedure_id"] = null;
+    console.log(payload);
+    // return null;
+    return this.http.post(`${this.apiUrl}/items/restored_inactive_items`,payload);
   }
 }

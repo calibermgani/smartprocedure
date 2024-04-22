@@ -21,4 +21,8 @@ export class HistroyComponent  implements OnInit{
   GoBackToAllItems(){
     this.GoBackToAllItemsEvent_histroy.next('all');
   }
+
+  RestoreIndividualItems(){
+
+  }
 }

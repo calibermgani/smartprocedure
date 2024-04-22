@@ -2,27 +2,34 @@
   <div class="col-12">
     <div class="d-flex justify-content-start align-items-center mb-3 pb-4"
       style="border-bottom: 0.5px solid #747474 !important;">
-      <div (click)="GoBackToAllItems()" class="pointer"><h1><img src="assets/images/back_arrow.svg" class="me-2">Trash</h1></div>
+      <div (click)="GoBackToAllItems()" class="pointer">
+        <h1><img src="assets/images/back_arrow.svg" class="me-2">Trash</h1>
+      </div>
     </div>
     <div class="d-flex flex-row" style="background-color: #F3F4F8;
     padding: 12px 12px;
     margin: 15px 15px 5px 15px;
     border-radius: 6px;">
       <div class="me-2">
-        <input class="form-control" type="text" placeholder="Search" formControlName="SearchFilter" >
+        <input class="form-control" type="text" placeholder="Search" formControlName="SearchFilter">
       </div>
       <div>
         <button type="button" class="btn btn-grey px-1 py-2" style="width: 75px !important;">Reset</button>
       </div>
     </div>
-    <div class="d-flex align-items-center p-2" style="background: #855EDB;border-radius: 6px;" *ngIf="ShowRestoreHeader">
-      <div class="pointer"><input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" [(ngModel)]="SelectAllItems" (click)="DisSelectAllItems($event)"></div>
+
+    <div class="d-flex align-items-center p-2" style="background: #855EDB;border-radius: 6px;"
+      *ngIf="ShowRestoreHeader">
+      <div class="pointer"><input id="customCheck" type="checkbox" class="form-check-input"
+          style="border: 1px solid #747474;" (click)="DisSelectAllItems($event)"></div>
       <div class="ms-1 d-flex">
         <div class="me-2 pointer">
-          <h1 style="color: #fff !important;font-weight: 500 !important;" class="mb-0" (click)="DisSelectAllItems_h1(false)">Deselect</h1>
+          <h1 style="color: #fff !important;font-weight: 500 !important;" class="mb-0"
+            (click)="DisSelectAllItems_h1(false)">Deselect</h1>
         </div>
         <div>
-          <p style="font-family: 400 !important;color:#fff !important" class="mb-0">|&nbsp; 1 Item Selected</p>
+          <p style="font-family: 400 !important;color:#fff !important" class="mb-0">|&nbsp; {{ TotalSelectedItems.length  }}
+            Item Selected</p>
         </div>
       </div>
       <div class="ms-auto pointer" (click)="restore?.show()">
@@ -30,71 +37,229 @@
             style="color: #fff;"></i>Restore</h1>
       </div>
     </div>
+
+
     <div style="height: 600px;overflow-y: auto;" class="mb-3">
-    <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3"
-      *ngFor="let x of ListViewData;let i = index">
-      <div class="d-flex flex-wrap">
-        <div>
-          <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;" style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectItem(x.id)">
-          <img [src]="apiUrl +'/'+ x.image_url != apiUrl + '/null' ? apiUrl + x.image_url : 'assets/images/default_image.svg'" style="width: auto;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
-            class="pointer">
-        </div>
-        <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1" style="width: 180px;">
-          <div class="mb-2 d-flex flex-wrap">
-            <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.item_name }}</h1>
+      <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3" *ngFor="let x of ItemsData;let i = index">
+        <div class="d-flex flex-wrap">
+          <div>
+            <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectItem(x.id)">
+            <img
+              [src]="apiUrl +'/'+ x.image_url != apiUrl + '/null' ? apiUrl + x.image_url : 'assets/images/Item_default_img.svg'"
+              style="width: auto;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
+              class="pointer">
           </div>
-          <div class="d-flex flex-wrap align-items-center mb-2">
-            <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Item number :</h1>
-            <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.item_number ? x.item_number : '-' }}
+          <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
+            style="width: 180px;">
+            <div class="mb-2 d-flex flex-wrap">
+              <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.item_name }}</h1>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Item number :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.item_number ?
+                x.item_number : '-' }}
               </p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #D62424 !important;">Expiry :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.expired_date ?
+                x.expired_date: '-' }} </p>
+            </div>
           </div>
-          <div class="d-flex flex-wrap align-items-center mb-2">
-            <h1 class="my-1" style="font-weight: 500 !important;color: #D62424 !important;">Expiry :</h1>
-            <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.expired_date ? x.expired_date: '-' }} </p>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;width: 210px;">
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
+                x.deleted_at | date:'dd-MM-yyyy'
+                }}</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
+                x.item_category.name}}</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center ">
+              <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Jenny Wilson</p>
+              <p style="color: #594585 !important;padding: 0px 6px 0px 6px;background: #F3F1F9;border-radius: 10px;"
+                class="mb-0 ms-1">Admin</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;width: 210px;">
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Reason :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">Unknown</p>
+            </div>
+          </div>
+          <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
+            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
+            <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems(x.id)">
+              <i class="mdi mdi-restore font-size-12"></i>
+            </div>
           </div>
         </div>
-        <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1" style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;">
-          <div class="mb-2 d-flex flex-wrap align-items-center">
-            <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
-            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
-              x.deleted_at | date
-              }}</p>
+      </div>
+
+      <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3"  *ngFor="let x of VendorData;let i = index">
+        <div class="d-flex flex-wrap">
+          <div>
+            <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectVendor(x.id)">
+            <img
+            src="assets/images/default_vendor.svg"
+              style="width: auto;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
+              class="pointer">
           </div>
-          <div class="mb-2 d-flex flex-wrap align-items-center">
-            <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
-            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
-              x.deleted_at | date
-              }}</p>
+          <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
+            style="width: 180px;">
+            <div class="mb-2 d-flex flex-wrap">
+              <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.VendorName }}</h1>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Email :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">
+                {{ x.VendorEmail }}
+              </p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;">Contact :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.VendorContactNo }}</p>
+            </div>
           </div>
-          <div class="mb-2 d-flex flex-wrap align-items-center ">
-            <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
-            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
-              x.deleted_at | date
-              }}</p>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;width: 210px;">
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.deleted_at | date:'dd-MM-yyyy' }}</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Vendor Address :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;overflow: hidden;text-overflow: ellipsis;width: 30px;white-space: nowrap;" class="mb-0 ms-1">{{ x.VendorAddress }}</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center ">
+              <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Jenny Wilson</p>
+              <p style="color: #594585 !important;padding: 0px 6px 0px 6px;background: #F3F1F9;border-radius: 10px;"
+                class="mb-0 ms-1">Admin</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;width: 210px;">
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Reason :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">Unknown</p>
+            </div>
+          </div>
+          <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
+            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
+            <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualVendor(x.id)">
+              <i class="mdi mdi-restore font-size-12"></i>
+            </div>
           </div>
         </div>
-        <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1" style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;">
+      </div>
+
+      <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3" *ngFor="let x of CategoriesData;let i = index">
+        <div class="d-flex flex-wrap">
+          <div>
+            <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectCategory(x.id)">
+            <img src="assets/images/default_category.svg"
+              style="width: auto;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
+              class="pointer">
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
+            style="width: 260px;">
+            <div class="mb-2 d-flex flex-wrap">
+              <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.name }}</h1>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;">Deleted date :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.deleted_at | date:'dd-mm-yyyy' }}</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center ">
+              <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Jenny Wilson</p>
+              <p style="color: #594585 !important;padding: 0px 6px 0px 6px;background: #F3F1F9;border-radius: 10px;"
+                class="mb-0 ms-1">Admin</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+          style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;width: 220px;">
           <div class="mb-2 d-flex flex-wrap align-items-center">
             <h1 class="my-1" style="font-weight: 500 !important">Reason :</h1>
-            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
-              x.deleted_at | date
-              }}</p>
+            <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">Unknown</p>
           </div>
         </div>
-        <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background" style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
-          <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems(x.id)">
-            <i class="mdi mdi-restore font-size-12"></i>
+          <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
+            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
+            <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualCategory(x.id)">
+              <i class="mdi mdi-restore font-size-12"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="m-3" *ngFor="let y of SubCategoryData;let i = index">
+        <div class="d-flex flex-wrap">
+          <div>
+            <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectSubCategory(y.id)">
+            <img src="assets/images/default_subcategory.svg"
+              style="width: auto;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
+              class="pointer">
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
+            style="width: 260px;">
+            <div class="mb-2 d-flex flex-wrap">
+              <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ y.sub_category_name }}</h1>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Deleted date :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ y.deleted_at | date:'dd-MM-yyyy' }}</p>
+            </div>
+            <div class="d-flex flex-wrap align-items-center mb-2">
+              <h1 class="my-1" style="font-weight: 500 !important;">Parent Category :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ y.category?.name }}</p>
+            </div>
+          </div>
+          <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
+            style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 0px 0px 12px !important;width: 220px;">
+            <div class="mb-2 d-flex flex-wrap align-items-center ">
+              <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">
+                Jenny Wilson</p>
+              <p style="color: #594585 !important;padding: 0px 6px 0px 6px;background: #F3F1F9;border-radius: 10px;"
+                class="mb-0 ms-1">Admin</p>
+            </div>
+            <div class="mb-2 d-flex flex-wrap align-items-center">
+              <h1 class="my-1" style="font-weight: 500 !important">Reason :</h1>
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">Unknown</p>
+            </div>
+          </div>
+          <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
+            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
+            <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualSubCategory(y.id)">
+              <i class="mdi mdi-restore font-size-12"></i>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+
 
   </div>
 </div>
 
 
-<div bsModal #restore="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
+<div bsModal #restore="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2"
+  [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:300px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -109,16 +274,16 @@
           <img src="assets/images/restore.svg" style="width: 40px;;height: 40px;">
         </div>
         <div class="mb-2">
-          <h1>Do you want to restore {{ SelectedItems.length > 1 ? SelectedItems.length + ' items to the folder?' : 'this item to the folder?' }}</h1>
+          <h1>Do you want to restore {{ TotalSelectedItems.length > 1 ? TotalSelectedItems.length + ' items to the folder?' :
+            'this item to the folder?' }}</h1>
         </div>
-        <!-- <div class="mb-3">
-          <h4 style="color: #855EDB !important;"></h4>
-        </div> -->
       </div>
       <div class="d-flex justify-content-end p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="restore?.hide();DisSelectAllItems_h1()">Go Back</button>
-        <button type="button" class="btn-new" style="width: auto !important;" (click)="RestoreItems()">Yes, continue</button>
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"
+          (click)="restore?.hide();DisSelectAllItems_h1()">Go Back</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="RestoreItems()">Yes,
+          continue</button>
       </div>
     </div>
   </div>
