@@ -1,5 +1,5 @@
 <div class="cards">
-  <div class="row">
+  <div class="row" *ngIf="currentview == 'all' ">
     <div class="col-2" [ngClass]="{'hide0veralllist':hide_Overall_list == true}">
       <div style="border:1px solid #1B1B1B;border-radius: 4px;width: 100%;height: auto" class="overAlllist p-2">
         <div class="mt-1">
@@ -109,7 +109,7 @@
         bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" (click)="HideOverAllList()">
       </div>
     </div>
-    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'all' ">
+    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}">
       <img src="assets/images/ViewOnlyModeright.svg"
         style="position: absolute;top: 50%;margin-left: -20px;z-index: 1;display: none;cursor: pointer;"
         class="rightexpand" (click)="HideOverAllList()">
@@ -458,7 +458,7 @@
             </div>
           </form>
             </div>
-            <div class="col-9" [ngClass]="{'resizeGrid mx-1':resize ==false}">
+            <div class="col-9" [ngClass]="{'resizeGrid mx-1':resize ==false}" *ngIf="currentview == 'all' ">
               <div class="mt-2">
                 <app-allitems-table-view *ngIf="selectedView == 'table' && enableTab=='All Items'" [Updategrid]="ReloadAllItemsGrid" [SearchAllItemsGrid]="Search_AllItemstablelist"></app-allitems-table-view>
                 <app-allitems-grid-view *ngIf="selectedView == 'grid' && enableTab=='All Items'" ></app-allitems-grid-view>
@@ -499,21 +499,25 @@
         </div>
       </div>
     </div>
+  </div>
 
-
-    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'histroy' ">
+  <div class="row">
+    <div class="col-12" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'histroy' ">
       <app-histroy (GoBackToAllItemsEvent_histroy)="ChangeOverAllViewHis($event)"></app-histroy>
     </div>
 
-    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'trash' ">
+    <div class="col-12" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'trash' ">
       <app-trash (GoBackToAllItemsEvent_trash)="ChangeOverAllViewTra($event)"></app-trash>
     </div>
 
-    <div class="col-10" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'inactive' ">
-      <app-inactive (GoBackToAllItemsEvent_trash)="ChangeOverAllViewTra($event)"></app-inactive>
+    <div class="col-12" [ngClass]="{'showfullgrid':hide_Overall_list == true}" *ngIf="currentview == 'inactive' ">
+      <app-inactive (GoBackToAllItemsEvent_trash)="ChangeOverAllViewInac($event)"></app-inactive>
     </div>
   </div>
+
 </div>
+
+
 
 
 
@@ -534,33 +538,6 @@
           <div class="">
             <label class="modal-label-edit">Images</label>
             <span class="m-1" style="font-size: 6px; color: #855EDB;">File format png and jpeg</span>
-              <!-- <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*'" >
-                <ngx-dropzone-label class="dz-message needsclick">
-                  <div class="mt-4">
-                    <i class="display-4 text-muted bx bxs-cloud-upload"></i>
-                  </div>
-
-                  <h5>Drop files here or click to upload.</h5>
-                </ngx-dropzone-label>
-              </ngx-dropzone>
-              <ngx-dropzone-preview *ngIf="imageURL" class="border rounded" [removable]="true" (removed)="onRemove()">
-                <ngx-dropzone-label>
-                  <div class="d-flex p-2">
-                    <div class="flex-shrink-0 me-3">
-                      <div class="avatar-sm bg-light rounded">
-                        <img class="img-fluid rounded d-block" src="{{imageURL}}" alt="Dropzone-Image" formControlName="">
-                      </div>
-                    </div>
-                    <div class="flex-grow-1">
-                      <div class="pt-1">
-                        <strong class="error text-danger"></strong>
-                      </div>
-                    </div>
-                  </div>
-                </ngx-dropzone-label>
-              </ngx-dropzone-preview> -->
-              <!-- end dropzon-preview -->
-
               <div style="border: 1px dotted #855EDB;width: 264px;height: 148px;">
                 <div class="position-relative d-inline-block">
                   <div class="position-absolute bottom-0 end-0">
@@ -664,7 +641,7 @@
         <div class="col-4">
           <div class="me-4">
             <label for="items_status" class="modal-label-edit">Item Status</label>
-            <ng-select [items]="ItemStatus"  placeholder="Select Status" formControlName="ItemStatus" appPreventSpaces [(ngModel)]="SelectedItemStatus"></ng-select>
+            <ng-select [items]="['Active','Inactive']"  placeholder="Select Status" formControlName="ItemStatus" appPreventSpaces [(ngModel)]="SelectedItemStatus" (change)="ChangingStatus($event,'additem')"></ng-select>
           </div>
         </div>
         <div class="col-4">
@@ -957,7 +934,7 @@
           <div class="col-4">
             <div class="mb-3">
               <label for="lot_no" class="modal-label-edit">Status</label>
-              <ng-select [items]="['Active','Inactive']" placeholder="Choose Option" class="me-2" formControlName="Status" appPreventSpaces></ng-select>
+              <ng-select [items]="['Active','Inactive']" placeholder="Choose Option" class="me-2" formControlName="Status" appPreventSpaces (change)="ChangingStatus($event,'category')"></ng-select>
             </div>
           </div>
         </div>
@@ -1015,7 +992,7 @@
           <div class="col-4">
             <div class="mb-3">
               <label for="lot_no" class="modal-label-edit">Status</label>
-              <ng-select [items]="['Active','Inactive']" placeholder="Choose Option" class="me-2" formControlName="Status" appPreventSpaces></ng-select>
+              <ng-select [items]="['Active','Inactive']" placeholder="Choose Option" class="me-2" formControlName="Status" appPreventSpaces (change)="ChangingStatus($event,'editcategory')"></ng-select>
             </div>
           </div>
         </div>
@@ -1099,7 +1076,7 @@
         <div class="col-4">
           <div class="">
             <label for="size" class="modal-label-edit">Status</label>
-            <ng-select [items]="this.ItemStatus" placeholder="Choose Option" class="me-2" formControlName="Status" appPreventSpaces></ng-select>
+            <ng-select [items]="['Active','Inactive']" placeholder="Choose Option" class="me-2" formControlName="Status" appPreventSpaces (change)="ChangingStatus($event,'addvendor')"></ng-select>
           </div>
         </div>
       </div>
@@ -1404,7 +1381,7 @@
         <div class="col-4">
           <div class="mb-3 mt-1">
             <label for="items_category" class="modal-label-edit mb-1">Status</label>
-            <ng-select [items]="['Active','Inactive']" placeholder="Select status" formControlName="status" appPreventSpaces></ng-select>
+            <ng-select [items]="['Active','Inactive']" placeholder="Select status" formControlName="status" appPreventSpaces (change)="ChangingStatus($event,'subcategory')"></ng-select>
           </div>
         </div>
       </div>
@@ -1450,7 +1427,7 @@
         <div class="col-4">
           <div class="mb-3 mt-1">
             <label for="items_category" class="modal-label-edit mb-1">Status</label>
-            <ng-select [items]="['Active','Inactive']" placeholder="Select status" formControlName="status" appPreventSpaces></ng-select>
+            <ng-select [items]="['Active','Inactive']" placeholder="Select status" formControlName="status" appPreventSpaces (change)="ChangingStatus($event,'editsubcategory')"></ng-select>
           </div>
         </div>
       </div>
@@ -1502,7 +1479,7 @@
         style="background: #F3F4F8;border-radius: 8px;">
         <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Delete
         </h1>
-        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="this.delete_modal?.hide()"
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="this.CloseModal('delete_modal')"
           style="cursor: pointer">
       </div>
 
@@ -1517,8 +1494,43 @@
 
       <div class="d-flex justify-content-evenly p-3">
         <button type="button" class="btn-new me-2"
-          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="this.delete_modal?.hide()">Go back</button>
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="this.CloseModal('delete_modal')">Go back</button>
         <button type="button" class="btn-new" style="width: auto !important;" (click)="DeleteTheCategory()">Yes,continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #confirmation="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:450px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Are you want to Inactive
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseConfirmation(SelectedModal)"
+          style="cursor: pointer">
+      </div>
+      <form [formGroup]="ReasonForm">
+      <div class="d-flex flex-column align-items-center justify-content-between m-4">
+        <div class="mb-4 mx-4" style="width: 100%;">
+          <h4 class="mb-1" style="color: #1B1B1B !important;">Choose Reason
+          </h4>
+          <ng-select [items]="['Others','Damaged']" placeholder="Select Reason"  appPreventSpaces formControlName="reason1"></ng-select>
+        </div>
+        <div class="mb-2 mx-4" style="width: 100%;">
+          <h4 class="mb-1" style="color: #1B1B1B !important;">Enter Reason
+          </h4>
+          <input class="form-control-new" type="text" formControlName="reason2">
+        </div>
+      </div>
+    </form>
+
+      <div class="d-flex justify-content-end p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseConfirmation(SelectedModal)">Cancel</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="CloseConfirmation(SelectedModal)">Add Reason</button>
       </div>
     </div>
   </div>

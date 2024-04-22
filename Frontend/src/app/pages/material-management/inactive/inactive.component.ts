@@ -2,6 +2,7 @@ import { AllServicesService } from 'src/app/core/services/all-services.service';
 import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { environment_new } from 'src/environments/environment';
 
 @Component({
   selector: 'app-inactive',
@@ -12,6 +13,7 @@ export class InactiveComponent  implements OnInit{
 
   @Output() GoBackToAllItemsEvent_trash = new EventEmitter();
   @ViewChild('activate', { static: false }) activate?: ModalDirective;
+  public apiUrl: any = environment_new.imageUrl;
   AllInactiveItems:any = [];
   AllCategoryInactiveItems : any = [];
   AllSubCategoryInactiveItems : any = [];

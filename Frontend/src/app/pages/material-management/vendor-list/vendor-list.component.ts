@@ -15,6 +15,7 @@ import { AllServicesService } from 'src/app/core/services/all-services.service';
 export class VendorListComponent implements OnInit {
 
   VendorForm:UntypedFormGroup;
+  ReasonForm:UntypedFormGroup;
   vendor_name:string[];
   contact_person:string[];
   status:string[];
@@ -25,6 +26,7 @@ export class VendorListComponent implements OnInit {
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
   @ViewChild('addvendor', { static: true }) addvendor: ModalDirective;
   @ViewChild('delete_modal', { static: true }) delete_modal: ModalDirective;
+  @ViewChild('confirmation', { static: true }) confirmation: ModalDirective;
   @Input() Updategrid : boolean = false;
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
@@ -86,12 +88,17 @@ export class VendorListComponent implements OnInit {
       VendorAddress:[],
       Status:[]
     });
+    this.ReasonForm = this.formbuilder.group({
+      reason1:[],
+      reason2:[]
+    });
   }
 
   OpenModal(modalName:any){
     switch(modalName){
       case 'addvendor':{
         this.addvendor?.show();
+        this.ReasonForm.reset();
       }
     }
   }
@@ -274,7 +281,7 @@ export class VendorListComponent implements OnInit {
 
   UpdateVendorfn(data:any){
     if(data.valid){
-      this.allServices.EditVendor(data,this.SelectedVendorId).subscribe({
+      this.allServices.EditVendor(data,this.SelectedVendorId,this.ReasonForm.value).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
             this.toastr.success(`${res.message}`, 'Successful', {
@@ -332,6 +339,17 @@ export class VendorListComponent implements OnInit {
     });
   }
 
+  ChangingStatus(event:any){
+    console.log(event);
+    if(event == 'Inactive'){
+      this.addvendor?.hide();
+      this.confirmation?.show();
+    }
+  }
+  CloseConfirmation(){
+    this.addvendor?.show();
+    this.confirmation?.hide();
+  }
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.myGrid_1.api?.sizeColumnsToFit();

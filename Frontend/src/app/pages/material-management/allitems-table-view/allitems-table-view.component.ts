@@ -81,6 +81,7 @@ export class AllItemsTableViewComponent {
   @ViewChild('bulk_edit', { static: false }) bulk_edit?: ModalDirective;
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @ViewChild('histroy', { static: false }) histroy?: ModalDirective;
+  @ViewChild('confirmation', { static: false }) confirmation?: ModalDirective;
   @Output() newItemEvent = new EventEmitter;
 
   @Input() Updategrid: boolean = false;
@@ -95,6 +96,7 @@ export class AllItemsTableViewComponent {
   dynamicForm:UntypedFormGroup;
   bulkEditForm : UntypedFormGroup;
   setAlertForm : UntypedFormGroup;
+  ReasonForm : UntypedFormGroup;
   files: File[] = [];
   imageURL: any;
   ItemStatus:any = [
@@ -343,7 +345,11 @@ export class AllItemsTableViewComponent {
       set_alert_type:[],
       min_level:[],
       vendor:[]
-    })
+    });
+    this.ReasonForm = this.formbuilder.group({
+      reason1:[],
+      reason2:[]
+    });
   }
 
   timeline_data:any = [];
@@ -957,6 +963,19 @@ SelectedItemStatus:string = '';
     }
   }
 
+  CloseConfirmation(){
+    this.confirmation?.hide();
+    this.editItem?.show();
+  }
+
+  ChangingStatus(event:any){
+    console.log(event);
+    if(event == 'Inactive'){
+      this.editItem?.hide();
+      this.confirmation?.show();
+    }
+  }
+
   OpenNestedModal(){
     this.viewitem?.hide();
     this.getCategoryOptions();
@@ -1445,12 +1464,12 @@ SelectedItemStatus:string = '';
       let item_status = data.value.ItemStatus;
       console.log(item_status);
 
-      if(item_status.label == 'Active'){
+      if(item_status == 'Active'){
         this.AddItemForm.patchValue({
           ItemStatus:"1"
         })
       }
-      else if(item_status.label == 'Inactive'){
+      else if(item_status == 'Inactive'){
         this.AddItemForm.patchValue({
           ItemStatus:"2"
         })
@@ -1470,7 +1489,7 @@ SelectedItemStatus:string = '';
       }
 
 
-      this.allServices.UpdateItemfn(this.Currently_Selected_row,data,this.result).subscribe({
+      this.allServices.UpdateItemfn(this.Currently_Selected_row,data,this.result,this.ReasonForm.value).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{

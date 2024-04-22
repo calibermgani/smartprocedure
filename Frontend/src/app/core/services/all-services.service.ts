@@ -36,7 +36,7 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/item_tags_update`,payload);
   }
 
-  AddVendor(data:any){
+  AddVendor(data:any,reasonValue:any){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["VendorName"] = data.value.VendorName;
@@ -45,20 +45,24 @@ export class AllServicesService {
     payload["VendorAddress"] = data.value.VendorAddress;
     // payload["status"] = data.value.Status.label;
     if(data.value.Status){
-      payload["status"] = data.value.Status.label;
+      payload["status"] = data.value.Status;
     }
     else{
       payload["status"] = 'Active';
     }
     payload["ContactPerson"] = "";
-    payload["Added_by"]="Admin";
+    payload["Added_by"]="1";
+    payload["inactive_by"]="1";
+    payload["inactive_reason"]=reasonValue.reason2;
     console.log(payload);
-
+    // return null;
     return this.http.post(`${this.apiUrl}/vendors/store`,payload);
   }
 
-  AddCategoryfn(data:any){
+  AddCategoryfn(data:any,reasonValue:any){
     let payload:Object = {};
+    console.log(reasonValue);
+
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["name"] = data.value.CategoryName;
     payload["category_shortcode"] = data.value.CategorySubCode;
@@ -69,10 +73,14 @@ export class AllServicesService {
       payload["status"] = 'Active';
     }
     payload["added_by"]="1";
+    payload["inactive_by"]="1";
+    payload["inactive_reason"]=reasonValue.reason2;
+    console.log(payload);
+    // return null;
     return this.http.post(`${this.apiUrl}/categories/store`,payload);
   }
 
-  AddSubCategoryfn(data:any,index:any){
+  AddSubCategoryfn(data:any,index:any,reasonValue:any){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["sub_category_name"] = data.value.SubCategoryName;
@@ -85,10 +93,14 @@ export class AllServicesService {
       payload["status"] = 'Active';
     }
     payload["created_by"]="1";
+    payload["inactive_by"]="1";
+    payload["inactive_reason"]=reasonValue.reason2;
+    console.log(payload);
+    // return null;
     return this.http.post(`${this.apiUrl}/sub_categories/store`,payload);
   }
 
-  Additemfn(data:any,image:any){
+  Additemfn(data:any,image:any,reasonValue:any){
     let formData = new FormData;
     let payload:any = {};
     console.log(data.value);
@@ -171,6 +183,8 @@ export class AllServicesService {
     }
 
     formData.append("created_by","1")
+    formData.append("inactive_by","1")
+    formData.append("inactive_reason",reasonValue.reason2);
     // payload["expired_date"] = data.value.ExpiryDate;
 
 
@@ -186,6 +200,7 @@ export class AllServicesService {
     payload["item_image"] = "";
     payload["created_by"]='1';
     payload["image"] = formData;
+
     // console.log(payload);
     console.log(formData.get('item_image'));
     formData.forEach((value, key) => {
@@ -199,7 +214,7 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/store`,formData);
   }
 
-  UpdateItemfn(item_id:any,data:any,image:any){
+  UpdateItemfn(item_id:any,data:any,image:any,reasonValue:any){
     let formData = new FormData();
     let payload:Object = {};
     console.log("image",image);
@@ -286,7 +301,7 @@ export class AllServicesService {
     else{
       formData.append("tag", '');
     }
-    if(image.name){
+    if(image){
       if(image){
         formData.append("item_image", image, image.name);
       }
@@ -304,6 +319,8 @@ export class AllServicesService {
     }
 
     formData.append('updated_by',"1");
+    formData.append("inactive_by","1")
+    formData.append("inactive_reason",reasonValue.reason2);
     formData.forEach((value, key) => {
       const values = formData.getAll(key);
       console.log(`${key}: ${values}`);
@@ -388,7 +405,7 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/sub_categories/index`,payload)
   }
 
-  EditCategory(data:any,category_id:any){
+  EditCategory(data:any,category_id:any,reasonValue:any){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     console.log(data);
@@ -404,11 +421,14 @@ export class AllServicesService {
     else{
       payload["status"] = 'Active';
     }
-    payload["added_by"] = "1";
+    payload["updated_by"] = "1";
+    payload["inactive_by"] = "1";
+    payload["inactive_reason"] = reasonValue.reason2;
+    // return null;
     return this.http.post(`${this.apiUrl}/categories/update`,payload)
   }
 
-  EditSubCategory(data:any,category_id:any,sub_category_index:any){
+  EditSubCategory(data:any,category_id:any,sub_category_index:any,reasonValue:any){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["sub_category_id"] = sub_category_index;
@@ -424,10 +444,12 @@ export class AllServicesService {
       payload["status"] = 'Active';
     }
     payload["updated_by"] = "1";
+    payload["inactive_by"] = "1";
+    payload["inactive_reason"] = reasonValue.reason2;
     return this.http.post(`${this.apiUrl}/sub_categories/update`,payload);
   }
 
-  EditVendor(data:any,vendor_id:any){
+  EditVendor(data:any,vendor_id:any,reasonValue:any){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     console.log(data);
@@ -438,12 +460,17 @@ export class AllServicesService {
     payload["VendorAddress"] = data.value.VendorAddress;
     // payload["status"] = data.value.Status.label;
     if(data.value.Status){
-      payload["status"] = data.value.Status.label;
+      payload["status"] = data.value.Status;
     }
     else{
       payload["status"] = 'Active';
     }
     payload["ContactPerson"] = "";
+    payload["updated_by"] = "1";
+    payload["inactive_by"] = "";
+    payload["inactive_reason"] = reasonValue.reason2;
+    console.log(payload);
+    // return null;
     return this.http.post(`${this.apiUrl}/vendors/update`,payload);
   }
 

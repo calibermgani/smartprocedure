@@ -40,6 +40,7 @@ export class AllItemsComponent implements OnInit {
   @ViewChild('editcategory', { static: false }) editcategory?: ModalDirective;
   @ViewChild('delete_modal', { static: false }) delete_modal?: ModalDirective;
   @ViewChild('editsubcategory', { static: false }) editsubcategory?: ModalDirective;
+  @ViewChild('confirmation', { static: false }) confirmation?: ModalDirective;
 
 
   AddtagForm:UntypedFormGroup;
@@ -49,6 +50,7 @@ export class AllItemsComponent implements OnInit {
   AddItemForm : UntypedFormGroup;
   AllItemsGridBaseFilterForm: UntypedFormGroup;
   AllItemsGridAdvanceFilterForm: UntypedFormGroup;
+  ReasonForm : UntypedFormGroup;
   cartData: any[];
   subtotal: any = 0;
   discount: any;
@@ -69,7 +71,7 @@ export class AllItemsComponent implements OnInit {
   public payload:Object = {
     "token":"1a32e71a46317b9cc6feb7388238c95d",
   };
-  public apiUrl: any = environment_new.apiUrl;
+  public apiUrl: any = environment_new.imageUrl;
 
 
   options: Options = {
@@ -178,10 +180,18 @@ export class AllItemsComponent implements OnInit {
       Notes:[]
     });
 
+    this.ReasonForm = this.formbuilder.group({
+      reason1:[],
+      reason2:[]
+    });
+
     this.getCategoryOptions();
     // this.getVendors();
     // this.getTags();
     // this.getProcedures();
+    // setTimeout(() => {
+    //   this.OpenModal('confirmation');
+    // }, 1000);
   }
   get TagForm() { return this.AddtagForm.controls }
 
@@ -514,6 +524,17 @@ export class AllItemsComponent implements OnInit {
         this.export?.show();
         break;
       }
+      case 'confirmation':{
+        this.addcategory?.hide();
+        this.subcategory?.hide();
+        this.additem?.hide();
+        this.addvendor?.hide();
+        this.editcategory?.hide();
+        this.editsubcategory?.hide();
+        this.confirmation?.show();
+        this.ReasonForm.reset();
+        break;
+      }
     }
   }
 
@@ -536,12 +557,6 @@ export class AllItemsComponent implements OnInit {
         this.hideOpacity_Category = false;
         break;
       }
-      // case 'addvendor':{
-      //   this.AddSubCategoryForm.reset();
-      //   this.subcategory?.hide();
-      //   this.hideOpacity_Category = false;
-      //   break;
-      // }
       case 'addcategory':{
         this.AddCategoryForm.reset();
         this.addcategory?.hide();
@@ -578,6 +593,10 @@ export class AllItemsComponent implements OnInit {
         this.delete_modal?.hide();
         break;
       }
+      case 'confirmation':{
+        this.confirmation?.hide();
+        break;
+      }
       case 'editsubcategory':{
         this.AddSubCategoryForm.reset();
         this.editsubcategory?.hide();
@@ -588,6 +607,95 @@ export class AllItemsComponent implements OnInit {
         this.export?.hide();
         break;
       }
+    }
+  }
+
+  SelectedModal:any;
+  ChangingStatus(event:any,type:any){
+    console.log(event);
+
+    if (event == 'Inactive') {
+      switch (type) {
+        case 'category': {
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'category';
+          break;
+        }
+        case 'subcategory': {
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'subcategory';
+          break;
+        }
+        case 'additem': {
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'additem';
+          break;
+        }
+        case 'addvendor': {
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'addvendor';
+          break;
+        }
+        case 'editcategory':{
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'editcategory';
+          break;
+        }
+        case 'editsubcategory':{
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'editsubcategory';
+          break;
+        }
+      }
+    }
+  }
+
+  CloseConfirmation(type:any){
+    switch (type) {
+      case 'category': {
+        this.confirmation?.hide();
+        this.addcategory?.show();
+        this.SelectedModal = '';
+        break;
+      }
+      case 'subcategory': {
+        this.confirmation?.hide();
+        this.subcategory?.show();
+        this.SelectedModal = '';
+        break;
+      }
+      case 'additem': {
+        this.confirmation?.hide();
+        this.additem?.show();
+        this.SelectedModal = '';
+        break;
+      }
+      case 'addvendor': {
+        this.confirmation?.hide();
+        this.addvendor?.show();
+        this.SelectedModal = '';
+        break;
+      }
+      case 'editcategory':{
+        this.confirmation?.hide();
+        this.editcategory?.show();
+        this.SelectedModal = '';
+        break;
+      }
+      case 'editsubcategory':{
+        this.confirmation?.hide();
+        this.editsubcategory?.show();
+        this.SelectedModal = '';
+        break;
+      }
+    }
+  }
+
+
+  AddReason(data:any){
+    console.log('Reason Added',data.value);
+    if(data.value){
+      this.CloseModal('confirmation');
     }
   }
 
@@ -802,7 +910,7 @@ export class AllItemsComponent implements OnInit {
     if (this.AddVendorForm.valid) {
       console.log(this.AddVendorForm.value);
 
-      this.allServices.AddVendor(data).subscribe({
+      this.allServices.AddVendor(data,this.ReasonForm.value).subscribe({
         next: (res: any) => {
           console.log();
 
@@ -837,7 +945,7 @@ export class AllItemsComponent implements OnInit {
         }
       });
       console.log(this.SelectedCategory);
-      this.allServices.AddSubCategoryfn(data,this.SelectedCategory).subscribe({
+      this.allServices.AddSubCategoryfn(data,this.SelectedCategory,this.ReasonForm.value).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -860,7 +968,7 @@ export class AllItemsComponent implements OnInit {
 
   AddCategoryfn(data:any){
     if(this.AddCategoryForm.valid){
-      this.allServices.AddCategoryfn(data).subscribe({
+      this.allServices.AddCategoryfn(data,this.ReasonForm.value).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -883,32 +991,6 @@ export class AllItemsComponent implements OnInit {
 
   AddItemfn(data:any){
     if(data.valid){
-
-
-      // //   const byteCharacters = atob(this.imageUrl.split(',')[1]);
-      // // const byteNumbers = new Array(byteCharacters.length);
-      // // for (let i = 0; i < byteCharacters.length; i++) {
-      // //   byteNumbers[i] = byteCharacters.charCodeAt(i);
-      // // }
-      // // const byteArray = new Uint8Array(byteNumbers);
-      // // const blob = new Blob([byteArray], { type: 'image/png' });
-
-      // // const imageUrl = URL.createObjectURL(blob);
-      // this.AddItemForm.patchValue({
-      //   item_image: this.result
-      // })
-      //   const byteCharacters = atob(this.imageUrl.split(',')[1]);
-      //   const byteNumbers = new Array(byteCharacters.length);
-      //   for (let i = 0; i < byteCharacters.length; i++) {
-      //     byteNumbers[i] = byteCharacters.charCodeAt(i);
-      //   }
-      //   const byteArray = new Uint8Array(byteNumbers);
-      //   console.log(byteNumbers);
-
-      //   const blob = new Blob([byteArray], { type: 'image/jpeg' });
-      //   console.log(blob);
-
-
 
 
       let category_value = data.value.ItemCategory;
@@ -972,12 +1054,12 @@ export class AllItemsComponent implements OnInit {
       let item_status = data.value.ItemStatus;
       console.log(item_status);
 
-      if(item_status.label == 'Active'){
+      if(item_status == 'Active'){
         this.AddItemForm.patchValue({
           ItemStatus:"1"
         })
       }
-      else if(item_status.label == 'Inactive'){
+      else if(item_status == 'Inactive'){
         this.AddItemForm.patchValue({
           ItemStatus:"2"
         })
@@ -998,7 +1080,7 @@ export class AllItemsComponent implements OnInit {
       //   console.log(i);
       // }
 
-      this.allServices.Additemfn(data,this.result).subscribe({
+      this.allServices.Additemfn(data,this.result,this.ReasonForm.value).subscribe({
         next:(res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -1023,7 +1105,7 @@ export class AllItemsComponent implements OnInit {
 
   EditCategoryfn(data:any){
     if(data.valid){
-      this.allServices.EditCategory(data,this.Edit_Category_index.id).subscribe({
+      this.allServices.EditCategory(data,this.Edit_Category_index.id,this.ReasonForm.value).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -1057,7 +1139,7 @@ export class AllItemsComponent implements OnInit {
         }
       });
 
-      this.allServices.EditSubCategory(data,this.selected_category_id,this.Edit_SubCategory_index).subscribe({
+      this.allServices.EditSubCategory(data,this.selected_category_id,this.Edit_SubCategory_index,this.ReasonForm.value).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -1189,8 +1271,18 @@ export class AllItemsComponent implements OnInit {
 
   ChangeOverAllViewHis(data:any){
     this.currentview = data;
+    this.selectedView = 'table';
+    this.enableTab = 'All Items'
   }
   ChangeOverAllViewTra(data:any){
+    this.currentview = data;
+    this.selectedView = 'table';
+    this.enableTab = 'All Items'
+  }
+  ChangeOverAllViewInac(data:any){
+    this.GetOverAllList();
+    this.selectedView = 'table';
+    this.enableTab = 'All Items'
     this.currentview = data;
   }
 
