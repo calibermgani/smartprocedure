@@ -24,7 +24,7 @@ export class HistroyComponent  implements OnInit{
           this.ItemHistoryData = res.procedures.item;
           this.CategoryHistoryData = res.procedures.category;
           this.SubCategoryHistoryData = res.procedures.sub_category;
-          this.VendorHistoryData = res.procedures.vendors;
+          this.VendorHistoryData = res.procedures.vendor;
         }
       },
       error:(res:any)=>{
