@@ -3,6 +3,9 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { environment_new } from 'src/environments/environment';
 
 @Component({
   selector: 'app-low-stock',
@@ -14,9 +17,11 @@ export class LowStockComponent implements OnInit{
   vendor_values:string[];
   procedure_values:string[];
   lowStock:any = [];
+  TempLowStockData:any = [];
 
   @ViewChild('myGrid_LowStock') myGrid_LowStock: AgGridAngular;
   @ViewChild('viewitem') viewitem: ModalDirective
+  public apiUrl: any = environment_new.imageUrl;
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -29,7 +34,7 @@ export class LowStockComponent implements OnInit{
     defaultColDef: {
       filter: false,
     },
-    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">No Datas to show.</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
     rowHeight: 35,
@@ -61,7 +66,7 @@ export class LowStockComponent implements OnInit{
     defaultToolPanel: null,
   };
 
-  constructor(private http : HttpClient){
+  constructor(private http : HttpClient,private allService:AllServicesService,private toastr : ToastrService) {
     this.vendor_values=[];this.procedure_values=[];
   }
 
@@ -77,9 +82,9 @@ export class LowStockComponent implements OnInit{
       width:10
     },
     {
-      field: 'item_no',
+      field: 'item_number',
       headerName: 'Item No',
-      cellRenderer: this.cellrendered.bind(this, 'item_no'),
+      cellRenderer: this.cellrendered.bind(this, 'item_number'),
     },
     {
       field: 'item_name',
@@ -88,52 +93,134 @@ export class LowStockComponent implements OnInit{
       onCellClicked: this.cellClicked.bind(this, 'item_name')
     },
     {
-      field: 'quantity',
+      field: 'store_qty',
       headerName: 'Quantity',
-      cellRenderer: this.cellrendered.bind(this, 'quantity')
+      cellRenderer: this.cellrendered.bind(this, 'store_qty')
     },
     {
-      field: 'vendor_name',
+      field: 'item_vendor.VendorName',
       headerName: 'Vendor Name',
-      cellRenderer: this.cellrendered.bind(this, 'vendor_name')
+      cellRenderer: this.cellrendered.bind(this, 'item_vendor.VendorName')
     }
   ];
 
   cellrendered(headerName: any, params: any) {
     switch (headerName) {
-      case 'item_no': {
-        return params.value;
+      case 'item_number': {
+        return params.value ? params.value : '-';
       }
       case 'item_name': {
-        return params.value;
+        return params.value ? params.value : '-';
       }
-      case 'quantity': {
-        return params.value;
+      case 'store_qty': {
+        return params.value ? params.value : '-';
       }
-      case 'vendor_name': {
-       return params.value;
+      case 'item_vendor.VendorName': {
+        return params.value ? params.value : '-';
       }
     }
   }
 
+  ViewItemData:any = [];
   cellClicked(headername:any,params:any){
     switch (headername) {
       case 'item_name': {
-        this.viewitem?.show();
+        this.allService.ViewItem(params.data.id).subscribe({
+          next:(res:any)=>{
+            if(res.status == 'Success'){
+              this.ViewItemData = res.data;
+            }
+          },
+          error:(res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          }
+        })
+        this.OpenModal('viewitem');
+        break;
       }
   }
 }
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-
+    this.allService.GetLowStockItems().subscribe({
+      next:((res:any)=>{
+        if(res.status=='Success'){
+          this.lowStock = res.data;
+          this.TempLowStockData = res.data;
+          this.myGrid_LowStock.api?.setRowData(this.lowStock);
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`Something went wrong`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
   }
 
+  CloseModal(type:any){
+    switch(type){
+      case 'viewitem':{
+        this.viewitem?.hide();
+        break;
+      }
+    }
+  }
+  OpenModal(type:any){
+    switch(type){
+      case 'viewitem':{
+        this.viewitem?.show();
+        break;
+    }
+  }
+}
+
+  disableNextPatientButton: boolean = false;
+  disablePrevoiusPatientButton: boolean = false;
+  GoToNextItem(data: any) {
+    this.disablePrevoiusPatientButton = false;
+    for (let i = 0; i < this.TempLowStockData.length; i++) {
+      if (data.id == this.TempLowStockData[i].id) {
+        if (this.TempLowStockData[i + 1]) {
+          this.ViewItemData = this.TempLowStockData[i + 1];
+          // console.log(this.ViewItemData.item_procedures.length);
+          // console.log(this.ViewItemData);
+          // console.log(this.ViewItemData);
+          break;
+        }
+        else {
+          this.disableNextPatientButton = true;
+        }
+      }
+    }
+  }
+
+  GoToPreviousItem(data: any) {
+    console.log(this.TempLowStockData);
+    this.disableNextPatientButton = false;
+    for (let i = 0; i < this.TempLowStockData.length; i++) {
+      if (data.id == this.TempLowStockData[i].id) {
+        console.log(this.TempLowStockData[i - 1]);
+        if (this.TempLowStockData[i - 1]) {
+          // console.log(this.TempLowStockData[i - 1].item_procedures.length);
+          // console.log(this.TempLowStockData[i - 1]);
+          this.ViewItemData = this.TempLowStockData[i - 1];
+          break;
+        }
+        else {
+          this.disablePrevoiusPatientButton = true;
+        }
+      }
+    }
+  }
+
+
   ngAfterViewInit(): void {
-    this.http.get('assets/json/low-stock.json').subscribe((res:any)=>{
-      this.lowStock = res;
-      this.gridOptions1.api?.sizeColumnsToFit();
-      this.myGrid_LowStock.api?.setRowData(this.lowStock);
-    })
+    this.gridOptions1.api?.sizeColumnsToFit();
   }
 }

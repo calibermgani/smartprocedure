@@ -5,6 +5,7 @@ import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, I
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { environment_new } from 'src/environments/environment';
 
 @Component({
   selector: 'app-recall',
@@ -15,9 +16,12 @@ export class RecallComponent {
 
   @ViewChild('myGrid_1') myGrid_1: AgGridAngular;
   @ViewChild('viewitem') viewitem: ModalDirective;
+  public apiUrl: any = environment_new.imageUrl;
   procedure_list:string[];
   SeacrchRecallgrid:any;
   damagedGriddata:any[];
+  TempLowStockData:any = [];
+  ViewItemData: any = [];
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -116,9 +120,39 @@ export class RecallComponent {
   cellClicked(headername:any,params:any){
     switch (headername) {
       case 'item_name': {
-        this.viewitem?.show();
+        this.allservices.ViewItem(params.data.id).subscribe({
+          next:(res:any)=>{
+            if(res.status == 'Success'){
+              this.ViewItemData = res.data;
+            }
+          },
+          error:(res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          }
+        })
+        this.OpenModal('viewitem');
       }
   }
+}
+
+CloseModal(type:any){
+  switch(type){
+    case 'viewitem':{
+      this.viewitem?.hide();
+      break;
+    }
+  }
+}
+OpenModal(type:any){
+  switch(type){
+    case 'viewitem':{
+      this.viewitem?.show();
+      break;
+  }
+}
 }
 
   onGridReady_1(params: GridReadyEvent) {
@@ -136,6 +170,7 @@ export class RecallComponent {
           //   timeOut:2000,
           // });
           this.damagedGriddata = res.data;
+          this.TempLowStockData = res.data;
           this.myGrid_1.api?.setRowData(this.damagedGriddata);
           this.gridApi_1.sizeColumnsToFit();
         }
@@ -147,6 +182,45 @@ export class RecallComponent {
         });
       })
     })
+  }
+
+  disableNextPatientButton: boolean = false;
+  disablePrevoiusPatientButton: boolean = false;
+  GoToNextItem(data: any) {
+    this.disablePrevoiusPatientButton = false;
+    for (let i = 0; i < this.TempLowStockData.length; i++) {
+      if (data.id == this.TempLowStockData[i].id) {
+        if (this.TempLowStockData[i + 1]) {
+          this.ViewItemData = this.TempLowStockData[i + 1];
+          // console.log(this.ViewItemData.item_procedures.length);
+          // console.log(this.ViewItemData);
+          // console.log(this.ViewItemData);
+          break;
+        }
+        else {
+          this.disableNextPatientButton = true;
+        }
+      }
+    }
+  }
+
+  GoToPreviousItem(data: any) {
+    console.log(this.TempLowStockData);
+    this.disableNextPatientButton = false;
+    for (let i = 0; i < this.TempLowStockData.length; i++) {
+      if (data.id == this.TempLowStockData[i].id) {
+        console.log(this.TempLowStockData[i - 1]);
+        if (this.TempLowStockData[i - 1]) {
+          // console.log(this.TempLowStockData[i - 1].item_procedures.length);
+          // console.log(this.TempLowStockData[i - 1]);
+          this.ViewItemData = this.TempLowStockData[i - 1];
+          break;
+        }
+        else {
+          this.disablePrevoiusPatientButton = true;
+        }
+      }
+    }
   }
 
   OnSearch(){

@@ -671,4 +671,28 @@ export class AllServicesService {
     // return null;
     return this.http.post(`${this.apiUrl}/items/restored_inactive_items`,payload);
   }
+
+  GetDamagedItems(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/item_damaged`,payload);
+  }
+
+  GetWastedItems(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/item_wasted`,payload);
+  }
+
+  GetLowStockItems(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/items/item_low_stock`,payload);
+  }
+
+  GetAllHistroyItems(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/item_history`,payload);
+  }
 }

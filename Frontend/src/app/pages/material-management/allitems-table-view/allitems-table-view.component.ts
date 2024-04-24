@@ -929,6 +929,7 @@ SelectedItemStatus:string = '';
         this.gridApi_1.deselectAll();
         this.guidelines = [];
         this.dynamicForm.reset();
+        this.MainQuantity = 0;
         break;
       }
       case 'clone_modal':{
@@ -1463,17 +1464,29 @@ SelectedItemStatus:string = '';
 
       let item_status = data.value.ItemStatus;
       console.log(item_status);
-
-      if(item_status == 'Active'){
-        this.AddItemForm.patchValue({
-          ItemStatus:"1"
-        })
+      if(item_status.label){
+        if(item_status.label == 'Active'){
+          this.AddItemForm.patchValue({
+            ItemStatus:"1"
+          })
+        }
+        else{
+          this.AddItemForm.patchValue({
+            ItemStatus:"2"
+          })}
       }
-      else if(item_status == 'Inactive'){
-        this.AddItemForm.patchValue({
-          ItemStatus:"2"
-        })
-      }
+      else{
+        if (item_status == 'Active') {
+          this.AddItemForm.patchValue({
+            ItemStatus: "1"
+          })
+        }
+        else{
+          this.AddItemForm.patchValue({
+            ItemStatus: "2"
+          })
+        }
+    }
 
       let item_tag = data.value.Tags;
       if(!item_tag){
@@ -1743,9 +1756,9 @@ SelectedItemStatus:string = '';
       if (data.id == this.tempGridData[i].id) {
         if (this.tempGridData[i + 1]) {
           this.ViewItemData = this.tempGridData[i + 1];
-          console.log(this.ViewItemData.item_procedures.length);
-          console.log(this.ViewItemData);
-          console.log(this.ViewItemData);
+          // console.log(this.ViewItemData.item_procedures.length);
+          // console.log(this.ViewItemData);
+          // console.log(this.ViewItemData);
           break;
         }
         else {
@@ -1762,8 +1775,8 @@ SelectedItemStatus:string = '';
       if (data.id == this.tempGridData[i].id) {
         console.log(this.tempGridData[i-1]);
         if (this.tempGridData[i - 1]) {
-          console.log(this.tempGridData[i - 1].item_procedures.length);
-          console.log(this.tempGridData[i - 1]);
+          // console.log(this.tempGridData[i - 1].item_procedures.length);
+          // console.log(this.tempGridData[i - 1]);
           this.ViewItemData = this.tempGridData[i - 1];
           break;
         }
@@ -2048,9 +2061,13 @@ SelectedItemStatus:string = '';
 
   increseField:number = 0;
   MainField:number = 0;
-  ChangeQuantity(value: any, fieldName: string,fieldNameMain:string,index:any){
+  ChangeQuantity(value:any,fieldName: string,fieldNameMain:string,index:any){
+    console.log('filedName',fieldName);
+    console.log('fieldNameMain',fieldNameMain);
+
     let x:any = parseInt(this.dynamicForm.get(fieldName).value);
     let y:any = parseInt(this.dynamicForm?.get(fieldNameMain).value);
+    console.log(x,y)
     if(index == 0)
     {
       index = 0
@@ -2058,7 +2075,7 @@ SelectedItemStatus:string = '';
     else{
       index = (index/2);
     }
-    let unit : any = this.guidelines?.[index].unit;
+    let unit : any = this.guidelines?.[index].store_qty;
     if(Number.isNaN(x)|| Number.isNaN(y)){
       x = 0;
       y=0;
@@ -2095,7 +2112,7 @@ SelectedItemStatus:string = '';
     else{
       index = (index/2);
     }
-    let unit : any = this.selected_row_data?.[index].unit;
+    let unit : any = this.selected_row_data?.[index].store_qty;
     if(Number.isNaN(x)|| Number.isNaN(y)){
       x=0;
       y=0;
@@ -2123,7 +2140,61 @@ SelectedItemStatus:string = '';
   }
 
   MainQuantityfn(value:any){
-    console.log(value);
+    console.log(this.MainQuantity);
+    // this.MainQuantity = parseInt(this.MainQuantity);
+    console.log(typeof(this.MainQuantity));
+    if(!this.MainQuantity){this.MainQuantity = 0;}
+    if(typeof(this.MainQuantity) == 'string')
+    {
+      this.MainQuantity = parseInt(this.MainQuantity);
+    }
+    const regex = /\d/g;
+    const str = this.MainQuantity.toString();
+    const matches = str.match(regex);
+    console.log(matches);
+    if(matches.length>0){
+      for (let i = 0; i < this.selected_row_data.length; i++) {
+        // let x = parseInt(this.dynamicForm?.get('field' + i).value);
+        let unit : any = this.guidelines?.[i].store_qty;
+        this.dynamicForm.get('increasefield' + i).setValue(this.MainQuantity);
+        this.dynamicForm.get('field' + i).setValue(unit + this.MainQuantity);
+      }
+    }
+    else{
+      for (let i = 0; i < this.selected_row_data.length; i++) {
+        // let x = parseInt(this.dynamicForm?.get('field' + i).value);
+        let unit : any = this.guidelines?.[i].store_qty;
+        this.dynamicForm.get('increasefield' + i).setValue(this.MainQuantity);
+        this.dynamicForm.get('field' + i).setValue(unit + this.MainQuantity);
+      }
+    }
+  }
+
+  MainQuantityInputfn(value:any){
+    console.log(this.MainQuantityInput);
+    if(!this.MainQuantityInput){this.MainQuantityInput = 0;}
+    if(typeof(this.MainQuantityInput) == 'string')
+    {
+      this.MainQuantityInput = parseInt(this.MainQuantityInput);
+    }
+    const regex = /\d/g;
+    const str = this.MainQuantityInput.toString();
+    const matches = str.match(regex);
+    console.log(matches);
+    if(matches.length>0){
+      for (let i = 0; i < this.selected_row_data.length; i++) {
+        let unit : any = this.guidelines?.[i].store_qty;
+        this.dynamicForm.get('increasefield' + i).setValue(this.MainQuantityInput);
+        this.dynamicForm.get('field' + i).setValue(unit + this.MainQuantityInput);
+      }
+    }
+    else{
+      for (let i = 0; i < this.selected_row_data.length; i++) {
+        let unit : any = this.guidelines?.[i].store_qty;
+        this.dynamicForm.get('increasefield' + i).setValue(this.MainQuantityInput);
+        this.dynamicForm.get('field' + i).setValue(unit + this.MainQuantityInput);
+      }
+    }
   }
 
   individualIncreasequantity(fieldName:string,fieldNameMain:string,index:any){
@@ -2136,7 +2207,7 @@ SelectedItemStatus:string = '';
     else{
       index = (index/2);
     }
-    let unit : any = this.selected_row_data?.[index].unit;
+    let unit : any = this.selected_row_data?.[index].store_qty;
     if(!x){
       x=0;
     }
@@ -2154,7 +2225,7 @@ SelectedItemStatus:string = '';
     else{
       index = (index/2);
     }
-    let unit : any = this.selected_row_data?.[index].unit;
+    let unit : any = this.selected_row_data?.[index].store_qty;
     if(!x){
       x=0;
     }
@@ -2164,15 +2235,41 @@ SelectedItemStatus:string = '';
     this.dynamicForm?.get(fieldNameMain).setValue(unit+updatedvalue);
   }
 
-  MainQuantity:number;
-  MainQuantityInput:number;
+  MainQuantity:number =0 ;
+  MainQuantityInput:number = 0;
   IncreaseQuantity(){
-    if(Number.isNaN(this.MainQuantity) || this.MainQuantity == undefined)
+    if(typeof(this.MainQuantity) == 'string'){
+      this.MainQuantity = parseInt(this.MainQuantity)
+        this.MainQuantity = this.MainQuantity+1;
+    }
+    else{
+      if(Number.isNaN(this.MainQuantity) || this.MainQuantity == undefined)
     {
       this.MainQuantity = 0;
+      console.log('form',this.dynamicForm.value);
     }
     else{
       this.MainQuantity = this.MainQuantity+1;
+    }
+    }
+    for(let i=0;i<this.selected_row_data.length;i++){
+    //  let x:any  = parseInt(this.dynamicForm?.get(i==0 ? 'increasefield'+i : 'increasefield'+(i+1) ).value);
+    //  console.log(x);
+    //  let updatedvalue:number = x+this.MainQuantity;
+    //  console.log(updatedvalue);
+    //  console.log(i);
+    // console.log('increasefield'+i);
+    // console.log('increasefield'+[i]);
+
+
+    // console.log(this.dynamicForm.get(i==0 ? 'increasefield'+i : 'increasefield'+[i+1]).value);
+
+    let x = parseInt(this.dynamicForm?.get('field'+i).value);
+
+
+      this.dynamicForm.get('increasefield'+i).setValue(this.MainQuantity)
+      this.dynamicForm.get('field'+i).setValue(x+1);
+
     }
   }
 
@@ -2183,6 +2280,27 @@ SelectedItemStatus:string = '';
     else{
       this.MainQuantity = this.MainQuantity-1;
     }
+
+    for(let i=0;i<this.selected_row_data.length;i++){
+      //  let x:any  = parseInt(this.dynamicForm?.get(i==0 ? 'increasefield'+i : 'increasefield'+(i+1) ).value);
+      //  console.log(x);
+      //  let updatedvalue:number = x+this.MainQuantity;
+      //  console.log(updatedvalue);
+      //  console.log(i);
+      // console.log('increasefield'+i);
+      // console.log('increasefield'+[i]);
+
+
+      // console.log(this.dynamicForm.get(i==0 ? 'increasefield'+i : 'increasefield'+[i+1]).value);
+
+      let x = parseInt(this.dynamicForm?.get('field'+i).value);
+
+
+       this.dynamicForm.get('increasefield'+i).setValue(this.MainQuantity)
+       this.dynamicForm.get('field'+i).setValue(x-1);
+      }
+
+
   }
 
   show() {

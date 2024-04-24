@@ -1,8 +1,11 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { ToastrService } from 'ngx-toastr';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
 
 
 @Component({
@@ -15,7 +18,7 @@ export class WastedComponent {
   @ViewChild('myGrid_backtocabinet') myGrid_backtocabinet: AgGridAngular;
   @ViewChild('viewitem') viewitem: ModalDirective;
   procedure_list:string[];
-  damagedGriddata:any[];
+  WastedGridData:any[];
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -61,7 +64,7 @@ export class WastedComponent {
 
   ngOnInit(): void {}
 
-  constructor(private http : HttpClient){}
+  constructor(private http : HttpClient,private allService:AllServicesService,private toastr : ToastrService){}
 
   columnDefs1: ColDef[] = [
     {
@@ -77,16 +80,16 @@ export class WastedComponent {
       cellRenderer: this.cellRendered.bind(this, 'accession_no')
     },
     {
-      field: 'procedure_code',
+      field: 'procedure.procedure_list_shortcode',
       headerName:'Procedure Code',
       filter: "agTextColumnFilter",suppressMenu: false,
-      cellRenderer: this.cellRendered.bind(this, 'procedure_code')
+      cellRenderer: this.cellRendered.bind(this, 'procedure.procedure_list_shortcode')
     },
     {
-      field: 'procedure_date',
+      field: 'procedure.created_at',
       headerName:'Procedure Date',
       filter: "agTextColumnFilter",suppressMenu: false,
-      cellRenderer: this.cellRendered.bind(this, 'procedure_date')
+      cellRenderer: this.cellRendered.bind(this, 'procedure.created_at')
     },
   ];
 
@@ -98,28 +101,43 @@ export class WastedComponent {
       case 'accession_no': {
         return params.value;
       }
-      case 'procedure_code': {
+      case 'procedure.procedure_list_shortcode': {
         return params.value;
       }
-      case 'procedure_date': {
-        return params.value;
+      case 'procedure.created_at': {
+        const datePipe = new DatePipe('en-US');
+        const formattedDate = datePipe.transform(params.value, 'dd-MM-yyyy');
+        return formattedDate || '';
       }
     }
   }
 
-  cellClicked(headername:any,params:any){
-    switch (headername) {
-      case 'item_name': {
-        this.viewitem?.show();
-      }
-  }
-}
+//   cellClicked(headername:any,params:any){
+//     switch (headername) {
+//       case 'item_name': {
+//         this.viewitem?.show();
+//       }
+//   }
+// }
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
-    this.http.get('assets/json/damaged_grid.json').subscribe((res:any)=>{
-      this.damagedGriddata = res;
+    this.allService.GetWastedItems().subscribe({
+      next:((res:any)=>{
+        if(res.status=='Success'){
+          this.WastedGridData = res.procedures;
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`Something went wrong`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
     })
+    // this.http.get('assets/json/damaged_grid.json').subscribe((res:any)=>{
+    //   this.damagedGriddata = res;
+    // })
   }
 
   ngAfterViewInit(): void {

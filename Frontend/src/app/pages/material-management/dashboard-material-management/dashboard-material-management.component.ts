@@ -1,3 +1,4 @@
+import { AllServicesService } from 'src/app/core/services/all-services.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
@@ -6,6 +7,8 @@ import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, I
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 import 'ag-grid-enterprise';
+import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 interface MainData {
   mrn_no:string,
@@ -153,7 +156,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
     },
   } as IDetailCellRendererParams<MainData, SubData>;
 
-  constructor(private authfakeauthenticationService: AuthfakeauthenticationService, private Http: HttpClient,private router : Router,private authFakeService : AuthfakeauthenticationService) {
+  constructor(private authfakeauthenticationService: AuthfakeauthenticationService, private Http: HttpClient,private router : Router,private allService:AllServicesService,private toastr : ToastrService) {
     this.filter_daily_consumed = ['Used','Back to Cabinet','Damaged'];
   }
 
@@ -167,7 +170,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
 
   cellRendered(headername: any, params: any):string {
     switch (headername) {
-      case 'item_no': {
+      case 'item_number': {
         return params.value ? `<span style="font-weight:400 !important;font-size:10px !important">${params.value}</span>` : '-nil-';
       }
       case 'item_name': {
@@ -197,7 +200,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
           return params.value ?params.value: '-nil-';
         }
       }
-      case 'expire_date': {
+      case 'expired_date': {
         if(this.material_type_name == 'Near expired')
         {
           return params.value ? `<span style="padding:2px 10px 2px 10px;color:#fff;background:#FF9D4F;border-radius:6px">${params.value}</span>` : '-nil-';
@@ -207,13 +210,15 @@ export class DashboardMaterialManagementComponent implements OnInit {
           return params.value ?params.value: '-nil-';
         }
       }
-      case 'procedure_code': {
+      case 'procedure.procedure_list_shortcode': {
         return params.value ? params.value : '-nil-';
       }
-      case 'procedure_date': {
-        return params.value ? params.value : '-nil-';
+      case 'procedure.created_at': {
+        const datePipe = new DatePipe('en-US');
+        const formattedDate = datePipe.transform(params.value, 'dd-MM-yyyy');
+        return formattedDate ? formattedDate : '-nil-';
       }
-      case 'quantity': {
+      case 'store_qty': {
         if(this.material_type_name == 'Low Stock')
         {
           return params.value ? `<span style="padding:2px 10px 2px 10px;color:#fff;background:#5B4DB7;border-radius:12px">${params.value}</span>` : '-nil-';
@@ -243,7 +248,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
           return params.value ? `<span style="padding:2px 10px 2px 10px;color:#fff;background:#5B4DB7;border-radius:12px">${params.value}</span>` : '-nil-';
         }
       }
-      case 'vendor_name':{
+      case 'item_vendor.VendorName':{
         return params.value ? params.value : '-nil-';
       }
     }
@@ -318,21 +323,32 @@ export class DashboardMaterialManagementComponent implements OnInit {
             onCellClicked: this.cellClicked.bind(this, 'accession_no')
           },
           {
-            field: 'procedure_code',
+            field: 'procedure.procedure_list_shortcode',
             headerName:'Procedure Code',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'procedure_code')
+            cellRenderer: this.cellRendered.bind(this, 'procedure.procedure_list_shortcode')
           },
           {
-            field: 'procedure_date',
+            field: 'procedure.created_at',
             headerName:'Procedure Date',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'procedure_date')
+            cellRenderer: this.cellRendered.bind(this, 'procedure.created_at')
           },
          ]
-        this.Http.get('assets/json/damaged_grid.json').subscribe((res: any) => {
-          this.myGrid_1.api.setRowData(res);this.gridOptions1.api?.sizeColumnsToFit();
-        });
+        this.allService.GetDamagedItems().subscribe({
+          next:((res:any)=>{
+            if(res.status=='Success'){
+              this.myGrid_1.api.setRowData(res.procedures);
+              this.gridOptions1.api?.sizeColumnsToFit();
+            }
+          }),
+          error:((res:any)=>{
+            this.toastr.error(`${res}`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          })
+        })
         break;
       }
       case 'Back to Cabinet':{
@@ -371,10 +387,10 @@ export class DashboardMaterialManagementComponent implements OnInit {
       case 'Near expired':{
         this.columnDefs1 = [
           {
-            field: 'item_no',
+            field: 'item_number',
             headerName:'Item No',
             filter: "agTextColumnFilter", suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'item_no')
+            cellRenderer: this.cellRendered.bind(this, 'item_number')
           },
           {
             field: 'item_name',
@@ -384,30 +400,44 @@ export class DashboardMaterialManagementComponent implements OnInit {
             onCellClicked: this.cellClicked.bind(this, 'item_name')
           },
           {
-            field: 'quantity',
+            field: 'store_qty',
             headerName:'Quantity',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'quantity')
+            cellRenderer: this.cellRendered.bind(this, 'store_qty')
           },
           {
-            field: 'expire_date',
+            field: 'expired_date',
             headerName:'Expiry Date',
             filter: "agDateColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'expire_date')
+            cellRenderer: this.cellRendered.bind(this, 'expired_date')
           },
          ]
-        this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
-          this.myGrid_1.api.setRowData(res);this.gridOptions1.api?.sizeColumnsToFit();
-        });
+        this.allService.GetNearExpiredItems().subscribe({
+          next: ((res: any) => {
+            if (res.status == 'Success') {
+              // this.damagedGriddata = res.data;
+              // this.tempGridData = this.damagedGriddata;
+              this.myGrid_1.api.setRowData(res.data);
+              this.gridOptions1.api?.sizeColumnsToFit();
+              // this.myGrid_nearexpired.api?.setRowData(this.damagedGriddata);
+            }
+          }),
+          error: ((error: any) => {
+            this.toastr.error(`Something went wrong`, 'UnSuccessful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+          })
+        })
         break;
       }
       case 'Low Stock':{
         this.columnDefs1 = [
           {
-            field: 'item_no',
+            field: 'item_number',
             headerName:'Item No',
             filter: "agTextColumnFilter", suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'item_no')
+            cellRenderer: this.cellRendered.bind(this, 'item_number')
           },
           {
             field: 'item_name',
@@ -417,22 +447,32 @@ export class DashboardMaterialManagementComponent implements OnInit {
             onCellClicked: this.cellClicked.bind(this, 'item_name')
           },
           {
-            field: 'quantity',
+            field: 'store_qty',
             headerName:'Quantity',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'quantity')
+            cellRenderer: this.cellRendered.bind(this, 'store_qty')
           },
           {
-            field: 'vendor_name',
+            field: 'item_vendor.VendorName',
             headerName:'Vendor Name',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'vendor_name')
+            cellRenderer: this.cellRendered.bind(this, 'item_vendor.VendorName')
           },
          ]
-        this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
-          this.myGrid_1.api.setRowData(res);
-          this.gridOptions1.api?.sizeColumnsToFit();
-        });
+        this.allService.GetLowStockItems().subscribe({
+          next:((res:any)=>{
+            if(res.status=='Success'){
+              this.myGrid_1.api.setRowData(res.data);
+              this.gridOptions1.api?.sizeColumnsToFit();
+            }
+          }),
+          error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          })
+        })
         break;
       }
       case 'Refill to Cabinet':{
@@ -466,10 +506,10 @@ export class DashboardMaterialManagementComponent implements OnInit {
       case 'Recall':{
         this.columnDefs1 = [
           {
-            field: 'item_no',
+            field: 'item_number',
             headerName:'Item No',
             filter: "agTextColumnFilter", suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'item_no')
+            cellRenderer: this.cellRendered.bind(this, 'item_number')
           },
           {
             field: 'item_name',
@@ -491,16 +531,37 @@ export class DashboardMaterialManagementComponent implements OnInit {
           //   cellRenderer: this.cellRendered.bind(this, 'expire_date')
           // },
           {
-            field: 'quantity',
+            field: 'store_qty',
             headerName:'Quantity',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'quantity')
+            cellRenderer: this.cellRendered.bind(this, 'store_qty')
           }
         ];
-        this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
-          this.myGrid_1.api.setRowData(res);
-          this.gridOptions1.api?.sizeColumnsToFit();
-        });
+        // this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
+        //   this.myGrid_1.api.setRowData(res);
+        //   this.gridOptions1.api?.sizeColumnsToFit();
+        // });
+        this.allService.getItemsRecall().subscribe({
+          next:((res:any)=>{
+            if(res.status=='Success'){
+              // this.toastr.success(`${res.message}`,'Successful',{
+              //   positionClass: 'toast-top-center',
+              //   timeOut:2000,
+              // });
+              // this.damagedGriddata = res.data;
+              // this.TempLowStockData = res.data;
+              // this.myGrid_1.api?.setRowData(this.damagedGriddata);
+              this.myGrid_1.api.setRowData(res.data);
+              this.gridOptions1.api?.sizeColumnsToFit();
+            }
+          }),
+          error:((res:any)=>{
+            this.toastr.error('Something went wrong','UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          })
+        })
         break;
       }
     }

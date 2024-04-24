@@ -6,3 +6,8 @@
 .modal_value{
   font-weight: 400 !important;
 }
+.disableItemButton{
+  opacity: 0.2;
+  cursor:not-allowed;
+  pointer-events:all !important;
+}
