@@ -181,7 +181,7 @@
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
         style="background: #F3F4F8;border-radius: 8px;">
-        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">View Item
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Material Details - Near Expired
         </h1>
         <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="viewitem?.hide()"
           style="cursor: pointer">
@@ -190,7 +190,7 @@
         <div class="p-3 mx-3" style="height: auto;background-color: #594585;border-radius: 6px;">
           <div class="d-flex flex-row">
             <div>
-              <img [src]="apiUrl+ViewItemData.image_url  != apiUrl + 'null' ? apiUrl+ViewItemData.image_url : 'assets/images/default_image.svg'" style="width: 185px;height: 146px;">
+              <img [src]="apiUrl+ViewItemData.image_url  != apiUrl + 'null' ? apiUrl+ViewItemData.image_url : 'assets/images/Item_default_img.svg'" style="width: 185px;height: 146px;">
             </div>
             <div class="d-flex flex-column mx-3" style="width: 100%;">
               <div class="d-flex flex-row justify-content-between align-items-center" style="width: 100%;height: 69px;">
@@ -206,7 +206,7 @@
               <div style="margin-top: 18px;">
                 <label for="items_category" class="modal-label-white mb-1" style="color: #E8E5F5 !important;">Procedure</label>
                 <div  style="display: flex;flex-direction: row;flex-wrap: wrap;height: 40px;overflow-y: auto;">
-                  <h1 class="dis_procedure"  *ngFor="let x of ViewItemData.item_procedures;let i = index">{{ ViewItemData.item_procedures[i].procedure_name ? ViewItemData.item_procedures[i].procedure_name+' ' : '-'}}</h1>
+                  <h1 class="dis_procedure" style="color: #fff !important;"  *ngFor="let x of ViewItemData.item_procedures;let i = index">{{ ViewItemData.item_procedures[i].procedure_name ? ViewItemData.item_procedures[i].procedure_name+' ' : '-'}}</h1>
                 </div>
               </div>
             </div>
