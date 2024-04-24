@@ -1263,7 +1263,7 @@ export class AllItemsComponent implements OnInit {
   }
 
 
-  currentview:string = 'histroy'
+  currentview:string = 'all'
   GoToRespectiveView(data:any){
     switch(data){
       case 'histroy':{

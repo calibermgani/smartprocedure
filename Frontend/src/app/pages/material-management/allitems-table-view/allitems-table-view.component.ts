@@ -1789,6 +1789,7 @@ SelectedItemStatus:string = '';
 
   tempGridData:any = [];
   ngAfterViewInit(): void {
+    //Reloading All Time
     this.allServices.GetAllItemsGrid().subscribe({
       next:((res:any)=>{
         this.all_Items_gridData = res.data;
@@ -1842,6 +1843,7 @@ SelectedItemStatus:string = '';
       }
     })
 
+    //Reloading All Time
     this.authfakeauthenticationService.SearchItembyCategoryObservable.subscribe((res:any)=>{
       console.log(res);
       if(res[0] !=null){
@@ -2303,8 +2305,34 @@ SelectedItemStatus:string = '';
 
   }
 
-  show() {
-    console.log(this.dynamicForm.value);
+  BulkQuantityUpdate() {
+    console.log(this.selected_row_data);
+    let SelectedindexStrings : any = [];
+    let SelectedItemId : any = [];
+    for(let i=0;i<this.selected_row_data.length;i++){
+      SelectedItemId.push(this.selected_row_data[i].id);
+      SelectedindexStrings.push(parseInt(this.dynamicForm.get('field'+i).value));
+    }
+    console.log(SelectedItemId.join(','));
+    console.log(SelectedindexStrings.join(','));
+    this.allServices.BulkUpdateQuantity(SelectedItemId.join(','),SelectedindexStrings.join(',')).subscribe({
+      next:(res:any)=>{
+        if(res.status == 'Success'){
+          this.toastr.success(`${res.message}`,'Successful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+          this.CloseModal('bulkupdate');
+          this.ngAfterViewInit();
+        }
+      },
+      error:(res:any)=>{
+        this.toastr.error(`Unable to get Category List`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      }
+    })
   }
 
 }
