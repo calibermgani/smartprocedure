@@ -1054,16 +1054,32 @@ export class AllItemsComponent implements OnInit {
       let item_status = data.value.ItemStatus;
       console.log(item_status);
 
-      if(item_status == 'Active'){
-        this.AddItemForm.patchValue({
-          ItemStatus:"1"
-        })
+      if(item_status.label){
+        if(item_status.label == 'Active'){
+          this.AddItemForm.patchValue({
+            ItemStatus:"1"
+          })
+        }
+        else if(item_status.label == 'Inactive'){
+          this.AddItemForm.patchValue({
+            ItemStatus:"2"
+          })
+        }
       }
-      else if(item_status == 'Inactive'){
-        this.AddItemForm.patchValue({
-          ItemStatus:"2"
-        })
+      else{
+        if(item_status == 'Active'){
+          this.AddItemForm.patchValue({
+            ItemStatus:"1"
+          })
+        }
+        else if(item_status == 'Inactive'){
+          this.AddItemForm.patchValue({
+            ItemStatus:"2"
+          })
+        }
       }
+
+
 
       let item_tag = data.value.Tags;
       if(!item_tag){
