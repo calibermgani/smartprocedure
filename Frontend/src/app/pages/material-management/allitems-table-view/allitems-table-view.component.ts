@@ -1519,6 +1519,7 @@ SelectedItemStatus:string = '';
             positionClass: 'toast-top-center',
             timeOut:2000,
           });
+          this.CloseModal('editItem');
         }
       })
     }
@@ -1796,6 +1797,7 @@ SelectedItemStatus:string = '';
         this.myGrid_1.api?.setRowData(this.all_Items_gridData);
         console.log(this.all_Items_gridData);
         this.tempGridData = this.all_Items_gridData;
+        return;
       }),
       error:((res:any)=>{
         this.toastr.error('Something went wrong', 'UnSuccessful', {
@@ -1812,6 +1814,7 @@ SelectedItemStatus:string = '';
           {
             this.all_Items_gridData = res.data;
             this.myGrid_1.api?.setRowData(this.all_Items_gridData);
+            return;
           }
         }),
         error:((res:any)=>{
@@ -1832,6 +1835,7 @@ SelectedItemStatus:string = '';
             this.myGrid_1.api?.setRowData(this.all_Items_gridData);
             console.log(this.all_Items_gridData);
             this.tempGridData = this.all_Items_gridData;
+            return;
           }),
           error:((res:any)=>{
             this.toastr.error('Something went wrong', 'UnSuccessful', {
@@ -1842,7 +1846,6 @@ SelectedItemStatus:string = '';
         });
       }
     })
-
     //Reloading All Time
     this.authfakeauthenticationService.SearchItembyCategoryObservable.subscribe((res:any)=>{
       console.log(res);
@@ -1853,6 +1856,7 @@ SelectedItemStatus:string = '';
             this.myGrid_1.api?.setRowData(this.all_Items_gridData);
             console.log(this.all_Items_gridData);
             this.tempGridData = this.all_Items_gridData;
+            return;
           }),
           error:((res:any)=>{
             this.toastr.error('Something went wrong', 'UnSuccessful', {
