@@ -301,7 +301,7 @@ export class AllServicesService {
     else{
       formData.append("tag", '');
     }
-    if(image){
+    if(image.name){
       if(image){
         formData.append("item_image", image, image.name);
       }
