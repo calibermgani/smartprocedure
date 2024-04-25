@@ -1756,7 +1756,6 @@ SelectedItemStatus:string = '';
           });
           // this.CloseModal('editItem');
           // this.AddItemForm?.reset();
-          setTimeout(() => {
             // this.allServices.ViewItem(this.Currently_Selected_row.id).subscribe({
             //   next:(res:any)=>{
             //     if(res.status == 'Success'){
@@ -1817,9 +1816,6 @@ SelectedItemStatus:string = '';
             this.AddItemForm.patchValue({
               procedure:NewArray
               });
-
-          },1000);
-
         }
       })
     }
