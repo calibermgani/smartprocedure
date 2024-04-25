@@ -30,7 +30,7 @@ export class DamagedComponent implements OnInit{
     defaultColDef: {
       filter: false,
     },
-    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">No Datas Available</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
     rowHeight: 35,
@@ -125,7 +125,7 @@ export class DamagedComponent implements OnInit{
     this.allService.GetDamagedItems().subscribe({
       next:((res:any)=>{
         if(res.status=='Success'){
-          this.damagedGriddata = res.procedures;
+          this.damagedGriddata = res.item_damaged_list;
           this.myGrid_Damaged.api?.setRowData(this.damagedGriddata);
         }
       }),

@@ -125,7 +125,7 @@ export class WastedComponent {
     this.allService.GetWastedItems().subscribe({
       next:((res:any)=>{
         if(res.status=='Success'){
-          this.WastedGridData = res.procedures;
+          this.WastedGridData = res.item_wasted_list;
         }
       }),
       error:((res:any)=>{
