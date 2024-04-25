@@ -1412,38 +1412,62 @@ SelectedItemStatus:string = '';
 
       let category_value = data.value.ItemCategory;
       console.log(this.CategoryOptions_Index);
+      let CategoryBool:boolean= false;
       this.CategoryOptions_Index.forEach(element => {
         if(element.categories == category_value){
           console.log(element);
           this.AddItemForm.patchValue({
             ItemCategory:element.id
           })
+          CategoryBool = true;
         }
       });
+      if(CategoryBool == false){
+        this.AddItemForm.patchValue({
+          ItemCategory:''
+        })
+      }
 
       console.log('selca',this.AddItemForm.controls.ItemCategory.value);
 
       let subcategory_value = data.value.subcategory;
       console.log(this.SubcategoryOptions_Index);
-
+      let SubCategoryBool : boolean = false;
       this.SubcategoryOptions_Index.forEach(element => {
         console.log(element);
         if(element.sub_category_name == subcategory_value){
           this.AddItemForm.patchValue({
             subcategory:element.id
           })
+          SubCategoryBool = true;
         }
+
       });
+
+      if(SubCategoryBool == false){
+        this.AddItemForm.patchValue({
+          subcategory:''
+        })
+      }
+
 
       let vendor_value = data.value.Vendor;
       console.log(vendor_value);
+      let VendorBool : boolean = false;
       this.VendorsOption_Index.forEach(element => {
         if(element.VendorName == vendor_value){
           this.AddItemForm.patchValue({
             Vendor:element.id
           })
+          VendorBool = true;
         }
       });
+
+      if(VendorBool == false){
+        this.AddItemForm.patchValue({
+          Vendor:''
+        })
+      }
 
       let procedure_value = data.value.procedure;
       console.log(procedure_value);
@@ -1510,7 +1534,6 @@ SelectedItemStatus:string = '';
               timeOut:2000,
             });
             this.CloseModal('editItem');
-            // this.onGridReady_dailyconsumedgrid;
             this.ngAfterViewInit();
           }
         },
@@ -1520,6 +1543,7 @@ SelectedItemStatus:string = '';
             timeOut:2000,
           });
           this.CloseModal('editItem');
+          this.AddItemForm?.reset();
         }
       })
     }
