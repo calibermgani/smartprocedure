@@ -82,6 +82,10 @@ export class AllItemsTableViewComponent {
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
   @ViewChild('histroy', { static: false }) histroy?: ModalDirective;
   @ViewChild('confirmation', { static: false }) confirmation?: ModalDirective;
+  @ViewChild('addcategory', { static: false }) addcategory?: ModalDirective;
+  @ViewChild('addvendor', { static: false }) addvendor?: ModalDirective;
+  @ViewChild('subcategory', { static: false }) subcategory?: ModalDirective;
+  @ViewChild('addtag', { static: false }) addtag?: ModalDirective;
   @Output() newItemEvent = new EventEmitter;
 
   @Input() Updategrid: boolean = false;
@@ -97,6 +101,10 @@ export class AllItemsTableViewComponent {
   bulkEditForm : UntypedFormGroup;
   setAlertForm : UntypedFormGroup;
   ReasonForm : UntypedFormGroup;
+  AddCategoryForm:UntypedFormGroup;
+  AddSubCategoryForm:UntypedFormGroup;
+  AddVendorForm:UntypedFormGroup;
+  AddtagForm_New:UntypedFormGroup;
   files: File[] = [];
   imageURL: any;
   ItemStatus:any = [
@@ -329,8 +337,12 @@ export class AllItemsTableViewComponent {
     });
 
     this.AddtagForm= this.formbuilder.group({
-      Tags:['',Validators.required],
+      TagName:['',Validators.required],
     });
+
+    this.AddtagForm_New = this.formbuilder.group({
+      Tags:['',Validators.required]
+    })
 
     this.bulkEditForm = this.formbuilder.group({
       procedure:[''],
@@ -350,6 +362,27 @@ export class AllItemsTableViewComponent {
       reason1:[],
       reason2:[]
     });
+
+    this.AddVendorForm  = this.formbuilder.group({
+      VendorName:['',Validators.required],
+      VendorEmail:['',[Validators.required,Validators.email]],
+      VendorContactNo:['',[Validators.required,Validators.pattern('\\d*'),Validators.minLength(10)]],
+      VendorAddress:[],
+      Status:['Active']
+    });
+
+    this.AddSubCategoryForm = this.formbuilder.group({
+      SubCategoryName:['',[Validators.required]],
+      category:[],
+      status:['Active']
+    });
+
+    this.AddCategoryForm = this.formbuilder.group({
+      CategoryName : ['',[Validators.required]],
+      CategorySubCode : ['',[Validators.required]],
+      Status :['Active']
+    });
+
   }
 
   timeline_data:any = [];
@@ -891,6 +924,42 @@ SelectedItemStatus:string = '';
         this.histroy?.show();
         break;
       }
+      case 'addvendor':{
+        this.addvendor?.show();
+        this.AddVendorForm.patchValue({
+          Status:'Active'
+        })
+        break;
+      }
+      case 'subcategory':{
+        this.getCategoryOptions();
+        this.subcategory?.show();
+        this.AddSubCategoryForm.patchValue({
+          status:'Active'
+        })
+        break;
+      }
+      case 'addcategory':{
+        this.addcategory?.show();
+        this.AddCategoryForm.patchValue({
+          Status:'Active'
+        })
+        break;
+      }
+      case 'confirmation':{
+        this.addcategory?.hide();
+        this.subcategory?.hide();
+        this.editItem?.hide();
+        this.addvendor?.hide();
+        this.add_tag?.hide();
+        this.confirmation?.show();
+        this.ReasonForm.reset();
+        break;
+      }
+      case 'addtag':{
+        this.addtag?.show();
+        break;
+      }
     }
   }
 
@@ -922,6 +991,8 @@ SelectedItemStatus:string = '';
         this.AddtagForm?.reset();
         this.add_tag?.hide();
         this.gridApi_1.deselectAll();
+        this.getTags();
+        this.hideOpacity_Category = false;
         break;
       }
       case 'bulkupdate':{
@@ -961,19 +1032,160 @@ SelectedItemStatus:string = '';
         this.histroy.hide();
         break;
       }
+      case 'addvendor':{
+        this.AddVendorForm.reset();
+        this.addvendor?.hide();
+        this.editItem?.show();
+        this.getCategoryOptions();
+        this.getTags();
+        this.getVendors();
+        this.getProcedures();
+        this.hideOpacity_Category = false;
+        break;
+      }
+      case 'addcategory':{
+        this.AddCategoryForm.reset();
+        this.addcategory?.hide();
+        this.editItem?.show();
+        // this.AddItemForm.patchValue({
+        //   ItemCategory:''
+        // })
+        this.getCategoryOptions();
+        this.getTags();
+        this.getVendors();
+        this.getProcedures();
+        this.hideOpacity_Category = false;
+        break;
+      }
+      case 'subcategory':{
+        this.AddSubCategoryForm.reset();
+        this.subcategory?.hide();
+        this.editItem?.show();
+        // this.AddItemForm.patchValue({
+        //   ItemCategory:''
+        // })
+        this.getCategoryOptions();
+        this.getTags();
+        this.getVendors();
+        this.getProcedures();
+        let x = this.AddItemForm.controls.ItemCategory.value;
+        this.OnChangeItemCategory(x);
+        this.hideOpacity_Category = false;
+        break;
+      }
+      case 'addtag':{
+        this.AddtagForm_New.reset();
+        this.addtag?.hide();
+        this.getTags();
+        this.hideOpacity_Category = false;
+        break;
+      }
     }
   }
 
-  CloseConfirmation(){
-    this.confirmation?.hide();
-    this.editItem?.show();
+
+  hideOpacity_Category : boolean = false;
+  OpenNestedCategory(){
+    this.OpenModal("addcategory");
+    this.hideOpacity_Category = true;
   }
 
-  ChangingStatus(event:any){
+  OpenNestedSubCategory(){
+    this.OpenModal('subcategory');
+    this.hideOpacity_Category = true;
+  }
+
+  OpenNestedAddVednor(){
+    this.OpenModal('addvendor');
+    this.hideOpacity_Category = true;
+  }
+
+  OpenNestedTagsCategory(){
+    this.OpenModal('addtag');
+    this.hideOpacity_Category = true;
+  }
+
+  // CloseConfirmation(){
+  //   this.confirmation?.hide();
+  //   this.editItem?.show();
+  // }
+  SelectedModal:any;
+  ChangingStatus(event:any,type:any){
     console.log(event);
-    if(event == 'Inactive'){
-      this.editItem?.hide();
-      this.confirmation?.show();
+    if (event == 'Inactive') {
+      switch (type) {
+        case 'category': {
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'category';
+          break;
+        }
+        case 'subcategory': {
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'subcategory';
+          break;
+        }
+        case 'editItem': {
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'editItem';
+          break;
+        }
+        case 'addvendor': {
+          this.OpenModal('confirmation');
+          this.SelectedModal = 'addvendor';
+          break;
+        }
+        // case 'editcategory':{
+        //   this.OpenModal('confirmation');
+        //   this.SelectedModal = 'editcategory';
+        //   break;
+        // }
+        // case 'editsubcategory':{
+        //   this.OpenModal('confirmation');
+        //   this.SelectedModal = 'editsubcategory';
+        //   break;
+        // }
+      }
+    }
+  }
+
+  CloseConfirmation(type:any){
+    switch (type) {
+      case 'category': {
+        this.confirmation?.hide();
+        this.addcategory?.show();
+        this.SelectedModal = '';
+        break;
+      }
+      case 'subcategory': {
+        this.confirmation?.hide();
+        this.subcategory?.show();
+        this.SelectedModal = '';
+        break;
+      }
+      // case 'additem': {
+      //   this.confirmation?.hide();
+      //   this.additem?.show();
+      //   this.SelectedModal = '';
+      //   break;
+      // }
+      case 'addvendor': {
+        this.confirmation?.hide();
+        this.addvendor?.show();
+        this.SelectedModal = '';
+        break;
+      }
+      // case 'editcategory':{
+      //   this.confirmation?.hide();
+      //   this.editcategory?.show();
+      //   this.SelectedModal = '';
+      //   break;
+      // }
+      // case 'editsubcategory':{
+      //   this.confirmation?.hide();
+      //   this.editsubcategory?.show();
+      //   this.SelectedModal = '';
+      //   break;
+      // }
     }
   }
 
@@ -1546,6 +1758,110 @@ SelectedItemStatus:string = '';
           this.AddItemForm?.reset();
         }
       })
+    }
+  }
+
+  AddCategoryfn(data:any){
+    if(this.AddCategoryForm.valid){
+      this.allServices.AddCategoryfn(data,this.ReasonForm.value).subscribe({
+        next:(res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('addcategory');
+            // this.GetOverAllList();
+          }
+        },
+        error:(res)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        }
+      })
+    }
+  }
+
+  AddVendorfn(data: any) {
+    if (this.AddVendorForm.valid) {
+      console.log(this.AddVendorForm.value);
+
+      this.allServices.AddVendor(data,this.ReasonForm.value).subscribe({
+        next: (res: any) => {
+          console.log();
+
+          if (res.status == 'Success') {
+            this.toastr.success(`${res.message}`, 'Successful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+            this.CloseModal('addvendor');
+          }
+        },
+        error: (res: any) => {
+          this.toastr.error(`${res}`, 'UnSuccessful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+        }
+      });
+    }
+  }
+
+  SelectedCategory:number;
+  AddSubCategoryfn(data:any){
+    if(this.AddSubCategoryForm.valid){
+      console.log(this.AddSubCategoryForm.value);
+      console.log(this.AddSubCategoryForm.controls.category.value);
+
+      this.CategoryOptions_Index.forEach((element:any) => {
+        if(element.categories == this.AddSubCategoryForm.controls.category.value){
+          this.SelectedCategory = element.id
+        }
+      });
+      console.log(this.SelectedCategory);
+      this.allServices.AddSubCategoryfn(data,this.SelectedCategory,this.ReasonForm.value).subscribe({
+        next:(res:any)=>{
+          if(res.status=='Success'){
+            this.toastr.success(`${res.message}`,'Successful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+            this.CloseModal('subcategory');
+            // this.GetOverAllList();
+          }
+        },
+        error:(res:any)=>{
+          this.toastr.error(`${res}`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        }
+      })
+    }
+  }
+
+  Addtagfn(data:any){
+    if(this.AddtagForm_New.valid){
+      this.allServices.AddTag(data.controls.Tags.value).subscribe({
+        next: (res: any) => {
+          if (res.status == 'Success') {
+            this.toastr.success(`${res.message}`, 'Successful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+            this.CloseModal('addtag');
+          }
+        },
+        error: (res: any) => {
+          this.toastr.error(`${res}`, 'UnSuccessful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+        }
+      });
     }
   }
 

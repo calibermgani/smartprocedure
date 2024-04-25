@@ -613,7 +613,6 @@ export class AllItemsComponent implements OnInit {
   SelectedModal:any;
   ChangingStatus(event:any,type:any){
     console.log(event);
-
     if (event == 'Inactive') {
       switch (type) {
         case 'category': {
