@@ -47,11 +47,11 @@
               style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectItem(x.id)">
             <img
               [src]="apiUrl +'/'+ x.image_url != apiUrl + '/null' ? apiUrl + x.image_url : 'assets/images/Item_default_img.svg'"
-              style="width: 186px;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
+              style="width: 165px;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
               class="pointer">
           </div>
           <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
-            style="width: 180px;">
+            style="width: 210px;">
             <div class="mb-2 d-flex flex-wrap">
               <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.item_name }}</h1>
             </div>
@@ -96,8 +96,8 @@
             </div>
           </div>
           <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
-            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
-            <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualItems(x.id)">
+            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px" (click)="RestoreIndividualItems(x.id)">
+            <div class="dropdown me-2 ms-auto pointer">
               <i class="mdi mdi-restore font-size-12"></i>
             </div>
           </div>
@@ -111,11 +111,11 @@
               style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectVendor(x.id)">
             <img
             src="assets/images/default_vendor.svg"
-              style="width: 186px;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
+              style="width: 165px;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
               class="pointer">
           </div>
           <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
-            style="width: 180px;">
+            style="width: 210px;">
             <div class="mb-2 d-flex flex-wrap">
               <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.VendorName }}</h1>
             </div>
@@ -156,8 +156,8 @@
             </div>
           </div>
           <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
-            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
-            <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualVendor(x.id)">
+            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px" (click)="RestoreIndividualVendor(x.id)">
+            <div class="dropdown me-2 ms-auto pointer" >
               <i class="mdi mdi-restore font-size-12"></i>
             </div>
           </div>
@@ -170,7 +170,7 @@
             <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
               style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectCategory(x.id)">
             <img src="assets/images/default_category.svg"
-              style="width: 186px;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
+              style="width: 165px;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
               class="pointer">
           </div>
           <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
@@ -198,8 +198,8 @@
           </div>
         </div>
           <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
-            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
-            <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualCategory(x.id)">
+            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px"  (click)="RestoreIndividualCategory(x.id)">
+            <div class="dropdown me-2 ms-auto pointer">
               <i class="mdi mdi-restore font-size-12"></i>
             </div>
           </div>
@@ -212,7 +212,7 @@
             <input id="customCheck1" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
               style="position: relative;left: 5px;top:4px;z-index: 9;" (click)="SelectSubCategory(y.id)">
             <img src="assets/images/default_subcategory.svg"
-              style="width: 186px;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
+              style="width: 165px;height:106px;border-radius: 5px 0px 0px 5px;position: relative;left: -13px;"
               class="pointer">
           </div>
           <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1"
@@ -244,8 +244,8 @@
             </div>
           </div>
           <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
-            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px">
-            <div class="dropdown me-2 ms-auto pointer" (click)="RestoreIndividualSubCategory(y.id)">
+            style="width: 50px;background: #EEEEEE;border-radius: 0px 6px 6px 0px" (click)="RestoreIndividualSubCategory(y.id)">
+            <div class="dropdown me-2 ms-auto pointer">
               <i class="mdi mdi-restore font-size-12"></i>
             </div>
           </div>
@@ -274,8 +274,7 @@
           <img src="assets/images/restore.svg" style="width: 40px;;height: 40px;">
         </div>
         <div class="mb-2">
-          <h1>Do you want to restore {{ TotalSelectedItems.length > 1 ? TotalSelectedItems.length + ' items to the folder?' :
-            'this item to the folder?' }}</h1>
+          <h1>Do you want to restore ?</h1>
         </div>
       </div>
       <div class="d-flex justify-content-end p-3">

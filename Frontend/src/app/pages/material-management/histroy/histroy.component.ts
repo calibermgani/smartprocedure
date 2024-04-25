@@ -21,10 +21,10 @@ export class HistroyComponent  implements OnInit{
     this.allService.GetAllHistroyItems().subscribe({
       next:(res:any)=>{
         if(res.status == 'Success'){
-          this.ItemHistoryData = res.procedures.item;
-          this.CategoryHistoryData = res.procedures.category;
-          this.SubCategoryHistoryData = res.procedures.sub_category;
-          this.VendorHistoryData = res.procedures.vendor;
+          this.ItemHistoryData = res.item_history.item;
+          this.CategoryHistoryData = res.item_history.category;
+          this.SubCategoryHistoryData = res.item_history.sub_category;
+          this.VendorHistoryData = res.item_history.vendor;
         }
       },
       error:(res:any)=>{

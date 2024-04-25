@@ -1752,10 +1752,74 @@ SelectedItemStatus:string = '';
         error:(res)=>{
           this.toastr.error(`${res}`,'UnSuccessful',{
             positionClass: 'toast-top-center',
-            timeOut:2000,
+            timeOut:5000,
           });
-          this.CloseModal('editItem');
-          this.AddItemForm?.reset();
+          // this.CloseModal('editItem');
+          // this.AddItemForm?.reset();
+          setTimeout(() => {
+            // this.allServices.ViewItem(this.Currently_Selected_row.id).subscribe({
+            //   next:(res:any)=>{
+            //     if(res.status == 'Success'){
+            //       this.ViewItemData = res.data;
+            //       this.OpenModal('viewitem');
+            //     }
+            //   },
+            //   error:(res:any)=>{
+            //     this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            //       positionClass: 'toast-top-center',
+            //       timeOut:2000,
+            //     });
+            //   }
+            // })
+            let itemStatus = this.AddItemForm.controls.ItemStatus.value;
+            if(itemStatus == 1){
+              this.AddItemForm.patchValue({
+                ItemStatus:'Active'
+              })
+            }
+            else{
+              this.AddItemForm.patchValue({
+                ItemStatus:'Inactive'
+              })
+            }
+            let CategoryValue = this.AddItemForm.controls.ItemCategory.value;
+
+            this.CategoryOptions_Index.forEach(element => {
+              console.log(element);
+              if(element.id == CategoryValue){
+                console.log(element);
+                this.AddItemForm.patchValue({
+                  ItemCategory:element.categories
+                })
+              }
+            });
+
+            let SubCategoryValue = this.AddItemForm.controls.subcategory.value;
+            this.SubcategoryOptions_Index.forEach(element => {
+              console.log(element);
+              if(element.id == SubCategoryValue){
+                this.AddItemForm.patchValue({
+                  subcategory:element.sub_category_name
+                })
+              }
+            });
+
+            let ProcedureNewValue = this.AddItemForm.controls.procedure.value;
+            let NewArray : any = [];
+            console.log(ProcedureNewValue);
+            this.ProcedureOption_Index.forEach((element,index) => {
+              ProcedureNewValue.forEach(ProcedurName => {
+                if(ProcedurName == element.id){
+                  NewArray.push(element.procedure_name);
+                }
+              })
+            });
+            this.AddItemForm.patchValue({
+              procedure:NewArray
+              });
+
+          },1000);
+
         }
       })
     }

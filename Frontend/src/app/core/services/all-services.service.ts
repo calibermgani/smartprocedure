@@ -350,7 +350,7 @@ export class AllServicesService {
   }
 
   ViewItem(data:any){
-    let payload:Object = {};
+        let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["item_id"] = data;
     return this.http.post(`${this.apiUrl}/items/show`,payload);
