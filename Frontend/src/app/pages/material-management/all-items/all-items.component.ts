@@ -1390,7 +1390,6 @@ export class AllItemsComponent implements OnInit {
       category:[],
       ItemName:[],
       ProcedureSearch:[],
-      Price:[],
       Tags:[],
       Barcode:[],
       Notes:[]

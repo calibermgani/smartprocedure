@@ -564,6 +564,7 @@ export class AllServicesService {
     payload["price"]=data.value.Price;
     payload["min_level"]=data.value.MinLevel;
     payload["store_qty"]=data.value.StoreQty;
+    // payload[""] = data.value.QuantityAlert;
     payload["tag"]=data.value.Tags;
     payload["item_barcode"]=data.value.Barcode;
     payload["item_notes"]=data.value.Notes;

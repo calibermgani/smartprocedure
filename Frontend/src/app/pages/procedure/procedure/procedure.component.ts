@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import 'ag-grid-enterprise';
+import { ToastrService } from 'ngx-toastr';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
 
 @Component({
   selector: 'app-procedure',
@@ -82,7 +84,7 @@ export class ProcedureComponent implements OnInit {
   };
 
 
-  constructor(private router: Router, private http: HttpClient) {
+  constructor(private router: Router, private http: HttpClient,private allServices: AllServicesService,private toastr : ToastrService) {
     this.Saved_filter_options = ['Saved filter 1', 'Saved filter 2', 'Saved filter 3', 'Saved filter 4', 'Saved filter 5'];
     this.sortBy_values = ['Priority', 'In Patient', 'Speciality']
   }
@@ -152,6 +154,20 @@ export class ProcedureComponent implements OnInit {
       console.log('colDefs', colDefs);
       this.gridOptions1.api?.setColumnDefs(colDefs);
       this.gridOptions1.api?.setRowData(res);
+    })
+    this.allServices.GetAllProcedureList().subscribe({
+      next:(res:any)=>{
+       console.log(res)
+       if(res.status == 'Success'){
+        //  this.gridOptions1.api?.setRowData(res.patient_list);
+       }
+      },
+      error:(res:any)=>{
+        this.toastr.error('Something went wrong', 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      }
     })
   }
 
@@ -246,7 +262,6 @@ export class ProcedureComponent implements OnInit {
         if (params.value){
           let rowData = params.node.data;
           const substatus = rowData.substatus;
-          console.log(substatus);
           if(substatus){
             return `<div class="d-flex flex-row  align-items-center"><p class="mb-0">${params.value}</p><h5 class="ms-1 mb-0" style="font-weight:400 !important;color:#855EDB !important;background:#F3F4F8;padding : 0px 4px 0px 4px;border-radius:27px">${substatus}</h5></div>`;
           }

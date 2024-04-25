@@ -33,10 +33,10 @@ export class TrashComponent {
     this.allService.getTrashItems().subscribe({
       next: ((res: any) => {
         if (res.status == 'Success') {
-          this.ItemsData = res.data.items;
-          this.CategoriesData = res.data.categories;
-          this.SubCategoryData = res.data.sub_categories;
-          this.VendorData = res.data.vendors;
+          // this.ItemsData = res.data.items;
+          // this.CategoriesData = res.data.categories;
+          // this.SubCategoryData = res.data.sub_categories;
+          // this.VendorData = res.data.vendors;
         }
       }),
       error: ((error: any) => {
