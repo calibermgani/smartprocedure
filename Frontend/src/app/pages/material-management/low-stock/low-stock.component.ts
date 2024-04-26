@@ -74,13 +74,13 @@ export class LowStockComponent implements OnInit{
   }
 
   columnDefs1: ColDef[] = [
-    {
-      field: '',
-      checkboxSelection: true,
-      headerCheckboxSelection: true,
-      resizable:false,
-      width:10
-    },
+    // {
+    //   field: '',
+    //   checkboxSelection: true,
+    //   headerCheckboxSelection: true,
+    //   resizable:false,
+    //   width:10
+    // },
     {
       field: 'item_number',
       headerName: 'Item No',

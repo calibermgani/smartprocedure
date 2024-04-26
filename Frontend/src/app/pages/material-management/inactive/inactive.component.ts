@@ -27,10 +27,10 @@ export class InactiveComponent  implements OnInit{
     this.allService.GetInactiveItems().subscribe({
       next: ((res: any) => {
         if (res.status == 'Success') {
-          // this.AllInactiveItems = res.data.items;
-          // this.AllCategoryInactiveItems = res.data.categories;
-          // this.AllSubCategoryInactiveItems = res.data.sub_categories;
-          // this.AllVendorInactiveItems = res.data.vendors;
+          this.AllInactiveItems = res.data.items;
+          this.AllCategoryInactiveItems = res.data.categories;
+          this.AllSubCategoryInactiveItems = res.data.sub_categories;
+          this.AllVendorInactiveItems = res.data.vendors;
         }
       }),
       error: ((error: any) => {
