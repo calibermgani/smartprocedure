@@ -1243,6 +1243,7 @@ export class AllItemsComponent implements OnInit {
 
   ReloadGrid(){
     this.authfakeauthenticationService.ReloadAllItemsGrid(true);
+    this.Search_AllItemstablelist= '';
   }
 
   GetOverAllList(){
