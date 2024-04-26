@@ -54,15 +54,15 @@
             <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1 ms-2"
               style="width: 240px;">
               <div class="mb-2 d-flex flex-wrap">
-                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.item_history.item_name }}</h1>
+                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.item_history ?  x.item_history.item_name : '-' }}</h1>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Item number :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.item_history.item_number }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.item_history ? x.item_histroy.item_number : '-' }}</p>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;color: #D62424 !important;">Expiry :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.item_history.expired_date }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.item_history ? x.item_history.expired_date : '-'}}</p>
               </div>
             </div>
             <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
@@ -73,7 +73,7 @@
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.item_history.item_category.name }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.item_history ? x.item_history.item_category.name : '-'}}</p>
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center ">
                 <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
@@ -87,7 +87,7 @@
               style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 12px 0px 12px !important;width: 500px;">
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Activity :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.action_type }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.action_type ? x.action_type : '-' }}</p>
               </div>
             </div>
             <!-- <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
@@ -111,7 +111,7 @@
             <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1 ms-2"
               style="width: 240px;">
               <div class="mb-2 d-flex flex-wrap">
-                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.category_history.name }}</h1>
+                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.category_history ? x.category_history.name : '-' }}</h1>
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center ">
                 <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
@@ -146,7 +146,7 @@
               style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 12px 0px 12px !important;width: 903px;">
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Activity :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.action_type }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.action_type ? x.action_type : '-' }}</p>
               </div>
             </div>
             <!-- <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
@@ -170,11 +170,11 @@
             <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1 ms-2"
               style="width: 240px;">
               <div class="mb-2 d-flex flex-wrap">
-                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.sub_category_history.sub_category_name }}</h1>
+                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.sub_category_history ?  x.sub_category_history.sub_category_name : '-'}}</h1>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Parent category :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.sub_category_history.category.name }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.sub_category_history ? x.sub_category_history.category.name : '-' }}</p>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;">Date :</h1>
@@ -209,7 +209,7 @@
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Activity :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.action_type }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.action_type ? x.action_type :'-' }}</p>
               </div>
             </div>
             <!-- <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
@@ -233,16 +233,16 @@
             <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1 ms-2"
               style="width: 240px;">
               <div class="mb-2 d-flex flex-wrap">
-                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.vendor_history.VendorName}}</h1>
+                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.vendor_history ? x.vendor_history.VendorName : '-'}}</h1>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Email :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.vendor_history.VendorEmail }}
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.vendor_history ? x.vendor_history.VendorEmail :'-' }}
                 </p>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;">Contact :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.vendor_history.VendorContactNo }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.vendor_history ? x.vendor_history.VendorContactNo : '-' }}</p>
               </div>
             </div>
             <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
@@ -253,7 +253,7 @@
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Vendor Address :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.vendor_history.VendorAddress }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.vendor_history ?  x.vendor_history.VendorAddress : '-'}}</p>
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center ">
                 <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
@@ -267,7 +267,7 @@
               style="border-left: 0.2px solid #c0c0c0 !important;padding: 3px 12px 0px 12px !important;width: 500px;">
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Activity :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.action_type }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{ x.action_type ? x.action_type : '-' }}</p>
               </div>
             </div>
             <!-- <div class="d-flex flex-column justify-content-between align-items-center p-1 ms-auto hover_background"
@@ -281,7 +281,7 @@
       </div>
 
 
-      <div *ngIf="this.ItemHistoryData.length ==0 && this.CategoryHistoryData.length ==0 && this.SubCategoryHistoryData.length ==0 && this.VendorHistoryData.length ==0">
+      <div *ngIf="this.ItemHistoryData.length ==0 && this.CategoryHistoryData.length ==0 && this.SubCategoryHistoryData.length ==0 && this.VendorHistoryData.length ==0 && this.historyVisibleCdtn == true">
         <img src="assets/images/History_item_found.svg" style="width: 150px;height: 150px;position: relative;left: 44%;top: 250px;">
       </div>
     </div>

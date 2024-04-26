@@ -15,6 +15,7 @@ export class HistroyComponent  implements OnInit{
   CategoryHistoryData : any = [];
   SubCategoryHistoryData : any = [];
   VendorHistoryData : any = [];
+  historyVisibleCdtn : boolean = false;
 
   constructor(private http : HttpClient,private allService : AllServicesService,private toastr : ToastrService){}
   ngOnInit(): void {
@@ -25,6 +26,7 @@ export class HistroyComponent  implements OnInit{
           this.CategoryHistoryData = res.item_history.category;
           this.SubCategoryHistoryData = res.item_history.sub_category;
           this.VendorHistoryData = res.item_history.vendor;
+          this.historyVisibleCdtn = true;
         }
       },
       error:(res:any)=>{

@@ -19,6 +19,7 @@ export class InactiveComponent  implements OnInit{
   AllSubCategoryInactiveItems : any = [];
   AllVendorInactiveItems : any = [];
   enablecheckBox:boolean = false;
+  InactiveVisibleCdtn : boolean = false;
 
 
   constructor(private allService:AllServicesService,private toastr : ToastrService){}
@@ -31,6 +32,7 @@ export class InactiveComponent  implements OnInit{
           this.AllCategoryInactiveItems = res.data.categories;
           this.AllSubCategoryInactiveItems = res.data.sub_categories;
           this.AllVendorInactiveItems = res.data.vendors;
+          this.InactiveVisibleCdtn = true;
         }
       }),
       error: ((error: any) => {

@@ -27,6 +27,7 @@ export class TrashComponent {
   SelectedCategory: any = [];
   SelectedSubCategory: any = [];
   TotalSelectedItems : any = [];
+  TashVisibleCdtn : boolean = false;
 
   constructor(private http: HttpClient, private allService: AllServicesService, private toastr: ToastrService) { }
   ngOnInit(): void {
@@ -37,6 +38,7 @@ export class TrashComponent {
           this.CategoriesData = res.data.categories;
           this.SubCategoryData = res.data.sub_categories;
           this.VendorData = res.data.vendors;
+          this.TashVisibleCdtn = true;
         }
       }),
       error: ((error: any) => {

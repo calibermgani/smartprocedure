@@ -34,7 +34,7 @@
             <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1 ms-2"
               style="width: 240px;">
               <div class="mb-2 d-flex flex-wrap">
-                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.item_name }}</h1>
+                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.item_name ? x.item_name: '-' }}</h1>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Item number :</h1>
@@ -59,7 +59,7 @@
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Category :</h1>
                 <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0 ms-1">{{
-                  x.item_category.name}}</p>
+                  x.item_category ? x.item_category.name  : '-'}}</p>
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center ">
                 <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
@@ -101,17 +101,17 @@
             <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1 ms-2"
               style="width: 240px;">
               <div class="mb-2 d-flex flex-wrap">
-                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.VendorName }}</h1>
+                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.VendorName ? x.VendorName : '-' }}</h1>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;color: #1B1B1B !important;">Email :</h1>
                 <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">
-                  {{ x.VendorEmail }}
+                  {{ x.VendorEmail ? x.VendorEmail : '-' }}
                 </p>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;">Contact :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.VendorContactNo }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.VendorContactNo ? x.VendorContactNo : '-' }}</p>
               </div>
             </div>
             <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
@@ -122,7 +122,7 @@
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Vendor Address :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;overflow: hidden;text-overflow: ellipsis;width: 30px;white-space: nowrap;" class="mb-0 ms-1">{{ x.VendorAddress }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;line-height: 12px;overflow: hidden;text-overflow: ellipsis;width: 30px;white-space: nowrap;" class="mb-0 ms-1">{{ x.VendorAddress ? x.VendorAddress : '-' }}</p>
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center ">
                 <h1 class="my-1" style="font-weight: 500 !important">By:</h1>
@@ -163,7 +163,7 @@
             <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1 ms-2"
               style="width: 260px;">
               <div class="mb-2 d-flex flex-wrap">
-                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.name }}</h1>
+                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ x.name ? x.name : '-' }}</h1>
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;">Inactivated date :</h1>
@@ -208,7 +208,7 @@
             <div class="d-flex flex-wrap flex-column justify-content-between  align-items-start mt-2 my-1 ms-2"
               style="width: 260px;">
               <div class="mb-2 d-flex flex-wrap">
-                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ y.sub_category_name }}</h1>
+                <h1 class="my-1 header_name" style="font-weight: 600 !important;">{{ y.sub_category_name ? y.sub_category_name : '-' }}</h1>
               </div>
               <div class="mb-2 d-flex flex-wrap align-items-center">
                 <h1 class="my-1" style="font-weight: 500 !important">Inactivated date :</h1>
@@ -216,7 +216,7 @@
               </div>
               <div class="d-flex flex-wrap align-items-center mb-2">
                 <h1 class="my-1" style="font-weight: 500 !important;">Parent Category :</h1>
-                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ y.category?.name }}</p>
+                <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ y.category ? y.category.name : '-' }}</p>
               </div>
             </div>
             <div class="d-flex flex-wrap flex-column justify-centent-between ms-auto mt-2 my-1"
@@ -246,7 +246,7 @@
 
       </div>
 
-      <div *ngIf="this.AllInactiveItems.length == 0 && this.AllVendorInactiveItems.length ==0 && this.AllCategoryInactiveItems.length ==0 && this.AllSubCategoryInactiveItems.length ==0">
+      <div *ngIf="this.AllInactiveItems.length == 0 && this.AllVendorInactiveItems.length ==0 && this.AllCategoryInactiveItems.length ==0 && this.AllSubCategoryInactiveItems.length ==0 && this.InactiveVisibleCdtn == true;">
         <img src="assets/images/EmptyInactive.svg" style="width: 150px;height: 150px;position: relative;left: 44%;top: 250px;">
       </div>
 
