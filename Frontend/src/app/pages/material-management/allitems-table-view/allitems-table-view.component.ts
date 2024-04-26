@@ -1162,12 +1162,12 @@ SelectedItemStatus:string = '';
         this.SelectedModal = '';
         break;
       }
-      // case 'additem': {
-      //   this.confirmation?.hide();
-      //   this.additem?.show();
-      //   this.SelectedModal = '';
-      //   break;
-      // }
+      case 'editItem': {
+        this.confirmation?.hide();
+        this.editItem?.show();
+        this.SelectedModal = '';
+        break;
+      }
       case 'addvendor': {
         this.confirmation?.hide();
         this.addvendor?.show();
