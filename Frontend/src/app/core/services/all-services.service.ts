@@ -707,8 +707,89 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/item_quantity_update`,payload);
   }
 
-  GetAllProcedureList(){let payload:Object = {};
-  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
-  return this.http.post(`${this.apiUrl}/procedures/procedure_list`,payload);
+  GetAllProcedureList(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/patient_list`,payload);
+  }
+
+  GetSpecificPatientDetails(data:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"] = data;
+    return this.http.post(`${this.apiUrl}/procedures/patient_details`,payload);
+  }
+
+  SendPatientRequest(data:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["mrn_number"]=data.mrn_no;
+    payload["patient_id"]=data.id;
+    payload["status"]="Accept";
+    payload["accept_by"]="1";
+    payload["created_by"]="1";
+    return this.http.post(`${this.apiUrl}/procedures/patient_request`,payload);
+  }
+
+  GetVettingTypes(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/vetting_types`,payload);
+  }
+
+  GetProtocolTypes(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/protocol_types`,payload);
+  }
+
+  SendVettingRequest(PatientDetails:any,vettingnotes:any,vetttingid:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["mrn_number"] = PatientDetails.mrn_no;
+    payload["patient_id"] = PatientDetails.id;
+    payload["vetting_type_id"] = vetttingid;
+    payload["vetting_notes"] = vettingnotes.VettingNotes;
+    payload["vetting_by"] = "1";
+    payload["created_by"] = "1";
+    return this.http.post(`${this.apiUrl}/procedures/store_vetting_request`,payload);
+  }
+
+  SendProtocolRequest(PatientDetails:any,protocoleNotes:any,protocoleId:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["mrn_number"] = PatientDetails.mrn_no;
+    payload["patient_id"] = PatientDetails.id;
+    payload["protocol_type_id"] = protocoleId;
+    payload["protocol_notes"] = protocoleNotes.ProtocolNotes;
+    payload["protocolling_by"] = "1";
+    payload["created_by"] = "1";
+    return this.http.post(`${this.apiUrl}/procedures/store_protocol_request`,payload);
+  }
+
+  GetMyCartDetails(data:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["procedure"]=data.procedure;
+    return this.http.post(`${this.apiUrl}/procedures/material_my_cart`,payload);
+  }
+
+  StoreShoppingCartSchedulling(PatientDetails:any,itemID:any,Quantity:any,stage_type:string){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["mrn_number"]=PatientDetails.mrn_no;
+    payload["item_id"]=itemID;
+    payload["patient_id"]=PatientDetails.id;
+    payload["quantity"]=Quantity;
+    payload["stage_type"]=stage_type;
+    payload["created_by"]='1';
+    payload["purchased_by"]='1';
+    return this.http.post(`${this.apiUrl}/procedures/store_shopping_cart`,payload);
+  }
+
+  GetAllCheckList(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/check_list_index`,payload);
   }
 }

@@ -3,6 +3,9 @@ import { ChangeDetectionStrategy, Component, OnInit, TemplateRef, ViewChild } fr
 import { Route, Router } from '@angular/router';
 import { BsModalRef, BsModalService, ModalDirective } from 'ngx-bootstrap/modal';
 import { Options } from 'ngx-slider-v2';
+import { ToastrService } from 'ngx-toastr';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 
 interface kizintabValues {
   "tabs": string,
@@ -91,6 +94,7 @@ export class WorkAreaComponent implements OnInit {
 
   miniList_details: any;
   procedureAlertsData: any;
+  CurrentPatientDetails : any = [];
   kizintabValues: any = [];
   taskList: any = [];
   procedureStagelist: any = [];
@@ -160,7 +164,7 @@ export class WorkAreaComponent implements OnInit {
   @ViewChild('centerDataModal', { static: false }) centerDataModal?: ModalDirective;
   @ViewChild('addNotesModal', { static: false }) addNotesModal?: ModalDirective;
 
-  constructor(private http: HttpClient, private modalService: BsModalService,private router : Router) {
+  constructor(private http: HttpClient, private modalService: BsModalService,private router : Router,private allService : AllServicesService,private authService : AuthfakeauthenticationService,private toastr : ToastrService) {
   }
 
   ngOnInit() {
@@ -187,6 +191,15 @@ export class WorkAreaComponent implements OnInit {
       }
     });
 
+    this.allService.GetAllCheckList().subscribe({
+      next:((res:any)=>{
+        console.log(res);
+      }),
+      error:((res:any)=>{
+        console.log(res);
+      })
+    })
+
     this.http.get<timeline>('assets/json/timeline.json').subscribe((res: any) => {
       this.timeline_data = res;
     });
@@ -211,6 +224,27 @@ export class WorkAreaComponent implements OnInit {
       this.tasklist_notes = res;
       this.comments_for_tasklist = res[0].comments;
     });
+
+    let PatientID = localStorage.getItem('PatientID');
+
+    if(PatientID){
+
+        this.allService.GetSpecificPatientDetails(PatientID).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            console.log(res);
+           this.CurrentPatientDetails = res.patient;
+          }
+          return 0;
+        }),
+        error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      });
+    }
 
   }
 
@@ -390,6 +424,7 @@ export class WorkAreaComponent implements OnInit {
 
   GoBackToProcedureList()
   {
+    localStorage.removeItem('PatientID');
     this.router.navigateByUrl('/procedure');
   }
 }

@@ -33,6 +33,9 @@ export class AuthfakeauthenticationService {
     public ExportAstype = new BehaviorSubject<any>('');
     ExportAstypeObservable = this.ExportAstype.asObservable();
 
+    // public PatientID = new BehaviorSubject<any>('');
+    // PatientIDObservable = this.PatientID.asObservable();
+
     constructor(private http: HttpClient) {
         this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
         this.currentUser = this.currentUserSubject.asObservable();
@@ -98,5 +101,8 @@ export class AuthfakeauthenticationService {
       this.ExportAstype.next(data);
     }
 
+    // PassingPatientID(data:any){
+    //   this.PatientID.next(data);
+    // }
 
 }

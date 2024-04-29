@@ -1,22 +1,11 @@
 <div class="cards"
   style="border-radius: 10px !important; border: 1px solid #8B8B8B;padding: 0px !important;height: 557px;">
-  <div class="row">
-    <div class="col-3 d-none d-lg-block" style="padding-right: 0px;">
-      <div class="viewOnly">
-        <img src="assets/images/ViewOnlyModeright.svg" style="position: absolute;
-  top: 509%;
-  left: 0%;
-  z-index: 1;display: none;cursor: pointer;" class="rightexpand" (click)="CloseViewOnlyMode()">
-        <p class="mb-0 px-3 py-2"
-          style="color: #fff !important;background: #594585;width: auto;height: 32px;border-radius: 10px 0px 0px 0px;padding: 8px 9px;"
-          class="viewonlymode_header mb-0">View Other User Details</p>
-        <img src="assets/images/ViewOnlyModeleft.svg" style="position: absolute;
-      top: 50%;
-      right:-3%;
-      bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" (click)="CloseViewOnlyMode()"
-          class="leftexpand">
+  <div class="row" style="width: 100%;margin-left: -1px;">
 
-        <div class="accords" style="overflow-x: scroll;height: 507px;">
+    <div class="col-3 px-0" style="border-right: 1px solid #594585;"  [ngClass]="{'hideViewOnlyArea': hideViewOnlyMode == true }">
+      <p class="mb-0 px-3 py-2" class="viewonlymode_header mb-0">View Other User Details</p>
+        <img src="assets/images/ViewOnlyModeleft.svg" style="position: relative;top: 43%;left: 95%;bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" class="leftexpand" (click)="CloseViewOnlyMode()">
+        <div class="accords  px-1" style="overflow-x: scroll;height: 507px;">
           <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
             <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode">
               <span accordion-heading class="d-flex">
@@ -42,12 +31,11 @@
             </accordion-group>
           </accordion>
         </div>
-      </div>
 
     </div>
-    <div class="col-9" style="padding: 0px 0px !important;">
-      <div class="expandable_workarea">
-        <div class="tab-pane" role="tabpanel">
+    <div class="col-9" style="padding: 0px 0px !important" [ngClass]="{'expandWorkArea': hideViewOnlyMode == true }">
+      <img src="assets/images/ViewOnlyModeright.svg" style="position: relative;top: 280px;left: 13px;cursor: pointer;width: 20px;height: 20px;z-index: 1;"  (click)="ShowViewOnlyArea()" *ngIf="hideViewOnlyMode == true">
+        <div class="tab-pane" role="tabpanel" [ngClass]="{'TabsAlign': hideViewOnlyMode == true }">
           <ul class="nav line-tab nav-pills nav-tabs  nav-tabs-custom nav-justified" role="tablist">
             <li class="nav-items" role="presentation" *ngFor="let x of mainTabsValue">
               <a [class]="'nav-link '+x.active" data-bs-toggle="tab" [href]="x.template" role="tab"
@@ -62,124 +50,243 @@
           </ul>
 
 
-          <div class="tab-content mt-1 text-muted">
-            <div class="tab-pane active" id="TabContentA1" role="tabpanel">
-              <!-- <div class="tab-pane" role="tabpanel"> -->
-              <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
-                <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
-                  <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab"
-                    aria-selected="true">
-                    <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                    <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
-                  </a>
-                </li>
-              </ul>
-              <div class="tab-content ms-2 mt-2 text-muted">
-                <div class="tab-pane active show" id="a1-1" role="tabpanel">
-                  <h1>Request Info</h1>
-                </div>
-                <div class="tab-pane" id="a1-2" role="tabpanel">
-                  <h1>Admission Info</h1>
-                </div>
-                <div class="tab-pane" id="a1-3" role="tabpanel">
-                  <h1>Booking</h1>
-                </div>
-                <div class="tab-pane" id="a1-4" role="tabpanel">
-                  <h1>Vetting & Protocoling</h1>
-                </div>
-                <div class="tab-pane" id="a1-5" role="tabpanel">
-                  <h1>Materials</h1>
-                </div>
-                <div class="tab-pane" id="a1-6" role="tabpanel">
-                  <h1>IV accusses & closure</h1>
-                </div>
-                <div class="tab-pane" id="a1-7" role="tabpanel">
-                  <h1>Radiation dose info</h1>
-                </div>
-              </div>
-              <!-- </div> -->
-            </div>
-            <div class="tab-pane" id="TabContentA2" role="tabpanel">
-              <div class="tab-pane" role="tabpanel">
-                <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
+          <div *ngIf="CurrentPatientSelection == true" >
+            <div class="tab-content mt-1 text-muted">
+              <div class="tab-pane active" id="TabContentA1" role="tabpanel">
+                <!-- <div class="tab-pane" role="tabpanel"> -->
                 <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
                   style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
-                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
-                    <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
+                    <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
                       <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
                       <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
                     </a>
                   </li>
                 </ul>
-                <div class="tab-content ms-2 mt-2 text-muted mt-2">
-                  <div class="tab-pane" id="a2-1" role="tabpanel">
+                <div class="tab-content ms-2 mt-2 text-muted">
+                  <div class="tab-pane active show" id="a1-1" role="tabpanel">
                     <h1>Request Info</h1>
+
+                    <div style="width:100%;border:0.5px solid #8B8B8B;border-radius:6px;margin-top: 10px;">
+                      <div class="d-flex justify-content-between align-items-center p-1"
+                        style="background-color: #F3F4F8;border-radius: 6px;">
+                        <div>
+                          <p style="color: #594585 !important;" class="mb-0">VETTING</p>
+                        </div>
+                        <div>
+                          <div class="d-flex align-items-center">
+                            <div class="me-2 pointer" (click)="AddNotes_Vetting()"><img src="assets/images/add_notes_procedure.svg"
+                                style="width: 20px;height: 20px;"><span
+                                style="color: #1B1B1B !important;font-size: 9px !important;font-weight: 400 !important;"
+                                class="ms-1">AddNotes</span></div>
+                            <div class="me-2 pointer" (click)="SaveVettingRequest(this.VettingRequestForm)"><img src="assets/images/Save_vetting.svg" style="width: 20px;height: 20px;"><span
+                                style="color: #1B1B1B !important;font-size: 9px !important;font-weight: 400 !important;" class="ms-1">Save</span>
+                            </div>
+                            <div class="form-check form-switch form-switch-md  align-items-center ps-0 me-2">
+                              <input class="form-check-input ms-3" type="checkbox" style="width: 32px !important;height: 16px !important;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <form [formGroup]="VettingRequestForm">
+                      <div class="d-flex flex-row align-items-center m-3 pointer"
+                        style="background: #F3F4F8;width: max-content;border-radius: 6px;">
+                        <div class="" *ngFor="let x of VettingTypes" (click)="SelectedVettingStatus(x.name)"
+                          [ngClass]="{'SelectedVetting' : this.SelectedvettingType == x.name }">
+                          <p class="mb-0" style="padding: 10px;">{{ x.name }}</p>
+                        </div>
+                      </div>
+
+                      <div *ngIf="enableNotes_Vetting" class="m-3" style="height: 50px;">
+                        <input class="form-control-new" type="text" placeholder="Add Notes" formControlName="VettingNotes"
+                          style="padding: 4px !important;height: 50px !important;">
+                      </div>
+                    </form>
+                    </div>
+
+                    <div style="width:100%;border:0.5px solid #8B8B8B;border-radius:6px;margin-top: 10px;" *ngIf="this.ProtocolTypes.length>0">
+                      <form [formGroup]="ProtocoingRequestForm">
+                      <div class="d-flex justify-content-between align-items-center p-1"
+                        style="background-color: #F3F4F8;border-radius: 6px;">
+                        <div>
+                          <p style="color: #594585 !important;" class="mb-0">PROTOCOLING</p>
+                        </div>
+                        <div>
+                          <div class="d-flex align-items-center">
+                            <div class="me-2 pointer" (click)="AddNotes_Protocol()"><img src="assets/images/add_notes_procedure.svg"
+                                style="width: 20px;height: 20px;"><span
+                                style="color: #1B1B1B !important;font-size: 9px !important;font-weight: 400 !important;"
+                                class="ms-1">AddNotes</span></div>
+                            <div class="me-2 pointer" (click)="SaveProtocolingRequest(this.ProtocoingRequestForm)"><img src="assets/images/Save_vetting.svg" style="width: 20px;height: 20px;"><span
+                                style="color: #1B1B1B !important;font-size: 9px !important;font-weight: 400 !important;" class="ms-1">Save</span>
+                            </div>
+                            <div class="form-check form-switch form-switch-md  align-items-center ps-0 me-2">
+                              <input class="form-check-input ms-3" type="checkbox" style="width: 32px !important;height: 16px !important;">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-start mx-2 my-2" style="width: 100%;">
+                        <div style="width: 30%;" class="me-2">
+                          <label class="modal-label-edit">Select Protocol</label>
+                          <ng-select [items]="this.ProtocolTypes" formControlName="SelectProtocol"></ng-select>
+                        </div>
+                        <div style="width: 30%;" class="me-2">
+                          <label class="modal-label-edit">Protocol Details</label>
+                          <input type="text" class="form-control protocol_details">
+                        </div>
+                        <div style="width: 30%;" class="me-2">
+                          <label class="modal-label-edit">Add your Protocol</label>
+                          <ng-select [items]=""></ng-select>
+                        </div>
+                      </div>
+
+                      <div *ngIf="enableNotes_Protocoling" class="m-3" style="height: 50px;">
+                        <input class="form-control-new" type="text" placeholder="Add Notes" formControlName="ProtocolNotes"
+                          style="padding: 4px !important;height: 50px !important;">
+                      </div>
+                    </form>
+                    </div>
+
+
+                    <div class="d-flex flex-row justify-content-between align-items-center p-2 me-4 my-2"
+                      style="background: #F3F0FC;position: relative;top: 165px;">
+                      <div class="">
+                        <h4 class="mb-0">Total selected item : 3</h4>
+                      </div>
+                      <div class=""><button class="btn-new" style="height: 30px !important;width: 120px !important;" cdkStepperNext>Check
+                          out</button></div>
+                    </div>
                   </div>
-                  <div class="tab-pane" id="a2-2" role="tabpanel">
+                  <div class="tab-pane" id="a1-2" role="tabpanel">
                     <h1>Admission Info</h1>
                   </div>
-                  <div class="tab-pane" id="a2-3" role="tabpanel">
+                  <div class="tab-pane" id="a1-3" role="tabpanel">
                     <h1>Booking</h1>
                   </div>
-                  <div class="tab-pane" id="a2-4" role="tabpanel">
+                  <div class="tab-pane" id="a1-4" role="tabpanel">
                     <h1>Vetting & Protocoling</h1>
                   </div>
-                  <div class="tab-pane" id="a2-5" role="tabpanel">
+                  <div class="tab-pane" id="a1-5" role="tabpanel">
                     <h1>Materials</h1>
                   </div>
-                  <div class="tab-pane" id="a2-6" role="tabpanel">
+                  <div class="tab-pane" id="a1-6" role="tabpanel">
                     <h1>IV accusses & closure</h1>
+                  </div>
+                  <div class="tab-pane" id="a1-7" role="tabpanel">
+                    <h1>Radiation dose info</h1>
                   </div>
                 </div>
                 <!-- </div> -->
               </div>
-            </div>
-            <div class="tab-pane" id="TabContentA3" role="tabpanel">
-              <div class="tab-pane" role="tabpanel">
-                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
-                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
-                    <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
-                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
-                    </a>
-                  </li>
-                </ul>
-                <div class="tab-content ms-2 mt-2 text-muted">
-                  <div class="tab-pane" id="a3-1" role="tabpanel">
-                    <h1>Request Info</h1>
+              <div class="tab-pane" id="TabContentA2" role="tabpanel">
+                <div class="tab-pane" role="tabpanel">
+                  <!-- <div class="scroll-container" style="overflow-y: scroll;"> -->
+                  <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
+                    style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;">
+                    <li class="nav-items" role="presentation" *ngFor="let x of subTabs[1]">
+                      <a class="navs-link me-2" data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                        <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content ms-2 mt-2 text-muted mt-2">
+                    <div class="tab-pane" id="a2-1" role="tabpanel">
+                      <h1>Request Info</h1>
+                    </div>
+                    <div class="tab-pane" id="a2-2" role="tabpanel">
+                      <h1>Admission Info</h1>
+                    </div>
+                    <div class="tab-pane" id="a2-3" role="tabpanel">
+                      <h1>Booking</h1>
+                    </div>
+                    <div class="tab-pane" id="a2-4" role="tabpanel">
+                      <h1>Vetting & Protocoling</h1>
+                    </div>
+                    <div class="tab-pane" id="a2-5" role="tabpanel">
+                      <h1>Materials</h1>
+                    </div>
+                    <div class="tab-pane" id="a2-6" role="tabpanel">
+                      <h1>IV accusses & closure</h1>
+                    </div>
                   </div>
-                  <div class="tab-pane" id="a3-2" role="tabpanel">
-                    <h1>Admission Info</h1>
+                  <!-- </div> -->
+                </div>
+              </div>
+              <div class="tab-pane" id="TabContentA3" role="tabpanel">
+                <div class="tab-pane" role="tabpanel">
+                  <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
+                    style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                    <li class="nav-items" role="presentation" *ngFor="let x of subTabs[2]">
+                      <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                        <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content ms-2 mt-2 text-muted">
+                    <div class="tab-pane" id="a3-1" role="tabpanel">
+                      <h1>Request Info</h1>
+                    </div>
+                    <div class="tab-pane" id="a3-2" role="tabpanel">
+                      <h1>Admission Info</h1>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="tab-pane" id="TabContentA4" role="tabpanel">
+                <div class="tab-pane" role="tabpanel">
+                  <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
+                    style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
+                    <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
+                      <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
+                        <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
+                        <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
+                      </a>
+                    </li>
+                  </ul>
+                  <div class="tab-content ms-2 mt-2 text-muted">
+                    <div class="tab-pane" id="a4-1" role="tabpanel">
+                      <h1>Request Info</h1>
+                    </div>
+
                   </div>
                 </div>
               </div>
             </div>
-            <div class="tab-pane" id="TabContentA4" role="tabpanel">
-              <div class="tab-pane" role="tabpanel">
-                <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
-                  style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;">
-                  <li class="nav-items" role="presentation" *ngFor="let x of subTabs[3]">
-                    <a class="navs-link " data-bs-toggle="tab" [href]="x.link" role="tab" aria-selected="true">
-                      <span class="d-block d-sm-none"><i class="fas fa-home"></i></span>
-                      <h4 class="name mb-0" style="color: #747474;font-size: 10px !important;">{{x.subtabs}}</h4>
-                    </a>
-                  </li>
-                </ul>
-                <div class="tab-content ms-2 mt-2 text-muted">
-                  <div class="tab-pane" id="a4-1" role="tabpanel">
-                    <h1>Request Info</h1>
-                  </div>
+          </div>
 
+          <div *ngIf="CurrentPatientSelection == false" class="mx-2"
+            style="width: 300px;position: relative;top: 138px;left: 244px;">
+            <div class="d-flex flex-column align-items-center">
+              <div class="mb-3">
+                <img src="assets/images/Patient_Selection.svg" style="width: 100px;height: 100px;">
+              </div>
+              <div class="mb-3">
+                <h1>{{ CurrentPatientDetails.patient_name }}</h1>
+              </div>
+              <div class="mb-3">
+                <h4 style="text-align: center;">
+                  Confirmation of Patient Admission or Rejection Before Initiating Treatment Procedure
+                </h4>
+              </div>
+              <div class="d-flex flex-row justify-content-around" style="width: 100%;">
+                <div>
+                  <button class="btn-red">Cancel</button>
                 </div>
+                <div (click)="SendPatientRequest()">
+                  <button class="btn-new" style="width: 100px !important;">Accept</button>
+                </div>
+              </div>
+              <div>
               </div>
             </div>
           </div>
 
 
         </div>
-      </div>
     </div>
   </div>
 </div>

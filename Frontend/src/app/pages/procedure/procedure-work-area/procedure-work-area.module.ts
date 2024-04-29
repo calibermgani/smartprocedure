@@ -16,7 +16,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TooltipModule } from 'ngx-bootstrap/tooltip';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { NgxSliderModule } from 'ngx-slider-v2';
 import { ProcedureDetailsBookingComponent } from './procedure-details-booking/procedure-details-booking.component';
@@ -52,6 +52,7 @@ import { AgGridModule } from 'ag-grid-angular';
     ModalModule.forRoot(),
     CarouselModule.forRoot(),
     FormsModule,
+    ReactiveFormsModule,
     NgxSliderModule,
     NgSelectModule,
     AgGridModule

@@ -204,6 +204,16 @@ border: none !important;
   border: none !important;
 }
 
+.btn-red{
+  border-radius: 6px !important;
+padding: 6px 20px 6px 20px !important;background: #fff !important;color: #D62424 !important;border: 1px solid #D62424 !important;width: 100px !important;
+}
+
+.btn-red:hover{
+  background-color: #D62424 !important;
+  color: #fff !important;
+}
+
 .btn-2{
   background:#F3F4F8 !important;color: #000 !important;width: auto !important;
   border-radius: 6px !important;

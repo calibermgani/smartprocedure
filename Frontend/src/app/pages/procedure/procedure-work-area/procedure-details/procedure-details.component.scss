@@ -44,10 +44,10 @@
   flex-grow: 0 !important;
 }
 
-.col-9
-{
-  width: 74%;
-}
+// .col-9
+// {
+//   width: 74%;
+// }
 
 ::ng-deep .card-header{
   padding: 3px 10px 3px 10px !important;
@@ -146,4 +146,53 @@
   -webkit-box-shadow: inset 0 0 6px #ECECEC !important;
   border-radius: 10px !important;
   cursor: pointer !important;
+}
+
+.hideViewOnlyArea
+{
+  display: none;
+  width: 1%;
+}
+
+.viewonlymode_header
+{
+  color: #fff !important;background: #594585;width: auto;height: 32px;border-radius: 10px 0px 0px 0px;padding: 8px 9px;
+}
+
+.expandWorkArea
+{
+  width: 100%;
+}
+
+.TabsAlign{
+  position: relative;
+  bottom: 22px;
+  border-left: 1px solid;
+  margin-left: 1.4rem !important;
+}
+
+.ChangeMainTab{
+  margin-left: 0.66rem !important;
+  margin-right: 0.66rem !important;
+  border-radius: 10px 10px 0px 0px !important;
+  .nav-link.active{
+    border-radius: 10px 10px 0px 0px !important;
+  }
+}
+
+.SelectedVetting{
+  background-color: #855EDB !important;
+  border-radius: 6px !important;
+  p{
+    color: #fff !important;
+  }
+}
+
+.protocol_details{
+  padding-right: 40px !important; // Adjust this value to leave space for the image
+  background-image: url('/assets/images/procedure_details.svg') !important;
+  background-repeat: no-repeat !important;
+  background-position: 170px !important; // Adjust the position as needed
+  background-size: 16px 16px !important; // Adjust the size of the image
+  z-index: 1 !important;
 }

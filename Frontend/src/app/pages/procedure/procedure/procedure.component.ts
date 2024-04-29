@@ -6,6 +6,7 @@ import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef 
 import 'ag-grid-enterprise';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 
 @Component({
   selector: 'app-procedure',
@@ -21,6 +22,7 @@ export class ProcedureComponent implements OnInit {
   sortBy_values: string[];
   main_filter_value: string = 'View all';
   CurrentSavedFilter: any;
+  SelectedRowData : any = [];
 
   enabled_edit_btn: boolean;
   enable_edit_feature: boolean = false;
@@ -84,7 +86,7 @@ export class ProcedureComponent implements OnInit {
   };
 
 
-  constructor(private router: Router, private http: HttpClient,private allServices: AllServicesService,private toastr : ToastrService) {
+  constructor(private router: Router, private http: HttpClient,private allServices: AllServicesService,private toastr : ToastrService,private authService : AuthfakeauthenticationService) {
     this.Saved_filter_options = ['Saved filter 1', 'Saved filter 2', 'Saved filter 3', 'Saved filter 4', 'Saved filter 5'];
     this.sortBy_values = ['Priority', 'In Patient', 'Speciality']
   }
@@ -138,28 +140,49 @@ export class ProcedureComponent implements OnInit {
     console.log('event', params);
     this.http.get('assets/json/Procedure_list.json').subscribe((res: any) => {
       console.log('Response Grid', res);
-      let colDefs: ColDef[] = [];
-      colDefs = this.gridOptions1.api?.getColumnDefs();
-      colDefs.length = 0;
-      const keys: any = Object.keys(res[0])
-      keys.forEach((key: any) => {
-        if (key == 'checkboxSelection') {
-          let headerName = '';
-          colDefs.push({ checkboxSelection: true, headerCheckboxSelection: true, width: 50, cellRenderer: this.cellrendered.bind(this, key), headerName: headerName, })
-        }
-        else if(key != 'substatus') {
-          colDefs.push({ field: key, cellRenderer: this.cellrendered.bind(this, key),onCellClicked:this.cellClicked.bind(this,key) })
-        }
-      });
-      console.log('colDefs', colDefs);
-      this.gridOptions1.api?.setColumnDefs(colDefs);
-      this.gridOptions1.api?.setRowData(res);
+      // let colDefs: ColDef[] = [];
+      // colDefs = this.gridOptions1.api?.getColumnDefs();
+      // colDefs.length = 0;
+      // const keys: any = Object.keys(res[0])
+      // keys.forEach((key: any) => {
+      //   if (key == 'checkboxSelection') {
+      //     let headerName = '';
+      //     colDefs.push({ checkboxSelection: true, headerCheckboxSelection: true, width: 50, cellRenderer: this.cellrendered.bind(this, key), headerName: headerName, })
+      //   }
+      //   else if(key != 'substatus') {
+      //     colDefs.push({ field: key, cellRenderer: this.cellrendered.bind(this, key),onCellClicked:this.cellClicked.bind(this,key) })
+      //   }
+      // });
+      // console.log('colDefs', colDefs);
+      // this.gridOptions1.api?.setColumnDefs(colDefs);
+      // this.gridOptions1.api?.setRowData(res);
     })
     this.allServices.GetAllProcedureList().subscribe({
       next:(res:any)=>{
        console.log(res)
        if(res.status == 'Success'){
-        //  this.gridOptions1.api?.setRowData(res.patient_list);
+        console.log('Response Grid', res);
+        let colDefs: ColDef[] = [];
+        colDefs = this.gridOptions1.api?.getColumnDefs();
+        colDefs.length = 0;
+        const keys: any = Object.keys(res.patient_list[0])
+        console.log(keys);
+
+        keys.forEach((key: any) => {
+          console.log(key);
+
+          if (key == 'checkboxSelection') {
+            console.log('IN');
+            let headerName = '';
+            colDefs.push({ checkboxSelection: true, headerCheckboxSelection: true, width: 50, cellRenderer: this.cellrendered.bind(this, key), headerName: headerName })
+          }
+          else if(key != 'id') {
+            colDefs.push({ field: key, cellRenderer: this.cellrendered.bind(this, key),onCellClicked:this.cellClicked.bind(this,key) })
+          }
+        });
+        console.log('colDefs', colDefs);
+        this.gridOptions1.api?.setColumnDefs(colDefs);
+        this.gridOptions1.api?.setRowData(res.patient_list);
        }
       },
       error:(res:any)=>{
@@ -169,15 +192,23 @@ export class ProcedureComponent implements OnInit {
         });
       }
     })
+
+
+    this.SelectedRowData = this.gridApi_1?.getSelectedRows();
+
   }
 
-  cellClicked(headername:any)
+  cellClicked(headername:any,params:any)
   {
     switch(headername)
     {
       case 'Name':
         {
-          this.router.navigate(['/workarea'])
+          let rowData = params.node.data;
+          this.router.navigate(['/workarea']);
+          // this.authService.PassingPatientID(rowData.id);
+          localStorage.setItem('PatientID', rowData.id)
+          console.log(rowData);
         }
     }
   }
@@ -186,7 +217,8 @@ export class ProcedureComponent implements OnInit {
     switch (headerName) {
       case 'Name': {
         if (params.value) {
-          return params.value;
+          const capitalizedStr = params.value.charAt(0).toUpperCase() + params.value.slice(1);
+          return capitalizedStr;
         }
         else
           return '-Nil-';
@@ -236,7 +268,7 @@ export class ProcedureComponent implements OnInit {
         else
           return '-Nil-';
       }
-      case 'Study Id': {
+      case 'Study ID': {
         if (params.value)
           return params.value;
         else
@@ -273,7 +305,7 @@ export class ProcedureComponent implements OnInit {
         else
           return '-Nil-';
       }
-      case 'Study Data and Time': {
+      case 'Study Date And Time': {
         if (params.value)
           return params.value;
         else
@@ -311,6 +343,36 @@ export class ProcedureComponent implements OnInit {
         const assignedTo = rowData.Date;
         console.log('sasasa', assignedTo);
         return `${assignedTo == null ? 'UA' : assignedTo} | ${x}`;
+      }
+      case 'Language':{
+        if (params.value)
+          return params.value;
+        else
+          return '-Nil-';
+      }
+      case 'Blood':{
+        if (params.value)
+          return params.value;
+        else
+          return '-Nil-';
+      }
+      case 'Weight':{
+        if (params.value)
+          return params.value;
+        else
+          return '-Nil-';
+      }
+      case 'Height':{
+        if (params.value)
+          return params.value;
+        else
+          return '-Nil-';
+      }
+      case 'Procedure Name':{
+        if (params.value)
+          return params.value;
+        else
+          return '-Nil-';
       }
     }
   }

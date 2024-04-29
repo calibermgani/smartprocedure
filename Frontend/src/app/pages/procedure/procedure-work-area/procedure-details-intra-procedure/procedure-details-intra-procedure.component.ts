@@ -119,7 +119,6 @@ export class ProcedureDetailsIntraProcedureComponent {
     {
       field: 'item_no',
       headerName:'Item No',
-      width:110,
       filter: "agTextColumnFilter", suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'item_no')
     },
@@ -133,13 +132,11 @@ export class ProcedureDetailsIntraProcedureComponent {
     {
       field: 'qty',
       headerName:'Qty',
-      width:80,
       cellRenderer: AddQuantityComponent,
     },
     {
       field: 'total_qty',
       headerName:'Total Qty',
-      width:120,
       cellStyle:(params:any):any=>{
         return {'text-align':'center'};
       },
@@ -149,14 +146,12 @@ export class ProcedureDetailsIntraProcedureComponent {
     {
       field: 'action',
       headerName:'Action',
-      width:100,
       filter: "agTextColumnFilter",suppressMenu: false,
       cellRenderer: DropDownButtonComponent,
     },
     {
       field: 'note',
       headerName:'Note',
-      width:90,
       filter: "agTextColumnFilter",suppressMenu: false,
       cellRenderer: this.cellRendered.bind(this, 'note'),
       onCellClicked:this.cellClicked.bind(this,'note')
@@ -225,8 +220,8 @@ export class ProcedureDetailsIntraProcedureComponent {
 
 
   ngAfterViewInit(): void {
-    // setTimeout(() => {
-    //   this.StoreItem_Grid.api.sizeColumnsToFit();
-    // }, 2000);
+    setTimeout(() => {
+      this.StoreItem_Grid.api.sizeColumnsToFit();
+    }, 1000);
  }
 }

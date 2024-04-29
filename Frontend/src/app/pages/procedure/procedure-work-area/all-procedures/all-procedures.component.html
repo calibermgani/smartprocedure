@@ -24,14 +24,14 @@ height: 730px;">
   <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true"  *ngIf="VettingCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
-      <p class="step-title">Vetting</p>
+      <p class="step-title">Requesting</p>
     </ng-template>
     <app-procedure-details #stepOne ></app-procedure-details>
   </cdk-step>
   <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true" *ngIf="BookingCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
-      <p class="step-title">Booking</p>
+      <p class="step-title">Schedulling</p>
     </ng-template>
     <app-procedure-details-booking #stepTwo ></app-procedure-details-booking>
   </cdk-step>
