@@ -12,7 +12,7 @@
         {
            "id": 1,
            "subtabs": "Request Info",
-           "active":"active",
+           "active":"",
            "link": "#a1-1"
         },
         {
@@ -30,7 +30,7 @@
         {
            "id": 4,
            "subtabs": "Vetting & Protocoling",
-           "active":"",
+           "active":"active",
            "link": "#a1-4"
         },
         {

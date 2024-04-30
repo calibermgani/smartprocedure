@@ -387,9 +387,9 @@ export class AllItemsTableViewComponent {
 
   timeline_data:any = [];
   ngOnInit(): void {
-    this.http.get('assets/json/timeline.json').subscribe((res: any) => {
-      this.timeline_data = res;
-    });
+    // this.http.get('assets/json/timeline.json').subscribe((res: any) => {
+    //   this.timeline_data = res;
+    // });
   }
 
   public gridApi_1!: GridApi;
@@ -577,6 +577,34 @@ export class AllItemsTableViewComponent {
       }
       case 'histroy':{
         this.Currently_Selected_row = params.data;
+        this.ViewItemData = [];
+        this.allServices.ViewItem(params.data.id).subscribe({
+          next:(res:any)=>{
+            if(res.status == 'Success'){
+              this.ViewItemData = res.data;
+            }
+          },
+          error:(res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          }
+        });
+
+        this.allServices.GetSpecificItemHistory(params.data.id).subscribe({
+          next:(res:any)=>{
+            if(res.status == 'Success'){
+              this.timeline_data = res.data.item_histories;
+            }
+          },
+          error:(res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          }
+        })
         this.OpenModal('histroy');
         break;
       }
@@ -985,6 +1013,7 @@ SelectedItemStatus:string = '';
       case 'delete_modal':{
         this.delete_modal?.hide();
         this.gridApi_1.deselectAll();
+        this.ReasonForm.reset();
         break;
       }
       case 'add_tag':{
@@ -1925,9 +1954,9 @@ SelectedItemStatus:string = '';
     }
   }
 
-  DeleteItemfn(){
+  DeleteItemfn(data:any){
     if(this.Currently_Selected_row){
-      this.allServices.DeleteSingleItem(this.Currently_Selected_row.id).subscribe({
+      this.allServices.DeleteSingleItem(this.Currently_Selected_row.id,data).subscribe({
         next:((res:any)=>{
           if(res.status=='Success'){
             this.toastr.success(`${res.message}`,'Successful',{

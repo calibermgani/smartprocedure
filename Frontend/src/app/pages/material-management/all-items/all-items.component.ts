@@ -591,6 +591,7 @@ export class AllItemsComponent implements OnInit {
       }
       case 'delete_modal':{
         this.delete_modal?.hide();
+        this.ReasonForm.reset();
         break;
       }
       case 'confirmation':{
@@ -1186,12 +1187,12 @@ export class AllItemsComponent implements OnInit {
     this.deleteSubCategoryIndex = data.id;
   }
 
-  DeleteTheCategory(){
+  DeleteTheCategory(data:any){
     console.log(this.deleteCategoryIndex);
     console.log(this.deleteSubCategoryIndex);
 
     if(this.deleteCategoryIndex){
-      this.allServices.DeleteCategory(this.deleteCategoryIndex).subscribe({
+      this.allServices.DeleteCategory(this.deleteCategoryIndex,data).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -1204,6 +1205,7 @@ export class AllItemsComponent implements OnInit {
             let x = this.AllItemsGridAdvanceFilterForm.reset();
             // this.authfakeauthenticationService.PassAllItemsGridPayload(this.AllItemsGridAdvanceFilterForm);
             this.authfakeauthenticationService.ReloadAllItemsGrid(true);
+            this.ReasonForm.reset();
           }
         }),
         error:((res:any)=>{
@@ -1215,7 +1217,7 @@ export class AllItemsComponent implements OnInit {
       })
     }
     else{
-      this.allServices.DeleteSubCategory(this.deleteSubCategoryIndex).subscribe({
+      this.allServices.DeleteSubCategory(this.deleteSubCategoryIndex,data).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
             this.toastr.success(`${res.message}`,'Successful',{
@@ -1228,6 +1230,7 @@ export class AllItemsComponent implements OnInit {
             let x = this.AllItemsGridAdvanceFilterForm.reset();
             // this.authfakeauthenticationService.PassAllItemsGridPayload(this.AllItemsGridAdvanceFilterForm);
             this.authfakeauthenticationService.ReloadAllItemsGrid(true);
+            this.ReasonForm.reset();
           }
         }),
         error:((res:any)=>{
@@ -1289,11 +1292,13 @@ export class AllItemsComponent implements OnInit {
     this.currentview = data;
     this.selectedView = 'table';
     this.enableTab = 'All Items'
+    // this.GetOverAllList();
   }
   ChangeOverAllViewTra(data:any){
     this.currentview = data;
     this.selectedView = 'table';
-    this.enableTab = 'All Items'
+    this.enableTab = 'All Items';
+    this.GetOverAllList();
   }
   ChangeOverAllViewInac(data:any){
     this.GetOverAllList();

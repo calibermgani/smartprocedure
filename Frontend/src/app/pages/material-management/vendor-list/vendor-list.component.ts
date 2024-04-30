@@ -302,8 +302,8 @@ export class VendorListComponent implements OnInit {
     }
   }
 
-  DeleteVendor(){
-    this.allServices.DeleteVendor(this.SelectedVendorId).subscribe({
+  DeleteVendor(data:any){
+    this.allServices.DeleteVendor(this.SelectedVendorId,data).subscribe({
       next:((res:any)=>{
         if(res.status == 'Success'){
           this.toastr.success(`${res.message}`, 'Successful', {

@@ -52,10 +52,10 @@
 
 
           <div class="tab-content mt-1 text-muted">
-            <div class="tab-pane" id="TabContentC1" role="tabpanel">
+            <div class="tab-pane active" id="TabContentC1" role="tabpanel">
               <!-- <div class="tab-pane" role="tabpanel"> -->
               <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified scroll-container" role="tablist"
-                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;height:24px !important">
+                style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;overflow-y: scroll;border-right: 1px solid #8B8B8B!important;height:33px !important">
                 <li class="nav-items" role="presentation" *ngFor="let x of subTabs[0]">
                   <a [class]="'navs-link '+x.active" data-bs-toggle="tab" [href]="x.link" role="tab"
                     aria-selected="true">
@@ -77,8 +77,149 @@
                 <div class="tab-pane" id="c1-4" role="tabpanel">
                   <h1>Vetting & Protocoling</h1>
                 </div>
-                <div class="tab-pane" id="c1-5" role="tabpanel">
-                 <h1>Materials</h1>
+                <div class="tab-pane active show" id="c1-5" role="tabpanel">
+                  <div class="p-0">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="d-flex flex-row justify-content-between align-item-center mx-2 p-2 me-4" style="background: #F3F4F8;border-radius: 6px;">
+                          <div>
+                            <p class="mb-0">Items</p>
+                          </div>
+                          <div class="dropdown d-inline-block pointer storeItem" dropdown [insideClick]="true" #dropdown="bs-dropdown" [ngClass]="{'VisibleStorebutton': hideViewOnlyMode == false }" [isDisabled]="hideViewOnlyMode">
+                            <h4 class="mb-0" dropdownToggle><img src="assets/images/storeItem.svg" class="me-2" >Store Item</h4>
+
+                          <div class="dropdown-menu dropdown-menu-end mb-0" *dropdownMenu >
+                            <div class="row m-2">
+                              <div class="col-12 p-0">
+                                <div class="d-flex align-items-center p-2" style="background: #F3F4F8;border-radius: 8px;">
+                                  <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Store Item
+                                  </h1>
+                                  <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="dropdown?.hide()"
+                                    style="cursor: pointer">
+                                </div>
+                                <div class="d-flex justify-content-between align-items-center flex-wrap flex-row my-2">
+                                  <div class="me-2">
+                                    <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+                                  </div>
+                                  <div class="me-2">
+                                    <select class="form-selects" placeholder="Select Category" style="width: 150px !important;">
+                                      <option>Select</option>
+                                      <option>Large select</option>
+                                      <option>Small select</option>
+                                    </select>
+                                  </div>
+                                  <div class="me-2">
+                                    <button class="btn-new" style="height: 26px !important;
+                                    width: 103px !important;
+                                    padding: 4px !important;">Search</button>
+                                  </div>
+                                </div>
+                                <div class="mt-2">
+                                  <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
+                                    style="width: 100%;height: 233px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef" (selectionChanged)="OnGridSelection($event)"
+                                    [rowData]="StoreItemGridData"></ag-grid-angular>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row justify-content-between align-items-center p-2" style="background-color: #594585;border-radius: 0px 0px 4px 4px;position:relative;top:18px;">
+                              <div class="ms-3"><h4 class="mb-0" style="color: #fff !important;">{{ this.SelectedRowData.length }} items selected</h4></div>
+                              <div class="ms-3"><button class="btn-white" (click)="AddToCart()">Add To Cart</button></div>
+                            </div>
+                          </div>
+
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="ms-1 me-3 mt-2 Outer-border">
+                      <div class="d-flex flex-wrap align-item-center p-2 Outer-border-header">
+                        <div style="width: 50%;"><h1 class="mb-0" style="font-weight: 500 !important;">My Cart</h1></div>
+                        <div class="ms-2" *ngIf="hideViewOnlyMode == true"><h1 class="mb-0" style="font-weight: 500 !important;">Store Item</h1></div>
+                        <!-- <div class="dropdown d-inline-block me-3" dropdown> -->
+                          <!-- <button type="button" class="btn-new header-item noti-icon" id="page-header-notifications-dropdown"
+                            dropdownToggle
+                            style="height:auto !important;width: 100px !important;padding: 6px 12px 6px 12px !important;background: #855EDB !important;">
+                            <i class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i>
+                            Add new
+                          </button> -->
+
+                        <!-- </div> -->
+                      </div>
+                      <div class="row mx-2">
+                      <div class="col-5 pe-2 ps-0 mycart-body" [ngClass]="{'ShowfullCart': hideViewOnlyMode == false }">
+                        <form [formGroup]="MyCartform">
+                          <div class="d-flex flex-column flex-wrap my-3" *ngFor="let x of myCartData;let  i= index">
+                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center mb-1">
+                              <div>
+                                <p class="mb-0">{{ x.item_details ? x.item_details.item_name : '-' }}</p>
+                              </div>
+                              <div (click)="Deleteitem(x.item_details)"><i class="mdi mdi-trash-can-outline pointer"></i></div>
+                            </div>
+                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+                              <div class="d-flex flex-wrap align-items-center">
+                                <img [src]="x.item_id ? 'assets/images/favourite_fill.svg':'assets/images/Fav_stroke.svg'" class="pointer me-2" (click)="AddToFavourite(i , x.item_id)">|
+                                <h4 class="mx-2 mb-0">No :{{ x.item_details ? x.item_details.item_number : '-' }}</h4>|
+                                <h4 class="mx-2 mb-0">No :{{ x.item_details ? x.item_details.size : '-' }}</h4>
+                              </div>
+                              <div class="d-flex">
+                                <button class="btn-new plus-count" (click)="DecreaseItemCount(fields?.[i])"><i
+                                    class="mdi mdi-minus" style="color: #000 !important;font-size: 12px;"></i></button>
+                                <!-- <span class="mx-2" style="background: #fff !important;" >{{ this.IncreaseItemCount_ID == x.item_id ? ItemCount : 0 }}</span> -->
+                                <input type="number" class="form-control-new" [formControlName]="fields?.[i]" style="width: 37px !important;padding: 0px 0px 0px 0px !important;text-align: right !important;font-size: 0.5rem !important;border: none !important;background: #fff !important;" readonly [name]="fields?.[i]">
+                                <button class="btn-new minus-count" (click)="IncreseItemCount(fields?.[i])"><i
+                                    class="mdi mdi-plus" style="color: #fff !important;font-size: 12px;"></i></button>
+                              </div>
+
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+                      <div class="col-7 mycart-body-2" [ngClass]="{'hideStoreItem': hideViewOnlyMode == false }">
+                        <div class="d-flex flex-wrap flex-row my-2">
+                          <div class="me-2">
+                            <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+                          </div>
+                          <div class="me-2">
+                            <select class="form-selects" placeholder="Select Category" >
+                              <option>Select</option>
+                              <option>Large select</option>
+                              <option>Small select</option>
+                          </select>
+                          </div>
+                          <div class="me-2">
+                            <button class="btn-new" style="height: 26px !important;
+                            width: 103px !important;
+                            padding: 4px !important;">Search</button>
+                          </div>
+                        </div>
+
+
+                            <div class="mt-2" style="width: 100%;height: 309px !important;">
+                              <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
+                                style="width: 100%;height: 295px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef" (selectionChanged)="OnGridSelection($event)"
+                                [rowData]="StoreItemGridData"></ag-grid-angular>
+                              <div class="d-flex justify-content-between align-items-center p-2" style="background: #F3F4F8;width:100%;
+                                                                                position: relative;
+                                                                                bottom: 46px;
+                                                                                border-radius: 0px 0px 10px 13px;
+                                                                                border: 1px solid;z-index: 9;">
+                                <div>
+                                  <h4 class="mb-0">{{ this.SelectedRowData.length }} Items selected</h4>
+                                </div>
+                                <div><button class="btn-new" style="height: 30px !important;width: 120px !important;" (click)="AddToCart()">Add to cart</button></div>
+                              </div>
+                            </div>
+
+
+                      </div>
+                    </div>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between align-items-center p-2 me-4 my-2" style="background: #F3F0FC;z-index: 9;">
+                      <div class=""><h4 class="mb-0">Total selected item  :  {{ this.SelectedRowData.length }}</h4></div>
+                      <div class="" (click)="CheckOutSchedulling(this.MyCartform)"><button class="btn-new" style="height: 30px !important;width: 120px !important;" cdkStepperNext>Check out</button></div>
+                    </div>
+                  </div>
                 </div>
                 <div class="tab-pane" id="c1-6" role="tabpanel">
                   <h1>IV accusses & closure</h1>
@@ -124,7 +265,7 @@
                 <!-- </div> -->
               </div>
             </div>
-            <div class="tab-pane active" id="TabContentC3" role="tabpanel">
+            <div class="tab-pane" id="TabContentC3" role="tabpanel">
               <div class="tab-pane" role="tabpanel">
                 <ul class="nav line-tab nav-tabs  nav-tabs-custom nav-justified" role="tablist"
                   style="border-radius: 0px !important;border: 1px solid rgb(255, 255, 255) !important;background: none !important; color: #000 !important;border-right: 1px solid #8B8B8B!important;height:24px !important">
@@ -142,149 +283,8 @@
                   <div class="tab-pane" id="c3-2" role="tabpanel">
                     <h1>Admission Info</h1>
                   </div>
-                  <div class="tab-pane active show" id="c3-e" role="tabpanel">
-                    <div class="p-0">
-                      <div class="row">
-                        <div class="col-12">
-                          <div class="d-flex flex-row justify-content-between align-item-center mx-2 p-2 me-4" style="background: #F3F4F8;border-radius: 6px;">
-                            <div>
-                              <p class="mb-0">Items</p>
-                            </div>
-                            <div class="dropdown d-inline-block pointer storeItem" dropdown [insideClick]="true" #dropdown="bs-dropdown" [ngClass]="{'VisibleStorebutton': hideViewOnlyMode == false }" [isDisabled]="hideViewOnlyMode">
-                              <h4 class="mb-0" dropdownToggle><img src="assets/images/storeItem.svg" class="me-2" >Store Item</h4>
+                  <div class="tab-pane" id="c3-e" role="tabpanel">
 
-                            <div class="dropdown-menu dropdown-menu-end mb-0" *dropdownMenu >
-                              <div class="row m-2">
-                                <div class="col-12 p-0">
-                                  <div class="d-flex align-items-center p-2" style="background: #F3F4F8;border-radius: 8px;">
-                                    <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Store Item
-                                    </h1>
-                                    <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="dropdown?.hide()"
-                                      style="cursor: pointer">
-                                  </div>
-                                  <div class="d-flex justify-content-between align-items-center flex-wrap flex-row my-2">
-                                    <div class="me-2">
-                                      <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
-                                    </div>
-                                    <div class="me-2">
-                                      <select class="form-selects" placeholder="Select Category" style="width: 150px !important;">
-                                        <option>Select</option>
-                                        <option>Large select</option>
-                                        <option>Small select</option>
-                                      </select>
-                                    </div>
-                                    <div class="me-2">
-                                      <button class="btn-new" style="height: 26px !important;
-                                      width: 103px !important;
-                                      padding: 4px !important;">Search</button>
-                                    </div>
-                                  </div>
-                                  <div class="mt-2">
-                                    <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
-                                      style="width: 100%;height: 233px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef" (selectionChanged)="OnGridSelection($event)"
-                                      [rowData]="StoreItemGridData"></ag-grid-angular>
-                                  </div>
-                                </div>
-                              </div>
-                              <div class="d-flex flex-row justify-content-between align-items-center p-2" style="background-color: #594585;border-radius: 0px 0px 4px 4px;position:relative;top:18px;">
-                                <div class="ms-3"><h4 class="mb-0" style="color: #fff !important;">{{ this.SelectedRowData.length }} items selected</h4></div>
-                                <div class="ms-3"><button class="btn-white" (click)="AddToCart()">Add To Cart</button></div>
-                              </div>
-                            </div>
-
-                          </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div class="ms-1 me-3 mt-2 Outer-border">
-                        <div class="d-flex flex-wrap align-item-center p-2 Outer-border-header">
-                          <div style="width: 50%;"><h1 class="mb-0" style="font-weight: 500 !important;">My Cart</h1></div>
-                          <div class="ms-2" *ngIf="hideViewOnlyMode == true"><h1 class="mb-0" style="font-weight: 500 !important;">Store Item</h1></div>
-                          <!-- <div class="dropdown d-inline-block me-3" dropdown> -->
-                            <!-- <button type="button" class="btn-new header-item noti-icon" id="page-header-notifications-dropdown"
-                              dropdownToggle
-                              style="height:auto !important;width: 100px !important;padding: 6px 12px 6px 12px !important;background: #855EDB !important;">
-                              <i class="mdi mdi-plus" style="color: #fff !important;font-size: 15px;"></i>
-                              Add new
-                            </button> -->
-
-                          <!-- </div> -->
-                        </div>
-                        <div class="row mx-2">
-                        <div class="col-5 pe-2 ps-0 mycart-body" [ngClass]="{'ShowfullCart': hideViewOnlyMode == false }">
-                          <form [formGroup]="MyCartform">
-                            <div class="d-flex flex-column flex-wrap my-3" *ngFor="let x of myCartData;let  i= index">
-                              <div class="d-flex flex-row flex-wrap justify-content-between align-items-center mb-1">
-                                <div>
-                                  <p class="mb-0">{{ x.item_details ? x.item_details.item_name : '-' }}</p>
-                                </div>
-                                <div><i class="mdi mdi-trash-can-outline pointer"></i></div>
-                              </div>
-                              <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
-                                <div class="d-flex flex-wrap align-items-center">
-                                  <img [src]="x.item_id ? 'assets/images/favourite_fill.svg':'assets/images/Fav_stroke.svg'" class="pointer me-2" (click)="AddToFavourite(i , x.item_id)">|
-                                  <h4 class="mx-2 mb-0">No :{{ x.item_details ? x.item_details.item_number : '-' }}</h4>|
-                                  <h4 class="mx-2 mb-0">No :{{ x.item_details ? x.item_details.size : '-' }}</h4>
-                                </div>
-                                <div class="d-flex">
-                                  <button class="btn-new plus-count" (click)="DecreaseItemCount(fields?.[i])"><i
-                                      class="mdi mdi-minus" style="color: #000 !important;font-size: 12px;"></i></button>
-                                  <!-- <span class="mx-2" style="background: #fff !important;" >{{ this.IncreaseItemCount_ID == x.item_id ? ItemCount : 0 }}</span> -->
-                                  <input type="number" class="form-control-new" [formControlName]="fields?.[i]" style="width: 37px !important;padding: 0px 0px 0px 0px !important;text-align: right !important;font-size: 0.5rem !important;border: none !important;background: #fff !important;" readonly [name]="fields?.[i]">
-                                  <button class="btn-new minus-count" (click)="IncreseItemCount(fields?.[i])"><i
-                                      class="mdi mdi-plus" style="color: #fff !important;font-size: 12px;"></i></button>
-                                </div>
-
-                              </div>
-                            </div>
-                          </form>
-                        </div>
-                        <div class="col-7 mycart-body-2" [ngClass]="{'hideStoreItem': hideViewOnlyMode == false }">
-                          <div class="d-flex flex-wrap flex-row my-2">
-                            <div class="me-2">
-                              <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
-                            </div>
-                            <div class="me-2">
-                              <select class="form-selects" placeholder="Select Category" >
-                                <option>Select</option>
-                                <option>Large select</option>
-                                <option>Small select</option>
-                            </select>
-                            </div>
-                            <div class="me-2">
-                              <button class="btn-new" style="height: 26px !important;
-                              width: 103px !important;
-                              padding: 4px !important;">Search</button>
-                            </div>
-                          </div>
-
-
-                              <div class="mt-2" style="width: 100%;height: 309px !important;">
-                                <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
-                                  style="width: 100%;height: 295px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef" (selectionChanged)="OnGridSelection($event)"
-                                  [rowData]="StoreItemGridData"></ag-grid-angular>
-                                <div class="d-flex justify-content-between align-items-center p-2" style="background: #F3F4F8;width:100%;
-                                                                                  position: relative;
-                                                                                  bottom: 46px;
-                                                                                  border-radius: 0px 0px 10px 13px;
-                                                                                  border: 1px solid;z-index: 9;">
-                                  <div>
-                                    <h4 class="mb-0">{{ this.SelectedRowData.length }} Items selected</h4>
-                                  </div>
-                                  <div><button class="btn-new" style="height: 30px !important;width: 120px !important;" (click)="AddToCart()">Add to cart</button></div>
-                                </div>
-                              </div>
-
-
-                        </div>
-                      </div>
-                      </div>
-                      <div class="d-flex flex-row justify-content-between align-items-center p-2 me-4 my-2" style="background: #F3F0FC;z-index: 9;">
-                        <div class=""><h4 class="mb-0">Total selected item  :  {{ this.SelectedRowData.length }}</h4></div>
-                        <div class="" (click)="CheckOutSchedulling(this.MyCartform)"><button class="btn-new" style="height: 30px !important;width: 120px !important;" cdkStepperNext>Check out</button></div>
-                      </div>
-                    </div>
                   </div>
                 </div>
               </div>

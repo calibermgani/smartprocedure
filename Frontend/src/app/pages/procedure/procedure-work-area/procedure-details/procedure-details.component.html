@@ -64,8 +64,17 @@
                   </li>
                 </ul>
                 <div class="tab-content ms-2 mt-2 text-muted">
-                  <div class="tab-pane active show" id="a1-1" role="tabpanel">
+                  <div class="tab-pane" id="a1-1" role="tabpanel">
                     <h1>Request Info</h1>
+                  </div>
+                  <div class="tab-pane" id="a1-2" role="tabpanel">
+                    <h1>Admission Info</h1>
+                  </div>
+                  <div class="tab-pane" id="a1-3" role="tabpanel">
+                    <h1>Booking</h1>
+                  </div>
+                  <div class="tab-pane  active show" id="a1-4" role="tabpanel">
+
 
                     <div style="width:100%;border:0.5px solid #8B8B8B;border-radius:6px;margin-top: 10px;">
                       <div class="d-flex justify-content-between align-items-center p-1"
@@ -104,7 +113,7 @@
                     </form>
                     </div>
 
-                    <div style="width:100%;border:0.5px solid #8B8B8B;border-radius:6px;margin-top: 10px;" *ngIf="this.ProtocolTypes.length>0">
+                    <div style="width:100%;border:0.5px solid #8B8B8B;border-radius:6px;margin-top: 10px;" *ngIf="this.ProtocolTypes.length>0 && this.AddProtocolList.length>0">
                       <form [formGroup]="ProtocoingRequestForm">
                       <div class="d-flex justify-content-between align-items-center p-1"
                         style="background-color: #F3F4F8;border-radius: 6px;">
@@ -134,11 +143,11 @@
                         </div>
                         <div style="width: 30%;" class="me-2">
                           <label class="modal-label-edit">Protocol Details</label>
-                          <input type="text" class="form-control protocol_details">
+                          <input type="text" class="form-control protocol_details" formControlName="ProtocolDetails">
                         </div>
                         <div style="width: 30%;" class="me-2">
                           <label class="modal-label-edit">Add your Protocol</label>
-                          <ng-select [items]=""></ng-select>
+                          <ng-select [items]="this.AddProtocolList" formControlName="AddedProtocol"></ng-select>
                         </div>
                       </div>
 
@@ -158,15 +167,8 @@
                       <div class=""><button class="btn-new" style="height: 30px !important;width: 120px !important;" cdkStepperNext>Check
                           out</button></div>
                     </div>
-                  </div>
-                  <div class="tab-pane" id="a1-2" role="tabpanel">
-                    <h1>Admission Info</h1>
-                  </div>
-                  <div class="tab-pane" id="a1-3" role="tabpanel">
-                    <h1>Booking</h1>
-                  </div>
-                  <div class="tab-pane" id="a1-4" role="tabpanel">
-                    <h1>Vetting & Protocoling</h1>
+
+
                   </div>
                   <div class="tab-pane" id="a1-5" role="tabpanel">
                     <h1>Materials</h1>
@@ -257,9 +259,8 @@
               </div>
             </div>
           </div>
-
           <div *ngIf="CurrentPatientSelection == false" class="mx-2"
-            style="width: 300px;position: relative;top: 138px;left: 244px;">
+            style="width: 300px;position: relative;top: 162px;left: 275px;">
             <div class="d-flex flex-column align-items-center">
               <div class="mb-3">
                 <img src="assets/images/Patient_Selection.svg" style="width: 100px;height: 100px;">
@@ -283,10 +284,9 @@
               <div>
               </div>
             </div>
-          </div>
-
-
         </div>
+        </div>
+
     </div>
   </div>
 </div>

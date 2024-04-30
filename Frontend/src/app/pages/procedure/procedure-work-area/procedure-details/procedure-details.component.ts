@@ -39,13 +39,15 @@ export class ProcedureDetailsComponent implements OnInit {
   header_viewOnlymode: any[] = [];
   isFirstOpen: boolean = false;
   value?: string;
-  hideViewOnlyMode : boolean = false;
+  hideViewOnlyMode : boolean = true;
   CurrentPatientSelection : boolean = false;
   CurrentPatientId:any;
   CurrentPatientDetails : any = [];
   VettingTypes : any = [];
   DuplicateProtocolingTypes : any = [];
+  DuplicateAddProtocolingTypes : any = [];
   ProtocolTypes : any = [];
+  AddProtocolList : any = [];
   enableNotes_Vetting:boolean = false;
   enableNotes_Protocoling:boolean = false;
   VettingRequestForm : UntypedFormGroup;
@@ -61,6 +63,8 @@ export class ProcedureDetailsComponent implements OnInit {
 
     this.ProtocoingRequestForm = this.formbuilder.group({
       SelectProtocol : [],
+      ProtocolDetails : [],
+      AddedProtocol : [],
       ProtocolNotes : ['']
     })
    }
@@ -84,7 +88,7 @@ export class ProcedureDetailsComponent implements OnInit {
     let PatientID = localStorage.getItem('PatientID');
 
     if(PatientID){
-      this.patientDetailsSubscription = this.allService.GetSpecificPatientDetails(PatientID).subscribe({
+      this.allService.GetSpecificPatientDetails(PatientID).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
            this.CurrentPatientDetails = res.patient;
@@ -98,6 +102,8 @@ export class ProcedureDetailsComponent implements OnInit {
           });
         })
       });
+
+
     }
   }
 
@@ -116,7 +122,7 @@ export class ProcedureDetailsComponent implements OnInit {
       next:((res:any)=>{
         if(res.status == 'Success'){
          this.CurrentPatientSelection = true;
-         this.hideViewOnlyMode = false;
+        //  this.hideViewOnlyMode = false;
 
         //  VettingTypes
          this.allService.GetVettingTypes().subscribe({
@@ -154,8 +160,25 @@ export class ProcedureDetailsComponent implements OnInit {
           })
         })
 
-
-        }
+        this.allService.GetAddProtocolList().subscribe({
+          next:((res:any)=>{
+            if(res.status == 'Success'){
+              console.log(res);
+             res.add_protocol_types.forEach(element => {
+              this.AddProtocolList.push(element.name);
+              this.DuplicateAddProtocolingTypes.push(element);
+             });
+             console.log(this.AddProtocolList);
+            }
+          }),
+          error:((res:any)=>{
+              this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          })
+        })
+      }
         return 0;
       }),
       error:((res:any)=>{
@@ -221,7 +244,18 @@ export class ProcedureDetailsComponent implements OnInit {
       }
     });
     console.log(ProtocolID);
-    this.allService.SendProtocolRequest(this.CurrentPatientDetails,data.value,ProtocolID).subscribe({
+
+    let AddProtocolID : any = '';
+    let value2 = this.ProtocoingRequestForm.get('AddedProtocol').value;
+    this.DuplicateAddProtocolingTypes.forEach(element => {
+      if(element.name == value2){
+        AddProtocolID = element.id
+      }
+    });
+
+    console.log(AddProtocolID);
+
+    this.allService.SendProtocolRequest(this.CurrentPatientDetails,data.value,ProtocolID,AddProtocolID).subscribe({
       next:((res:any)=>{
         if(res.status == 'Success'){
           this.toastr.success(`${res.message}`, 'Successful', {

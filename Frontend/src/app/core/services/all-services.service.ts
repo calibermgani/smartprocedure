@@ -379,11 +379,12 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/destroy`,payload);
   }
 
-  DeleteSingleItem(data:any){
+  DeleteSingleItem(data:any,formData:any){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["item_id"] = [data];
     payload["deleted_by"] = "1";
+    payload["deleted_reason"] = formData.value.reason2;
     return this.http.post(`${this.apiUrl}/items/destroy`,payload);
   }
 
@@ -476,25 +477,36 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/vendors/update`,payload);
   }
 
-  DeleteCategory(data:any){
+  DeleteCategory(data:any,formData:any){
     let payload:Object = {};
+    console.log(formData);
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["category_id"] = data;
+    payload["deleted_by"] = "1";
+    payload["deleted_reason"] = formData.value.reason2;
+    console.log(payload);
+    // return null;
     return this.http.post(`${this.apiUrl}/categories/destroy`,payload);
   }
 
-  DeleteVendor(data:any){
+  DeleteVendor(data:any,formData:any){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["vendor_id"] = data;
+    payload["deleted_by"] = "1";
+    payload["deleted_reason"] = formData.value.reason2;
     return this.http.post(`${this.apiUrl}/vendors/destroy`,payload);
   }
 
-  DeleteSubCategory(data:any){
+  DeleteSubCategory(data:any,formData:any){
     let payload:Object = {};
+    console.log(formData);
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
     payload["sub_category_id"] = data;
     payload["deleted_by"] = "1";
+    payload["deleted_reason"] = formData.value.reason2;
+    console.log(payload);
+    // return null;
     return this.http.post(`${this.apiUrl}/sub_categories/destroy`,payload);
   }
 
@@ -743,6 +755,13 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/procedures/protocol_types`,payload);
   }
 
+  GetAddProtocolList(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/add_your_protocol`,payload);
+  }
+
+
   SendVettingRequest(PatientDetails:any,vettingnotes:any,vetttingid:any){
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
@@ -755,12 +774,14 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/procedures/store_vetting_request`,payload);
   }
 
-  SendProtocolRequest(PatientDetails:any,protocoleNotes:any,protocoleId:any){
+  SendProtocolRequest(PatientDetails:any,protocoleNotes:any,protocoleId:any,AddProtocolID:any){
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     payload["mrn_number"] = PatientDetails.mrn_no;
     payload["patient_id"] = PatientDetails.id;
     payload["protocol_type_id"] = protocoleId;
+    payload["protocol_details"] = protocoleNotes.ProtocolDetails;
+    payload["add_your_protocol_id"] = AddProtocolID;
     payload["protocol_notes"] = protocoleNotes.ProtocolNotes;
     payload["protocolling_by"] = "1";
     payload["created_by"] = "1";
@@ -791,5 +812,12 @@ export class AllServicesService {
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     return this.http.post(`${this.apiUrl}/procedures/check_list_index`,payload);
+  }
+
+  GetSpecificItemHistory(data:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["item_id"]=data;
+    return this.http.post(`${this.apiUrl}/items/item_history_details`,payload);
   }
 }

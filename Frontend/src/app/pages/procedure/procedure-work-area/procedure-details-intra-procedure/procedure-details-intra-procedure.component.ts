@@ -24,7 +24,7 @@ export class ProcedureDetailsIntraProcedureComponent {
   subTabs: any[] = [];
   header_viewOnlymode: any[] = [];
   myCartData : any = [];
-  hideViewOnlyMode : boolean = false;
+  hideViewOnlyMode : boolean = true;
   StoreItemGridData:any = [
     {
       "item_no":"85327",

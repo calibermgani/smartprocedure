@@ -3,7 +3,7 @@
      "tabs": "Radiology",
      "id": 1,
      "template": "#TabContentB1",
-     "active":"",
+     "active":"active",
      "content": "Dynamic content 1",
      "imgPath":"assets/images/Radiologist.svg",
      "removable": false,
@@ -36,7 +36,7 @@
         {
            "id": 5,
            "subtabs": "Materials",
-           "active":"",
+           "active":"active",
            "link": "#b1-5"
         },
         {
@@ -105,7 +105,7 @@
      "tabs": "Technologist",
      "id": 3,
      "template": "#TabContentB3",
-     "active":"active",
+     "active":"",
      "content": "Dynamic content 3",
      "imgPath":"assets/images/Technologist.svg",
      "removable": false,
@@ -124,7 +124,7 @@
      {
       "id": 3,
       "subtabs": "Materials",
-      "active":"active",
+      "active":"",
       "link": "#b3-3"
      }
      ]

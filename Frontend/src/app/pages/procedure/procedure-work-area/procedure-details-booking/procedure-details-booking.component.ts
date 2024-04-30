@@ -213,6 +213,17 @@ export class ProcedureDetailsBookingComponent {
     this.CreateGroup();
   }
 
+  Deleteitem(item:any){
+    console.log(item);
+    console.log(this.myCartData);
+    this.myCartData.forEach((element,index) => {
+      if(element.item_id == item.id){
+        this.myCartData.splice(index,1);
+      }
+    });
+    console.log(this.myCartData);
+  }
+
   CheckOutSchedulling(formData:any){
     console.log(formData.value);
     let ItemId : any = [];
@@ -247,7 +258,6 @@ export class ProcedureDetailsBookingComponent {
         });
       })
     })
-
   }
 
   IncreaseItemCount_ID:any[] = [] ;

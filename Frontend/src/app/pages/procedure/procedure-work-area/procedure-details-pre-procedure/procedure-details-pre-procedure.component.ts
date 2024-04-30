@@ -23,7 +23,7 @@ export class ProcedureDetailsPreProcedureComponent {
   CurrentPatientDetails : any = [];
   MyCartform : UntypedFormGroup;
   Addtofavourite_bool:boolean = false;
-  hideViewOnlyMode : boolean = false;
+  hideViewOnlyMode : boolean = true;
   StoreItemGridData:any = [];
   isFirstOpen: boolean = false;
   public gridApi_1!: GridApi;
@@ -212,6 +212,17 @@ export class ProcedureDetailsPreProcedureComponent {
     console.log(this.myCartData);
     this.StoreItem_Grid.api?.setRowData(this.StoreItemGridData);
     this.CreateGroup();
+  }
+
+  Deleteitem(item:any){
+    console.log(item);
+    console.log(this.myCartData);
+    this.myCartData.forEach((element,index) => {
+      if(element.item_id == item.id){
+        this.myCartData.splice(index,1);
+      }
+    });
+    console.log(this.myCartData);
   }
 
   CheckOutSchedulling(formData:any){
