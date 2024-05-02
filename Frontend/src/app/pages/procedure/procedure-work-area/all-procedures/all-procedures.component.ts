@@ -1,3 +1,4 @@
+import { CdkStepper } from '@angular/cdk/stepper';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -13,6 +14,7 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 export class AllProceduresComponent implements OnInit {
 
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
+  @ViewChild('stepOne') stepOne!: CdkStepper;
   stepperData: any;
   VettingCondition:boolean = false;
   BookingCondition:boolean = false;

@@ -820,4 +820,11 @@ export class AllServicesService {
     payload["item_id"]=data;
     return this.http.post(`${this.apiUrl}/items/item_history_details`,payload);
   }
+
+  GetIntraProcedureList(data){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]=data;
+    return this.http.post(`${this.apiUrl}/procedures/intra_procedure_index`,payload);
+  }
 }

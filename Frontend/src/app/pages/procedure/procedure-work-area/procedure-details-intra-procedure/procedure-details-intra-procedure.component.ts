@@ -6,6 +6,8 @@ import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef 
 import { AddQuantityComponent } from '../add-quantity/add-quantity.component';
 import { DropDownButtonComponent } from '../drop-down-button/drop-down-button.component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 
@@ -72,6 +74,7 @@ export class ProcedureDetailsIntraProcedureComponent {
     defaultColDef: {
       filter: false,
     },
+    suppressRowClickSelection:true,
     overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
@@ -84,7 +87,7 @@ export class ProcedureDetailsIntraProcedureComponent {
   };
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private allService : AllServicesService,private toastr : ToastrService) { }
 
   ngOnInit() {
     this.http.get('assets/json/main-tabs4.json').subscribe((res: any) => {
@@ -103,9 +106,26 @@ export class ProcedureDetailsIntraProcedureComponent {
 
     this.http.get('assets/json/mycart-data.json').subscribe((res:any)=>{
       this.myCartData = res;
+    });
+
+
+    let PatientID = localStorage.getItem('PatientID');
+
+    this.allService.GetIntraProcedureList(PatientID).subscribe({
+      next:((res:any)=>{
+        if(res){
+          console.log('IntraProcedure',res);
+        this.StoreItemGridData = res.intra_procedure_index;
+        this.StoreItem_Grid.api.sizeColumnsToFit();
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`Something went wrong`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
     })
-
-
   }
 
   columnDefs1: ColDef[] = [
@@ -117,17 +137,17 @@ export class ProcedureDetailsIntraProcedureComponent {
       width:10
     },
     {
-      field: 'item_no',
+      field: 'intra_procedure_items.item_number',
       headerName:'Item No',
       filter: "agTextColumnFilter", suppressMenu: false,
-      cellRenderer: this.cellRendered.bind(this, 'item_no')
+      cellRenderer: this.cellRendered.bind(this, 'intra_procedure_items.item_number')
     },
     {
-      field: 'item_name',
+      field: 'intra_procedure_items.item_name',
       headerName:'Item Name',
       filter: "agTextColumnFilter",suppressMenu: false,
-      cellRenderer: this.cellRendered.bind(this, 'item_name'),
-      onCellClicked:this.cellClicked.bind(this,'item_name')
+      cellRenderer: this.cellRendered.bind(this, 'intra_procedure_items.item_name'),
+      onCellClicked:this.cellClicked.bind(this,'intra_procedure_items.item_name')
     },
     {
       field: 'qty',
@@ -135,13 +155,13 @@ export class ProcedureDetailsIntraProcedureComponent {
       cellRenderer: AddQuantityComponent,
     },
     {
-      field: 'total_qty',
+      field: 'quantity',
       headerName:'Total Qty',
       cellStyle:(params:any):any=>{
         return {'text-align':'center'};
       },
       filter: "agTextColumnFilter",suppressMenu: false,
-      cellRenderer: this.cellRendered.bind(this, 'total_qty')
+      cellRenderer: this.cellRendered.bind(this, 'quantity')
     },
     {
       field: 'action',
@@ -161,29 +181,24 @@ export class ProcedureDetailsIntraProcedureComponent {
 
   cellRendered(headerName: any, params: any) {
     switch (headerName) {
-      case'item_no':{
+      case'intra_procedure_items.item_number':{
         return params.value;
       }
-      case 'item_name': {
+      case 'intra_procedure_items.item_name': {
         return params.value;
       }
 
-      case 'total_qty': {
+      case 'quantity': {
         return params.value;
       }
       case 'note': {
-       if(params.value){
         return `<img src="assets/images/add-new-item.svg" style="width:16px;height:16px">`
-       }
       }
-      case 'action': {
-        return params.value;
-       }
     }
   }
   cellClicked(headerName : any, params:any){
     switch(headerName){
-      case 'item_name':{
+      case 'intra_procedure_items.item_name':{
         this.viewitem?.show();
         break;
       }
@@ -196,7 +211,21 @@ export class ProcedureDetailsIntraProcedureComponent {
 
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
+    let PatientID = localStorage.getItem('PatientID');
 
+    this.allService.GetIntraProcedureList(PatientID).subscribe({
+      next:((res:any)=>{
+        console.log('IntraProcedure',res);
+
+        this.StoreItem_Grid.api.sizeColumnsToFit();
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`Something went wrong`,'UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
   }
 
   onSelectionChanged(params: any) {

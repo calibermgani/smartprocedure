@@ -171,7 +171,7 @@ export class WorkAreaComponent implements OnInit {
     this.addNotesModal?.show();
 
     this.http.get('assets/json/mini-list.json').subscribe((res: any) => {
-      this.miniList_details = res;
+      // this.miniList_details = res;
     });
 
     this.http.get('assets/json/procedure-alerts.json').subscribe((res: any) => {

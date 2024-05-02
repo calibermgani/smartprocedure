@@ -23,33 +23,9 @@
         },
         {
            "id": 3,
-           "subtabs": "Booking",
-           "active":"",
-           "link": "#a1-3"
-        },
-        {
-           "id": 4,
            "subtabs": "Vetting & Protocoling",
            "active":"active",
            "link": "#a1-4"
-        },
-        {
-           "id": 5,
-           "subtabs": "Materials",
-           "active":"",
-           "link": "#a1-5"
-        },
-        {
-           "id": 6,
-           "subtabs": "IV accusses & closure",
-           "active":"",
-           "link": "#a1-6"
-        },
-        {
-           "id": 7,
-           "subtabs": "Radiation dose info",
-           "active":"",
-           "link": "#a1-7"
         }
      ]
   },

@@ -33,8 +33,9 @@
         </div>
       </div>
       <!-- MiniList -->
-      <div class="d-flex mb-2" *ngFor="let x of miniList_details">
-        <div class="flex-shrink-0 align-self-center">
+      <div style="height: 555px;overflow-y: scroll;overflow-x: hidden;">
+      <div class="d-flex mb-2" style="position: relative;top: 250px;justify-content: center;">
+        <!-- <div class="flex-shrink-0 align-self-center"> *ngFor="let x of miniList_details"
           <div class="form-check font-size-16">
             <input id="customCheck" type="checkbox" class="form-check-input" />
             <label class="form-check-label" for="customCheck">&nbsp;</label>
@@ -50,10 +51,12 @@
             <h4 class="me-2">{{x.patient_type}} |</h4>
             <h4 class="me-2" style="color: #855EDB;">{{x.procedue_status}}</h4>
           </div>
-        </div>
+        </div> -->
+        <h1>No Patients to show</h1>
       </div>
+    </div>
       <!-- Footer Buttons -->
-      <div class="card-footer">
+      <div class="">
         <h4 class="mt-2">Patient Seleced: 0</h4>
         <div class="d-flex justify-content-between align-items-center">
           <div class="me-2" style="width: 50% !important;">
@@ -213,22 +216,22 @@
           <img src="assets/images/patient_details_img.svg" class="rounded-circle avatar-xl" alt="100x100"
             style="width: 60px !important;height: 60px !important;">
           <h4 style="border:1px solid #F0EAFF;background: #F0EAFF;padding: 1px 6px 1px 6px !important;border-radius: 38px;position: absolute;
-        top: 6.2rem;">Out patient</h4>
+        top: 6.2rem;">{{ CurrentPatientDetails.patient_type }}</h4>
         </div>
         <div class="flex-grow-1 ms-3 mt-2 align-items-center">
           <h1 style="font-size: 14px !important;font-weight: 500 !important;color: #1B1B1B !important;" class="mb-1">
-            Swapnaja Shirode</h1>
-          <p style="color: #747474 !important;">MRN : 519626</p>
+            {{ CurrentPatientDetails.patient_name }}</h1>
+          <p style="color: #747474 !important;">MRN : {{ CurrentPatientDetails.mrn_no }}</p>
         </div>
       </div>
       <div class="row mx-2 mt-4">
         <div class="col-3">
           <h4 style="color: #747474;">Gender</h4>
-          <p style="color: #1B1B1B;">Male</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.gender }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">DOB</h4>
-          <p style="color: #1B1B1B;">02/11/98</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.dob }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">Patient Type</h4>
@@ -242,7 +245,7 @@
       <div class="row mx-2 mt-1">
         <div class="col-3">
           <h4 style="color: #747474;">Age</h4>
-          <p style="color: #1B1B1B;">22</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.age }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">Blood</h4>
