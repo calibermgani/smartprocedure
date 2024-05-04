@@ -63,7 +63,7 @@
                     </a>
                   </li>
                 </ul>
-                <div class="tab-content ms-2 mt-2 text-muted">
+                <div class="tab-content ms-2 mt-2  me-2 text-muted">
                   <div class="tab-pane" id="a1-1" role="tabpanel">
                     <h1>Request Info</h1>
                   </div>
@@ -113,7 +113,7 @@
                     </form>
                     </div>
 
-                    <div style="width:100%;border:0.5px solid #8B8B8B;border-radius:6px;margin-top: 10px;" *ngIf="this.ProtocolTypes.length>0 && this.AddProtocolList.length>0">
+                    <div style="width:100%;border:0.5px solid #8B8B8B;border-radius:6px;margin-top: 10px;" *ngIf="this.ProtocolTypes.length >= 0">
                       <form [formGroup]="ProtocoingRequestForm">
                       <div class="d-flex justify-content-between align-items-center p-1"
                         style="background-color: #F3F4F8;border-radius: 6px;">
@@ -160,11 +160,11 @@
 
 
                     <div class="d-flex flex-row justify-content-between align-items-center p-2 me-4 my-2"
-                      style="background: #F3F0FC;position: relative;top: 225px;">
+                      style="background: #F3F0FC;position: absolute;bottom: 0px;width: 99%;">
                       <!-- <div class="">
                         <h4 class="mb-0">Total selected item : 3</h4>
                       </div> -->
-                      <div class=""><button class="btn-new" style="height: 30px !important;width: 120px !important;">Check
+                      <div class="ms-auto"><button class="btn-new" style="height: 30px !important;width: 120px !important;" cdkStepperNext>Check
                           out</button></div>
                     </div>
 

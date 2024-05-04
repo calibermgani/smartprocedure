@@ -150,27 +150,32 @@
                       <div class="col-5 pe-2 ps-0 mycart-body" [ngClass]="{'ShowfullCart': hideViewOnlyMode == false }">
                         <form [formGroup]="MyCartform">
                           <div class="d-flex flex-column flex-wrap my-3" *ngFor="let x of myCartData;let  i= index">
-                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center mb-1">
-                              <div>
-                                <p class="mb-0">{{ x.item_details ? x.item_details.item_name : '-' }}</p>
+                            <div *ngIf="x.item_details">
+                              <div class="d-flex flex-row flex-wrap justify-content-between align-items-center mb-1">
+                                <div>
+                                  <p class="mb-0">{{ x.item_details ? x.item_details.item_name : '-' }}</p>
+                                </div>
+                                <div (click)="Deleteitem(x.item_details)"><i class="mdi mdi-trash-can-outline pointer"></i></div>
                               </div>
-                              <div (click)="Deleteitem(x.item_details)"><i class="mdi mdi-trash-can-outline pointer"></i></div>
-                            </div>
-                            <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
-                              <div class="d-flex flex-wrap align-items-center">
-                                <img [src]="x.item_id ? 'assets/images/favourite_fill.svg':'assets/images/Fav_stroke.svg'" class="pointer me-2" (click)="AddToFavourite(i , x.item_id)">|
-                                <h4 class="mx-2 mb-0">No :{{ x.item_details ? x.item_details.item_number : '-' }}</h4>|
-                                <h4 class="mx-2 mb-0">No :{{ x.item_details ? x.item_details.size : '-' }}</h4>
-                              </div>
-                              <div class="d-flex">
-                                <button class="btn-new plus-count" (click)="DecreaseItemCount(fields?.[i])"><i
-                                    class="mdi mdi-minus" style="color: #000 !important;font-size: 12px;"></i></button>
-                                <!-- <span class="mx-2" style="background: #fff !important;" >{{ this.IncreaseItemCount_ID == x.item_id ? ItemCount : 0 }}</span> -->
-                                <input type="number" class="form-control-new" [formControlName]="fields?.[i]" style="width: 37px !important;padding: 0px 0px 0px 0px !important;text-align: right !important;font-size: 0.5rem !important;border: none !important;background: #fff !important;" readonly [name]="fields?.[i]">
-                                <button class="btn-new minus-count" (click)="IncreseItemCount(fields?.[i])"><i
-                                    class="mdi mdi-plus" style="color: #fff !important;font-size: 12px;"></i></button>
-                              </div>
+                              <div class="d-flex flex-row flex-wrap justify-content-between align-items-center">
+                                <div class="d-flex flex-wrap align-items-center">
+                                  <img [src]="x.item_id ? 'assets/images/favourite_fill.svg':'assets/images/Fav_stroke.svg'" class="pointer me-2"
+                                    (click)="AddToFavourite(i , x.item_id)">|
+                                  <h4 class="mx-2 mb-0">No :{{ x.item_details ? x.item_details.item_number : '-' }}</h4>|
+                                  <h4 class="mx-2 mb-0">Size :{{ x.item_details ? x.item_details.size : '-' }}</h4>
+                                </div>
+                                <div class="d-flex">
+                                  <button class="btn-new plus-count" (click)="DecreaseItemCount(fields?.[i])"><i class="mdi mdi-minus"
+                                      style="color: #000 !important;font-size: 12px;"></i></button>
+                                  <!-- <span class="mx-2" style="background: #fff !important;" >{{ this.IncreaseItemCount_ID == x.item_id ? ItemCount : 0 }}</span> -->
+                                  <input type="number" class="form-control-new" [formControlName]="fields?.[i]"
+                                    style="width: 37px !important;padding: 0px 0px 0px 0px !important;text-align: right !important;font-size: 0.5rem !important;border: none !important;background: #fff !important;"
+                                    readonly [name]="fields?.[i]">
+                                  <button class="btn-new minus-count" (click)="IncreseItemCount(fields?.[i])"><i class="mdi mdi-plus"
+                                      style="color: #fff !important;font-size: 12px;"></i></button>
+                                </div>
 
+                              </div>
                             </div>
                           </div>
                         </form>
@@ -217,7 +222,7 @@
                     </div>
                     <div class="d-flex flex-row justify-content-between align-items-center p-2 me-4 my-2" style="background: #F3F0FC;z-index: 9;">
                       <div class=""><h4 class="mb-0">Total selected item  :  {{ this.SelectedRowData.length }}</h4></div>
-                      <div class="" (click)="CheckOutSchedulling(this.MyCartform)"><button class="btn-new" style="height: 30px !important;width: 120px !important;">Check out</button></div>
+                      <div class="" (click)="CheckOutSchedulling(this.MyCartform)"><button class="btn-new" style="height: 30px !important;width: 120px !important;" cdkStepperNext>Check out</button></div>
                     </div>
                   </div>
                 </div>

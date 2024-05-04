@@ -1,4 +1,4 @@
-import { CdkStepper } from '@angular/cdk/stepper';
+import { CdkStepper, StepperSelectionEvent } from '@angular/cdk/stepper';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
@@ -21,6 +21,7 @@ export class AllProceduresComponent implements OnInit {
   PreProcedureCondition:boolean = false;
   IntraProcedureCondition:boolean = false;
   PostProcedureCondition:boolean = false;
+  SelectedComponent : number = 0;
   procedureAlertsData:any;
   myCartData: any = [];
   StoreItemGridData:any = [
@@ -74,6 +75,33 @@ export class AllProceduresComponent implements OnInit {
   };
 
   constructor(private http: HttpClient) {
+  }
+
+  onStepSelectionChange(event: StepperSelectionEvent) {
+    console.log('Event',event);
+    // Identify the selected step and call the corresponding API
+    switch (event.selectedIndex) {
+      case 0:
+        this.SelectedComponent = 0;
+        // Call API for step 0
+        break;
+      case 1:
+        this.SelectedComponent = 1;
+        // Call API for step 1
+        break;
+      case 2:
+        this.SelectedComponent = 2;
+        // Call API for step 2
+        break;
+      case 3:
+        this.SelectedComponent = 3;
+        // Call API for step 3
+        break;
+      case 4:
+        this.SelectedComponent = 4;
+        // Call API for step 4
+        break;
+    }
   }
 
   ngOnInit() {

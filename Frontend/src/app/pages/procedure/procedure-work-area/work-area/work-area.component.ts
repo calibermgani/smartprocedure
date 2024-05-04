@@ -425,6 +425,9 @@ export class WorkAreaComponent implements OnInit {
   GoBackToProcedureList()
   {
     localStorage.removeItem('PatientID');
+    localStorage.removeItem('Procedure');
+    localStorage.removeItem('MRN_NO');
+    localStorage.removeItem('ExamStatus');
     this.router.navigateByUrl('/procedure');
   }
 }

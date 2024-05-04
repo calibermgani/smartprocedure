@@ -207,7 +207,10 @@ export class ProcedureComponent implements OnInit {
           let rowData = params.node.data;
           this.router.navigate(['/workarea']);
           // this.authService.PassingPatientID(rowData.id);
-          localStorage.setItem('PatientID', rowData.id)
+          localStorage.setItem('PatientID', rowData["id"])
+          localStorage.setItem('Procedure', rowData["Procedure Name"]);
+          localStorage.setItem('MRN_NO', rowData["MRN"]);
+          localStorage.setItem('ExamStatus', rowData["Exam Status"]);
           console.log(rowData);
         }
     }

@@ -1,6 +1,6 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { HttpBackend, HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { TabDirective } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
@@ -34,6 +34,7 @@ interface SubTab {
 export class ProcedureDetailsComponent implements OnInit {
 
   @Input() StageValue: any;
+  @Input() SelectedIndex : any;
   mainTabsValue: any = [];
   subTabs: any[] = [];
   header_viewOnlymode: any[] = [];
@@ -84,27 +85,6 @@ export class ProcedureDetailsComponent implements OnInit {
     this.http.get('assets/json/viewOnlyMode.json').subscribe((res: any) => {
       this.header_viewOnlymode = res;
     });
-
-    let PatientID = localStorage.getItem('PatientID');
-
-    if(PatientID){
-      this.allService.GetSpecificPatientDetails(PatientID).subscribe({
-        next:((res:any)=>{
-          if(res.status == 'Success'){
-           this.CurrentPatientDetails = res.patient;
-          }
-          return 0;
-        }),
-        error:((res:any)=>{
-            this.toastr.error(`Something went wrong`,'UnSuccessful',{
-            positionClass: 'toast-top-center',
-            timeOut:2000,
-          });
-        })
-      });
-
-
-    }
   }
 
   CloseViewOnlyMode() {
@@ -160,24 +140,24 @@ export class ProcedureDetailsComponent implements OnInit {
           })
         })
 
-        this.allService.GetAddProtocolList().subscribe({
-          next:((res:any)=>{
-            if(res.status == 'Success'){
-              console.log(res);
-             res.add_protocol_types.forEach(element => {
-              this.AddProtocolList.push(element.name);
-              this.DuplicateAddProtocolingTypes.push(element);
-             });
-             console.log(this.AddProtocolList);
-            }
-          }),
-          error:((res:any)=>{
-              this.toastr.error(`Something went wrong`,'UnSuccessful',{
-              positionClass: 'toast-top-center',
-              timeOut:2000,
-            });
-          })
-        })
+        // this.allService.GetAddProtocolList().subscribe({
+        //   next:((res:any)=>{
+        //     if(res.status == 'Success'){
+        //       console.log(res);
+        //      res.add_protocol_types.forEach(element => {
+        //       this.AddProtocolList.push(element.name);
+        //       this.DuplicateAddProtocolingTypes.push(element);
+        //      });
+        //      console.log(this.AddProtocolList);
+        //     }
+        //   }),
+        //   error:((res:any)=>{
+        //       this.toastr.error(`Something went wrong`,'UnSuccessful',{
+        //       positionClass: 'toast-top-center',
+        //       timeOut:2000,
+        //     });
+        //   })
+        // })
       }
         return 0;
       }),
@@ -273,6 +253,81 @@ export class ProcedureDetailsComponent implements OnInit {
         });
       })
     })
+  }
 
+  // ngOnChanges(changes: SimpleChanges): void {
+  //   //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
+  //   //Add '${implements OnChanges}' to the class.
+  //   console.log('Changes',changes);
+  // }
+
+  ngAfterViewInit(): void {
+    console.log('Selected Index',this.SelectedIndex);
+
+    if(this.SelectedIndex == 0){
+      let PatientID = localStorage.getItem('PatientID');
+      if(PatientID){
+        this.allService.GetSpecificPatientDetails(PatientID).subscribe({
+          next:((res:any)=>{
+            if(res.status == 'Success'){
+             this.CurrentPatientDetails = res.patient;
+            }
+            return 0;
+          }),
+          error:((res:any)=>{
+              this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          })
+        });
+      }
+    }
+    let ExamStatus = localStorage.getItem('ExamStatus');
+    console.log(ExamStatus);
+
+    if(ExamStatus == 'Accepted'){
+      this.CurrentPatientSelection = true;
+
+       //  VettingTypes
+       this.allService.GetVettingTypes().subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            console.log(res);
+            this.VettingTypes = res.vetting_types;
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+       })
+
+      //  Protocol Types
+       this.allService.GetProtocolTypes().subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            console.log(res);
+           res.protocol_types.forEach(element => {
+            this.ProtocolTypes.push(element.name);
+            this.DuplicateProtocolingTypes.push(element);
+           });
+           console.log(this.ProtocolTypes);
+          }
+        }),
+        error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      })
+
+    }
+    else{
+      this.CurrentPatientSelection = false;
+    }
   }
 }

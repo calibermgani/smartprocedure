@@ -1,6 +1,6 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, ViewChild } from '@angular/core';
+import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SelectionChangedEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
@@ -16,6 +16,7 @@ export class ProcedureDetailsBookingComponent {
 
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
   @ViewChild('cdkStepper') stepper !: CdkStepper;
+  @Input() SelectedIndex : any;
   @Input() StageValue: any;
   mainTabsValue: any = [];
   subTabs: any[] = [];
@@ -75,39 +76,6 @@ export class ProcedureDetailsBookingComponent {
     // this.http.get('assets/json/mycart-data.json').subscribe((res:any)=>{
     //   this.myCartData = res;
     // })
-
-    let PatientID = localStorage.getItem('PatientID');
-    this.allService.GetSpecificPatientDetails(PatientID).subscribe({
-      next:((res:any)=>{
-        if(res.status == 'Success'){
-         this.CurrentPatientDetails = res.patient;
-        }
-        return 0;
-      }),
-      error:((res:any)=>{
-          this.toastr.error(`Something went wrong`,'UnSuccessful',{
-          positionClass: 'toast-top-center',
-          timeOut:2000,
-        });
-      })
-    });
-
-    this.allService.GetMyCartDetails(this.CurrentPatientDetails).subscribe({
-      next:((res:any)=>{
-        if(res.status == 'Success'){
-          console.log(res);
-          this.myCartData = res.my_cart.procedure_item;
-          this.CreateGroup();
-        }
-      }),
-      error:((res:any)=>{
-        this.toastr.error('Something went wrong','UnSuccessful',{
-          positionClass: 'toast-top-center',
-          timeOut:2000,
-        });
-      })
-    })
-
   }
 
   columnDefs1: ColDef[] = [
@@ -236,8 +204,10 @@ export class ProcedureDetailsBookingComponent {
     console.log(ItemId);
     console.log(Quantity);
 
-
-    this.allService.StoreShoppingCartSchedulling(this.CurrentPatientDetails,ItemId,Quantity,'Schedulling').subscribe({
+    let PatientID = localStorage.getItem('PatientID');
+    let procedurename = localStorage.getItem('Procedure');
+    let MRN_NO = localStorage.getItem('MRN_NO');
+    this.allService.StoreShoppingCartSchedulling(PatientID,MRN_NO,procedurename,ItemId,Quantity,'Schedulling').subscribe({
       next:((res:any)=>{
         if(res.status == 'Success'){
           console.log(res);
@@ -285,24 +255,50 @@ export class ProcedureDetailsBookingComponent {
     }
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('changes',changes.SelectedIndex.currentValue);
+    if(changes.SelectedIndex.currentValue ==1){
+      let PatientID = localStorage.getItem('PatientID');
+      let procedurename = localStorage.getItem('Procedure');
+      let MRN_NO = localStorage.getItem('MRN_NO');
+      this.allService.GetMyCartDetails(procedurename).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            this.myCartData = res.my_cart.procedure_item;
+            this.CreateGroup();
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error('Something went wrong','UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      })
+      this.allService.GetAllItemsGrid().subscribe({
+        next:((res:any)=>{
+          this.StoreItemGridData = res.data;
+          this.StoreItem_Grid.api?.setRowData(this.StoreItemGridData);
+          console.log(this.StoreItemGridData);
+          // this.tempGridData = this.all_Items_gridData;
+          return;
+        }),
+        error:((res:any)=>{
+          this.toastr.error('Something went wrong', 'UnSuccessful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+        })
+      })
+      this.StoreItem_Grid.api?.sizeColumnsToFit();
+    }
+  }
 
   ngAfterViewInit(): void {
-    this.allService.GetAllItemsGrid().subscribe({
-      next:((res:any)=>{
-        this.StoreItemGridData = res.data;
-        this.StoreItem_Grid.api?.setRowData(this.StoreItemGridData);
-        console.log(this.StoreItemGridData);
-        // this.tempGridData = this.all_Items_gridData;
-        return;
-      }),
-      error:((res:any)=>{
-        this.toastr.error('Something went wrong', 'UnSuccessful', {
-          positionClass: 'toast-top-center',
-          timeOut: 2000,
-        });
-      })
-    })
-    this.StoreItem_Grid.api?.sizeColumnsToFit();
+    // console.log('SelectedIndex',this.SelectedIndex);
+    // if(this.SelectedIndex == 1){
+
+    // }
  }
 
  createObject : Object;
