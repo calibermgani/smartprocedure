@@ -138,3 +138,10 @@
   background: #fff;
   border:1px solid #BEBEBF !important;
 }
+.import_images{
+  padding-left: 3px; // Adjust this value to match the width of your icon
+  background-image: url('/assets/images/Download.svg') !important; // Replace with your icon's URL
+  background-repeat: no-repeat !important;
+  background-position: 120px !important; // Adjust the position of the icon
+  background-size: 20px !important;
+}

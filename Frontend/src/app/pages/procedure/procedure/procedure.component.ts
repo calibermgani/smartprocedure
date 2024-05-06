@@ -398,4 +398,11 @@ export class ProcedureComponent implements OnInit {
     this.show_advanced_filtes = false;
     this.reduce_size = false;
   }
+
+  selectedFile :any;
+  selectedFileChange(e: any) {
+    this.selectedFile = e.target.files[0];
+    console.log(this.selectedFile);
+
+}
 }
