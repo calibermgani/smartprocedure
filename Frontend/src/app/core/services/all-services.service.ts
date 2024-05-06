@@ -832,4 +832,18 @@ export class AllServicesService {
     console.log(payload);
     return this.http.post(`${this.apiUrl}/procedures/intra_procedure_index`,payload);
   }
+
+  ImportPatientExcel(data:any){
+    let formData = new FormData;
+    formData.append("token","1a32e71a46317b9cc6feb7388238c95d");
+    formData.append("attachment", data);
+    formData.forEach((value, key) => {
+      const values = formData.getAll(key);
+      console.log(`${key}: ${values}`);
+      console.log('KEY',typeof(key));
+      console.log('VALUES',typeof(values));
+    });
+    // return null;
+    return this.http.post(`${this.apiUrl}/procedures/patient_import`,formData);
+  }
 }

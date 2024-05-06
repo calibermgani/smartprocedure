@@ -399,10 +399,61 @@ export class ProcedureComponent implements OnInit {
     this.reduce_size = false;
   }
 
-  selectedFile :any;
-  selectedFileChange(e: any) {
+  selectedFile: any;
+  selectedFileChange2(e: any) {
     this.selectedFile = e.target.files[0];
     console.log(this.selectedFile);
+    this.allServices.ImportPatientExcel(this.selectedFile).subscribe({
+      next: ((res: any) => {
+        console.log(res);
+        if (res.status == 'Success') {
+          this.toastr.success(`${res.message}`, 'Successful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+          this.allServices.GetAllProcedureList().subscribe({
+            next:(res:any)=>{
+             console.log(res)
+             if(res.status == 'Success'){
+              console.log('Response Grid', res);
+              let colDefs: ColDef[] = [];
+              colDefs = this.gridOptions1.api?.getColumnDefs();
+              colDefs.length = 0;
+              const keys: any = Object.keys(res.patient_list[0])
+              console.log(keys);
 
-}
+              keys.forEach((key: any) => {
+                console.log(key);
+
+                if (key == 'checkboxSelection') {
+                  console.log('IN');
+                  let headerName = '';
+                  colDefs.push({ checkboxSelection: true, headerCheckboxSelection: true, width: 50, cellRenderer: this.cellrendered.bind(this, key), headerName: headerName })
+                }
+                else if(key != 'id') {
+                  colDefs.push({ field: key, cellRenderer: this.cellrendered.bind(this, key),onCellClicked:this.cellClicked.bind(this,key) })
+                }
+              });
+              console.log('colDefs', colDefs);
+              this.gridOptions1.api?.setColumnDefs(colDefs);
+              this.gridOptions1.api?.setRowData(res.patient_list);
+             }
+            },
+            error:(res:any)=>{
+              this.toastr.error('Something went wrong', 'UnSuccessful', {
+                positionClass: 'toast-top-center',
+                timeOut: 2000,
+              });
+            }
+          })
+        }
+      }),
+      error: ((res: any) => {
+        this.toastr.error('Something went wrong', 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      })
+    })
+  }
 }
