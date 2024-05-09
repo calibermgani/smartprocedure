@@ -1,0 +1,346 @@
+<div class="cards">
+  <div style="width: 100% !important;height: 730px;">
+    <div style=" position: relative;
+    left: 1px;
+    top: 27px;
+    border-bottom: 1px solid #747474;
+    padding-bottom: 44px;
+    width: 100%;
+    z-index: 1 !important;">
+      <h1 class="header-title">New Patient registration</h1>
+    </div>
+    <ng-stepper #cdkStepper [linear]="true" style="width: 100% !important;position: relative;top: -85px !important"
+      (selectionChange)="onStepSelectionChange($event)">
+      <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true">
+        <ng-template cdkStepLabel>
+          <p class="step-title new mb-2">Personal Details</p>
+          <p class="step-title1 mb-2">Step 1</p>
+          <div class="step-bullet">
+            <span style="position: absolute;font-size: 5rem !important;top: -68px;" class="dot">.</span>
+          </div>
+        </ng-template>
+        <div #stepOne>
+          <div class="d-flex">
+            <h1 class="header_name_bold">Personal details</h1>
+          </div>
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+            <div class="row">
+              <div class="col-12 pt-3">
+                <label for="items_category" class="register-label">Profile</label>
+                <div style="border: 1px solid #c0c0c0;width: 101px;height: 101px;border-radius: 50% !important;">
+                  <div class="position-relative d-inline-block">
+                    <div class="position-absolute" style="left: 63px !important;bottom: -8px !important;">
+                      <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Select Image">
+                        <div class="avatar-xs">
+                          <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16">
+                            <i class='bx bxs-image-alt'></i>
+                          </div>
+                        </div>
+                      </label>
+                      <input class="form-control d-none" value="" id="project-image-input" type="file"
+                        accept="image/png, image/gif, image/jpeg" (change)="AddImage($event)">
+                    </div>
+                    <div class="avatar-lg" style="height: 6rem !important;width: 6rem !important;border-radius: 50% !important;">
+                      <div class="avatar-title"
+                        style="width: 100px;height: 100px;background: transparent;border-radius: 50% !important;">
+                        <img [src]="this.ProfileImage" id="projectlogo-img" class="avatar-md h-auto"
+                          style="height: 98px !important;width: 98px;border-radius: 50% !important;" *ngIf="showImage == true">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">First Name:</label>
+                <div class="d-flex">
+                  <div style="border: 0.5px solid #BEBEBF;border-radius: 6px 0px 0px 6px;border-right: none !important"> <select
+                      class="form-select" id="autoSizingInputGroup"
+                      style="background-color: transparent !important;height: 35px !important;padding: 0.47rem 0.75rem !important;width: min-content !important;color: #000 !important;font-size: 0.8rem !important;">
+                      <option value="Mr">Mr</option>
+                      <option value="Ms">Ms</option>
+                    </select></div>
+                  <div style="width: 100%;"><input type="text" class="form-control" placeholder="Enter First Name"
+                      style="border-radius: 0px 6px 6px 0px !important;"></div>
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Middle name:</label>
+                <input type="text" class="form-control" placeholder="Enter Middle Name">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Surname:</label>
+                <input type="text" class="form-control" placeholder="Enter Surname">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <!-- <div class="col-4">
+                        <label for="items_category" class="register-label">Title:</label>
+                        <input type="text" class="form-control" placeholder="Enter text">
+                      </div>
+                      <div class="col-4">
+                        <label for="items_category" class="register-label">Location:</label>
+                        <input type="text" class="form-control" placeholder="Enter text" >
+                      </div> -->
+              <div class="col-4">
+                <label for="items_category" class="register-label">Name of Partner:</label>
+                <input type="text" class="form-control" placeholder="Enter text">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Name of children:</label>
+                <input type="text" class="form-control" placeholder="Enter text">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Occupation:</label>
+                <input type="text" class="form-control" placeholder="Enter Occupation">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4">
+                <div class="d-flex">
+                  <div style="width: 50%;" class="me-2">
+                    <label for="items_category" class="register-label">DOB:</label>
+                    <input type="text" placeholder="Select Date" class="form-control" bsDatepicker
+                      [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }"
+                      formControlName="ExpiryDate" appPreventSpaces>
+                  </div>
+                  <div style="width: 50%;">
+                    <label for="items_category" class="register-label">Age:</label>
+                    <input type="number" placeholder="Enter your age" class="form-control" appPreventSpaces>
+                  </div>
+                </div>
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Language:</label>
+                <ng-select [items]="['English','Arabic']" placeholder="Select the Language"></ng-select>
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Referred by:</label>
+                <input type="text" class="form-control" placeholder="Enter text">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4">
+                <div class="d-flex">
+                  <div style="width: 50%;">
+                    <label for="items_category" class="register-label">Gender:</label>
+                    <div class="d-flex flex-wrap">
+                      <div class="form-check form-check-inline" style="display: flex;align-items: center;">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
+                          style="width: 1.5em !important;height: 1.5em !important;">
+                        <label class="form-check-label ms-2" for="inlineRadio1">Male</label>
+                      </div>
+                      <div class="form-check form-check-inline" style="display: flex;align-items: center;">
+                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
+                          style="width: 1.5em !important;height: 1.5em !important;">
+                        <label class="form-check-label ms-2" for="inlineRadio2">Female</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div style="width: 50%;">
+                    <label for="items_category" class="register-label">Martial Status:</label>
+                    <ng-select [items]="['Married','Unmarried','Divorced']" formControlName="Tags" placeholder="Select Status"></ng-select>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex footer_button float-end">
+            <!-- <div><button class="btn-red me-2" >Reset</button></div> -->
+            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext>Next</button></div>
+          </div>
+        </div>
+      </cdk-step>
+      <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true">
+        <ng-template cdkStepLabel>
+          <p class="step-title new mb-2">Contact Details</p>
+          <p class="step-title1 mb-2">Step 2</p>
+          <div class="step-bullet">
+            <span style="position: absolute;font-size: 5rem !important;top: -68px;;" class="dot">.</span>
+          </div>
+        </ng-template>
+        <div #stepTwo>
+          <div class="d-flex">
+            <h1 class="header_name_bold">Contact Details</h1>
+          </div>
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">Primary Telephone:</label>
+                <input type="number" class="form-control" placeholder="Enter Telephone Number">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Primary Email:</label>
+                <input type="text" class="form-control" placeholder="Enter email">
+              </div>
+            </div>
+          </div>
+          <div class="d-flex footer_button float-end">
+            <div><button class="btn-red me-2" cdkStepperPrevious>Previous</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext>Next</button></div>
+          </div>
+        </div>
+      </cdk-step>
+      <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="true">
+        <ng-template cdkStepLabel>
+          <p class="step-title new mb-2">Address</p>
+          <p class="step-title1 mb-2">Step 3</p>
+          <div class="step-bullet">
+            <span style="position: absolute;font-size: 5rem !important;top: -68px;;" class="dot">.</span>
+          </div>
+        </ng-template>
+        <div #stepThree>
+          <div class="d-flex">
+            <h1 class="header_name_bold">Address</h1>
+          </div>
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">Type:</label>
+               <ng-select [items]="['In Patient','Out Patient']" placeholder="Select Patient type"></ng-select>
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Flat Unit No:</label>
+                <input type="text" class="form-control" placeholder="Enter Flat No">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Street No:</label>
+                <input type="text" class="form-control" placeholder="Enter Street No">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">Street Name:</label>
+                <input type="text" class="form-control" placeholder="Enter Street Name">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Suburb:</label>
+                <input type="text" class="form-control" placeholder="Enter Suburb">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Town city:</label>
+                <input type="text" class="form-control" placeholder="Enter city">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">State:</label>
+               <ng-select [items]="[]" placeholder="Select the State "></ng-select>
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Post Code:</label>
+                <input type="text" class="form-control" placeholder="Enter text">
+              </div>
+            </div>
+          </div>
+          <div class="d-flex footer_button float-end">
+            <div><button class="btn-red me-2" cdkStepperPrevious>Previous</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext>Next</button></div>
+          </div>
+        </div>
+      </cdk-step>
+      <cdk-step [stepControl]="stepFour.stepFourForm" [optional]="true">
+        <ng-template cdkStepLabel>
+          <p class="step-title new mb-2">Health Details</p>
+          <p class="step-title1 mb-2">Step 4</p>
+          <div class="step-bullet">
+            <span style="position: absolute;font-size: 5rem !important;top: -68px;;" class="dot">.</span>
+          </div>
+        </ng-template>
+        <div #stepFour>
+          <div class="d-flex">
+            <h1 class="header_name_bold">Health Details</h1>
+          </div>
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">Blood Group:</label>
+                <ng-select [items]="['A+','A-','B+','B-','O+','O-','AB+','AB-']" placeholder="Select the Blood Group"></ng-select>
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Height:</label>
+                <input type="text" class="form-control" placeholder="Enter your height">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Weight:</label>
+                <input type="text" class="form-control" placeholder="Enter your weight">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">Blood Pressure:</label>
+                <input type="text" class="form-control" placeholder="Enter your blood pressure">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Heart beat:</label>
+                <input type="text" class="form-control" placeholder="Enter your heart beat">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Temperature:</label>
+                <input type="text" class="form-control" placeholder="Enter your temperature">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">SPO2:</label>
+                <input type="text" class="form-control" placeholder="Enter your SPO2 rate">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Respiratory rate:</label>
+                <input type="text" class="form-control" placeholder="Enter your respiratory rate">
+              </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Speciality:</label>
+                <input type="text" class="form-control" placeholder="Enter text">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-4">
+                <label for="items_category" class="register-label">Priority:</label>
+                <ng-select [items]="['Emergency','Routine','Other']" placeholder="Select Value"></ng-select>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex footer_button float-end">
+            <div><button class="btn-red me-2" cdkStepperPrevious>Previous</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext>Next</button></div>
+          </div>
+        </div>
+      </cdk-step>
+      <cdk-step [stepControl]="stepFive.stepFiveForm" [optional]="true">
+        <ng-template cdkStepLabel>
+          <p class="step-title new mb-2">Other Details</p>
+          <p class="step-title1 mb-2">Step 5</p>
+          <div class="step-bullet">
+            <span style="position: absolute;font-size: 5rem !important;top: -68px;;" class="dot">.</span>
+          </div>
+        </ng-template>
+        <div #stepFive>
+          <div class="d-flex">
+            <h1 class="header_name_bold">Other Details</h1>
+          </div>
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+            <div class="row mt-4">
+              <div class="col-12">
+                <label for="items_category" class="register-label">Client Information:</label>
+              <input type="text" class="form-control" placeholder="Enter text" style="width: 90%;height: 100px;">
+              </div>
+            </div>
+            <div class="row mt-4">
+              <div class="col-12">
+                <label for="items_category" class="register-label">Notes:</label>
+              <input type="text" class="form-control" placeholder="Enter text" style="width: 90%;height: 100px;">
+              </div>
+            </div>
+          </div>
+          <div class="d-flex footer_button float-end">
+            <div><button class="btn-red me-2" cdkStepperPrevious>Previous</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;">Submit</button></div>
+          </div>
+        </div>
+      </cdk-step>
+    </ng-stepper>
+  </div>
+</div>

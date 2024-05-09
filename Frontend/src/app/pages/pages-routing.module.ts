@@ -22,6 +22,7 @@ const routes: Routes = [
   { path: 'workarea', loadChildren: () => import('./procedure/procedure-work-area/procedure-work-area.module').then(m => m.ProcedureWorkAreaModule), canActivate: [AuthGuard] },
   { path: 'staff-management', loadChildren: () => import('./staff-management/staff-management.module').then(m => m.StaffManagementModule), canActivate: [AuthGuard] },
   { path: 'material-management', loadChildren: () => import('./material-management/material-management.module').then(m => m.MaterialManagementModule), canActivate: [AuthGuard] },
+  { path: 'patient-registration', loadChildren: () => import('./patient-registration/patient-registration.module').then(m => m.PatientRegistrationModule), canActivate: [AuthGuard] },
 ];
 
 @NgModule({

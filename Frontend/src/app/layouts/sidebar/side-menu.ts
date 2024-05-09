@@ -23,24 +23,24 @@ export const SIDEMENU: MenuItem[] = [
     icon: 'mdi mdi-account-circle',
     link: 'procedure',
   },
-  {
-    id: 5,
-    label: 'CALENDER',
-    icon: 'mdi mdi-calendar',
-    link: 'calender',
-  },
-  {
-    id: 6,
-    label: 'CHAT',
-    icon: 'mdi mdi-send',
-    link: 'chat',
-  },
-  {
-    id: 7,
-    label: 'CHECKLIST',
-    icon: 'mdi mdi-format-list-checkbox',
-    link: 'checklist',
-  },
+  // {
+  //   id: 5,
+  //   label: 'CALENDER',
+  //   icon: 'mdi mdi-calendar',
+  //   link: 'calender',
+  // },
+  // {
+  //   id: 6,
+  //   label: 'CHAT',
+  //   icon: 'mdi mdi-send',
+  //   link: 'chat',
+  // },
+  // {
+  //   id: 7,
+  //   label: 'CHECKLIST',
+  //   icon: 'mdi mdi-format-list-checkbox',
+  //   link: 'checklist',
+  // },
   {
     id: 8,
     label: 'STAFF',
@@ -58,6 +58,12 @@ export const SIDEMENU: MenuItem[] = [
     label: 'SETTINGS',
     icon: 'mdi mdi-cog-outline',
     link: 'settings',
+  },
+  {
+    id: 10,
+    label: 'Register',
+    icon: 'mdi mdi-human-child',
+    link: 'patient-registration/register',
   }
 ];
 

@@ -456,4 +456,42 @@ export class ProcedureComponent implements OnInit {
       })
     })
   }
+
+  ReloadGrid(){
+    this.allServices.GetAllProcedureList().subscribe({
+      next:(res:any)=>{
+       console.log(res)
+       if(res.status == 'Success'){
+        console.log('Response Grid', res);
+        let colDefs: ColDef[] = [];
+        colDefs = this.gridOptions1.api?.getColumnDefs();
+        colDefs.length = 0;
+        const keys: any = Object.keys(res.patient_list[0])
+        console.log(keys);
+
+        keys.forEach((key: any) => {
+          console.log(key);
+
+          if (key == 'checkboxSelection') {
+            console.log('IN');
+            let headerName = '';
+            colDefs.push({ checkboxSelection: true, headerCheckboxSelection: true, width: 50, cellRenderer: this.cellrendered.bind(this, key), headerName: headerName })
+          }
+          else if(key != 'id' || key != 'town_city' || key !='state' || key != 'patient_source_from') {
+            colDefs.push({ field: key, cellRenderer: this.cellrendered.bind(this, key),onCellClicked:this.cellClicked.bind(this,key) })
+          }
+        });
+        console.log('colDefs', colDefs);
+        this.gridOptions1.api?.setColumnDefs(colDefs);
+        this.gridOptions1.api?.setRowData(res.patient_list);
+       }
+      },
+      error:(res:any)=>{
+        this.toastr.error('Something went wrong', 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      }
+    })
+  }
 }

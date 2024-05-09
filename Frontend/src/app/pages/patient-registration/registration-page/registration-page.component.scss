@@ -1,0 +1,217 @@
+.start-0 {
+  left: 0% !important;
+  }
+  .start-20{
+    left: 20% !important
+  }
+  .start-40{
+    left: 40% !important
+  }
+  .start-60{
+    left: 60% !important
+  }
+  .start-80{
+    left: 80% !important
+  }
+
+
+  ::ng-deep .step.active .step-bullet{
+    // background-color: #E45112 !important;
+    z-index: 1 !important;
+    color:#855EDB !important;
+    border:0.2rem solid #855EDB !important;
+    height: 32px !important;
+    width: 32px !important;
+    padding: 0px !important;
+    // top: 4px !important;
+    .dot{
+      top: -70px !important;
+    }
+  }
+  ::ng-deep .stepper-header .steps .step .step-bullet{
+    height: 32px !important;
+    width: 32px !important;
+    z-index: 1 !important;
+    padding: 0px !important;
+    // top: 4px !important;
+    .dot{
+      top: -70px ;
+    }
+  }
+
+  ::ng-deep .step.active{
+    // background-color: #fff !important;
+    .new{
+      color: #855EDB !important;
+    }
+    .step-title1{
+      color: #855EDB !important;
+    }
+  }
+
+  ::ng-deep .step.completed{
+    .new{
+      color: #855EDB !important;
+    }
+    .step-title1{
+      color: #855EDB !important;
+    }
+
+  }
+
+
+  ::ng-deep .step.completed .step-bullet{
+    border:0.2rem solid #855EDB !important;
+    z-index: 1 !important;
+    color:#855EDB !important;
+    background-color: #855EDB !important;
+
+    .dot{
+      top: -70px !important;
+      background-image: url('/assets/images/tick_icon.svg') !important;
+      background-size: 16px !important;
+      background-position: 0px 76px !important;
+      background-repeat: no-repeat;
+      color:transparent !important;
+    }
+  }
+
+  ::ng-deep .step.completed.new{
+      color: #855EDB !important;
+  }
+  ::ng-deep .step.completed.step-title1{
+    color: #855EDB !important;
+  }
+
+  .step-bullet{
+    z-index: 1 !important;
+  }
+
+  ::ng-deep .stepper-header{
+    // margin:  0px -256px 0px -256px !important;
+    // margin:  0px -30px 0px 30px !important;
+    padding-top: 50px !important;
+    width: 55%;
+    margin-left: 300px;
+    margin-top: -3px;
+    position: relative;
+  }
+
+  ::ng-deep .step{
+    width: 50.33% !important;
+    left: 0% !important;
+    right: 0% !important;
+    padding: 0px !important;
+  }
+
+  ::ng-deep .step:after{
+    z-index: auto !important;
+    top: 45% !important;
+    // background: #E45112 !important;
+  }
+  ::ng-deep .stepper-body{
+    margin: 41px 0px 0px 0px  !important;
+    height: 595px !important;
+    // padding: 12px 0px 0px 0px !important;
+    .content{
+      transform: none !important;
+    }
+  }
+
+  ::ng-deep .step.completed + .step::after{
+    background-color: #855EDB !important;
+  }
+
+  ::ng-deep ol{
+    padding: 0px !important;
+  }
+
+  ::ng-deep .main-content .content{
+    padding:0px !important;
+    margin-top: 0px !important;
+  }
+
+  option
+  {
+    font-size: 14px !important;
+  }
+
+  .step-bullet{
+  background: #fff !important;
+  border: 1px solid #000 !important;
+  color: #000 !important;
+  height: 20px !important;
+  width: 20px !important;
+  padding-bottom: 12px !important;
+  }
+
+  ::ng-deep .stepper-header .steps{
+    width: 100% !important;
+    list-style: none !important;
+    display: inline-flex !important;
+    margin: 0 auto !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+  }
+
+  .step-title{
+    position: absolute !important;
+    right: 0 !important;
+    bottom: 89px !important;
+    left: 80px !important;
+    margin: 0px 0px 0px 7px !important;
+    height: 0 !important;
+    text-align: left !important;
+    width: max-content !important;
+    color: #ABABAB !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+
+  .step-title1{
+    position: absolute !important;
+    right: 0 !important;
+    bottom: 59px !important;
+    left: 80px !important;
+    margin: 0px 0px 0px 7px !important;
+    height: 0 !important;
+    width: max-content !important;
+    text-align: left!important;
+    color: #ABABAB !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+  }
+
+  ::ng-deep .step.completed + .step::after{
+    .new{
+      color: #855EDB !important;
+    }
+    .step-title1{
+      color: #855EDB !important;
+    }
+  }
+
+  .header-title{
+    font-size: 24px !important;
+    font-weight: 600 !important;
+    color: #1b1b1b !important;
+    width: 217px !important;
+    position: relative;
+    left: 12px;
+  }
+  :host ::ng-deep .ng-select-container
+  {
+    background: #fff;
+    border:1px solid #BEBEBF !important;
+  }
+  // ::ng-deep .stepper-header .steps .step .step-bullet{
+  //   background-image: url('assets/images/stepper_registration_img.svg') !important;
+  //   padding-left: 3px; // Adjust this value to match the width of your icon
+  //   background-repeat: no-repeat !important;
+  //   background-position: 2px !important; // Adjust the position of the icon
+  //   background-size: 10px !important;
+  // }
+
+  :host ::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
+    background-color: #fff !important;
+  }
