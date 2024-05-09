@@ -63,7 +63,7 @@ export const SIDEMENU: MenuItem[] = [
     id: 10,
     label: 'Register',
     icon: 'mdi mdi-human-child',
-    link: 'patient-registration/register',
+    link: 'patient-registration/patient_list',
   }
 ];
 

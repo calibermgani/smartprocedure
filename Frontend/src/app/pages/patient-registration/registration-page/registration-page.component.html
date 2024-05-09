@@ -11,7 +11,7 @@
     </div>
     <ng-stepper #cdkStepper [linear]="true" style="width: 100% !important;position: relative;top: -85px !important"
       (selectionChange)="onStepSelectionChange($event)">
-      <cdk-step [stepControl]="stepOne.stepOneForm" [optional]="true">
+      <cdk-step [stepControl]="stepOne.personaldetailsform" [optional]="true">
         <ng-template cdkStepLabel>
           <p class="step-title new mb-2">Personal Details</p>
           <p class="step-title1 mb-2">Step 1</p>
@@ -20,10 +20,11 @@
           </div>
         </ng-template>
         <div #stepOne>
+          <form [formGroup]="personaldetailsform">
           <div class="d-flex">
             <h1 class="header_name_bold">Personal details</h1>
           </div>
-          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="mt-2">
             <div class="row">
               <div class="col-12 pt-3">
                 <label for="items_category" class="register-label">Profile</label>
@@ -54,25 +55,52 @@
             </div>
             <div class="row mt-4">
               <div class="col-4">
-                <label for="items_category" class="register-label">First Name:</label>
+                <label for="items_category" class="register-label">First Name:<span style="color: red;">*</span></label>
                 <div class="d-flex">
-                  <div style="border: 0.5px solid #BEBEBF;border-radius: 6px 0px 0px 6px;border-right: none !important"> <select
-                      class="form-select" id="autoSizingInputGroup"
-                      style="background-color: transparent !important;height: 35px !important;padding: 0.47rem 0.75rem !important;width: min-content !important;color: #000 !important;font-size: 0.8rem !important;">
+                  <div style="border: 0.5px solid #BEBEBF;border-radius: 6px 0px 0px 6px;border-right: none !important">
+                    <select class="form-select" id="autoSizingInputGroup"
+                      style="background-color: transparent !important;height: 35px !important;padding: 0.47rem 0.75rem !important;width: min-content !important;color: #000 !important;font-size: 0.8rem !important;"
+                      formControlName="title" appPreventSpaces>
                       <option value="Mr">Mr</option>
                       <option value="Ms">Ms</option>
-                    </select></div>
-                  <div style="width: 100%;"><input type="text" class="form-control" placeholder="Enter First Name"
-                      style="border-radius: 0px 6px 6px 0px !important;"></div>
+                      <option value="Mrs">Mrs</option>
+                    </select>
+                  </div>
+                  <div style="width: 100%;">
+                    <input type="text" class="form-control" placeholder="Enter First Name" formControlName=first_name
+                      style="border-radius: 0px 6px 6px 0px !important;" appPreventSpaces>
+                  </div>
+                </div>
+                <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.personaldetailsform.controls.first_name.dirty || this.personaldetailsform.controls.first_name.touched) && this.personaldetailsform.controls.first_name.errors?.required">
+                    Please fill the field</div>
+                  <div
+                    *ngIf="(this.personaldetailsform.controls.first_name.dirty || this.personaldetailsform.controls.first_name.touched) && this.personaldetailsform.controls.first_name.errors?.pattern">
+                    First Name should be in alphabets.</div>
+                  <div
+                    *ngIf="(this.personaldetailsform.controls.first_name.dirty || this.personaldetailsform.controls.first_name.touched) && this.personaldetailsform.controls.first_name.errors?.maxlength">
+                    First Name should not be more than 50 characters</div>
                 </div>
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Middle name:</label>
-                <input type="text" class="form-control" placeholder="Enter Middle Name">
+                <input type="text" class="form-control" placeholder="Enter Middle Name" formControlName="middle_name" appPreventSpaces>
               </div>
               <div class="col-4">
-                <label for="items_category" class="register-label">Surname:</label>
-                <input type="text" class="form-control" placeholder="Enter Surname">
+                <label for="items_category" class="register-label">Surname: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" placeholder="Enter Surname" formControlName="last_name" appPreventSpaces>
+                <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.personaldetailsform.controls.last_name.dirty || this.personaldetailsform.controls.last_name.touched) && this.personaldetailsform.controls.last_name.errors?.required">
+                    Please fill the field</div>
+                  <div
+                    *ngIf="(this.personaldetailsform.controls.last_name.dirty || this.personaldetailsform.controls.last_name.touched) && this.personaldetailsform.controls.last_name.errors?.pattern">
+                    First Name should be in alphabets.</div>
+                  <div
+                    *ngIf="(this.personaldetailsform.controls.last_name.dirty || this.personaldetailsform.controls.last_name.touched) && this.personaldetailsform.controls.last_name.errors?.maxlength">
+                    First Name should not be more than 50 characters</div>
+                </div>
               </div>
             </div>
             <div class="row mt-4">
@@ -86,74 +114,100 @@
                       </div> -->
               <div class="col-4">
                 <label for="items_category" class="register-label">Name of Partner:</label>
-                <input type="text" class="form-control" placeholder="Enter text">
+                <input type="text" class="form-control" placeholder="Enter text" formControlName="partner_name" >
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Name of children:</label>
-                <input type="text" class="form-control" placeholder="Enter text">
+                <input type="text" class="form-control" placeholder="Enter text" formControlName="children_name">
               </div>
               <div class="col-4">
-                <label for="items_category" class="register-label">Occupation:</label>
-                <input type="text" class="form-control" placeholder="Enter Occupation">
+                <label for="items_category" class="register-label">Occupation: <span style="color: red;">*</span></label>
+                <input type="text" class="form-control" placeholder="Enter Occupation" formControlName="occupation">
+                <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.personaldetailsform.controls.occupation.dirty || this.personaldetailsform.controls.occupation.touched) && this.personaldetailsform.controls.occupation.errors?.required">
+                    Please fill the field</div>
+                </div>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-4">
                 <div class="d-flex">
                   <div style="width: 50%;" class="me-2">
-                    <label for="items_category" class="register-label">DOB:</label>
+                    <label for="items_category" class="register-label">DOB: <span style="color: red;">*</span></label>
                     <input type="text" placeholder="Select Date" class="form-control" bsDatepicker
                       [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }"
-                      formControlName="ExpiryDate" appPreventSpaces>
+                      formControlName="dob" appPreventSpaces>
+                      <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                        <div
+                          *ngIf="(this.personaldetailsform.controls.dob.dirty || this.personaldetailsform.controls.dob.touched) && this.personaldetailsform.controls.dob.errors?.required">
+                          Please fill the field</div>
+                      </div>
                   </div>
                   <div style="width: 50%;">
-                    <label for="items_category" class="register-label">Age:</label>
-                    <input type="number" placeholder="Enter your age" class="form-control" appPreventSpaces>
+                    <label for="items_category" class="register-label">Age: <span style="color: red;">*</span></label>
+                    <input type="number" placeholder="Enter your age" class="form-control" appPreventSpaces formControlName="age">
+                    <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                      <div
+                        *ngIf="(this.personaldetailsform.controls.age.dirty || this.personaldetailsform.controls.age.touched) && this.personaldetailsform.controls.age.errors?.required">
+                        Please fill the field</div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Language:</label>
-                <ng-select [items]="['English','Arabic']" placeholder="Select the Language"></ng-select>
+                <ng-select [items]="['English','Arabic']" placeholder="Select the Language" formControlName="language" multiple="true" appPreventSpaces></ng-select>
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Referred by:</label>
-                <input type="text" class="form-control" placeholder="Enter text">
+                <input type="text" class="form-control" placeholder="Enter text" formControlName="referred_by">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-4">
                 <div class="d-flex">
                   <div style="width: 50%;">
-                    <label for="items_category" class="register-label">Gender:</label>
+                    <label for="items_category" class="register-label">Gender: <span style="color: red;">*</span></label>
                     <div class="d-flex flex-wrap">
                       <div class="form-check form-check-inline" style="display: flex;align-items: center;">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="option1"
-                          style="width: 1.5em !important;height: 1.5em !important;">
+                        <input class="form-check-input" type="radio" id="inlineRadio1" value="Male"
+                          style="width: 1.5em !important;height: 1.5em !important;" formControlName="gender">
                         <label class="form-check-label ms-2" for="inlineRadio1">Male</label>
                       </div>
                       <div class="form-check form-check-inline" style="display: flex;align-items: center;">
-                        <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="option2"
-                          style="width: 1.5em !important;height: 1.5em !important;">
+                        <input class="form-check-input" type="radio" id="inlineRadio2" value="Female"
+                          style="width: 1.5em !important;height: 1.5em !important;" formControlName="gender" >
                         <label class="form-check-label ms-2" for="inlineRadio2">Female</label>
                       </div>
                     </div>
+                    <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                      <div
+                        *ngIf="(this.personaldetailsform.controls.gender.dirty || this.personaldetailsform.controls.gender.touched) && this.personaldetailsform.controls.gender.errors?.required">
+                        Please select atleast one gender</div>
+                    </div>
                   </div>
                   <div style="width: 50%;">
-                    <label for="items_category" class="register-label">Martial Status:</label>
-                    <ng-select [items]="['Married','Unmarried','Divorced']" formControlName="Tags" placeholder="Select Status"></ng-select>
+                    <label for="items_category" class="register-label">Martial Status:<span style="color: red;">*</span></label>
+                    <ng-select [items]="['Married','Unmarried','Divorced']" formControlName="martial_status" placeholder="Select Status" appPreventSpaces></ng-select>
+                    <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                      <div
+                        *ngIf="(this.personaldetailsform.controls.martial_status.dirty || this.personaldetailsform.controls.martial_status.touched) && this.personaldetailsform.controls.martial_status.errors?.required">
+                        Please fill the field</div>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div class="d-flex footer_button float-end">
-            <!-- <div><button class="btn-red me-2" >Reset</button></div> -->
-            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext>Next</button></div>
+            <div><button class="btn-red me-2" (click)="BackToPatientList()">Cancel</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext [disabled]="this.personaldetailsform.invalid" (click)="AddPersonalDetails(this.personaldetailsform.value)">Next</button></div>
           </div>
+        </form>
         </div>
       </cdk-step>
-      <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true">
+      <cdk-step [stepControl]="stepTwo.contactDetailsform" [optional]="true">
         <ng-template cdkStepLabel>
           <p class="step-title new mb-2">Contact Details</p>
           <p class="step-title1 mb-2">Step 2</p>
@@ -162,28 +216,46 @@
           </div>
         </ng-template>
         <div #stepTwo>
+          <form [formGroup]="contactDetailsform">
           <div class="d-flex">
             <h1 class="header_name_bold">Contact Details</h1>
           </div>
-          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="mt-2">
             <div class="row mt-4">
               <div class="col-4">
-                <label for="items_category" class="register-label">Primary Telephone:</label>
-                <input type="number" class="form-control" placeholder="Enter Telephone Number">
+                <label for="items_category" class="register-label">Primary Telephone:<span style="color: red;">*</span></label>
+                <input type="text" class="form-control" placeholder="Enter Telephone Number" formControlName="telephone_number" appPreventSpaces>
+                <div *ngIf="this.contactDetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.contactDetailsform.controls.telephone_number.dirty || this.contactDetailsform.controls.telephone_number.touched) && this.contactDetailsform.controls.telephone_number.errors?.required">
+                    Please fill the field</div>
+                  <div
+                    *ngIf="(this.contactDetailsform.controls.telephone_number.dirty || this.contactDetailsform.controls.telephone_number.touched) && this.contactDetailsform.controls.telephone_number.errors?.pattern">
+                    Telephone Number should not be in alphabets.</div>
+                </div>
               </div>
               <div class="col-4">
-                <label for="items_category" class="register-label">Primary Email:</label>
-                <input type="text" class="form-control" placeholder="Enter email">
+                <label for="items_category" class="register-label">Primary Email:<span style="color: red;">*</span></label>
+                <input type="text" class="form-control" placeholder="Enter email" formControlName="email">
+                <div *ngIf="this.contactDetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.contactDetailsform.controls.email.dirty || this.contactDetailsform.controls.email.touched) && this.contactDetailsform.controls.email.errors?.required">
+                    Please fill the field</div>
+                  <div
+                    *ngIf="(this.contactDetailsform.controls.email.dirty || this.contactDetailsform.controls.email.touched) && this.contactDetailsform.controls.email.errors?.email">
+                    Please fill the valid email.</div>
+                </div>
               </div>
             </div>
           </div>
           <div class="d-flex footer_button float-end">
             <div><button class="btn-red me-2" cdkStepperPrevious>Previous</button></div>
-            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext>Next</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext [disabled]="this.contactDetailsform.invalid" (click)="AddContactDetails(this.contactDetailsform.value)">Next</button></div>
           </div>
+        </form>
         </div>
       </cdk-step>
-      <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="true">
+      <cdk-step [stepControl]="stepThree.addressform" [optional]="true">
         <ng-template cdkStepLabel>
           <p class="step-title new mb-2">Address</p>
           <p class="step-title1 mb-2">Step 3</p>
@@ -192,56 +264,73 @@
           </div>
         </ng-template>
         <div #stepThree>
+          <form [formGroup]="addressform">
           <div class="d-flex">
             <h1 class="header_name_bold">Address</h1>
           </div>
-          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="mt-2">
             <div class="row mt-4">
               <div class="col-4">
-                <label for="items_category" class="register-label">Type:</label>
-               <ng-select [items]="['In Patient','Out Patient']" placeholder="Select Patient type"></ng-select>
+                <label for="items_category" class="register-label">Type:<span style="color: red;">*</span></label>
+               <ng-select [items]="['Permanent','Temproary']" placeholder="Select Patient type" formControlName="addresstype" appPreventSpaces></ng-select>
+               <div *ngIf="this.addressform.invalid" class="invalid-feedback">
+                <div
+                  *ngIf="(this.addressform.controls.addresstype.dirty || this.addressform.controls.addresstype.touched) && this.addressform.controls.addresstype.errors?.required">
+                  Please Select the field</div>
+              </div>
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Flat Unit No:</label>
-                <input type="text" class="form-control" placeholder="Enter Flat No">
+                <input type="text" class="form-control" placeholder="Enter Flat No" formControlName="flatNo">
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Street No:</label>
-                <input type="text" class="form-control" placeholder="Enter Street No">
+                <input type="text" class="form-control" placeholder="Enter Street No" formControlName="StreetNo">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-4">
-                <label for="items_category" class="register-label">Street Name:</label>
-                <input type="text" class="form-control" placeholder="Enter Street Name">
+                <label for="items_category" class="register-label">Street Name:<span style="color: red;">*</span></label>
+                <input type="text" class="form-control" placeholder="Enter Street Name" formControlName="StreetName">
+                <div *ngIf="this.addressform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.addressform.controls.StreetName.dirty || this.addressform.controls.StreetName.touched) && this.addressform.controls.StreetName.errors?.required">
+                    Please fill the field</div>
+                </div>
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Suburb:</label>
-                <input type="text" class="form-control" placeholder="Enter Suburb">
+                <input type="text" class="form-control" placeholder="Enter Suburb" formControlName="suburb">
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Town city:</label>
-                <input type="text" class="form-control" placeholder="Enter city">
+                <input type="text" class="form-control" placeholder="Enter city" formControlName="town">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-4">
                 <label for="items_category" class="register-label">State:</label>
-               <ng-select [items]="[]" placeholder="Select the State "></ng-select>
+               <ng-select [items]="['Abu Dhabi','Dubai','Sharjah','Umm Al Qaiwain','Fujairah','Ajman','Ras Al Khaimah']" placeholder="Select the State" formControlName="state"></ng-select>
               </div>
               <div class="col-4">
-                <label for="items_category" class="register-label">Post Code:</label>
-                <input type="text" class="form-control" placeholder="Enter text">
+                <label for="items_category" class="register-label">Post Code:<span style="color: red;">*</span></label>
+                <input type="text" class="form-control" placeholder="Enter text" formControlName="postcode">
+                <div *ngIf="this.addressform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.addressform.controls.postcode.dirty || this.addressform.controls.postcode.touched) && this.addressform.controls.postcode.errors?.required">
+                    Please fill the field</div>
+                </div>
               </div>
             </div>
           </div>
           <div class="d-flex footer_button float-end">
             <div><button class="btn-red me-2" cdkStepperPrevious>Previous</button></div>
-            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext>Next</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext [disabled]="this.addressform.invalid" (click)="AddAdressForm(this.addressform.value)">Next</button></div>
           </div>
+        </form>
         </div>
       </cdk-step>
-      <cdk-step [stepControl]="stepFour.stepFourForm" [optional]="true">
+      <cdk-step [stepControl]="stepFour.healthdetailsform" [optional]="true">
         <ng-template cdkStepLabel>
           <p class="step-title new mb-2">Health Details</p>
           <p class="step-title1 mb-2">Step 4</p>
@@ -250,66 +339,100 @@
           </div>
         </ng-template>
         <div #stepFour>
+          <form [formGroup]="healthdetailsform">
           <div class="d-flex">
             <h1 class="header_name_bold">Health Details</h1>
           </div>
-          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="mt-2">
             <div class="row mt-4">
               <div class="col-4">
-                <label for="items_category" class="register-label">Blood Group:</label>
-                <ng-select [items]="['A+','A-','B+','B-','O+','O-','AB+','AB-']" placeholder="Select the Blood Group"></ng-select>
+                <label for="items_category" class="register-label">Blood Group:<span style="color: red;">*</span></label>
+                <ng-select [items]="['A+','A-','B+','B-','O+','O-','AB+','AB-']" placeholder="Select the Blood Group" formControlName="bloodgroup" [dropdownPosition]="'bottom'"></ng-select>
+                <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.healthdetailsform.controls.bloodgroup.dirty || this.healthdetailsform.controls.bloodgroup.touched) && this.healthdetailsform.controls.bloodgroup.errors?.required">
+                    Please fill the field</div>
+                </div>
               </div>
               <div class="col-4">
-                <label for="items_category" class="register-label">Height:</label>
-                <input type="text" class="form-control" placeholder="Enter your height">
+                <div style="position: relative;">
+                  <label for="items_category" class="register-label">Height:<span style="color: red;">*</span></label>
+                  <input type="text" class="form-control" placeholder="Enter your height" formControlName="height">
+                  <span style="position: absolute;right: 6px;bottom: 8px;">cm</span>
+                </div>
+                <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.healthdetailsform.controls.height.dirty || this.healthdetailsform.controls.height.touched) && this.healthdetailsform.controls.height.errors?.required">
+                    Please fill the field</div>
+                    <div
+                    *ngIf="(this.healthdetailsform.controls.height.dirty || this.healthdetailsform.controls.height.touched) && this.healthdetailsform.controls.height.errors?.pattern">
+                    Height should be in numbers</div>
+                </div>
               </div>
               <div class="col-4">
-                <label for="items_category" class="register-label">Weight:</label>
-                <input type="text" class="form-control" placeholder="Enter your weight">
+                <div style="position: relative;">
+                  <label for="items_category" class="register-label">Weight:<span style="color: red;">*</span></label>
+                  <input type="text" class="form-control" placeholder="Enter your weight" formControlName="weight">
+                  <span style="position: absolute;right: 6px;bottom: 8px;">kg</span>
+                </div>
+                <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.healthdetailsform.controls.weight.dirty || this.healthdetailsform.controls.weight.touched) && this.healthdetailsform.controls.weight.errors?.required">
+                    Please fill the field</div>
+                    <div
+                    *ngIf="(this.healthdetailsform.controls.weight.dirty || this.healthdetailsform.controls.weight.touched) && this.healthdetailsform.controls.weight.errors?.pattern">
+                    Weight should be in numbers</div>
+                </div>
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-4">
                 <label for="items_category" class="register-label">Blood Pressure:</label>
-                <input type="text" class="form-control" placeholder="Enter your blood pressure">
+                <input type="text" class="form-control" placeholder="Enter your blood pressure" formControlName="bloodPressure">
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Heart beat:</label>
-                <input type="text" class="form-control" placeholder="Enter your heart beat">
+                <input type="text" class="form-control" placeholder="Enter your heart beat"  formControlName="heartBeat">
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Temperature:</label>
-                <input type="text" class="form-control" placeholder="Enter your temperature">
+                <input type="text" class="form-control" placeholder="Enter your temperature" formControlName="temperature">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-4">
                 <label for="items_category" class="register-label">SPO2:</label>
-                <input type="text" class="form-control" placeholder="Enter your SPO2 rate">
+                <input type="text" class="form-control" placeholder="Enter your SPO2 rate" formControlName="spo2">
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Respiratory rate:</label>
-                <input type="text" class="form-control" placeholder="Enter your respiratory rate">
+                <input type="text" class="form-control" placeholder="Enter your respiratory rate" formControlName="respiratoryRate">
               </div>
               <div class="col-4">
                 <label for="items_category" class="register-label">Speciality:</label>
-                <input type="text" class="form-control" placeholder="Enter text">
+                <input type="text" class="form-control" placeholder="Enter text" formControlName="Speciality">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-4">
-                <label for="items_category" class="register-label">Priority:</label>
-                <ng-select [items]="['Emergency','Routine','Other']" placeholder="Select Value"></ng-select>
+                <label for="items_category" class="register-label">Priority:<span style="color: red;">*</span></label>
+                <ng-select [items]="['Emergency','Routine','Other']" placeholder="Select Value" formControlName="Priority"  [dropdownPosition]="'auto'"></ng-select>
+                <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.healthdetailsform.controls.Priority.dirty || this.healthdetailsform.controls.Priority.touched) && this.healthdetailsform.controls.Priority.errors?.required">
+                    Please fill the field</div>
+                </div>
               </div>
             </div>
           </div>
           <div class="d-flex footer_button float-end">
             <div><button class="btn-red me-2" cdkStepperPrevious>Previous</button></div>
-            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext>Next</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;" cdkStepperNext [disabled]="this.healthdetailsform.invalid" (click)="AddHealthDetailsForm(this.healthdetailsform.value)">Next</button></div>
           </div>
+        </form>
         </div>
       </cdk-step>
-      <cdk-step [stepControl]="stepFive.stepFiveForm" [optional]="true">
+      <cdk-step [stepControl]="stepFive.otherdetailsform" [optional]="true">
         <ng-template cdkStepLabel>
           <p class="step-title new mb-2">Other Details</p>
           <p class="step-title1 mb-2">Step 5</p>
@@ -318,27 +441,29 @@
           </div>
         </ng-template>
         <div #stepFive>
+          <form [formGroup]="otherdetailsform">
           <div class="d-flex">
             <h1 class="header_name_bold">Other Details</h1>
           </div>
-          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="my-4">
+          <div style="height: 455px;overflow-y: scroll;overflow-x: hidden;" class="mt-3">
             <div class="row mt-4">
               <div class="col-12">
                 <label for="items_category" class="register-label">Client Information:</label>
-              <input type="text" class="form-control" placeholder="Enter text" style="width: 90%;height: 100px;">
+              <input type="text" class="form-control" placeholder="Enter text" style="width: 90%;height: 100px;" formControlName="clientInformation">
               </div>
             </div>
             <div class="row mt-4">
               <div class="col-12">
                 <label for="items_category" class="register-label">Notes:</label>
-              <input type="text" class="form-control" placeholder="Enter text" style="width: 90%;height: 100px;">
+              <input type="text" class="form-control" placeholder="Enter text" style="width: 90%;height: 100px;" formControlName="notes">
               </div>
             </div>
           </div>
           <div class="d-flex footer_button float-end">
             <div><button class="btn-red me-2" cdkStepperPrevious>Previous</button></div>
-            <div><button class="btn-new me-2" style="width: 100px !important;">Submit</button></div>
+            <div><button class="btn-new me-2" style="width: 100px !important;" (click)="RegisterPatient(this.personaldetailsform.value,this.contactDetailsform.value,this.addressform.value,this.healthdetailsform.value,this.otherdetailsform.value)">Submit</button></div>
           </div>
+        </form>
         </div>
       </cdk-step>
     </ng-stepper>

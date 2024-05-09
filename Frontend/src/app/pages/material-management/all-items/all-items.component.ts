@@ -743,7 +743,7 @@ export class AllItemsComponent implements OnInit {
           console.log('Vendors',this.vendors);
         }
         else{
-          this.vendors = ['No Vendors to show'];
+          this.vendors = [];
         }
       }),
       error:((res:any)=>{
@@ -767,10 +767,10 @@ export class AllItemsComponent implements OnInit {
           res.tags.forEach((element:any) => {
             this.Tags.push(element.tag_name);
           });
-          console.log('Vendors',this.Tags);
+          console.log('Tags',this.Tags);
         }
         else{
-          this.Tags = ['No Vendors to show'];
+          this.Tags = [];
         }
       }),
       error:((res:any)=>{
@@ -795,7 +795,7 @@ export class AllItemsComponent implements OnInit {
           });
         }
         else{
-          this.Procedure=['No Procedures to show'];
+          this.Procedure=[];
         }
 
       }),
@@ -854,7 +854,7 @@ export class AllItemsComponent implements OnInit {
           this.AddItemForm.patchValue({
             subcategory:null
           })
-          this.SubCategories = ['No Sub Categories to show'];
+          this.SubCategories = [];
         }
       }),
       error:((res:any)=>{

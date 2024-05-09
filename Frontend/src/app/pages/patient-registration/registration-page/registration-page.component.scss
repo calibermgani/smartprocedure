@@ -15,7 +15,7 @@
   }
 
 
-  ::ng-deep .step.active .step-bullet{
+  :host ::ng-deep .step.active .step-bullet{
     // background-color: #E45112 !important;
     z-index: 1 !important;
     color:#855EDB !important;
@@ -28,7 +28,8 @@
       top: -70px !important;
     }
   }
-  ::ng-deep .stepper-header .steps .step .step-bullet{
+
+  :host ::ng-deep .stepper-header .steps .step .step-bullet{
     height: 32px !important;
     width: 32px !important;
     z-index: 1 !important;
@@ -39,7 +40,7 @@
     }
   }
 
-  ::ng-deep .step.active{
+  :host ::ng-deep .step.active{
     // background-color: #fff !important;
     .new{
       color: #855EDB !important;
@@ -49,7 +50,7 @@
     }
   }
 
-  ::ng-deep .step.completed{
+  :host ::ng-deep .step.completed{
     .new{
       color: #855EDB !important;
     }
@@ -60,7 +61,7 @@
   }
 
 
-  ::ng-deep .step.completed .step-bullet{
+  :host ::ng-deep .step.completed .step-bullet{
     border:0.2rem solid #855EDB !important;
     z-index: 1 !important;
     color:#855EDB !important;
@@ -76,10 +77,10 @@
     }
   }
 
-  ::ng-deep .step.completed.new{
+  :host ::ng-deep .step.completed.new{
       color: #855EDB !important;
   }
-  ::ng-deep .step.completed.step-title1{
+  :host ::ng-deep .step.completed.step-title1{
     color: #855EDB !important;
   }
 
@@ -87,29 +88,29 @@
     z-index: 1 !important;
   }
 
-  ::ng-deep .stepper-header{
+  :host ::ng-deep .stepper-header{
     // margin:  0px -256px 0px -256px !important;
     // margin:  0px -30px 0px 30px !important;
     padding-top: 50px !important;
-    width: 55%;
-    margin-left: 300px;
-    margin-top: -3px;
+    width: 55% !important;
+    margin-left: 300px !important;
+    margin-top: -3px !important;
     position: relative;
   }
 
-  ::ng-deep .step{
+  :host ::ng-deep .step{
     width: 50.33% !important;
     left: 0% !important;
     right: 0% !important;
     padding: 0px !important;
   }
 
-  ::ng-deep .step:after{
+  :host ::ng-deep .step:after{
     z-index: auto !important;
     top: 45% !important;
     // background: #E45112 !important;
   }
-  ::ng-deep .stepper-body{
+  :host ::ng-deep .stepper-body{
     margin: 41px 0px 0px 0px  !important;
     height: 595px !important;
     // padding: 12px 0px 0px 0px !important;
@@ -118,15 +119,15 @@
     }
   }
 
-  ::ng-deep .step.completed + .step::after{
+  :host  ::ng-deep .step.completed + .step::after{
     background-color: #855EDB !important;
   }
 
-  ::ng-deep ol{
+  :host ::ng-deep ol{
     padding: 0px !important;
   }
 
-  ::ng-deep .main-content .content{
+  :host ::ng-deep .main-content .content{
     padding:0px !important;
     margin-top: 0px !important;
   }
@@ -145,13 +146,14 @@
   padding-bottom: 12px !important;
   }
 
-  ::ng-deep .stepper-header .steps{
+  :host ::ng-deep .stepper-header .steps{
     width: 100% !important;
     list-style: none !important;
     display: inline-flex !important;
     margin: 0 auto !important;
     justify-content: space-between !important;
     align-items: center !important;
+    // pointer-events: none !important;
   }
 
   .step-title{
@@ -182,7 +184,7 @@
     font-weight: 500 !important;
   }
 
-  ::ng-deep .step.completed + .step::after{
+  :host ::ng-deep .step.completed + .step::after{
     .new{
       color: #855EDB !important;
     }
@@ -214,4 +216,8 @@
 
   :host ::ng-deep .ng-dropdown-panel .ng-dropdown-panel-items .ng-option{
     background-color: #fff !important;
+  }
+
+  :host ::ng-deep .content{
+    margin-top: 1px !important;
   }

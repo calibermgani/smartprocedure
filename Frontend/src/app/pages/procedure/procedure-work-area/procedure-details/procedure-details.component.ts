@@ -288,8 +288,7 @@ export class ProcedureDetailsComponent implements OnInit {
 
     if(ExamStatus == 'Accepted'){
       this.CurrentPatientSelection = true;
-
-       //  VettingTypes
+        //  VettingTypes
        this.allService.GetVettingTypes().subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
@@ -324,7 +323,6 @@ export class ProcedureDetailsComponent implements OnInit {
           });
         })
       })
-
     }
     else{
       this.CurrentPatientSelection = false;

@@ -30,7 +30,7 @@ import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-
 import { ToastrModule } from 'ngx-toastr';
 import { HistroyComponent } from './histroy/histroy.component';
 import { TrashComponent } from './trash/trash.component';
-import { PreventSpacesDirective } from './prevent-spaces.directive';
+import { PreventSpacesDirective } from '../prevent-spaces.directive';
 import { InactiveComponent } from './inactive/inactive.component';
 
 

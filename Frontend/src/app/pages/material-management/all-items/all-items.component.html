@@ -843,15 +843,15 @@
            <!-- <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.required">
               Please fill the field</div>
-          </div>
+          </div> -->
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.min">
-              Unit Value must be greater than or equal to zero and must not be alphabets</div>
+              Unit Value must be greater than or equal to zero</div>
           </div>
           <div *ngIf="this.AddItemForm.invalid" class="invalid-feedback">
             <div *ngIf="(this.AddItemForm.controls.Unit.dirty || this.AddItemForm.controls.Unit.touched) && this.AddItemForm.controls.Unit.errors?.pattern">
               Unit Value must not be alphabets</div>
-          </div> -->
+          </div>
         </div>
       </div>
       <div class="row p-3">

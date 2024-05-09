@@ -25,7 +25,6 @@ import { DashboardsModule } from './dashboards/dashboards.module';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AllServicesService } from '../core/services/all-services.service';
-
 @NgModule({
   declarations: [],
   imports: [

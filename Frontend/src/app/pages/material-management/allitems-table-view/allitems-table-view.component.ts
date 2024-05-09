@@ -1429,7 +1429,7 @@ SelectedItemStatus:string = '';
           console.log('Vendors',this.vendors);
         }
         else{
-          this.vendors = ['No Vendors to show'];
+          this.vendors = [];
         }
       }),
       error:((res:any)=>{
@@ -1456,7 +1456,7 @@ SelectedItemStatus:string = '';
           console.log('Tags',this.Tags);
         }
         else{
-          this.Tags = ['No Vendors to show'];
+          this.Tags = [];
         }
       }),
       error:((res:any)=>{
@@ -1481,7 +1481,7 @@ SelectedItemStatus:string = '';
           });
         }
         else{
-          this.Procedure=['No Procedures to show'];
+          this.Procedure=[];
         }
 
       }),
@@ -1542,7 +1542,7 @@ SelectedItemStatus:string = '';
           this.AddItemForm.patchValue({
             subcategory:null
           })
-          this.SubCategories = ['No Sub Categories to show'];
+          this.SubCategories = [];
         }
       }),
       error:((res:any)=>{

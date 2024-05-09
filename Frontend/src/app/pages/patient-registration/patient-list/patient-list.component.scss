@@ -1,9 +1,3 @@
-.main_active{
-  background: #855EDB;
-  border: 1px solid #855EDB;
-  color: #fff !important;
-  border-radius: 6px;
-}
 .tab_filter_img
 {
   background: #F3F4F8;
@@ -11,31 +5,15 @@
   cursor: pointer;
 }
 
-:host ::ng-deep .ng-dropdown-panel
-{
-  background: #fff;
-  height: 110px;
-  overflow-y: scroll;
-}
-.form-check-input:checked
-{
-  background-color: #855EDB !important;
-    border-color: #855EDB !important;
+
+.add_patient_img{
+  background-image: url('/assets/images/add_patient_img.svg') !important;
+  background-repeat: no-repeat !important;
+  background-size: 18px !important;
+  background-position: 4px 9px !important;
 }
 
-// ::ng-deep .ag-root ::-webkit-scrollbar {
-//   width: 2em;
-//   height: 2em
-// }
-// ::ng-deep .ag-root ::-webkit-scrollbar-button {
-//   background: #ccc
-// }
-// ::ng-deep .ag-root ::-webkit-scrollbar-track-piece {
-//   background: #ECECEC
-// }
-// ::ng-deep  .ag-root ::-webkit-scrollbar-thumb {
-//   background: #747474
-// }
+
 
 .ag-theme-alpine
 {
@@ -120,29 +98,23 @@
 }
 }
 
-
-
-.show_filters
-{
-  display: block !important;
-  height: 100% !important;
-}
-.reduce_grid_size
-{
-  width: 100%;
-  position: relative;
-  left: 0%;
+::ng-deep .ag-icon-menu{
+  color: #fff !important;
 }
 
-:host ::ng-deep .ng-select-container
+.viewItem_data
 {
-  background: #fff;
-  border:1px solid #BEBEBF !important;
+  font-weight: 500 !important;
 }
-.import_images{
-  padding-left: 3px; // Adjust this value to match the width of your icon
-  background-image: url('/assets/images/Download.svg') !important; // Replace with your icon's URL
-  background-repeat: no-repeat !important;
-  background-position: 120px !important; // Adjust the position of the icon
-  background-size: 20px !important;
+.dis_procedure{
+  // display: flex;
+  // flex-direction: row;
+  padding: 3px 8px 3px 9px;
+  border-radius: 12px;
+  background: #664E9A;
+  color: #fff !important;
+  font-size: 9px !important;
+  font-weight: 500 !important;
+  margin:0px 9px 4px 0px !important;
+  height: 18px !important;
 }
