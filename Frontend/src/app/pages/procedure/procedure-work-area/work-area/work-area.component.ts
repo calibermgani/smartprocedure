@@ -6,6 +6,9 @@ import { Options } from 'ngx-slider-v2';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
+import { environment_new } from 'src/environments/environment';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 interface kizintabValues {
   "tabs": string,
@@ -92,6 +95,9 @@ interface Comments
 })
 export class WorkAreaComponent implements OnInit {
 
+  tableForm: FormGroup;
+  @ViewChild('delete_modal', { static: false }) delete_modal?: ModalDirective;
+  public apiUrl: any = environment_new.apiUrl;
   miniList_details: any;
   procedureAlertsData: any;
   CurrentPatientDetails : any = [];
@@ -140,6 +146,10 @@ export class WorkAreaComponent implements OnInit {
   itemsPerSlide = 4;
   singleSlideOffset = true;
 
+  patient_id : any= localStorage.getItem('PatientID')    
+  mrn_number : any = localStorage.getItem('MRN_NO');
+  delete_pre_diagonis_id : number;
+
   slides = [
     { "image": 'assets/images/fall_fill.svg',"name":'Fall',"tooltip":'Fall 19-25' },
     { "image": 'assets/images/isolation_fill.svg',"name":'Isolation',"tooltip":'Isolation 14-23' },
@@ -164,11 +174,20 @@ export class WorkAreaComponent implements OnInit {
   @ViewChild('centerDataModal', { static: false }) centerDataModal?: ModalDirective;
   @ViewChild('addNotesModal', { static: false }) addNotesModal?: ModalDirective;
 
-  constructor(private http: HttpClient, private modalService: BsModalService,private router : Router,private allService : AllServicesService,private authService : AuthfakeauthenticationService,private toastr : ToastrService) {
+  constructor(private http: HttpClient, private modalService: BsModalService,private router : Router,private allService : AllServicesService,private authService : AuthfakeauthenticationService,private toastr : ToastrService,private formBuilder: FormBuilder,private datePipe: DatePipe) {
   }
+  currentDateTime: string;
 
   ngOnInit() {
     this.addNotesModal?.show();
+    this.tableForm = this.formBuilder.group({
+      rows: this.formBuilder.array([])
+     
+    });
+
+    this.currentDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
+
+    
 
     this.http.get('assets/json/mini-list.json').subscribe((res: any) => {
       // this.miniList_details = res;
@@ -203,9 +222,20 @@ export class WorkAreaComponent implements OnInit {
     this.http.get<timeline>('assets/json/timeline.json').subscribe((res: any) => {
       this.timeline_data = res;
     });
-    this.http.get<TabData>('assets/json/clinical_history_data.json').subscribe((res: any) => {
-      this.clinical_history = res;
-    });
+    
+
+   /** Patient Clinical History Table Stat API By Gani */ 
+   this.Clinical_history().subscribe((response:any)=>{
+    this.clinical_history = response.data;
+    //console.log('Clinical History Response : ',this.clinical_history);
+   })
+
+   /** Patient Clinical History Table End API By Gani */ 
+   
+    
+  
+
+
     this.http.get<TabData>('assets/json/lab_data.json').subscribe((res: any) => {
       this.lab_data = res;
     });
@@ -430,5 +460,129 @@ export class WorkAreaComponent implements OnInit {
     localStorage.removeItem('ExamStatus');
     this.router.navigateByUrl('/procedure');
   }
+
+  Clinical_history() {
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["stage_type"]='Requesting';
+    let patient_id = localStorage.getItem('PatientID')    
+    let mrn_number = localStorage.getItem('MRN_NO');
+    payload["mrn_number"]=mrn_number;
+    payload["patient_id"]=patient_id;
+   
+    // return null;
+    console.log('Call Clinical History API');
+    return this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_index`,payload);
+    
+  }
+
+
+  /* Clinical History Pre-diagonis add row code by Gani */
+
+  get rowControls() {
+    return (this.tableForm.get('rows') as FormArray).controls;
+  }
+
+  addRow() {
+    const newRow = this.formBuilder.group({
+      diagnosis: '',
+      code: '',
+      date:''
+    });
+   // (this.tableForm.get('rows') as FormArray).push(newRow);
+    (this.tableForm.get('rows') as FormArray).insert(0, newRow);
+    
+  }
+
+  deleteRow(index: number) {
+    (this.tableForm.get('rows') as FormArray).removeAt(index);
+  }
+
+  saveData() {
+    const rowData = this.tableForm.value.rows;
+    let patient_id = localStorage.getItem('PatientID')    
+    let mrn_number = localStorage.getItem('MRN_NO');
+    console.log('MRN Number',mrn_number);
+    console.log(rowData); // Save the data as needed
+    let payload:Object = {};
+
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["stage_type"]='Requesting';
+    payload["mrn_number"]= localStorage.getItem('MRN_NO');
+    payload["patient_id"]=localStorage.getItem('PatientID');
+    payload['diagones_data'] = rowData;
+    payload['created_by'] = 1;
+    payload['added_by'] = 1;
+
+    
+    this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_store`, payload).subscribe((response:any) => {
+      console.log('Data saved successfully:', response);
+      this.toastr.success(`${response.message}`,'Successfull', {
+        positionClass: 'toast-top-center',
+        timeOut: 1000,
+      })
+      this.GetClinicalHistory();
+      this.tableForm.reset(); 
+      (this.tableForm.get('rows') as FormArray).clear();
+      
+      
+    }, error => {
+      console.error('Error saving data:', error);
+    });
+
+
+  }
+  /* Clinical History Pre-diagonis add row code by Gani */
+
+
+  /** Delete Diagonis Details */
+
+  deletePreDiagoanis(id:number) {
+    this.delete_pre_diagonis_id = id;
+    this.delete_modal?.show();
+   
+  }
+
+  CloseModal(modalname:string){
+    this.delete_modal?.hide();
+  }
+
+  DeletePrediagonis() {
+    let payload:Object = {};
+
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["id"]= this.delete_pre_diagonis_id;
+    payload["mrn_number"]= this.mrn_number;
+    payload["patient_id"]= this.patient_id;    
+    payload['deleted_by'] = 1;   
+
+    this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_delete`, payload).subscribe((response:any) => {
+      console.log('Data saved successfully:', response);
+     
+      
+     
+      this.toastr.success(`${response.message}`,'Successfull', {
+        positionClass: 'toast-top-center',
+        timeOut: 2000,
+      })
+      this.delete_modal?.hide();
+      this.GetClinicalHistory();
+    }, error => {
+      console.error('Error saving data:', error);
+    });
+ 
+    
+  }
+  
+
+  /** Fetch The Clinical History Pre-diagonis tab */
+
+  GetClinicalHistory(){
+    this.Clinical_history().subscribe((response:any)=>{
+      this.clinical_history = response.data;
+      //console.log('Clinical History Response : ',this.clinical_history);
+     })
+  }
+
 }
 
