@@ -259,15 +259,15 @@ export class PatientListComponent implements OnInit{
       cellRenderer: this.cellrendered.bind(this, 'delete'),
       onCellClicked: this.CellClicked.bind(this, 'delete')
     },
-    {
-      field: 'note',
-      width:130,
-      resizable:false,
-      filter:false,
-      pinned:"right",
-      cellRenderer: this.cellrendered.bind(this, 'note'),
-      onCellClicked: this.CellClicked.bind(this, 'note')
-    },
+    // {
+    //   field: 'note',
+    //   width:130,
+    //   resizable:false,
+    //   filter:false,
+    //   pinned:"right",
+    //   cellRenderer: this.cellrendered.bind(this, 'note'),
+    //   onCellClicked: this.CellClicked.bind(this, 'note')
+    // },
   ];
 
   cellrendered(headerName: any, params: any) {
@@ -384,9 +384,9 @@ export class PatientListComponent implements OnInit{
       case 'delete':{
         return `<div class="d-flex justify-content-center"><div><i class="mdi mdi-trash-can-outline" style="color:red;font-size:18px"></i></div></div>`
       }
-      case 'note':{
-        return `<div style="width:100% !important;height:100% important;"><button class="btn-new" style="width:83px !important;padding:0px 0px 3px 0px !important;height:31px !important">view note</button></div>`
-      }
+      // case 'note':{
+      //   return `<div style="width:100% !important;height:100% important;"><button class="btn-new" style="width:83px !important;padding:0px 0px 3px 0px !important;height:31px !important">view note</button></div>`
+      // }
     }
   }
 
@@ -415,6 +415,9 @@ export class PatientListComponent implements OnInit{
         break;
       }
       case 'edit':{
+        this.SelectedPatient = params.data;
+        localStorage.setItem('Patient_ID',params.data.id);
+        this.router.navigateByUrl('/patient-registration/register');
         break;
       }
       case 'delete':{
@@ -474,7 +477,64 @@ export class PatientListComponent implements OnInit{
   GoToProcedureWorkArea(){}
 
 
-  ReloadPatientList(){}
+  ReloadPatientList(){
+    this.allService.GetPatientList().subscribe({
+      next:((res:any)=>{
+        if(res.status == 'Success'){
+          console.log(res);
+          this.patient_list = res.patient_list;
+          this.patientListGrid?.api?.setRowData(this.patient_list);
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error(`${res.message}`, 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      })
+    })
+  }
 
-  SelectedFilePatientList(event:any){}
+  selectedFile: any;
+  SelectedFilePatientList(event:any){
+    this.selectedFile = event.target.files[0];
+    console.log(this.selectedFile);
+    this.allService.ImportPatientExcel(this.selectedFile).subscribe({
+      next: ((res: any) => {
+        console.log(res);
+        if (res.status == 'Success') {
+          this.toastr.success(`${res.message}`, 'Successful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+          this.allService.GetPatientList().subscribe({
+            next:((res:any)=>{
+              if(res.status == 'Success'){
+                console.log(res);
+                this.patient_list = res.patient_list;
+                this.patientListGrid?.api?.setRowData(this.patient_list);
+              }
+            }),
+            error:((res:any)=>{
+              this.toastr.error(`${res.message}`, 'UnSuccessful', {
+                positionClass: 'toast-top-center',
+                timeOut: 2000,
+              });
+            })
+          })
+        }
+      }),
+      error: ((res: any) => {
+        this.toastr.error('Something went wrong', 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      })
+    })
+  }
+
+  SearchPatientList:any
+  OnSearchpatientList(){
+    this.patientListGrid.api?.setQuickFilter(this.SearchPatientList);
+  }
 }
