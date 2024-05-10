@@ -478,21 +478,8 @@ export class PatientListComponent implements OnInit{
 
 
   ReloadPatientList(){
-    this.allService.GetPatientList().subscribe({
-      next:((res:any)=>{
-        if(res.status == 'Success'){
-          console.log(res);
-          this.patient_list = res.patient_list;
-          this.patientListGrid?.api?.setRowData(this.patient_list);
-        }
-      }),
-      error:((res:any)=>{
-        this.toastr.error(`${res.message}`, 'UnSuccessful', {
-          positionClass: 'toast-top-center',
-          timeOut: 2000,
-        });
-      })
-    })
+    this.SearchPatientList='';
+    this.patientListGrid.api?.setQuickFilter(this.SearchPatientList);
   }
 
   selectedFile: any;
@@ -534,7 +521,7 @@ export class PatientListComponent implements OnInit{
   }
 
   SearchPatientList:any
-  OnSearchpatientList(){
+  OnSearchpatientList(data:any){
     this.patientListGrid.api?.setQuickFilter(this.SearchPatientList);
   }
 }
