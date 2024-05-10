@@ -113,6 +113,7 @@ export class RegistrationPageComponent {
           this.healthdetailsform.reset();
           this.otherdetailsform.reset();
           this.cdkStepper.reset();
+          this.ProfileImage = '';
         }
       }),
       error:((res:any)=>{

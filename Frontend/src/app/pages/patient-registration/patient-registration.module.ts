@@ -8,15 +8,15 @@ import { NgStepperModule } from 'angular-ng-stepper';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PreventSpacesDirective } from '../prevent-spaces.directive';
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { MaterialManagementModule } from '../material-management/material-management.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
     RegistrationPageComponent,
-    PreventSpacesDirective,
     PatientListComponent
   ],
   imports: [
@@ -30,6 +30,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ReactiveFormsModule,
     AgGridModule,
     ModalModule.forRoot(),
+    MaterialManagementModule,
+    SharedModule
   ]
 })
 export class PatientRegistrationModule { }
