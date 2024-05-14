@@ -3,10 +3,7 @@ import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Input, OnChang
 import MetisMenu from 'metismenujs';
 import { EventService } from '../../core/services/event.service';
 import { Router, NavigationEnd, ActivatedRoute, NavigationStart, NavigationCancel } from '@angular/router';
-
 import { HttpClient } from '@angular/common/http';
-
-import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { MATERIALMANAGEMENTMENU } from './material-management-sidemenu';
 import { TranslateService } from '@ngx-translate/core';
@@ -115,8 +112,11 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     }
     console.log('paths', paths);
     let x = this.router.url;
-      if (x == '/material-management/viewfullgrid' || x =='/workarea') {
+      if (x == '/material-management/viewfullgrid' || x =='/workarea' ) {
         var itemIndex = 1;
+      }
+      else if(x=='/patient-registration/register'){
+        var itemIndex = 5;
       }
       else
       {

@@ -118,3 +118,7 @@
   margin:0px 9px 4px 0px !important;
   height: 18px !important;
 }
+
+::ng-deep .ag-cell-value{
+  border: none !important;
+}

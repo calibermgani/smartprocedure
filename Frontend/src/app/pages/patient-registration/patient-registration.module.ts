@@ -8,15 +8,23 @@ import { NgStepperModule } from 'angular-ng-stepper';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+<<<<<<< HEAD
 
+=======
+>>>>>>> 20cef4886a4306309761210f583ada7e82283a58
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { MaterialManagementModule } from '../material-management/material-management.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [
     RegistrationPageComponent,
+<<<<<<< HEAD
     
+=======
+>>>>>>> 20cef4886a4306309761210f583ada7e82283a58
     PatientListComponent
   ],
   imports: [
@@ -30,6 +38,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     ReactiveFormsModule,
     AgGridModule,
     ModalModule.forRoot(),
+    MaterialManagementModule,
+    SharedModule
   ]
 })
 export class PatientRegistrationModule { }

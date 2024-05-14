@@ -30,8 +30,8 @@ import { GridItemsDetailedViewComponent } from './grid-items-detailed-view/grid-
 import { ToastrModule } from 'ngx-toastr';
 import { HistroyComponent } from './histroy/histroy.component';
 import { TrashComponent } from './trash/trash.component';
-import { PreventSpacesDirective } from '../prevent-spaces.directive';
 import { InactiveComponent } from './inactive/inactive.component';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 @NgModule({
@@ -53,7 +53,6 @@ import { InactiveComponent } from './inactive/inactive.component';
     GridItemsDetailedViewComponent,
     HistroyComponent,
     TrashComponent,
-    PreventSpacesDirective,
     InactiveComponent
   ],
   imports: [
@@ -70,7 +69,8 @@ import { InactiveComponent } from './inactive/inactive.component';
     BsDatepickerModule.forRoot(),
     AccordionModule.forRoot(),
     NgxSliderModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    SharedModule
   ],
   providers:[
   ]

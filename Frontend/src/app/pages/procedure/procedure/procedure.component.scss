@@ -120,6 +120,9 @@
 }
 }
 
+::ng-deep .ag-cell-value{
+  border: none !important;
+}
 
 
 .show_filters
