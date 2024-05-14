@@ -84,7 +84,7 @@ export class RegistrationPageComponent {
             let languagesArray : any = null;
             this.showImage = true;
             this.ProfileImage = this.apiUrl+res.patient.image;
-            if(res.patient.language !='null'){
+            if(res.patient.language){
               let languagesString = res.patient.language;
               languagesArray = languagesString.split(",");
             }
