@@ -96,7 +96,13 @@ interface Comments
 export class WorkAreaComponent implements OnInit {
 
   tableForm: FormGroup;
+  tableFormIndication: FormGroup;
+  tableFormPostdiagonis: FormGroup;
+  tablelab: FormGroup;
   @ViewChild('delete_modal', { static: false }) delete_modal?: ModalDirective;
+  @ViewChild('delete_indication_modal', { static: false }) delete_indication_modal?: ModalDirective;
+  @ViewChild('delete_post_modal', { static: false }) delete_post_modal?: ModalDirective;
+  @ViewChild('delete_lab_modal', { static: false }) delete_lab_modal?: ModalDirective;
   public apiUrl: any = environment_new.apiUrl;
   miniList_details: any;
   procedureAlertsData: any;
@@ -106,6 +112,9 @@ export class WorkAreaComponent implements OnInit {
   procedureStagelist: any = [];
   timeline_data: any = [];
   clinical_history: any = [];
+  clinical_history_indication_data: any = [];
+  clinical_history_postdiagonis_data: any = [];
+  
   lab_data: any = [];
   careteam_data: any = [];
   Alert_data: any = [];
@@ -149,6 +158,9 @@ export class WorkAreaComponent implements OnInit {
   patient_id : any= localStorage.getItem('PatientID')    
   mrn_number : any = localStorage.getItem('MRN_NO');
   delete_pre_diagonis_id : number;
+  delete_indication_id : number;
+  delete_postdiagonis_id : number;
+  delete_lab_id : number;
 
   slides = [
     { "image": 'assets/images/fall_fill.svg',"name":'Fall',"tooltip":'Fall 19-25' },
@@ -181,6 +193,19 @@ export class WorkAreaComponent implements OnInit {
   ngOnInit() {
     this.addNotesModal?.show();
     this.tableForm = this.formBuilder.group({
+      rows: this.formBuilder.array([])
+     
+    });
+    this.tableFormIndication = this.formBuilder.group({
+      rows: this.formBuilder.array([])
+     
+    });
+    this.tableFormPostdiagonis = this.formBuilder.group({
+      rows: this.formBuilder.array([])
+     
+    });
+
+    this.tablelab = this.formBuilder.group({
       rows: this.formBuilder.array([])
      
     });
@@ -236,9 +261,9 @@ export class WorkAreaComponent implements OnInit {
   
 
 
-    this.http.get<TabData>('assets/json/lab_data.json').subscribe((res: any) => {
+   /*  this.http.get<TabData>('assets/json/lab_data.json').subscribe((res: any) => {
       this.lab_data = res;
-    });
+    }); */
     this.http.get<careteam>('assets/json/care_team_member.json').subscribe((res: any) => {
       this.careteam_data = res;
     });
@@ -314,6 +339,10 @@ export class WorkAreaComponent implements OnInit {
 
   setActiveTab(index: number) {
     this.activeTab = index;
+    console.log('Main Tab',index)
+    if(index===2){
+      this.GetLab();
+    }
   }
   setActiveTabModal(index: number) {
     this.activeTab_Modal = index;
@@ -328,6 +357,7 @@ export class WorkAreaComponent implements OnInit {
         }
       case 'indication': {
         this.indication_editable_field = true;
+       
         break;
       }
       case 'post_diagnosis': {
@@ -373,7 +403,9 @@ export class WorkAreaComponent implements OnInit {
     this.centerDataModal?.hide();
   }
   showEditableModal(data: any) {
+   
     switch (data) {
+      
       case 'pre_diagnosis':
         {
           this.tab_active('clinical_history');
@@ -382,11 +414,13 @@ export class WorkAreaComponent implements OnInit {
           this.centerDataModal?.show();
           break;
         }
-      case 'indication': {
+      case 'indication': {    
+         
         this.tab_active('clinical_history');
         this.tab_Subactive(data);
+        
         this.indication_editable_field = true;
-        this.centerDataModal?.show();
+        this.centerDataModal?.show();       
         break;
       }
       case 'post_diagnosis': {
@@ -398,8 +432,9 @@ export class WorkAreaComponent implements OnInit {
       }
       case 'lab': {
         this.active_status = 'lab';
-        this.lab_editable_field = true;
-        this.tab_active(data);
+        this.lab_editable_field = true;        
+        this.tab_active(data);        
+        
         this.active_tabs_lab = true;
         this.centerDataModal?.show();
         break;
@@ -422,10 +457,65 @@ export class WorkAreaComponent implements OnInit {
   }
 
   tab_active(data: any) {
+      
     this.active_status = data;
+
+    switch(data){
+      case 'lab':{
+        this.GetLab();
+        console.log('Popup Datas',data)
+      }
+    }
+    
+    
+
+
   }
   tab_Subactive(data: any) {
+
+    switch(data){
+      case 'indication':{
+        if(this.clinical_history_indication_data.length == 0){
+          this.GetClinicalIndication();
+         }
+      }
+      case 'post_diagnosis':{
+        if(this.clinical_history_postdiagonis_data.length == 0){
+        this.GetClinicalPostdiagonis();
+        }
+        
+      }
+     
+    }
     this.active_sub_status = data;
+    
+  }
+  ClinicalHistorySubTab(tabsactive : any){
+  switch (tabsactive) {
+    case 'indication': {     
+     if(this.clinical_history_indication_data.length == 0){
+      this.GetClinicalIndication();
+     }
+    
+    }
+    case 'post_diagnosis':{
+      if(this.clinical_history_postdiagonis_data.length == 0){
+      this.GetClinicalPostdiagonis();
+      }
+      
+    }
+    
+   /*  case 'allergies': {
+      this.isolation_alert = data;
+    }
+    case 'pregnant': {
+      this.pregnant_alert = data;
+    }
+    case 'covid': {
+      this.covid_alert = data;
+    } */
+  }
+
   }
 
   customHeaderClick(event: Event) {
@@ -583,6 +673,369 @@ export class WorkAreaComponent implements OnInit {
       //console.log('Clinical History Response : ',this.clinical_history);
      })
   }
+
+ /** Clinical History Indication Sub Tab */
+ GetClinicalIndication(){
+  this.Clinical_history_indication().subscribe((response:any)=>{
+    this.clinical_history_indication_data = response.data;
+    //console.log('Clinical History Indication Response : ',response.data);
+   })
+}
+
+
+Clinical_history_indication() {
+  let payload:Object = {};
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["stage_type"]='Requesting';
+  payload["mrn_number"]=this.mrn_number;
+  payload["patient_id"]=this.patient_id;
+ 
+  // return null;
+  //console.log('Call Clinical History Indication API');
+  return this.http.post(`${this.apiUrl}/procedures/ch_indication_index`,payload);
+  
+} 
+
+
+get rowControls1() {
+  return (this.tableFormIndication.get('rows') as FormArray).controls;
+}
+
+addRowIndication() {
+  const newRow = this.formBuilder.group({
+    diagnosis: '',
+    code: '',
+    date:''
+  });
+ // (this.tableForm.get('rows') as FormArray).push(newRow);
+  (this.tableFormIndication.get('rows') as FormArray).insert(0, newRow);
+  
+}
+
+deleteRowIndication(index: number) {
+  (this.tableFormIndication.get('rows') as FormArray).removeAt(index);
+}
+
+
+saveDataIndication() {
+  const rowData = this.tableFormIndication.value.rows;
+  let patient_id = localStorage.getItem('PatientID')    
+  let mrn_number = localStorage.getItem('MRN_NO');
+  console.log('MRN Number',mrn_number);
+  console.log(rowData); // Save the data as needed
+  let payload:Object = {};
+
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["stage_type"]='Requesting';
+  payload["mrn_number"]= localStorage.getItem('MRN_NO');
+  payload["patient_id"]=localStorage.getItem('PatientID');
+  payload['indication_data'] = rowData;
+  payload['created_by'] = 1;
+  payload['added_by'] = 1;
+
+  
+  this.http.post(`${this.apiUrl}/procedures/ch_indication_store`, payload).subscribe((response:any) => {
+    console.log('Data saved successfully:', response);
+    this.toastr.success(`${response.message}`,'Successfull', {
+      positionClass: 'toast-top-center',
+      timeOut: 1000,
+    })
+    this.GetClinicalIndication();
+    this.tableFormIndication.reset(); 
+    (this.tableFormIndication.get('rows') as FormArray).clear();
+    
+    
+  }, error => {
+    console.error('Error saving data:', error);
+  });
+
+
+}
+
+
+
+deleteIndication(id:number) {
+  this.delete_indication_id = id;
+  this.delete_indication_modal?.show();
+ 
+}
+
+CloseModaldeleteIndication(modalname:string){
+  this.delete_indication_modal?.hide();
+}
+
+DeleteIndicationData() {
+  let payload:Object = {};
+
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["id"]= this.delete_indication_id;
+  payload["mrn_number"]= this.mrn_number;
+  payload["patient_id"]= this.patient_id;    
+  payload['deleted_by'] = 1;   
+
+  this.http.post(`${this.apiUrl}/procedures/ch_indication_delete`, payload).subscribe((response:any) => {
+    console.log('Data saved successfully:', response);
+   
+    
+   
+    this.toastr.success(`${response.message}`,'Successfull', {
+      positionClass: 'toast-top-center',
+      timeOut: 2000,
+    })
+    this.delete_indication_modal?.hide();
+    this.GetClinicalIndication();
+  }, error => {
+    console.error('Error saving data:', error);
+  });
+
+  
+}
+
+ /** Clinical History Indication Sub Tab End */
+
+
+
+ /** Clinical History POST Diagonis Tab Start */
+
+ GetClinicalPostdiagonis(){
+  this.Clinical_history_postdiagonis().subscribe((response:any)=>{
+    this.clinical_history_postdiagonis_data = response.data;
+    //console.log('Clinical History Indication Response : ',response.data);
+   })
+}
+
+
+Clinical_history_postdiagonis() {
+  let payload:Object = {};
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["stage_type"]='Requesting';
+  payload["mrn_number"]=this.mrn_number;
+  payload["patient_id"]=this.patient_id;
+ 
+  // return null;
+  //console.log('Call Clinical History Indication API');
+  return this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_index`,payload);
+  
+} 
+
+get rowControls2() {
+  return (this.tableFormPostdiagonis.get('rows') as FormArray).controls;
+}
+
+addRowPostDiagonis() {
+  const newRow = this.formBuilder.group({
+    diagnosis: '',
+    code: '',
+    date:''
+  });
+ // (this.tableForm.get('rows') as FormArray).push(newRow);
+  (this.tableFormPostdiagonis.get('rows') as FormArray).insert(0, newRow);
+  
+}
+
+
+deleteRowPostDiagonis(index: number) {
+  (this.tableFormPostdiagonis.get('rows') as FormArray).removeAt(index);
+}
+
+
+saveDataPostDiagonis() {
+  const rowData = this.tableFormPostdiagonis.value.rows;
+  let patient_id = localStorage.getItem('PatientID')    
+  let mrn_number = localStorage.getItem('MRN_NO');
+  console.log('MRN Number',mrn_number);
+  console.log(rowData); // Save the data as needed
+  let payload:Object = {};
+
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["stage_type"]='Requesting';
+  payload["mrn_number"]= localStorage.getItem('MRN_NO');
+  payload["patient_id"]=localStorage.getItem('PatientID');
+  payload['post_diagnosis_data'] = rowData;
+  payload['created_by'] = 1;
+  payload['added_by'] = 1;
+
+  
+  this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_store`, payload).subscribe((response:any) => {
+    console.log('Data saved successfully:', response);
+    this.toastr.success(`${response.message}`,'Successfull', {
+      positionClass: 'toast-top-center',
+      timeOut: 1000,
+    })
+    this.GetClinicalPostdiagonis();
+    this.tableFormPostdiagonis.reset(); 
+    (this.tableFormPostdiagonis.get('rows') as FormArray).clear();
+    
+    
+  }, error => {
+    console.error('Error saving data:', error);
+  });
+
+
+}
+
+
+
+deletePostdiagonis(id:number) {
+  this.delete_postdiagonis_id = id;
+  this.delete_post_modal?.show();
+ 
+}
+
+CloseModaldeletePostdiagonis(modalname:string){
+  this.delete_post_modal?.hide();
+}
+
+DeletePostDiagonis() {
+  let payload:Object = {};
+
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["id"]= this.delete_postdiagonis_id;
+  payload["mrn_number"]= this.mrn_number;
+  payload["patient_id"]= this.patient_id;    
+  payload['deleted_by'] = 1;   
+
+  this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_delete`, payload).subscribe((response:any) => {
+    console.log('Data saved successfully:', response);
+   
+    
+   
+    this.toastr.success(`${response.message}`,'Successfull', {
+      positionClass: 'toast-top-center',
+      timeOut: 2000,
+    })
+    this.delete_post_modal?.hide();
+    this.GetClinicalPostdiagonis();
+  }, error => {
+    console.error('Error saving data:', error);
+  });
+
+  
+}
+
+
+
+
+/** Clinical History POST Diagonis Tab End */
+
+
+/** Lab Details Tab Start */
+
+GetLab(){
+  this.GetLabDetails().subscribe((response:any)=>{
+    this.lab_data = response.data;
+    //console.log('Clinical History Indication Response : ',response.data);
+   })
+}
+
+
+GetLabDetails() {
+  let payload:Object = {};
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["stage_type"]='Requesting';
+  payload["mrn_number"]=this.mrn_number;
+  payload["patient_id"]=this.patient_id;
+ 
+  // return null;
+  //console.log('Call Clinical History Indication API');
+  return this.http.post(`${this.apiUrl}/procedures/patient_lab_index`,payload);
+  
+} 
+
+get rowControlslab() {
+  return (this.tablelab.get('rows') as FormArray).controls;
+}
+
+addRowLab() {
+  const newRow = this.formBuilder.group({
+    test_name: '',
+    result: '',
+    date:''
+  });
+ // (this.tableForm.get('rows') as FormArray).push(newRow);
+  (this.tablelab.get('rows') as FormArray).insert(0, newRow);
+  
+}
+
+deleteRowLab(index: number) {
+  (this.tablelab.get('rows') as FormArray).removeAt(index);
+}
+
+
+saveDataLab() {
+  const rowData = this.tablelab.value.rows;
+  let patient_id = localStorage.getItem('PatientID')    
+  let mrn_number = localStorage.getItem('MRN_NO');
+  console.log('MRN Number',mrn_number);
+  console.log(rowData); // Save the data as needed
+  let payload:Object = {};
+
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["stage_type"]='Requesting';
+  payload["mrn_number"]= localStorage.getItem('MRN_NO');
+  payload["patient_id"]=localStorage.getItem('PatientID');
+  payload['patient_lab_data'] = rowData;
+  payload['created_by'] = 1;
+  payload['added_by'] = 1;
+
+  
+  this.http.post(`${this.apiUrl}/procedures/patient_lab_store`, payload).subscribe((response:any) => {
+    console.log('Data saved successfully:', response);
+    this.toastr.success(`${response.message}`,'Successfull', {
+      positionClass: 'toast-top-center',
+      timeOut: 1000,
+    })
+    this.GetLab();
+    this.tablelab.reset(); 
+    (this.tablelab.get('rows') as FormArray).clear();
+    
+    
+  }, error => {
+    console.error('Error saving data:', error);
+  });
+
+
+}
+
+
+deleteLab(id:number) {
+  this.delete_lab_id = id;
+  this.delete_lab_modal?.show();
+ 
+}
+
+CloseModaldeleteLab(modalname:string){
+  this.delete_lab_modal?.hide();
+}
+
+DeleteLabData() {
+  let payload:Object = {};
+
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["id"]= this.delete_lab_id;
+  payload["mrn_number"]= this.mrn_number;
+  payload["patient_id"]= this.patient_id;    
+  payload['deleted_by'] = 1;   
+
+  this.http.post(`${this.apiUrl}/procedures/patient_lab_delete`, payload).subscribe((response:any) => {       
+    this.toastr.success(`${response.message}`,'Successfull', {
+      positionClass: 'toast-top-center',
+      timeOut: 2000,
+    })
+    this.delete_lab_modal?.hide();
+    this.GetLab();
+  }, error => {
+    console.error('Error saving data:', error);
+  });
+
+  
+}
+
+
+
+
+/** Lab Details Tab End */
+
 
 }
 

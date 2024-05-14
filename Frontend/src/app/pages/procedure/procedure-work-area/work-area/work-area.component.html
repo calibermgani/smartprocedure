@@ -385,7 +385,7 @@
                   </li>
                   <li class="nav-item" role="presentation">
                     <a class="navs-links" data-bs-toggle="tab" href="#indication" role="tab" aria-selected="false"
-                      tabindex="-1" style="white-space: nowrap;">
+                      tabindex="-1" style="white-space: nowrap;" (click)="ClinicalHistorySubTab('indication')">
                       <div class="d-flex flex-row">
                         <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Indication</h4>
                       </div>
@@ -393,7 +393,7 @@
                   </li>
                   <li class="nav-item" role="presentation">
                     <a class="navs-links" data-bs-toggle="tab" href="#post_diagnosis" role="tab" aria-selected="false"
-                      tabindex="-1" style="white-space: nowrap;">
+                      tabindex="-1" style="white-space: nowrap;" (click)="ClinicalHistorySubTab('post_diagnosis')">
                       <div class="d-flex flex-row">
                         <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Post Diagnosis</h4>
                       </div>
@@ -444,15 +444,21 @@
                       <table class="table mb-0">
                         <thead class="table-light">
                           <tr>
-                            <th *ngFor="let x of clinical_history ;" style="font-size: 9px;font-weight: 400;">
-                              {{x.headername}}</th>
+                           <!--  <th *ngFor="let x of clinical_history ;" style="font-size: 9px;font-weight: 400;">
+                              {{x.headername}}</th> -->
+                              <th>Diagnosis</th>
+                              <th>Code</th>
+                              <th>Date</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let x of clinical_history;let i = index"
-                            style="border-color: #fff !important;font-size: 9px;font-weight: 400;">
-                            <td *ngFor="let y of x.header_data">{{y.data}}</td>
+                          <tr *ngFor="let item_indication of (clinical_history_indication_data ? clinical_history_indication_data : [])">
+                            <td>{{ item_indication.diagnosis }}</td>
+                            <td>{{ item_indication.code }}</td>
+                            <td>{{ item_indication.date }}</td>
+                            <!-- Display more properties of the item as needed -->
                           </tr>
+                          <tr><td colspan="3" *ngIf="!clinical_history_indication_data.length">No Data Found</td></tr>
                         </tbody>
                       </table>
                     </div>
@@ -468,15 +474,21 @@
                       <table class="table mb-0">
                         <thead class="table-light">
                           <tr>
-                            <th *ngFor="let x of clinical_history ;" style="font-size: 9px;font-weight: 400;">
-                              {{x.headername}}</th>
+                           <!--  <th *ngFor="let x of clinical_history ;" style="font-size: 9px;font-weight: 400;">
+                              {{x.headername}}</th> -->
+                              <th>Diagnosis</th>
+                              <th>Code</th>
+                              <th>Date</th>
                           </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let x of clinical_history;let i = index"
-                            style="border-color: #fff !important;font-size: 9px;font-weight: 400;">
-                            <td *ngFor="let y of x.header_data">{{y.data}}</td>
+                          <tr *ngFor="let itempostdiagonis of (clinical_history_postdiagonis_data ? clinical_history_postdiagonis_data : [])">
+                            <td>{{ itempostdiagonis.diagnosis }}</td>
+                            <td>{{ itempostdiagonis.code }}</td>
+                            <td>{{ itempostdiagonis.date }}</td>
+                            <!-- Display more properties of the item as needed -->
                           </tr>
+                          <tr><td colspan="3" *ngIf="!clinical_history_postdiagonis_data.length">No Data Found</td></tr>
                         </tbody>
                       </table>
                     </div>
@@ -495,14 +507,21 @@
                 <table class="table mb-0">
                   <thead class="table-light">
                     <tr>
-                      <th *ngFor="let x of lab_data ;" style="font-size: 9px;font-weight: 400;">{{x.headername}}</th>
+                     <!--  <th *ngFor="let x of clinical_history ;" style="font-size: 9px;font-weight: 400;">
+                        {{x.headername}}</th> -->
+                        <th>Test Name</th>
+                        <th>Result</th>
+                        <th>Date</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let x of lab_data;let i = index"
-                      style="border-color: #fff !important;font-size: 9px;font-weight: 400;">
-                      <td *ngFor="let y of x.header_data">{{y.data}}</td>
+                    <tr *ngFor="let itemlab of (lab_data ? lab_data : [])">
+                      <td>{{ itemlab.test_name }}</td>
+                      <td>{{ itemlab.result }}</td>
+                      <td>{{ itemlab.date }}</td>
+                      <!-- Display more properties of the item as needed -->
                     </tr>
+                    <tr><td colspan="3" *ngIf="!lab_data.length">No Data Found</td></tr>
                   </tbody>
                 </table>
               </div>
@@ -685,10 +704,10 @@
                           <tbody formArrayName="rows">
                            
                             <tr *ngFor="let row of rowControls; let i = index" [formGroupName]="i" style="border-color: #fff !important;font-size: 12px;font-weight: 400;">
-                              <td><input type="text" formControlName="diagnosis"></td>
-                              <td><input type="text" formControlName="code" style="width:100px;"></td>
+                              <td><input type="text" formControlName="diagnosis" class="form-control-new ng-pristine ng-invalid ng-touched"></td>
+                              <td><input type="text" formControlName="code" style="width:100px;" class="form-control-new ng-pristine ng-invalid ng-touched"></td>
                               
-                              <td><input matInput type="datetime-local" min="2017-06-01T08:30" [max]="currentDateTime" placeholder="start date" formControlName="date"></td>
+                              <td><input matInput type="datetime-local" min="2017-06-01T08:30" [max]="currentDateTime" placeholder="start date" formControlName="date" class="form-control-new ng-pristine ng-invalid ng-touched"></td>
                               <td><a type="button" (click)="deleteRow(i)"><i class="mdi mdi-trash-can-outline" style="color:red;font-size:16px"></i></a></td>
                               <!-- <td><button type="button" (click)="addRow()"><i class="mdi-note-plus" style="color:red;font-size:16px"></i></button></td> -->
                             </tr>
@@ -725,94 +744,179 @@
                   </div>
                   <div [ngClass]="{ 'tab-pane': true, ' active show': active_sub_status == 'indication' }"
                     id="indication_view" role="tabpanel">
-                    <div class="d-flex justify-content-between">
+                    <!-- <div class="d-flex justify-content-between">
                       <h4>Patient's medical background</h4>
                       <div style="cursor: pointer;" (click)="edit_field('indication')"><i class="mdi mdi-pencil-outline"
                           style="font-size: 12px;color:#594585;"></i></div>
-                    </div>
+                    </div> -->
                     <p>Indication</p>
+                    <a class="btn me-2" (click)="addRowIndication()" style="float:right;"><i class="mdi mdi-plus" style="color:blue !important; font-size: 15px;"></i></a>
                     <div class="table-responsive" style="border: 1px solid #F3F4F8;border-radius: 4px !important;">
-                      <table class="table mb-0">
-                        <thead class="table-light">
-                          <tr>
-                            <th *ngFor="let x of clinical_history ;" style="font-size: 9px;font-weight: 400;">
-                              {{x.headername}}</th>
-                          </tr>
-                        </thead>
+                      <form [formGroup]="tableFormIndication">
+                        <table class="table mb-0">
+                          <thead class="table-light">
+                            <tr>
+                              <td><span style="font-weight: 400 !important;color: #1B1B1B !important;">Diagnosis</span></td>
+                               <td><span style="font-weight: 400 !important;color: #1B1B1B !important;">Code</span></td>
+                               <td> <span style="font-weight: 400 !important;color: #1B1B1B !important;">Date</span></td>
+                               <td> <span style="font-weight: 400 !important;color: #1B1B1B !important;"></span></td>
+                               
+                            </tr>
+                          </thead>
+                          <tbody formArrayName="rows">
+                           
+                            <tr *ngFor="let row of rowControls1; let i = index" [formGroupName]="i" style="border-color: #fff !important;font-size: 12px;font-weight: 400;">
+                              <td><input type="text" formControlName="diagnosis"></td>
+                              <td><input type="text" formControlName="code" style="width:100px;"></td>
+                              
+                              <td><input matInput type="datetime-local" min="2017-06-01T08:30" [max]="currentDateTime" placeholder="start date" formControlName="date"></td>
+                              <td><a type="button" (click)="deleteRowIndication(i)"><i class="mdi mdi-trash-can-outline" style="color:red;font-size:16px"></i></a></td>
+                              <!-- <td><button type="button" (click)="addRow()"><i class="mdi-note-plus" style="color:red;font-size:16px"></i></button></td> -->
+                            </tr>
+                            
+                          </tbody>
+                        </table>
+                      </form>
+                      <table class="table mb-0">                        
                         <tbody>
-                          <tr *ngFor="let x of clinical_history;let i = index"
-                            style="border-color: #fff !important;font-size: 9px;font-weight: 400;">
-                            <td *ngFor="let y of x.header_data">
-                              <h1 style="font-weight: 400 !important;color: #1B1B1B !important;"
-                                *ngIf="!indication_editable_field">{{y.data}}</h1>
-                              <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="y.data"
-                                *ngIf="indication_editable_field">
-                            </td>
+                          <tr *ngFor="let item of (clinical_history_indication_data ? clinical_history_indication_data : [])">
+                            <td style="width:210px;">{{ item.diagnosis }}</td>
+                            <td style="width:100px;text-align:center;">{{ item.code }}</td>
+                            <td style="width:250px;text-align:center;">{{ item.date }}</td>
+                            <td><a type="button" (click)="deleteIndication(item.id)"><i class="mdi mdi-trash-can-outline" style="color:red;font-size:16px"></i></a></td>
+                            <!-- Display more properties of the item as needed -->
                           </tr>
+                          <tr><td colspan="3" *ngIf="!clinical_history_indication_data.length">No Data Found</td></tr>
+                         
                         </tbody>
                       </table>
+                     
+                      
+                    </div>
+                    <div class="modal_footer my-4 mx-2">
+                      <div class="d-flex justify-content-end">
+                        
+                        <button class="btn me-2" (click)="closeModal();centerDataModal?.hide()">Cancel</button>
+                        <button class="btn-new mx-3" (click)="saveDataIndication()">Save</button>
+                      </div>
                     </div>
                   </div>
                   <div [ngClass]="{ 'tab-pane': true, ' active show': active_sub_status == 'post_diagnosis' }"
                     id="post_diagnosis_view" role="tabpanel">
-                    <div class="d-flex justify-content-between">
+                   <!--  <div class="d-flex justify-content-between">
                       <h4>Patient's medical background</h4>
                       <div style="cursor: pointer;" (click)="edit_field('post_diagnosis')"><i
                           class="mdi mdi-pencil-outline" style="font-size: 12px;color:#594585;"></i></div>
                     </div>
+                    <p>Post Diagnosis</p> -->
+                    
                     <p>Post Diagnosis</p>
+                    <a class="btn me-2" (click)="addRowPostDiagonis()" style="float:right;"><i class="mdi mdi-plus" style="color:blue !important; font-size: 15px;"></i></a>
                     <div class="table-responsive" style="border: 1px solid #F3F4F8;border-radius: 4px !important;">
-                      <table class="table mb-0">
-                        <thead class="table-light">
-                          <tr>
-                            <th *ngFor="let x of clinical_history ;" style="font-size: 9px;font-weight: 400;">
-                              {{x.headername}}</th>
-                          </tr>
-                        </thead>
+                      <form [formGroup]="tableFormPostdiagonis">
+                        <table class="table mb-0">
+                          <thead class="table-light">
+                            <tr>
+                              <td><span style="font-weight: 400 !important;color: #1B1B1B !important;">Diagnosis</span></td>
+                               <td><span style="font-weight: 400 !important;color: #1B1B1B !important;">Code</span></td>
+                               <td> <span style="font-weight: 400 !important;color: #1B1B1B !important;">Date</span></td>
+                               <td> <span style="font-weight: 400 !important;color: #1B1B1B !important;"></span></td>
+                               
+                            </tr>
+                          </thead>
+                          <tbody formArrayName="rows">
+                           
+                            <tr *ngFor="let row of rowControls2; let i = index" [formGroupName]="i" style="border-color: #fff !important;font-size: 12px;font-weight: 400;">
+                              <td><input type="text" formControlName="diagnosis"></td>
+                              <td><input type="text" formControlName="code" style="width:100px;"></td>
+                              
+                              <td><input matInput type="datetime-local" min="2017-06-01T08:30" [max]="currentDateTime" placeholder="start date" formControlName="date"></td>
+                              <td><a type="button" (click)="deleteRowPostDiagonis(i)"><i class="mdi mdi-trash-can-outline" style="color:red;font-size:16px"></i></a></td>
+                              <!-- <td><button type="button" (click)="addRow()"><i class="mdi-note-plus" style="color:red;font-size:16px"></i></button></td> -->
+                            </tr>
+                            
+                          </tbody>
+                        </table>
+                      </form>
+                      <table class="table mb-0">                        
                         <tbody>
-                          <tr *ngFor="let x of clinical_history;let i = index"
-                            style="border-color: #fff !important;font-size: 9px;font-weight: 400;">
-                            <td *ngFor="let y of x.header_data">
-                              <h1 style="font-weight: 400 !important;color: #1B1B1B !important;"
-                                *ngIf="!post_diagnosis_editable_field">{{y.data}}</h1>
-                              <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="y.data"
-                                *ngIf="post_diagnosis_editable_field">
-                            </td>
+                          <tr *ngFor="let itempostdiagonispopup of (clinical_history_postdiagonis_data ? clinical_history_postdiagonis_data : [])">
+                            <td style="width:210px;">{{ itempostdiagonispopup.diagnosis }}</td>
+                            <td style="width:100px;text-align:center;">{{ itempostdiagonispopup.code }}</td>
+                            <td style="width:250px;text-align:center;">{{ itempostdiagonispopup.date }}</td>
+                            <td><a type="button" (click)="deletePostdiagonis(itempostdiagonispopup.id)"><i class="mdi mdi-trash-can-outline" style="color:red;font-size:16px"></i></a></td>
+                            <!-- Display more properties of the item as needed -->
                           </tr>
+                          <tr><td colspan="3" *ngIf="!clinical_history_postdiagonis_data.length">No Data Found</td></tr>
+                         
                         </tbody>
                       </table>
                     </div>
+                    <div class="modal_footer my-4 mx-2">
+                      <div class="d-flex justify-content-end">
+                        
+                        <button class="btn me-2" (click)="closeModal();centerDataModal?.hide()">Cancel</button>
+                        <button class="btn-new mx-3" (click)="saveDataPostDiagonis()">Save</button>
+                      </div>
+                    </div>
                   </div>
+                  
                 </div>
 
                 <!-- </div> -->
               </div>
               <div [ngClass]="{ 'tab-pane': true, 'active show': active_status == 'lab' }" id="lab" role="tabpanel">
                 <div class="d-flex justify-content-between mt-2 mx-2">
-                  <h4 style="color: #747474 !important;">EST X-RAY,PA AND LATERAL (701020)<br>case provide</h4>
-                  <div style="cursor: pointer;" (click)="edit_field('lab')"><i class="mdi mdi-pencil-outline"
-                      style="font-size: 12px;color:#594585;"></i></div>
+                  <h4 style="color: #747474 !important;">EST X-RAY,PA AND LATERAL (701020) <br>case provide POPUP</h4>
+                  <!-- <div style="cursor: pointer;" (click)="edit_field('lab')"><i class="mdi mdi-pencil-outline"
+                      style="font-size: 12px;color:#594585;"></i></div> -->
                 </div>
+                <a class="btn me-2" (click)="addRowLab()" style="float:right;"><i class="mdi mdi-plus" style="color:blue !important; font-size: 15px;"></i></a>
                 <div class="table-responsive mt-2" style="border: 1px solid #F3F4F8;border-radius: 4px !important;">
-                  <table class="table mb-0">
-                    <thead class="table-light">
-                      <tr>
-                        <th *ngFor="let x of lab_data ;" style="font-size: 9px;font-weight: 400;">{{x.headername}}</th>
-                      </tr>
-                    </thead>
+                  <form [formGroup]="tablelab">
+                    <table class="table mb-0">
+                      <thead class="table-light">
+                        <tr>
+                          <td><span style="font-weight: 400 !important;color: #1B1B1B !important;">Test</span></td>
+                           <td><span style="font-weight: 400 !important;color: #1B1B1B !important;">Rsult</span></td>
+                           <td> <span style="font-weight: 400 !important;color: #1B1B1B !important;">Date</span></td>
+                           <td> <span style="font-weight: 400 !important;color: #1B1B1B !important;"></span></td>
+                           
+                        </tr>
+                      </thead>
+                      <tbody formArrayName="rows">
+                       
+                        <tr *ngFor="let row of rowControlslab; let i = index" [formGroupName]="i" style="border-color: #fff !important;font-size: 12px;font-weight: 400;">
+                          <td><input type="text" formControlName="test_name"></td>
+                          <td><input type="text" formControlName="result" style="width:100px;"></td>
+                          
+                          <td><input matInput type="datetime-local" min="2017-06-01T08:30" [max]="currentDateTime" placeholder="start date" formControlName="date"></td>
+                          <td><a type="button" (click)="deleteRowLab(i)"><i class="mdi mdi-trash-can-outline" style="color:red;font-size:16px"></i></a></td>
+                          <!-- <td><button type="button" (click)="addRow()"><i class="mdi-note-plus" style="color:red;font-size:16px"></i></button></td> -->
+                        </tr>
+                        
+                      </tbody>
+                    </table>
+                  </form>
+                  <table class="table mb-0">                        
                     <tbody>
-                      <tr *ngFor="let x of lab_data;let i = index"
-                        style="border-color: #fff !important;font-size: 9px;font-weight: 400;">
-                        <td *ngFor="let y of x.header_data">
-                          <h1 style="font-weight: 400 !important;color: #1B1B1B !important;"
-                            *ngIf="!lab_editable_field">
-                            {{y.data}}</h1>
-                          <input class="form-control-new form-control-new-sm" type="text" [(ngModel)]="y.data"
-                            *ngIf="lab_editable_field">
-                        </td>
+                      <tr *ngFor="let item of (lab_data ? lab_data : [])">
+                        <td style="width:210px;">{{ item.test_name }}</td>
+                        <td style="width:100px;text-align:center;">{{ item.result }}</td>
+                        <td style="width:250px;text-align:center;">{{ item.date }}</td>
+                        <td><a type="button" (click)="deleteLab(item.id)"><i class="mdi mdi-trash-can-outline" style="color:red;font-size:16px"></i></a></td>
+                        <!-- Display more properties of the item as needed -->
                       </tr>
+                      <tr><td colspan="3" *ngIf="!lab_data.length">No Data Found</td></tr>
+                     
                     </tbody>
                   </table>
+                </div>
+                <div class="modal_footer my-4 mx-2">
+                  <div class="d-flex justify-content-end">                    
+                    <button class="btn me-2" (click)="closeModal();centerDataModal?.hide()">Cancel</button>
+                    <button class="btn-new mx-3" (click)="saveDataLab()">Save</button>
+                  </div>
                 </div>
               </div>
               <div [ngClass]="{ 'tab-pane': true, 'active show': active_status == 'medication' }" id="medication"
@@ -1053,6 +1157,100 @@
         <button type="button" class="btn-new me-2"
           style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"  (click)="this.CloseModal('delete_modal')">Go back</button>
         <button type="button" class="btn-new" style="width: auto !important;" (click)="DeletePrediagonis()" >Yes,continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div bsModal #delete_indication_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:400px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Delete Indication
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="this.CloseModaldeleteIndication('delete_indication_modal')" 
+          style="cursor: pointer">
+      </div>
+
+      <div class="d-flex flex-column align-items-center justify-content-between mt-4">
+        <div class="mb-2">
+          <img src="assets/images/delete_modal_img.svg" style="width: 40px;height: 40px;">
+        </div>
+        <div class="mb-2">
+          <h1>Do you want to delete?</h1>
+        </div>
+      </div>
+
+     
+
+      <div class="d-flex justify-content-evenly p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"  (click)="this.CloseModaldeleteIndication('delete_indication_modal')">Go back</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="DeleteIndicationData()" >Yes,continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #delete_post_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:400px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Delete Post Diagonis
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="this.CloseModaldeletePostdiagonis('delete_post_modal')" 
+          style="cursor: pointer">
+      </div>
+
+      <div class="d-flex flex-column align-items-center justify-content-between mt-4">
+        <div class="mb-2">
+          <img src="assets/images/delete_modal_img.svg" style="width: 40px;height: 40px;">
+        </div>
+        <div class="mb-2">
+          <h1>Do you want to delete?</h1>
+        </div>
+      </div>
+
+     
+
+      <div class="d-flex justify-content-evenly p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"  (click)="this.CloseModaldeletePostdiagonis('delete_post_modal')">Go back</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="DeletePostDiagonis()" >Yes,continue</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div bsModal #delete_lab_modal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name5">
+  <div class="modal-dialog modal-dialog-centered" style="max-width:400px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
+        style="background: #F3F4F8;border-radius: 8px;">
+        <h1 class="flex-grow-1 ms-2" style="font-size: 14px !important;color: #1B1B1B !important;">Delete Lab
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="this.CloseModaldeleteLab('delete_lab_modal')" 
+          style="cursor: pointer">
+      </div>
+
+      <div class="d-flex flex-column align-items-center justify-content-between mt-4">
+        <div class="mb-2">
+          <img src="assets/images/delete_modal_img.svg" style="width: 40px;height: 40px;">
+        </div>
+        <div class="mb-2">
+          <h1>Do you want to delete?</h1>
+        </div>
+      </div>
+
+     
+
+      <div class="d-flex justify-content-evenly p-3">
+        <button type="button" class="btn-new me-2"
+          style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;"  (click)="this.CloseModaldeleteLab('delete_lab_modal')">Go back</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="DeleteLabData()" >Yes,continue</button>
       </div>
     </div>
   </div>

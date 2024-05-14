@@ -8,7 +8,7 @@ import { NgStepperModule } from 'angular-ng-stepper';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PreventSpacesDirective } from '../prevent-spaces.directive';
+
 import { PatientListComponent } from './patient-list/patient-list.component';
 import { AgGridModule } from 'ag-grid-angular';
 import { ModalModule } from 'ngx-bootstrap/modal';
@@ -16,7 +16,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 @NgModule({
   declarations: [
     RegistrationPageComponent,
-    PreventSpacesDirective,
+    
     PatientListComponent
   ],
   imports: [
