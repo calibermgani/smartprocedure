@@ -114,7 +114,7 @@ export class WorkAreaComponent implements OnInit {
   clinical_history: any = [];
   clinical_history_indication_data: any = [];
   clinical_history_postdiagonis_data: any = [];
-  
+
   lab_data: any = [];
   careteam_data: any = [];
   Alert_data: any = [];
@@ -155,7 +155,7 @@ export class WorkAreaComponent implements OnInit {
   itemsPerSlide = 4;
   singleSlideOffset = true;
 
-  patient_id : any= localStorage.getItem('PatientID')    
+  patient_id : any= localStorage.getItem('PatientID')
   mrn_number : any = localStorage.getItem('MRN_NO');
   delete_pre_diagonis_id : number;
   delete_indication_id : number;
@@ -194,25 +194,25 @@ export class WorkAreaComponent implements OnInit {
     this.addNotesModal?.show();
     this.tableForm = this.formBuilder.group({
       rows: this.formBuilder.array([])
-     
+
     });
     this.tableFormIndication = this.formBuilder.group({
       rows: this.formBuilder.array([])
-     
+
     });
     this.tableFormPostdiagonis = this.formBuilder.group({
       rows: this.formBuilder.array([])
-     
+
     });
 
     this.tablelab = this.formBuilder.group({
       rows: this.formBuilder.array([])
-     
+
     });
 
     this.currentDateTime = this.datePipe.transform(new Date(), 'yyyy-MM-ddTHH:mm');
 
-    
+
 
     this.http.get('assets/json/mini-list.json').subscribe((res: any) => {
       // this.miniList_details = res;
@@ -247,18 +247,18 @@ export class WorkAreaComponent implements OnInit {
     this.http.get<timeline>('assets/json/timeline.json').subscribe((res: any) => {
       this.timeline_data = res;
     });
-    
 
-   /** Patient Clinical History Table Stat API By Gani */ 
+
+   /** Patient Clinical History Table Stat API By Gani */
    this.Clinical_history().subscribe((response:any)=>{
     this.clinical_history = response.data;
     //console.log('Clinical History Response : ',this.clinical_history);
    })
 
-   /** Patient Clinical History Table End API By Gani */ 
-   
-    
-  
+   /** Patient Clinical History Table End API By Gani */
+
+
+
 
 
    /*  this.http.get<TabData>('assets/json/lab_data.json').subscribe((res: any) => {
@@ -284,7 +284,7 @@ export class WorkAreaComponent implements OnInit {
 
     if(PatientID){
 
-        this.allService.GetSpecificPatientDetails(PatientID).subscribe({
+        this.allService.GetSpecificPatientProcedureDetails(PatientID).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
             console.log(res);
@@ -357,7 +357,7 @@ export class WorkAreaComponent implements OnInit {
         }
       case 'indication': {
         this.indication_editable_field = true;
-       
+
         break;
       }
       case 'post_diagnosis': {
@@ -403,9 +403,9 @@ export class WorkAreaComponent implements OnInit {
     this.centerDataModal?.hide();
   }
   showEditableModal(data: any) {
-   
+
     switch (data) {
-      
+
       case 'pre_diagnosis':
         {
           this.tab_active('clinical_history');
@@ -414,13 +414,13 @@ export class WorkAreaComponent implements OnInit {
           this.centerDataModal?.show();
           break;
         }
-      case 'indication': {    
-         
+      case 'indication': {
+
         this.tab_active('clinical_history');
         this.tab_Subactive(data);
-        
+
         this.indication_editable_field = true;
-        this.centerDataModal?.show();       
+        this.centerDataModal?.show();
         break;
       }
       case 'post_diagnosis': {
@@ -432,9 +432,9 @@ export class WorkAreaComponent implements OnInit {
       }
       case 'lab': {
         this.active_status = 'lab';
-        this.lab_editable_field = true;        
-        this.tab_active(data);        
-        
+        this.lab_editable_field = true;
+        this.tab_active(data);
+
         this.active_tabs_lab = true;
         this.centerDataModal?.show();
         break;
@@ -457,7 +457,7 @@ export class WorkAreaComponent implements OnInit {
   }
 
   tab_active(data: any) {
-      
+
     this.active_status = data;
 
     switch(data){
@@ -466,8 +466,8 @@ export class WorkAreaComponent implements OnInit {
         console.log('Popup Datas',data)
       }
     }
-    
-    
+
+
 
 
   }
@@ -483,28 +483,28 @@ export class WorkAreaComponent implements OnInit {
         if(this.clinical_history_postdiagonis_data.length == 0){
         this.GetClinicalPostdiagonis();
         }
-        
+
       }
-     
+
     }
     this.active_sub_status = data;
-    
+
   }
   ClinicalHistorySubTab(tabsactive : any){
   switch (tabsactive) {
-    case 'indication': {     
+    case 'indication': {
      if(this.clinical_history_indication_data.length == 0){
       this.GetClinicalIndication();
      }
-    
+
     }
     case 'post_diagnosis':{
       if(this.clinical_history_postdiagonis_data.length == 0){
       this.GetClinicalPostdiagonis();
       }
-      
+
     }
-    
+
    /*  case 'allergies': {
       this.isolation_alert = data;
     }
@@ -548,6 +548,7 @@ export class WorkAreaComponent implements OnInit {
     localStorage.removeItem('Procedure');
     localStorage.removeItem('MRN_NO');
     localStorage.removeItem('ExamStatus');
+    localStorage.removeItem('Stage Type');
     this.router.navigateByUrl('/procedure');
   }
 
@@ -555,15 +556,15 @@ export class WorkAreaComponent implements OnInit {
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     payload["stage_type"]='Requesting';
-    let patient_id = localStorage.getItem('PatientID')    
+    let patient_id = localStorage.getItem('PatientID')
     let mrn_number = localStorage.getItem('MRN_NO');
     payload["mrn_number"]=mrn_number;
     payload["patient_id"]=patient_id;
-   
+
     // return null;
     console.log('Call Clinical History API');
     return this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_index`,payload);
-    
+
   }
 
 
@@ -581,7 +582,7 @@ export class WorkAreaComponent implements OnInit {
     });
    // (this.tableForm.get('rows') as FormArray).push(newRow);
     (this.tableForm.get('rows') as FormArray).insert(0, newRow);
-    
+
   }
 
   deleteRow(index: number) {
@@ -590,7 +591,7 @@ export class WorkAreaComponent implements OnInit {
 
   saveData() {
     const rowData = this.tableForm.value.rows;
-    let patient_id = localStorage.getItem('PatientID')    
+    let patient_id = localStorage.getItem('PatientID')
     let mrn_number = localStorage.getItem('MRN_NO');
     console.log('MRN Number',mrn_number);
     console.log(rowData); // Save the data as needed
@@ -604,7 +605,7 @@ export class WorkAreaComponent implements OnInit {
     payload['created_by'] = 1;
     payload['added_by'] = 1;
 
-    
+
     this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_store`, payload).subscribe((response:any) => {
       console.log('Data saved successfully:', response);
       this.toastr.success(`${response.message}`,'Successfull', {
@@ -612,10 +613,10 @@ export class WorkAreaComponent implements OnInit {
         timeOut: 1000,
       })
       this.GetClinicalHistory();
-      this.tableForm.reset(); 
+      this.tableForm.reset();
       (this.tableForm.get('rows') as FormArray).clear();
-      
-      
+
+
     }, error => {
       console.error('Error saving data:', error);
     });
@@ -630,7 +631,7 @@ export class WorkAreaComponent implements OnInit {
   deletePreDiagoanis(id:number) {
     this.delete_pre_diagonis_id = id;
     this.delete_modal?.show();
-   
+
   }
 
   CloseModal(modalname:string){
@@ -643,14 +644,14 @@ export class WorkAreaComponent implements OnInit {
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     payload["id"]= this.delete_pre_diagonis_id;
     payload["mrn_number"]= this.mrn_number;
-    payload["patient_id"]= this.patient_id;    
-    payload['deleted_by'] = 1;   
+    payload["patient_id"]= this.patient_id;
+    payload['deleted_by'] = 1;
 
     this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_delete`, payload).subscribe((response:any) => {
       console.log('Data saved successfully:', response);
-     
-      
-     
+
+
+
       this.toastr.success(`${response.message}`,'Successfull', {
         positionClass: 'toast-top-center',
         timeOut: 2000,
@@ -660,10 +661,10 @@ export class WorkAreaComponent implements OnInit {
     }, error => {
       console.error('Error saving data:', error);
     });
- 
-    
+
+
   }
-  
+
 
   /** Fetch The Clinical History Pre-diagonis tab */
 
@@ -689,12 +690,12 @@ Clinical_history_indication() {
   payload["stage_type"]='Requesting';
   payload["mrn_number"]=this.mrn_number;
   payload["patient_id"]=this.patient_id;
- 
+
   // return null;
   //console.log('Call Clinical History Indication API');
   return this.http.post(`${this.apiUrl}/procedures/ch_indication_index`,payload);
-  
-} 
+
+}
 
 
 get rowControls1() {
@@ -709,7 +710,7 @@ addRowIndication() {
   });
  // (this.tableForm.get('rows') as FormArray).push(newRow);
   (this.tableFormIndication.get('rows') as FormArray).insert(0, newRow);
-  
+
 }
 
 deleteRowIndication(index: number) {
@@ -719,7 +720,7 @@ deleteRowIndication(index: number) {
 
 saveDataIndication() {
   const rowData = this.tableFormIndication.value.rows;
-  let patient_id = localStorage.getItem('PatientID')    
+  let patient_id = localStorage.getItem('PatientID')
   let mrn_number = localStorage.getItem('MRN_NO');
   console.log('MRN Number',mrn_number);
   console.log(rowData); // Save the data as needed
@@ -733,7 +734,7 @@ saveDataIndication() {
   payload['created_by'] = 1;
   payload['added_by'] = 1;
 
-  
+
   this.http.post(`${this.apiUrl}/procedures/ch_indication_store`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
@@ -741,10 +742,10 @@ saveDataIndication() {
       timeOut: 1000,
     })
     this.GetClinicalIndication();
-    this.tableFormIndication.reset(); 
+    this.tableFormIndication.reset();
     (this.tableFormIndication.get('rows') as FormArray).clear();
-    
-    
+
+
   }, error => {
     console.error('Error saving data:', error);
   });
@@ -757,7 +758,7 @@ saveDataIndication() {
 deleteIndication(id:number) {
   this.delete_indication_id = id;
   this.delete_indication_modal?.show();
- 
+
 }
 
 CloseModaldeleteIndication(modalname:string){
@@ -770,14 +771,14 @@ DeleteIndicationData() {
   payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
   payload["id"]= this.delete_indication_id;
   payload["mrn_number"]= this.mrn_number;
-  payload["patient_id"]= this.patient_id;    
-  payload['deleted_by'] = 1;   
+  payload["patient_id"]= this.patient_id;
+  payload['deleted_by'] = 1;
 
   this.http.post(`${this.apiUrl}/procedures/ch_indication_delete`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
-   
-    
-   
+
+
+
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
       timeOut: 2000,
@@ -788,7 +789,7 @@ DeleteIndicationData() {
     console.error('Error saving data:', error);
   });
 
-  
+
 }
 
  /** Clinical History Indication Sub Tab End */
@@ -811,12 +812,12 @@ Clinical_history_postdiagonis() {
   payload["stage_type"]='Requesting';
   payload["mrn_number"]=this.mrn_number;
   payload["patient_id"]=this.patient_id;
- 
+
   // return null;
   //console.log('Call Clinical History Indication API');
   return this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_index`,payload);
-  
-} 
+
+}
 
 get rowControls2() {
   return (this.tableFormPostdiagonis.get('rows') as FormArray).controls;
@@ -830,7 +831,7 @@ addRowPostDiagonis() {
   });
  // (this.tableForm.get('rows') as FormArray).push(newRow);
   (this.tableFormPostdiagonis.get('rows') as FormArray).insert(0, newRow);
-  
+
 }
 
 
@@ -841,7 +842,7 @@ deleteRowPostDiagonis(index: number) {
 
 saveDataPostDiagonis() {
   const rowData = this.tableFormPostdiagonis.value.rows;
-  let patient_id = localStorage.getItem('PatientID')    
+  let patient_id = localStorage.getItem('PatientID')
   let mrn_number = localStorage.getItem('MRN_NO');
   console.log('MRN Number',mrn_number);
   console.log(rowData); // Save the data as needed
@@ -855,7 +856,7 @@ saveDataPostDiagonis() {
   payload['created_by'] = 1;
   payload['added_by'] = 1;
 
-  
+
   this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_store`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
@@ -863,10 +864,10 @@ saveDataPostDiagonis() {
       timeOut: 1000,
     })
     this.GetClinicalPostdiagonis();
-    this.tableFormPostdiagonis.reset(); 
+    this.tableFormPostdiagonis.reset();
     (this.tableFormPostdiagonis.get('rows') as FormArray).clear();
-    
-    
+
+
   }, error => {
     console.error('Error saving data:', error);
   });
@@ -879,7 +880,7 @@ saveDataPostDiagonis() {
 deletePostdiagonis(id:number) {
   this.delete_postdiagonis_id = id;
   this.delete_post_modal?.show();
- 
+
 }
 
 CloseModaldeletePostdiagonis(modalname:string){
@@ -892,14 +893,14 @@ DeletePostDiagonis() {
   payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
   payload["id"]= this.delete_postdiagonis_id;
   payload["mrn_number"]= this.mrn_number;
-  payload["patient_id"]= this.patient_id;    
-  payload['deleted_by'] = 1;   
+  payload["patient_id"]= this.patient_id;
+  payload['deleted_by'] = 1;
 
   this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_delete`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
-   
-    
-   
+
+
+
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
       timeOut: 2000,
@@ -910,7 +911,7 @@ DeletePostDiagonis() {
     console.error('Error saving data:', error);
   });
 
-  
+
 }
 
 
@@ -935,12 +936,12 @@ GetLabDetails() {
   payload["stage_type"]='Requesting';
   payload["mrn_number"]=this.mrn_number;
   payload["patient_id"]=this.patient_id;
- 
+
   // return null;
   //console.log('Call Clinical History Indication API');
   return this.http.post(`${this.apiUrl}/procedures/patient_lab_index`,payload);
-  
-} 
+
+}
 
 get rowControlslab() {
   return (this.tablelab.get('rows') as FormArray).controls;
@@ -954,7 +955,7 @@ addRowLab() {
   });
  // (this.tableForm.get('rows') as FormArray).push(newRow);
   (this.tablelab.get('rows') as FormArray).insert(0, newRow);
-  
+
 }
 
 deleteRowLab(index: number) {
@@ -964,7 +965,7 @@ deleteRowLab(index: number) {
 
 saveDataLab() {
   const rowData = this.tablelab.value.rows;
-  let patient_id = localStorage.getItem('PatientID')    
+  let patient_id = localStorage.getItem('PatientID')
   let mrn_number = localStorage.getItem('MRN_NO');
   console.log('MRN Number',mrn_number);
   console.log(rowData); // Save the data as needed
@@ -978,7 +979,7 @@ saveDataLab() {
   payload['created_by'] = 1;
   payload['added_by'] = 1;
 
-  
+
   this.http.post(`${this.apiUrl}/procedures/patient_lab_store`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
@@ -986,10 +987,10 @@ saveDataLab() {
       timeOut: 1000,
     })
     this.GetLab();
-    this.tablelab.reset(); 
+    this.tablelab.reset();
     (this.tablelab.get('rows') as FormArray).clear();
-    
-    
+
+
   }, error => {
     console.error('Error saving data:', error);
   });
@@ -1001,7 +1002,7 @@ saveDataLab() {
 deleteLab(id:number) {
   this.delete_lab_id = id;
   this.delete_lab_modal?.show();
- 
+
 }
 
 CloseModaldeleteLab(modalname:string){
@@ -1014,10 +1015,10 @@ DeleteLabData() {
   payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
   payload["id"]= this.delete_lab_id;
   payload["mrn_number"]= this.mrn_number;
-  payload["patient_id"]= this.patient_id;    
-  payload['deleted_by'] = 1;   
+  payload["patient_id"]= this.patient_id;
+  payload['deleted_by'] = 1;
 
-  this.http.post(`${this.apiUrl}/procedures/patient_lab_delete`, payload).subscribe((response:any) => {       
+  this.http.post(`${this.apiUrl}/procedures/patient_lab_delete`, payload).subscribe((response:any) => {
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
       timeOut: 2000,
@@ -1028,7 +1029,7 @@ DeleteLabData() {
     console.error('Error saving data:', error);
   });
 
-  
+
 }
 
 

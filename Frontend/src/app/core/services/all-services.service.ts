@@ -732,14 +732,32 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/procedures/patient_details`,payload);
   }
 
-  SendPatientRequest(data:any){
+  GetAllPatientProcedureList(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/patient_procedure_list`,payload);
+  }
+
+
+  GetSpecificPatientProcedureDetails(data:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"] = data;
+    return this.http.post(`${this.apiUrl}/procedures/patient_procedure_details`,payload);
+  }
+
+
+
+  SendPatientRequest(data:any,type:any,reason:any){
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     payload["mrn_number"]=data.mrn_no;
     payload["patient_id"]=data.id;
-    payload["status"]="Accepted";
+    payload["status"]=type;
     payload["accept_by"]="1";
     payload["created_by"]="1";
+    payload["reason_note"]=reason.reason2;
+    payload["reason_type"]=reason.reason1;
     return this.http.post(`${this.apiUrl}/procedures/patient_request`,payload);
   }
 
@@ -848,7 +866,7 @@ export class AllServicesService {
   }
 
 
-  Resgisterpatient(PersonalDetails:any,ContactDetails:any,Address:any,healthDetails:any,Otherdetails:any,image:any){
+  Registerpatient(PersonalDetails:any,ContactDetails:any,Address:any,healthDetails:any,Otherdetails:any,image:any){
     let formData = new FormData;
     formData.append("token","1a32e71a46317b9cc6feb7388238c95d");
 
@@ -904,6 +922,7 @@ export class AllServicesService {
     formData.append('temperature',healthDetails.temperature);
     formData.append('priority',healthDetails.Priority);
     formData.append('specialty',healthDetails.Speciality);
+    formData.append('procedure',healthDetails.Procedure);
 
     //Other Details
     formData.append('critical_information',Otherdetails.clientInformation);
@@ -918,10 +937,89 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/procedures/store_patient_details`,formData);
   }
 
+  UpdateRegisteredPatient(PersonalDetails:any,ContactDetails:any,Address:any,healthDetails:any,Otherdetails:any,image:any,Patient_ID:any){
+    let formData = new FormData;
+    formData.append("token","1a32e71a46317b9cc6feb7388238c95d");
+
+    if(image && image !== null){
+      if(image.name){
+        formData.append("patient_image", image, image.name);
+      }
+      else{
+        formData.append("patient_image", image);
+      }
+    }
+    else{
+      formData.append("patient_image", '');
+    }
+
+    //Personal Details
+    formData.append('first_name',PersonalDetails.first_name);
+    formData.append('middle_name',PersonalDetails.middle_name);
+    formData.append('surname',PersonalDetails.last_name);
+    formData.append('title',PersonalDetails.title);
+    formData.append('name_of_partner',PersonalDetails.partner_name);
+    formData.append('name_of_children ',PersonalDetails.children_name);
+    formData.append('referred_by',PersonalDetails.referred_by);
+    formData.append('occupation',PersonalDetails.occupation);
+    formData.append('gender',PersonalDetails.gender);
+    formData.append('dob',this.formatDate(PersonalDetails.dob) );
+    formData.append('age',PersonalDetails.age);
+    formData.append('marital_status',PersonalDetails.martial_status);
+    formData.append('language',PersonalDetails.language);
+
+    //Contact Details
+    formData.append('telephone',ContactDetails.telephone_number);
+    formData.append('primary_email',ContactDetails.email);
+
+    //Address
+    formData.append('address_type',Address.addresstype);
+    formData.append('flat_unit_no',Address.flatNo);
+    formData.append('street_no',Address.StreetNo);
+    formData.append('street_name',Address.StreetName);
+    formData.append('suburb',Address.suburb);
+    formData.append('town_city',Address.town);
+    formData.append('state',Address.state);
+    formData.append('post_code',Address.postcode);
+
+    //health Details
+    formData.append('blood_group',healthDetails.bloodgroup);
+    formData.append('weight',healthDetails.weight);
+    formData.append('height',healthDetails.height);
+    formData.append('blood_pressure',healthDetails.bloodPressure);
+    formData.append('heart_beat',healthDetails.heartBeat);
+    formData.append('spo2',healthDetails.spo2);
+    formData.append('respiratory_rate',healthDetails.respiratoryRate);
+    formData.append('temperature',healthDetails.temperature);
+    formData.append('priority',healthDetails.Priority);
+    formData.append('specialty',healthDetails.Speciality);
+    formData.append('procedure_id',healthDetails.Procedure);
+
+    //Other Details
+    formData.append('critical_information',Otherdetails.clientInformation);
+    formData.append('notes',Otherdetails.notes);
+    formData.append('updated_by',"1");
+    formData.append('patient_id',Patient_ID);
+
+    formData.forEach((value, key) => {
+      const values = formData.getAll(key);
+      console.log(`${key}: ${values}`);
+    });
+    // return null;
+    return this.http.post(`${this.apiUrl}/procedures/patient_details_update`,formData);
+  }
+
   GetPatientList(){
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     return this.http.post(`${this.apiUrl}/procedures/patient_registration_list`,payload);
+  }
+
+  SendPatientProcedureRequest(ID:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]=ID;
+    return this.http.post(`${this.apiUrl}/procedures/patient_procedure_request`,payload);
   }
 
 }

@@ -1257,22 +1257,22 @@
           </div>
         </div>
         <div class="d-flex flex-column pb-0"
-                style="margin: 15px 0px; overflow-x: scroll !important;height: 400px;display: block !important;overflow-y: auto !important;">
-                <div class="d-flex" *ngFor="let x of timeline_data">
-                  <h4 style="border-right: 1px solid #000;padding:20px 20px 20px 80px;width: 155px;" class="mb-0">
-                    {{x.updated_at | date :'yyyy-mm-dd'}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px"
-                    style="position: relative;
-                right: 0.7%;
-                margin-top: 20px;">
-                  <div class="d-flex flex-column" style="padding:13px 5px 20px 10px">
-                    <h4 style="color: #1B1B1B;" class="mb-2">
-                      {{'This Item has been '+x.action_type}}
-                    </h4>
-                    <!-- <h4 style="color: #1B1B1B;line-height: 14.5px;" class="mb-1"> {{x.description}}</h4> -->
-                    <h4 style="color: #747474;">By:&nbsp;Admin</h4>
-                  </div>
-                </div>
-              </div>
+          style="margin: 15px 0px; overflow-x: scroll !important;height: 400px;display: block !important;overflow-y: auto !important;">
+          <div class="d-flex" *ngFor="let x of timeline_data">
+            <h4 style="border-right: 1px solid #000;padding:20px 20px 20px 80px;width: 155px;" class="mb-0">
+              {{x.updated_at | date :'yyyy-mm-dd'}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px"
+              style="position: relative;
+                        right: 0.7%;
+                        margin-top: 20px;">
+            <div class="d-flex flex-column" style="padding:13px 5px 20px 10px">
+              <h4 style="color: #1B1B1B;" class="mb-2">
+                {{'This Item has been '+x.action_type}}
+              </h4>
+              <!-- <h4 style="color: #1B1B1B;line-height: 14.5px;" class="mb-1"> {{x.description}}</h4> -->
+              <h4 style="color: #747474;">By:&nbsp;Admin</h4>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="d-flex flex-row justify-content-end p-3">
         <div>

@@ -2,6 +2,8 @@ import { CdkStepper } from '@angular/cdk/stepper';
 import { HttpBackend, HttpClient } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { ModalDirective } from 'ngx-bootstrap/modal';
 import { TabDirective } from 'ngx-bootstrap/tabs';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
@@ -53,10 +55,13 @@ export class ProcedureDetailsComponent implements OnInit {
   enableNotes_Protocoling:boolean = false;
   VettingRequestForm : UntypedFormGroup;
   ProtocoingRequestForm : UntypedFormGroup;
+  ReasonForm : UntypedFormGroup;
   private patientDetailsSubscription: Subscription | undefined;
+  @ViewChild('Reject', { static: false }) Reject?: ModalDirective;
 
 
-  constructor(private http: HttpClient,private allService : AllServicesService,private authService : AuthfakeauthenticationService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder) {
+
+  constructor(private http: HttpClient,private allService : AllServicesService,private authService : AuthfakeauthenticationService,private toastr : ToastrService,private formbuilder : UntypedFormBuilder,private router : Router) {
 
     this.VettingRequestForm= this.formbuilder.group({
       VettingNotes:['']
@@ -67,7 +72,12 @@ export class ProcedureDetailsComponent implements OnInit {
       ProtocolDetails : [],
       AddedProtocol : [],
       ProtocolNotes : ['']
-    })
+    });
+
+    this.ReasonForm = this.formbuilder.group({
+      reason1:[],
+      reason2:[,[Validators.maxLength(50)]]
+    });
    }
 
   ngOnInit() {
@@ -97,10 +107,10 @@ export class ProcedureDetailsComponent implements OnInit {
     window.alert('Hi You have opened the testing modal')
   }
 
-  SendPatientRequest(){
-    this.allService.SendPatientRequest(this.CurrentPatientDetails).subscribe({
+  SendPatientRequest(type:string){
+    this.allService.SendPatientRequest(this.CurrentPatientDetails,type,this.ReasonForm.value).subscribe({
       next:((res:any)=>{
-        if(res.status == 'Success'){
+        if(res.status == 'Success' && type=='Accepted'){
          this.CurrentPatientSelection = true;
         //  this.hideViewOnlyMode = false;
 
@@ -158,8 +168,16 @@ export class ProcedureDetailsComponent implements OnInit {
         //     });
         //   })
         // })
-      }
         return 0;
+      }
+      else if(res.status == 'Success' && type=='Rejected'){
+        this.CloseModal('Reject');
+        this.toastr.success(`${res.message}`, 'Successful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+        this.router.navigateByUrl('/procedure');
+      }
       }),
       error:((res:any)=>{
         this.toastr.error(`Something went wrong`, 'UnSuccessful', {
@@ -263,11 +281,11 @@ export class ProcedureDetailsComponent implements OnInit {
 
   ngAfterViewInit(): void {
     console.log('Selected Index',this.SelectedIndex);
-
+    this.CurrentPatientDetails = [];
     if(this.SelectedIndex == 0){
       let PatientID = localStorage.getItem('PatientID');
       if(PatientID){
-        this.allService.GetSpecificPatientDetails(PatientID).subscribe({
+        this.allService.GetSpecificPatientProcedureDetails(PatientID).subscribe({
           next:((res:any)=>{
             if(res.status == 'Success'){
              this.CurrentPatientDetails = res.patient;
@@ -324,8 +342,28 @@ export class ProcedureDetailsComponent implements OnInit {
         })
       })
     }
-    else{
+    else if(ExamStatus != 'Rejected'){
       this.CurrentPatientSelection = false;
+    }
+
+  }
+
+
+  CloseModal(type:any){
+    switch(type){
+      case 'Reject':{
+        this.Reject?.hide();
+        break;
+      }
+    }
+  }
+
+  OpenModal(type:any){
+    switch(type){
+      case 'Reject':{
+        this.Reject?.show();
+        break;
+      }
     }
   }
 }

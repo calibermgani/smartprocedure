@@ -67,7 +67,8 @@ export class RegistrationPageComponent {
       spo2 : [],
       respiratoryRate : [],
       Speciality : [],
-      Priority: [,[Validators.required]]
+      Priority: [,[Validators.required]],
+      Procedure :[,[Validators.required]]
     });
 
     this.otherdetailsform = this.formbuilder.group({
@@ -128,7 +129,8 @@ export class RegistrationPageComponent {
               spo2 : res.patient.spo2 != 'null' ? res.patient.spo2 : '',
               respiratoryRate : res.patient.respiratory_rate  != 'null' ? res.patient.respiratory_rate : '',
               Speciality :res.patient.specialty != 'null' ? res.patient.specialty : '',
-              Priority: res.patient.priority != 'null' ? res.patient.priority : null
+              Priority: res.patient.priority != 'null' ? res.patient.priority : null,
+              Procedure : res.patient.procedure != 'null' ? res.patient.procedure : null
             });
             this.otherdetailsform.patchValue({
               clientInformation :res.patient.critical_information != 'null' ? res.patient.critical_information : '',
@@ -144,7 +146,36 @@ export class RegistrationPageComponent {
         })
       })
     }
+    this.getProcedures();
   }
+
+  Procedure:any = [];
+  ProcedureOption_Index:any = [];
+  getProcedures(){
+    this.allService.ProcedureOptions().subscribe({
+      next:((res:any)=>{
+        this.Procedure = [];
+        this.ProcedureOption_Index = res.data;
+        if(res.data.length>0){
+          res.data.forEach((element:any) => {
+            this.Procedure.push(element.procedure_name);
+          });
+        }
+        else{
+          this.Procedure=[];
+        }
+
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
+  }
+
+
   onStepSelectionChange(event: StepperSelectionEvent) {
 
   }
@@ -174,26 +205,92 @@ export class RegistrationPageComponent {
   }
 
   RegisterPatient(PersonalDetails:any,ContactDetails:any,Address:any,healthDetails:any,Otherdetails:any){
-    this.allService.Resgisterpatient(PersonalDetails,ContactDetails,Address,healthDetails,Otherdetails,this.Patient_img).subscribe({
-      next:((res:any)=>{
-        if(res.status == 'Success'){
-          console.log(res);
-          this.personaldetailsform.reset();
-          this.contactDetailsform.reset();
-          this.addressform.reset();
-          this.healthdetailsform.reset();
-          this.otherdetailsform.reset();
-          this.cdkStepper.reset();
-          this.ProfileImage = '';
-        }
-      }),
-      error:((res:any)=>{
-        this.toastr.error(`${res}`, 'UnSuccessful', {
-          positionClass: 'toast-top-center',
-          timeOut: 2000,
+
+    let procedure_value = this.healthdetailsform.value.Procedure;
+    let newArray: any = [];
+    if (procedure_value) {
+      if (this.ProcedureOption_Index) {
+        this.ProcedureOption_Index.forEach(element => {
+          if (procedure_value == element.procedure_name) {
+            newArray.push(element.id);
+            let procedureStrings: any = newArray.map(num => num.toString());
+            console.log(procedureStrings);
+            this.healthdetailsform.patchValue({
+              Procedure: procedureStrings?.[0]
+            })
+          }
         });
+      }
+    }
+    else {
+      this.healthdetailsform.patchValue({
+        Procedure: null
       })
-    })
+    }
+    console.log(this.healthdetailsform.value);
+
+    let patientId = localStorage.getItem('Patient_ID');
+    if(patientId){
+      console.log(PersonalDetails);
+      console.log(ContactDetails);
+      console.log(Address);
+      console.log(this.healthdetailsform.value);
+      console.log(Otherdetails);
+      console.log(this.Patient_img);
+      console.log(patientId);
+
+      this.allService.UpdateRegisteredPatient(PersonalDetails,ContactDetails,Address,this.healthdetailsform.value,Otherdetails,this.Patient_img ? this.Patient_img : this.ProfileImage, patientId).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            console.log(res);
+            this.personaldetailsform.reset();
+            this.contactDetailsform.reset();
+            this.addressform.reset();
+            this.healthdetailsform.reset();
+            this.otherdetailsform.reset();
+            this.cdkStepper.reset();
+            this.ProfileImage = '';
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`${res}`, 'UnSuccessful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+        })
+      })
+    }
+    else{
+      console.log(PersonalDetails);
+      console.log(ContactDetails);
+      console.log(Address);
+      console.log(this.healthdetailsform.value);
+      console.log(Otherdetails);
+      console.log(this.Patient_img);
+      console.log(patientId);
+      this.allService.Registerpatient(PersonalDetails,ContactDetails,Address,this.healthdetailsform.value,Otherdetails,this.Patient_img).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            console.log(res);
+            this.personaldetailsform.reset();
+            this.contactDetailsform.reset();
+            this.addressform.reset();
+            this.healthdetailsform.reset();
+            this.otherdetailsform.reset();
+            this.cdkStepper.reset();
+            this.ProfileImage = '';
+          }
+        }),
+        error:((res:any)=>{
+          this.toastr.error(`${res}`, 'UnSuccessful', {
+            positionClass: 'toast-top-center',
+            timeOut: 2000,
+          });
+        })
+      })
+    }
+
+
   }
 
   Patient_img :any ;
