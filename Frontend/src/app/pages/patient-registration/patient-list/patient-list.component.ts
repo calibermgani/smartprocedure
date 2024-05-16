@@ -60,6 +60,7 @@ export class PatientListComponent implements OnInit{
       field: 'first_name',
       headerName: 'First name',
       cellRenderer: this.cellrendered.bind(this,'first_name'),
+      onCellClicked: this.CellClicked.bind(this, 'first_name')
       // cellRenderer: 'agGroupCellRenderer',
       // cellRendererParams:(params:any)=>{
       //   if(params.data.item_entry_status == 'clone'){
@@ -393,6 +394,20 @@ export class PatientListComponent implements OnInit{
   CellClicked(headerName: any, params: any) {
     switch (headerName) {
       case 'first_name':{
+        this.allService.SendPatientProcedureRequest(params.data.id).subscribe({
+          next:((res:any)=>{
+            this.toastr.success(`${res.message}`, 'Successful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+          }),
+          error:((res:any)=>{
+            this.toastr.error(`${res.message}`, 'UnSuccessful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+          })
+        })
         break;
       }
       case 'view':{

@@ -34,6 +34,7 @@ export class ProcedureComponent implements OnInit {
     defaultColDef: {
       filter: false,
     },
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">No rows to show</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
     suppressRowClickSelection:true,
@@ -157,10 +158,10 @@ export class ProcedureComponent implements OnInit {
       // this.gridOptions1.api?.setColumnDefs(colDefs);
       // this.gridOptions1.api?.setRowData(res);
     })
-    this.allServices.GetAllProcedureList().subscribe({
+    this.allServices.GetAllPatientProcedureList().subscribe({
       next:(res:any)=>{
        console.log(res)
-       if(res.status == 'Success'){
+       if(res.status == 'Success' && res.patient_list.length>0){
         console.log('Response Grid', res);
         let colDefs: ColDef[] = [];
         colDefs = this.gridOptions1.api?.getColumnDefs();
@@ -183,6 +184,10 @@ export class ProcedureComponent implements OnInit {
         console.log('colDefs', colDefs);
         this.gridOptions1.api?.setColumnDefs(colDefs);
         this.gridOptions1.api?.setRowData(res.patient_list);
+       }
+       else{
+        this.gridOptions1.api?.setColumnDefs([]);
+        this.gridOptions1.api?.setRowData([]);
        }
       },
       error:(res:any)=>{
@@ -411,7 +416,7 @@ export class ProcedureComponent implements OnInit {
             positionClass: 'toast-top-center',
             timeOut: 2000,
           });
-          this.allServices.GetAllProcedureList().subscribe({
+          this.allServices.GetAllPatientProcedureList().subscribe({
             next:(res:any)=>{
              console.log(res)
              if(res.status == 'Success'){
@@ -458,7 +463,7 @@ export class ProcedureComponent implements OnInit {
   }
 
   ReloadGrid(){
-    this.allServices.GetAllProcedureList().subscribe({
+    this.allServices.GetAllPatientProcedureList().subscribe({
       next:(res:any)=>{
        console.log(res)
        if(res.status == 'Success'){

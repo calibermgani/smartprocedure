@@ -423,6 +423,15 @@
                     Please fill the field</div>
                 </div>
               </div>
+              <div class="col-4">
+                <label for="items_category" class="register-label">Procedure:<span style="color: red;">*</span></label>
+                <ng-select [items]="this.Procedure" placeholder="Select Procedure" formControlName="Procedure"  [dropdownPosition]="'auto'"></ng-select>
+                <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
+                  <div
+                    *ngIf="(this.healthdetailsform.controls.Procedure.dirty || this.healthdetailsform.controls.Procedure.touched) && this.healthdetailsform.controls.Procedure.errors?.required">
+                    Please fill the field</div>
+                </div>
+              </div>
             </div>
           </div>
           <div class="d-flex footer_button float-end">

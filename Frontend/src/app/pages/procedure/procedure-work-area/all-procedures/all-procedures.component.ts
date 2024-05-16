@@ -83,22 +83,27 @@ export class AllProceduresComponent implements OnInit {
     switch (event.selectedIndex) {
       case 0:
         this.SelectedComponent = 0;
+        localStorage.setItem('Stage Type','Requestion');
         // Call API for step 0
         break;
       case 1:
         this.SelectedComponent = 1;
+        localStorage.setItem('Stage Type','Schedulling');
         // Call API for step 1
         break;
       case 2:
         this.SelectedComponent = 2;
+        localStorage.setItem('Stage Type','Pre-procedure');
         // Call API for step 2
         break;
       case 3:
         this.SelectedComponent = 3;
+        localStorage.setItem('Stage Type','Intra-procedure');
         // Call API for step 3
         break;
       case 4:
         this.SelectedComponent = 4;
+        localStorage.setItem('Stage Type','Post-procedure');
         // Call API for step 4
         break;
     }

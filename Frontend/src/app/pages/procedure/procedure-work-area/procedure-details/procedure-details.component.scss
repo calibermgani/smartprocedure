@@ -197,3 +197,8 @@
   background-size: 16px 16px !important; // Adjust the size of the image
   z-index: 1 !important;
 }
+
+:host ::ng-deep .ng-dropdown-panel-items
+{
+  background: #fff !important;
+}

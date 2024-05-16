@@ -97,6 +97,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   _activateMenuDropdown() {
     this._removeAllClass('mm-active');
     this._removeAllClass('mm-show');
+    // localStorage.clear();
     let links: any = [];
     links = document.getElementsByClassName('side-nav-link-ref');
     // console.log('Links',links);
