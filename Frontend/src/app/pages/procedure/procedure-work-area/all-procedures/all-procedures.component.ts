@@ -4,6 +4,7 @@ import { Component, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
 
 
 @Component({
@@ -73,8 +74,10 @@ export class AllProceduresComponent implements OnInit {
     suppressDragLeaveHidesColumns: true,
     suppressContextMenu: false,
   };
+  CurrentPatientUnderStatusDetails: any;
+  toastr: any;
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private allService : AllServicesService) {
   }
 
   onStepSelectionChange(event: StepperSelectionEvent) {
@@ -137,7 +140,10 @@ export class AllProceduresComponent implements OnInit {
 
     this.http.get('assets/json/mycart-data.json').subscribe((res:any)=>{
       this.myCartData = res;
+      console.log(this.myCartData,'cartttt');
+      
     });
+    this.getUnderStatusDetails();
   }
 
 
@@ -214,5 +220,28 @@ export class AllProceduresComponent implements OnInit {
 
   AddToFavourite(index:number,value:boolean){
     this.myCartData[index].fav = !value;
+  }
+
+  getUnderStatusDetails(){
+    let PatientID = localStorage.getItem('PatientID');
+
+    if(PatientID){
+
+        this.allService.GetSpecificPatientProcedureDetails(PatientID).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            console.log(res,'rtesss');
+           this.CurrentPatientUnderStatusDetails = res.patient;
+          }
+          return 0;
+        }),
+        error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      });
+    }
   }
 }

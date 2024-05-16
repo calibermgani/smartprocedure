@@ -63,11 +63,11 @@ height: 730px;">
 <div class="d-flex flex-row justify-content-around align-items-center p-2">
   <div class="me-1">
     <h4 class="mb-2">Accession No</h4>
-    <p class="mb-1">NGH123456</p>
+    <p class="mb-1">{{CurrentPatientUnderStatusDetails.accession_no}}</p>
   </div>
   <div class="me-1">
     <h4 class="mb-2">Procedure Code</h4>
-    <p class="mb-1">CT-Brain</p>
+    <p class="mb-1">{{CurrentPatientUnderStatusDetails.procedure}}</p>
   </div>
   <div class="me-1">
     <h4 class="mb-2">Modality Code</h4>
@@ -75,7 +75,7 @@ height: 730px;">
   </div>
   <div class="me-1">
     <h4 class="mb-2">Procedure Status</h4>
-    <p class="mb-1">Requested</p>
+    <p class="mb-1">{{CurrentPatientUnderStatusDetails.procedure_status}}</p>
   </div>
   <div class="me-1">
     <h4 class="mb-2">Procedure Sub Status<img src="assets/images/edit_svg.svg" class="ms-1"></h4>
