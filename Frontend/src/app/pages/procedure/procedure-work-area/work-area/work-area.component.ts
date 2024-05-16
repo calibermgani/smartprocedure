@@ -100,10 +100,12 @@ export class WorkAreaComponent implements OnInit {
   tableFormIndication: FormGroup;
   tableFormPostdiagonis: FormGroup;
   tablelab: FormGroup;
+  tableMedication: FormGroup;
   @ViewChild('delete_modal', { static: false }) delete_modal?: ModalDirective;
   @ViewChild('delete_indication_modal', { static: false }) delete_indication_modal?: ModalDirective;
   @ViewChild('delete_post_modal', { static: false }) delete_post_modal?: ModalDirective;
   @ViewChild('delete_lab_modal', { static: false }) delete_lab_modal?: ModalDirective;
+  @ViewChild('delete_mediation_modal', {static: false}) delete_mediation_modal?: ModalDirective;
   public apiUrl: any = environment_new.apiUrl;
   public clinicalDiagnosis: any = environment_new.clinicalDiagnosis;
   public patientLabDelete: any = environment_new.patientLabDelete;
@@ -132,6 +134,7 @@ export class WorkAreaComponent implements OnInit {
   clinical_history_postdiagonis_data: any = [];
 
   lab_data: any = [];
+  mediation_data: any = [];
   careteam_data: any = [];
   Alert_data: any = [];
   Alert_dropdown_values:any = [];
@@ -225,6 +228,11 @@ export class WorkAreaComponent implements OnInit {
     });
 
     this.tablelab = this.formBuilder.group({
+      rows: this.formBuilder.array([])
+
+    });
+
+    this.tableMedication = this.formBuilder.group({
       rows: this.formBuilder.array([])
 
     });
@@ -356,12 +364,12 @@ export class WorkAreaComponent implements OnInit {
     }
   }
 
-  setActiveTab(index: number) {
+  setActiveTab(index: number) {        
     this.activeTab = index;
     console.log('Main Tab',index)
     if(index===2){
       this.GetLab();
-    }
+    }else if(index === 3) this.GetMediation();
   }
   setActiveTabModal(index: number) {
     this.activeTab_Modal = index;
@@ -460,8 +468,9 @@ export class WorkAreaComponent implements OnInit {
       }
       case 'medication': {
         this.active_status = 'medication';
-        this.tab_active(data);
         this.medication_editable_field = true;
+        this.tab_active(data);
+        this.active_tabs_medication = true;
         this.centerDataModal?.show();
         break;
       }
@@ -482,6 +491,10 @@ export class WorkAreaComponent implements OnInit {
     switch(data){
       case 'lab':{
         this.GetLab();
+        console.log('Popup Datas',data)
+      }
+      case 'medication':{
+        this.GetMediation();
         console.log('Popup Datas',data)
       }
     }
@@ -1059,7 +1072,7 @@ DeleteLabData() {
 
 GetMediation(){
   this.GetMediationDetails().subscribe((response:any)=>{
-    this.lab_data = response.data;
+    this.mediation_data = response.data;
     //console.log('Mediation Response : ',response.data);
    })
 }
@@ -1081,27 +1094,27 @@ GetMediationDetails() {
 } 
 
 get rowMediationlab() {
-  return (this.tablelab.get('rows') as FormArray).controls;
+  return (this.tableMedication.get('rows') as FormArray).controls;
 }
 
 addRowMediation() {
-  const newRow = this.formBuilder.group({
+  const newRowOfMediation = this.formBuilder.group({
     test_name: '',
     result: '',
     date:''
   });
  // (this.tableForm.get('rows') as FormArray).push(newRow);
-  (this.tablelab.get('rows') as FormArray).insert(0, newRow);
+  (this.tableMedication.get('rows') as FormArray).insert(0, newRowOfMediation);
 
 }
 
 deleteRowMediation(index: number) {
-  (this.tablelab.get('rows') as FormArray).removeAt(index);
+  (this.tableMedication.get('rows') as FormArray).removeAt(index);
 }
 
 
 saveMediationData() {
-  const rowData = this.tablelab.value.rows;
+  const rowData = this.tableMedication.value.rows;
   let patient_id = localStorage.getItem('PatientID')
   let mrn_number = localStorage.getItem('MRN_NO');
   console.log('MRN Number',mrn_number);
@@ -1119,14 +1132,14 @@ saveMediationData() {
 
   
   this.http.post(`${this.apiUrl}${this.saveMediationData1}`, payload).subscribe((response:any) => {
-    console.log('Data saved successfully:', response);
+    // console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
       timeOut: 1000,
     })
     this.GetMediation();
-    this.tablelab.reset();
-    (this.tablelab.get('rows') as FormArray).clear();
+    this.tableMedication.reset();
+    (this.tableMedication.get('rows') as FormArray).clear();
 
 
   }, error => {
@@ -1139,12 +1152,12 @@ saveMediationData() {
 
 deleteMediation(id:number) {
   this.delete_mediation_id = id;
-  this.delete_lab_modal?.show();
+  this.delete_mediation_modal?.show();
 
 }
 
 CloseModaldeleteMediation(modalname:string){
-  this.delete_lab_modal?.hide();
+  this.delete_mediation_modal?.hide();
 }
 
 DeleteLabDataMediation() {
@@ -1153,7 +1166,6 @@ DeleteLabDataMediation() {
   payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
   payload["id"]= this.delete_mediation_id;
   payload["mrn_number"]= this.mrn_number;
-  payload["procedure"] = this.procedure_id; 
   payload["patient_id"]= this.patient_id;
   payload['deleted_by'] = 1;
 
@@ -1162,7 +1174,7 @@ DeleteLabDataMediation() {
       positionClass: 'toast-top-center',
       timeOut: 2000,
     })
-    this.delete_lab_modal?.hide();
+    this.delete_mediation_modal?.hide();
     this.GetMediation();
   }, error => {
     console.error('Error saving data:', error);
