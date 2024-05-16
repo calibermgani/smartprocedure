@@ -1,7 +1,7 @@
 <div class="cards">
   <h1 class="header_name_bold mb-2" style="text-align: left !important;">Material Summary</h1>
   <div class="row mb-2">
-    <div class="top-cards col" *ngFor="let x of material_summary_data" style="width: 14.10% ;height:auto !important">
+    <div class="top-cards col" *ngFor="let x of material_summary_data" style="width: max-content !important ;height:auto !important">
       <div class="material_sum_card d-flex flex-row align-items-center"
         (click)="ChangeGrid(x.type)" [ngClass]="material_type_name == x.type ? 'material_sum_card':'disable_cards'">
         <div class="flex-shrink-0">

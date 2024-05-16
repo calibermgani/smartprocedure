@@ -115,40 +115,44 @@ export class ProcedureDetailsComponent implements OnInit {
         //  this.hideViewOnlyMode = false;
 
         //  VettingTypes
-         this.allService.GetVettingTypes().subscribe({
-          next:((res:any)=>{
-            if(res.status == 'Success'){
-              console.log(res);
-              this.VettingTypes = res.vetting_types;
-            }
-          }),
-          error:((res:any)=>{
-            this.toastr.error(`Something went wrong`,'UnSuccessful',{
-              positionClass: 'toast-top-center',
-              timeOut:2000,
-            });
-          })
-         })
+          this.allService.GetVettingTypes().subscribe({
+            next: ((res: any) => {
+              if (res.status == 'Success') {
+                console.log(res);
+                this.VettingTypes = res.vetting_types;
+              }
+            }),
+            error: ((res: any) => {
+              this.toastr.error(`Something went wrong`, 'UnSuccessful', {
+                positionClass: 'toast-top-center',
+                timeOut: 2000,
+              });
+            })
+          });
 
         //  Protocol Types
-         this.allService.GetProtocolTypes().subscribe({
-          next:((res:any)=>{
-            if(res.status == 'Success'){
-              console.log(res);
-             res.protocol_types.forEach(element => {
-              this.ProtocolTypes.push(element.name);
-              this.DuplicateProtocolingTypes.push(element);
-             });
-             console.log(this.ProtocolTypes);
-            }
-          }),
-          error:((res:any)=>{
-              this.toastr.error(`Something went wrong`,'UnSuccessful',{
-              positionClass: 'toast-top-center',
-              timeOut:2000,
-            });
-          })
-        })
+          this.allService.GetProtocolTypes().subscribe({
+            next: ((res: any) => {
+              if (res.status == 'Success') {
+                console.log(res);
+                res.protocol_types.forEach(element => {
+                  this.ProtocolTypes.push(element.name);
+                  this.DuplicateProtocolingTypes.push(element);
+                });
+                console.log(this.ProtocolTypes);
+              }
+            }),
+            error: ((res: any) => {
+              this.toastr.error(`Something went wrong`, 'UnSuccessful', {
+                positionClass: 'toast-top-center',
+                timeOut: 2000,
+              });
+            })
+          });
+
+
+
+
 
         // this.allService.GetAddProtocolList().subscribe({
         //   next:((res:any)=>{
@@ -282,8 +286,8 @@ export class ProcedureDetailsComponent implements OnInit {
   ngAfterViewInit(): void {
     console.log('Selected Index',this.SelectedIndex);
     this.CurrentPatientDetails = [];
+    let PatientID = localStorage.getItem('PatientID');
     if(this.SelectedIndex == 0){
-      let PatientID = localStorage.getItem('PatientID');
       if(PatientID){
         this.allService.GetSpecificPatientProcedureDetails(PatientID).subscribe({
           next:((res:any)=>{
@@ -341,6 +345,42 @@ export class ProcedureDetailsComponent implements OnInit {
           });
         })
       })
+
+      //Vetting Data
+      let MRN = localStorage.getItem('MRN_NO');
+      this.allService.GetVettingRequestData(PatientID,MRN).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+           console.log('Vetting Data',res);
+           this.VettingRequestForm.patchValue({
+            VettingNotes:res.data.vetting_notes
+           });
+
+          }
+        }),
+        error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      });
+
+      //Protocoling Data
+      this.allService.GetProtocolingRequestData(PatientID,MRN).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+           console.log('Protocoling Data',res);
+          }
+        }),
+        error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      });
+
     }
     else if(ExamStatus != 'Rejected'){
       this.CurrentPatientSelection = false;
