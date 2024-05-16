@@ -10,6 +10,7 @@ import { environment_new } from 'src/environments/environment';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { DatePipe } from '@angular/common';
 
+
 interface kizintabValues {
   "tabs": string,
   "id": number,
@@ -104,6 +105,18 @@ export class WorkAreaComponent implements OnInit {
   @ViewChild('delete_post_modal', { static: false }) delete_post_modal?: ModalDirective;
   @ViewChild('delete_lab_modal', { static: false }) delete_lab_modal?: ModalDirective;
   public apiUrl: any = environment_new.apiUrl;
+  public clinicalDiagnosis: any = environment_new.clinicalDiagnosis;
+  public patientLabDelete: any = environment_new.patientLabDelete;
+  public saveDataLab1: any = environment_new.saveDataLab;
+  public getLabDetails1:  any = environment_new.getLabDetails;
+  public deletePostDiagnol1: any = environment_new.deletePostDiagnol;
+  public saveDatapostDiagnosis1: any = environment_new.saveDatapostDiagnosis;
+  public clinicalPostDiagnosis: any = environment_new.clinicalPostDiagnosis;
+  public deleteIndicationData: any = environment_new.deleteIndicationData;
+  public saveDataIndication1: any = environment_new.saveDataIndication;
+  public clinicalHistoryIndication: any = environment_new.clinicalHistoryIndication;
+  public deletePreDiagnosis: any = environment_new.deletePreDiagnosis;
+  public saveData1: any = environment_new.saveData;
   miniList_details: any;
   procedureAlertsData: any;
   CurrentPatientDetails : any = [];
@@ -563,8 +576,7 @@ export class WorkAreaComponent implements OnInit {
 
     // return null;
     console.log('Call Clinical History API');
-    return this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_index`,payload);
-
+    return this.http.post(`${this.apiUrl}${this.clinicalDiagnosis}`,payload); 
   }
 
 
@@ -605,8 +617,8 @@ export class WorkAreaComponent implements OnInit {
     payload['created_by'] = 1;
     payload['added_by'] = 1;
 
-
-    this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_store`, payload).subscribe((response:any) => {
+    
+    this.http.post(`${this.apiUrl}${this.saveData1}`, payload).subscribe((response:any) => {
       console.log('Data saved successfully:', response);
       this.toastr.success(`${response.message}`,'Successfull', {
         positionClass: 'toast-top-center',
@@ -647,7 +659,7 @@ export class WorkAreaComponent implements OnInit {
     payload["patient_id"]= this.patient_id;
     payload['deleted_by'] = 1;
 
-    this.http.post(`${this.apiUrl}/procedures/ch_pre_diagnosis_delete`, payload).subscribe((response:any) => {
+    this.http.post(`${this.apiUrl}${this.deletePreDiagnosis}`, payload).subscribe((response:any) => {
       console.log('Data saved successfully:', response);
 
 
@@ -693,9 +705,9 @@ Clinical_history_indication() {
 
   // return null;
   //console.log('Call Clinical History Indication API');
-  return this.http.post(`${this.apiUrl}/procedures/ch_indication_index`,payload);
-
-}
+  return this.http.post(`${this.apiUrl}${this.clinicalHistoryIndication}`,payload);
+  
+} 
 
 
 get rowControls1() {
@@ -734,8 +746,8 @@ saveDataIndication() {
   payload['created_by'] = 1;
   payload['added_by'] = 1;
 
-
-  this.http.post(`${this.apiUrl}/procedures/ch_indication_store`, payload).subscribe((response:any) => {
+  
+  this.http.post(`${this.apiUrl}${this.saveDataIndication1}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
@@ -774,7 +786,7 @@ DeleteIndicationData() {
   payload["patient_id"]= this.patient_id;
   payload['deleted_by'] = 1;
 
-  this.http.post(`${this.apiUrl}/procedures/ch_indication_delete`, payload).subscribe((response:any) => {
+  this.http.post(`${this.apiUrl}${this.deleteIndicationData}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
 
 
@@ -815,9 +827,9 @@ Clinical_history_postdiagonis() {
 
   // return null;
   //console.log('Call Clinical History Indication API');
-  return this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_index`,payload);
-
-}
+  return this.http.post(`${this.apiUrl}${this.clinicalPostDiagnosis}`,payload);
+  
+} 
 
 get rowControls2() {
   return (this.tableFormPostdiagonis.get('rows') as FormArray).controls;
@@ -856,8 +868,8 @@ saveDataPostDiagonis() {
   payload['created_by'] = 1;
   payload['added_by'] = 1;
 
-
-  this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_store`, payload).subscribe((response:any) => {
+  
+  this.http.post(`${this.apiUrl}${this.saveDatapostDiagnosis1}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
@@ -896,7 +908,7 @@ DeletePostDiagonis() {
   payload["patient_id"]= this.patient_id;
   payload['deleted_by'] = 1;
 
-  this.http.post(`${this.apiUrl}/procedures/ch_post_diagnosis_delete`, payload).subscribe((response:any) => {
+  this.http.post(`${this.apiUrl}${this.deletePostDiagnol1}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
 
 
@@ -939,9 +951,9 @@ GetLabDetails() {
 
   // return null;
   //console.log('Call Clinical History Indication API');
-  return this.http.post(`${this.apiUrl}/procedures/patient_lab_index`,payload);
-
-}
+  return this.http.post(`${this.apiUrl}${this.getLabDetails1}`,payload);
+  
+} 
 
 get rowControlslab() {
   return (this.tablelab.get('rows') as FormArray).controls;
@@ -979,8 +991,8 @@ saveDataLab() {
   payload['created_by'] = 1;
   payload['added_by'] = 1;
 
-
-  this.http.post(`${this.apiUrl}/procedures/patient_lab_store`, payload).subscribe((response:any) => {
+  
+  this.http.post(`${this.apiUrl}${this.saveDataLab1}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
@@ -1018,7 +1030,7 @@ DeleteLabData() {
   payload["patient_id"]= this.patient_id;
   payload['deleted_by'] = 1;
 
-  this.http.post(`${this.apiUrl}/procedures/patient_lab_delete`, payload).subscribe((response:any) => {
+  this.http.post(`${this.apiUrl}${this.patientLabDelete}`, payload).subscribe((response:any) => {       
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
       timeOut: 2000,
