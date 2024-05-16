@@ -117,6 +117,9 @@ export class WorkAreaComponent implements OnInit {
   public clinicalHistoryIndication: any = environment_new.clinicalHistoryIndication;
   public deletePreDiagnosis: any = environment_new.deletePreDiagnosis;
   public saveData1: any = environment_new.saveData;
+  public getMediationDetails: any = environment_new.getMediationDetails;
+  public saveMediationData1: any = environment_new.saveMediationData;
+  public deleteMediationData: any = environment_new.deleteMediationData;
   miniList_details: any;
   procedureAlertsData: any;
   CurrentPatientDetails : any = [];
@@ -170,10 +173,13 @@ export class WorkAreaComponent implements OnInit {
 
   patient_id : any= localStorage.getItem('PatientID')
   mrn_number : any = localStorage.getItem('MRN_NO');
+  procedure_id : any;
   delete_pre_diagonis_id : number;
   delete_indication_id : number;
   delete_postdiagonis_id : number;
   delete_lab_id : number;
+  delete_mediation_id: number;
+  
 
   slides = [
     { "image": 'assets/images/fall_fill.svg',"name":'Fall',"tooltip":'Fall 19-25' },
@@ -1048,6 +1054,124 @@ DeleteLabData() {
 
 
 /** Lab Details Tab End */
+
+/** Mediation Tab Start (ADAI) */
+
+GetMediation(){
+  this.GetMediationDetails().subscribe((response:any)=>{
+    this.lab_data = response.data;
+    //console.log('Mediation Response : ',response.data);
+   })
+}
+
+
+GetMediationDetails() {
+  let payload:Object = {};
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["stage_type"]='Requesting';
+  payload["mrn_number"]=this.mrn_number;
+  payload["patient_id"]=this.patient_id;
+  payload["procedure"] = this.procedure_id; 
+
+
+  // return null;
+  //console.log('Call Mediation API');
+  return this.http.post(`${this.apiUrl}${this.getMediationDetails}`,payload);
+  
+} 
+
+get rowMediationlab() {
+  return (this.tablelab.get('rows') as FormArray).controls;
+}
+
+addRowMediation() {
+  const newRow = this.formBuilder.group({
+    test_name: '',
+    result: '',
+    date:''
+  });
+ // (this.tableForm.get('rows') as FormArray).push(newRow);
+  (this.tablelab.get('rows') as FormArray).insert(0, newRow);
+
+}
+
+deleteRowMediation(index: number) {
+  (this.tablelab.get('rows') as FormArray).removeAt(index);
+}
+
+
+saveMediationData() {
+  const rowData = this.tablelab.value.rows;
+  let patient_id = localStorage.getItem('PatientID')
+  let mrn_number = localStorage.getItem('MRN_NO');
+  console.log('MRN Number',mrn_number);
+  console.log(rowData); // Save the data as needed
+  let payload:Object = {};
+
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["stage_type"]='Requesting';
+  payload["mrn_number"]= localStorage.getItem('MRN_NO');
+  payload["patient_id"]=localStorage.getItem('PatientID');
+  payload["procedure"] = this.procedure_id; 
+  payload['patient_mediation_data'] = rowData;
+  payload['created_by'] = 1;
+  payload['added_by'] = 1;
+
+  
+  this.http.post(`${this.apiUrl}${this.saveMediationData1}`, payload).subscribe((response:any) => {
+    console.log('Data saved successfully:', response);
+    this.toastr.success(`${response.message}`,'Successfull', {
+      positionClass: 'toast-top-center',
+      timeOut: 1000,
+    })
+    this.GetMediation();
+    this.tablelab.reset();
+    (this.tablelab.get('rows') as FormArray).clear();
+
+
+  }, error => {
+    console.error('Error saving data:', error);
+  });
+
+
+}
+
+
+deleteMediation(id:number) {
+  this.delete_mediation_id = id;
+  this.delete_lab_modal?.show();
+
+}
+
+CloseModaldeleteMediation(modalname:string){
+  this.delete_lab_modal?.hide();
+}
+
+DeleteLabDataMediation() {
+  let payload:Object = {};
+
+  payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+  payload["id"]= this.delete_mediation_id;
+  payload["mrn_number"]= this.mrn_number;
+  payload["procedure"] = this.procedure_id; 
+  payload["patient_id"]= this.patient_id;
+  payload['deleted_by'] = 1;
+
+  this.http.post(`${this.apiUrl}${this.deleteMediationData}`, payload).subscribe((response:any) => {       
+    this.toastr.success(`${response.message}`,'Successfull', {
+      positionClass: 'toast-top-center',
+      timeOut: 2000,
+    })
+    this.delete_lab_modal?.hide();
+    this.GetMediation();
+  }, error => {
+    console.error('Error saving data:', error);
+  });
+
+
+}
+
+/** Mediation Tab End (ADAI) */
 
 
 }

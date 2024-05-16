@@ -34,7 +34,10 @@ export const environment_new:IEnvironment = {
   saveDataIndication:'/procedures/ch_indication_store',
   clinicalHistoryIndication:'/procedures/ch_indication_index',
   deletePreDiagnosis:'/procedures/ch_pre_diagnosis_delete',
-  saveData:'/procedures/ch_pre_diagnosis_store'
+  saveData:'/procedures/ch_pre_diagnosis_store',
+  getMediationDetails:'/procedures/patient_mediation_index',
+  saveMediationData:'/procedures/patient_mediation_store',
+  deleteMediationData:'/procedures/patient_mediation_delete'
 
 };
 
