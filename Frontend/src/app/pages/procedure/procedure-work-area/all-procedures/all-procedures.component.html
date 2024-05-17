@@ -31,7 +31,7 @@ height: 730px;">
   <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true" *ngIf="BookingCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
-      <p class="step-title">Schedulling</p>
+      <p class="step-title">Scheduling</p>
     </ng-template>
     <app-procedure-details-booking #stepTwo [SelectedIndex]="this.SelectedComponent"></app-procedure-details-booking>
   </cdk-step>
