@@ -176,7 +176,7 @@ export class WorkAreaComponent implements OnInit {
 
   patient_id : any= localStorage.getItem('PatientID')
   mrn_number : any = localStorage.getItem('MRN_NO');
-  procedure_id : any;
+  procedure_id : any = localStorage.getItem('Procedure');
   delete_pre_diagonis_id : number;
   delete_indication_id : number;
   delete_postdiagonis_id : number;
@@ -592,6 +592,7 @@ export class WorkAreaComponent implements OnInit {
     let mrn_number = localStorage.getItem('MRN_NO');
     payload["mrn_number"]=mrn_number;
     payload["patient_id"]=patient_id;
+    payload["procedure"]=this.procedure_id;
 
     // return null;
     console.log('Call Clinical History API');
@@ -635,6 +636,7 @@ export class WorkAreaComponent implements OnInit {
     payload['diagones_data'] = rowData;
     payload['created_by'] = 1;
     payload['added_by'] = 1;
+    payload['procedure'] = this.procedure_id;
 
     
     this.http.post(`${this.apiUrl}${this.saveData1}`, payload).subscribe((response:any) => {
@@ -677,6 +679,7 @@ export class WorkAreaComponent implements OnInit {
     payload["mrn_number"]= this.mrn_number;
     payload["patient_id"]= this.patient_id;
     payload['deleted_by'] = 1;
+    payload['procedure'] = this.procedure_id;
 
     this.http.post(`${this.apiUrl}${this.deletePreDiagnosis}`, payload).subscribe((response:any) => {
       console.log('Data saved successfully:', response);
@@ -721,6 +724,7 @@ Clinical_history_indication() {
   payload["stage_type"]='Requesting';
   payload["mrn_number"]=this.mrn_number;
   payload["patient_id"]=this.patient_id;
+  payload["procedure"]=this.procedure_id;
 
   // return null;
   //console.log('Call Clinical History Indication API');
@@ -764,6 +768,7 @@ saveDataIndication() {
   payload['indication_data'] = rowData;
   payload['created_by'] = 1;
   payload['added_by'] = 1;
+  payload['procedure'] = this.procedure_id;
 
   
   this.http.post(`${this.apiUrl}${this.saveDataIndication1}`, payload).subscribe((response:any) => {
@@ -804,6 +809,7 @@ DeleteIndicationData() {
   payload["mrn_number"]= this.mrn_number;
   payload["patient_id"]= this.patient_id;
   payload['deleted_by'] = 1;
+  payload["procedure"] = this.procedure_id;
 
   this.http.post(`${this.apiUrl}${this.deleteIndicationData}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
@@ -843,6 +849,7 @@ Clinical_history_postdiagonis() {
   payload["stage_type"]='Requesting';
   payload["mrn_number"]=this.mrn_number;
   payload["patient_id"]=this.patient_id;
+  payload["procedure"] = this.procedure_id;
 
   // return null;
   //console.log('Call Clinical History Indication API');
@@ -886,6 +893,7 @@ saveDataPostDiagonis() {
   payload['post_diagnosis_data'] = rowData;
   payload['created_by'] = 1;
   payload['added_by'] = 1;
+  payload['procedure'] = this.procedure_id;
 
   
   this.http.post(`${this.apiUrl}${this.saveDatapostDiagnosis1}`, payload).subscribe((response:any) => {
@@ -926,6 +934,7 @@ DeletePostDiagonis() {
   payload["mrn_number"]= this.mrn_number;
   payload["patient_id"]= this.patient_id;
   payload['deleted_by'] = 1;
+  payload['procedure'] = this.procedure_id;
 
   this.http.post(`${this.apiUrl}${this.deletePostDiagnol1}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
@@ -967,6 +976,7 @@ GetLabDetails() {
   payload["stage_type"]='Requesting';
   payload["mrn_number"]=this.mrn_number;
   payload["patient_id"]=this.patient_id;
+  payload['procedure'] = this.procedure_id;
 
   // return null;
   //console.log('Call Clinical History Indication API');
@@ -1009,6 +1019,7 @@ saveDataLab() {
   payload['patient_lab_data'] = rowData;
   payload['created_by'] = 1;
   payload['added_by'] = 1;
+  payload['procedure'] = this.procedure_id;
 
   
   this.http.post(`${this.apiUrl}${this.saveDataLab1}`, payload).subscribe((response:any) => {
@@ -1048,6 +1059,7 @@ DeleteLabData() {
   payload["mrn_number"]= this.mrn_number;
   payload["patient_id"]= this.patient_id;
   payload['deleted_by'] = 1;
+  payload['procedure'] = this.procedure_id;
 
   this.http.post(`${this.apiUrl}${this.patientLabDelete}`, payload).subscribe((response:any) => {       
     this.toastr.success(`${response.message}`,'Successfull', {
@@ -1168,6 +1180,7 @@ DeleteLabDataMediation() {
   payload["mrn_number"]= this.mrn_number;
   payload["patient_id"]= this.patient_id;
   payload['deleted_by'] = 1;
+  payload['procedure'] = this.procedure_id;
 
   this.http.post(`${this.apiUrl}${this.deleteMediationData}`, payload).subscribe((response:any) => {       
     this.toastr.success(`${response.message}`,'Successfull', {

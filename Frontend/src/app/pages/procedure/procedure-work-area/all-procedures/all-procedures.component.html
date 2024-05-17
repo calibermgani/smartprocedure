@@ -63,11 +63,11 @@ height: 730px;">
 <div class="d-flex flex-row justify-content-around align-items-center p-2">
   <div class="me-1">
     <h4 class="mb-2">Accession No</h4>
-    <p class="mb-1">{{CurrentPatientUnderStatusDetails.accession_no ? CurrentPatientUnderStatusDetails.accession_no : '-'}}</p>
+    <p class="mb-1">{{CurrentPatientUnderStatusDetails?.accession_no ? CurrentPatientUnderStatusDetails.accession_no : '-'}}</p>
   </div>
   <div class="me-1">
     <h4 class="mb-2">Procedure Code</h4>
-    <p class="mb-1">{{CurrentPatientUnderStatusDetails.procedure ? CurrentPatientUnderStatusDetails.procedure : '-'}}</p>
+    <p class="mb-1">{{CurrentPatientUnderStatusDetails?.procedure ? CurrentPatientUnderStatusDetails.procedure : '-'}}</p>
   </div>
   <div class="me-1">
     <h4 class="mb-2">Modality Code</h4>
@@ -75,13 +75,13 @@ height: 730px;">
   </div>
   <div class="me-1">
     <h4 class="mb-2">Procedure Status</h4>
-    <p class="mb-1">{{CurrentPatientUnderStatusDetails.procedure_status ? CurrentPatientUnderStatusDetails.procedure_status : '-'}}</p>
+    <p class="mb-1">{{CurrentPatientUnderStatusDetails?.procedure_status ? CurrentPatientUnderStatusDetails.procedure_status : '-'}}</p>
   </div>
   <div class="me-1">
     <h4 class="mb-2">Procedure Sub Status<img src="assets/images/edit_svg.svg" class="ms-1"></h4>
     <select class="form-selects" style="font-size: 9px !important;" [(ngModel)]="selectedStatus">
       <option value="Select Status" selected>Select Status</option>
-      <option *ngFor="let status of procedureSubStatusData" [value]="status.procedure_sub_status">{{status.procedure_sub_status}}</option>
+      <option *ngFor="let status of procedureSubStatusData" [value]="status.procedure_sub_status">{{status?.procedure_sub_status}}</option>
   </select>
   </div>
   <div class="me-1">
