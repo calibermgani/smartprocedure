@@ -18,4 +18,5 @@ export interface IEnvironment {
   getMediationDetails?: string;
   saveMediationData?: string;
   deleteMediationData?: string;
+  AllProcedureStatusData?: string; 
 }

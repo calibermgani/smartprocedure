@@ -216,48 +216,48 @@
           <img src="assets/images/patient_details_img.svg" class="rounded-circle avatar-xl" alt="100x100"
             style="width: 60px !important;height: 60px !important;">
           <h4 style="border:1px solid #F0EAFF;background: #F0EAFF;padding: 1px 6px 1px 6px !important;border-radius: 38px;position: absolute;
-        top: 6.2rem;">{{ CurrentPatientDetails.patient_type }}</h4>
+        top: 6.2rem;">{{ CurrentPatientDetails?.patient_type }}</h4>
         </div>
         <div class="flex-grow-1 ms-3 mt-2 align-items-center">
           <h1 style="font-size: 14px !important;font-weight: 500 !important;color: #1B1B1B !important;" class="mb-1">
-            {{ CurrentPatientDetails.patient_name }}</h1>
-          <p style="color: #747474 !important;">MRN : {{ CurrentPatientDetails.mrn_no }}</p>
+            {{ CurrentPatientDetails?.patient_name }}</h1>
+          <p style="color: #747474 !important;">MRN : {{ CurrentPatientDetails?.mrn_no }}</p>
         </div>
       </div>
       <div class="row mx-2 mt-4">
         <div class="col-3">
           <h4 style="color: #747474;">Gender</h4>
-          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.gender }}</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.gender ? CurrentPatientDetails.gender : '-' }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">DOB</h4>
-          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.dob }}</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.dob ? CurrentPatientDetails.dob : '-' }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">Patient Type</h4>
-          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.patient_type }}</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.patient_type ? CurrentPatientDetails.patient_type : '-' }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">Language</h4>
-          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.language }}</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.language ? CurrentPatientDetails.language : '-' }}</p>
         </div>
       </div>
       <div class="row mx-2 mt-1">
         <div class="col-3">
           <h4 style="color: #747474;">Age</h4>
-          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.age }}</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.age ? CurrentPatientDetails.age : '-' }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">Blood</h4>
-          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.blood_group }}</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.blood_group ? CurrentPatientDetails.blood_group : '-' }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">Height</h4>
-          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.height }}</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.height ? CurrentPatientDetails.height: '-' }}</p>
         </div>
         <div class="col-3">
           <h4 style="color: #747474;">Weight</h4>
-          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.weight }}</p>
+          <p style="color: #1B1B1B;">{{ CurrentPatientDetails.weight ? CurrentPatientDetails.weight: '-' }}</p>
         </div>
       </div>
       <div class="row mx-3 mt-2"

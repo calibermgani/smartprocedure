@@ -37,7 +37,8 @@ export const environment_new:IEnvironment = {
   saveData:'/procedures/ch_pre_diagnosis_store',
   getMediationDetails:'/procedures/patient_mediation_index',
   saveMediationData:'/procedures/patient_mediation_store',
-  deleteMediationData:'/procedures/patient_mediation_delete'
+  deleteMediationData:'/procedures/patient_mediation_delete',
+  AllProcedureStatusData: '/procedures/procedure_sub_status'
 
 };
 
