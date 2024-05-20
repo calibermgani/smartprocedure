@@ -6,7 +6,8 @@
       <p class="mb-0 px-3 py-2" class="viewonlymode_header mb-0">View Other User Details</p>
         <img src="assets/images/ViewOnlyModeleft.svg" style="position: relative;top: 43%;left: 95%;bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" class="leftexpand" (click)="CloseViewOnlyMode()">
         <div class="accords  px-1" style="overflow-x: scroll;height: 507px;">
-          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
+          <app-view-info></app-view-info>
+          <!-- <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
             <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode">
               <span accordion-heading class="d-flex">
                 <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
@@ -29,7 +30,7 @@
                 the transition does limit overflow.
               </div>
             </accordion-group>
-          </accordion>
+          </accordion> -->
         </div>
 
     </div>
@@ -165,7 +166,7 @@
                       <!-- <div class="">
                         <h4 class="mb-0">Total selected item : 3</h4>
                       </div> -->
-                      <div class="ms-auto"><button class="btn-new" style="height: 30px !important;width: 120px !important;" cdkStepperNext>Save and Next</button></div>
+                      <div class="ms-auto"><button class="btn-new" style="height: 30px !important;width: max-content !important" cdkStepperNext>Save and Next</button></div>
                     </div>
 
 
@@ -260,7 +261,7 @@
             </div>
           </div>
           <div *ngIf="CurrentPatientSelection == false" class="mx-2"
-            style="width: 300px;position: relative;top: 162px;left: 275px;">
+            style="width: 300px;position: relative;top: 90px;margin: auto !important;">
             <div class="d-flex flex-column align-items-center pb-4" style="border-bottom: 1px solid #CACACA !important;">
               <div class="mb-3">
                 <img src="assets/images/Patient_Selection.svg" style="width: 100px;height: 100px;">
@@ -289,7 +290,7 @@
                 </div>
                 <div class="d-flex flex-row align-items-center">
                   <p style="color: #1B1B1B !important;font-weight: 550 !important;" class="mb-0">By:</p>
-                  <h5 class="mb-0 ms-1" style="color: #747474 !important;">Kathryn Murphy {{ x.created_at | date :'mm-dd-yyyy HH:MM' }}</h5>
+                  <h5 class="mb-0 ms-1" style="color: #747474 !important;margin-top: 0.16rem !important;">Kathryn Murphy {{ x.created_at | date :'mm-dd-yyyy HH:MM' }}</h5>
                 </div>
               </div>
             </div>

@@ -19,10 +19,10 @@
 import { IEnvironment } from './environment.interface';
 export const environment_new:IEnvironment = {
   production: false,
-  // apiUrl: 'http://127.0.0.1:8000/api',
-  // imageUrl:'http://127.0.0.1:8000'
-  apiUrl: 'http://34.29.13.215/smartbuild_api/public/index.php/api',
-  imageUrl:'http://34.29.13.215/smartbuild_api/public',
+  apiUrl: 'http://127.0.0.1:8000/api',
+  imageUrl:'http://127.0.0.1:8000',
+  // apiUrl: 'http://34.29.13.215/smartbuild_api/public/index.php/api',
+  // imageUrl:'http://34.29.13.215/smartbuild_api/public',
   clinicalDiagnosis:'/procedures/ch_pre_diagnosis_index',
   patientLabDelete:'/procedures/patient_lab_delete',
   saveDataLab:'/procedures/patient_lab_store',

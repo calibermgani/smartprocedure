@@ -1,0 +1,58 @@
+<accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
+  <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode" (isOpenChange)="OnClickingViewOnlyMode(x.headername,$event)" >
+    <span accordion-heading class="d-flex" >
+      <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+        {{x.headername}}</h4>
+
+      <div class="float-end">
+        <img src="assets/images/detailed_view.svg" alt="detailed_view" width="10px" height="10px" class="mb-1 me-2">
+        <i class="mdi"
+          [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+          style="font-size: 17px;"></i>
+      </div>
+    </span>
+    <div class="text-muted" *ngIf="x.headername == 'VETTING & PROTOCOLING'">
+      <div class="py-2" style="border-bottom: 0.5px solid #8B8B8B !important;">
+        <div class="d-flex flex-column mb-3">
+          <h1 class="mb-1">Protocol</h1>
+          <p style="font-weight: 400 !important;" class="mb-0">{{
+            this.VettingandProtocolingDetails?.protocol?.protocolling_types?.name ?
+            this.VettingandProtocolingDetails?.protocol?.protocolling_types?.name : '-' }}</p>
+        </div>
+        <div class="d-flex flex-column mb-3">
+          <h1 class="mb-1">Protocol Details</h1>
+          <p style="font-weight: 400 !important;" class="mb-0">{{
+            this.VettingandProtocolingDetails?.protocol?.protocol_details ?
+            this.VettingandProtocolingDetails?.protocol?.protocol_details : '-' }}</p>
+        </div>
+        <div class="d-flex flex-column mb-3">
+          <h1 class="mb-1">Your Protocol</h1>
+          <p style="font-weight: 400 !important;" class="mb-0">{{
+            this.VettingandProtocolingDetails?.protocol?.add_your_protocol ?
+            this.VettingandProtocolingDetails?.protocol?.add_your_protocol : '-' }}</p>
+        </div>
+        <div class="d-flex flex-column mb-2" *ngIf="this.VettingandProtocolingDetails?.protocol?.protocol_notes">
+          <h1 class="mb-1">Protocoling Notes</h1>
+          <p style="font-weight: 400 !important;" class="mb-0">{{
+            this.VettingandProtocolingDetails?.protocol?.protocol_notes }}</p>
+        </div>
+      </div>
+      <div class="py-2">
+        <div class="d-flex flex-column mb-3">
+          <h1 class="mb-1">Vetting Type</h1>
+          <p style="font-weight: 400 !important;" class="mb-0">{{
+            this.VettingandProtocolingDetails?.vetting?.vetting_types?.name ?
+            this.VettingandProtocolingDetails?.vetting?.vetting_types?.name : '-' }}</p>
+        </div>
+        <div class="d-flex flex-column mb-2" *ngIf="this.VettingandProtocolingDetails?.vetting?.vetting_notes">
+          <h1 class="mb-1">Vetting Notes</h1>
+          <p style="font-weight: 400 !important;" class="mb-0">{{ this.VettingandProtocolingDetails?.vetting?.vetting_notes
+            }}</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-muted">
+
+    </div>
+  </accordion-group>
+</accordion>

@@ -560,6 +560,12 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/index`,payload);
   }
 
+  GetItemUniqueList(){
+    let payload:Object = {};
+    payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
+    return this.http.post(`${this.apiUrl}/procedures/item_unique_list`,payload);
+  }
+
   GetVendorList(){
     let payload:Object = {};
     payload["token"] = "1a32e71a46317b9cc6feb7388238c95d";
@@ -749,10 +755,12 @@ export class AllServicesService {
 
 
   SendPatientRequest(data:any,type:any,reason:any){
+    console.log('patient Details',data);
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     payload["mrn_number"]=data.mrn_no;
     payload["patient_id"]=data.id;
+    payload["procedure"]=data.procedure;
     payload["status"]=type;
     payload["accept_by"]="1";
     payload["created_by"]="1";
@@ -792,14 +800,14 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/procedures/store_vetting_request`,payload);
   }
 
-  SendProtocolRequest(PatientDetails:any,protocoleNotes:any,protocoleId:any,AddProtocolID:any){
+  SendProtocolRequest(PatientDetails:any,protocoleNotes:any,protocoleId:any){
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     payload["mrn_number"] = PatientDetails.mrn_no;
     payload["patient_id"] = PatientDetails.id;
     payload["protocol_type_id"] = protocoleId;
     payload["protocol_details"] = protocoleNotes.ProtocolDetails;
-    payload["add_your_protocol_id"] = AddProtocolID;
+    payload["add_your_protocol"] = protocoleNotes.AddedProtocol;
     payload["protocol_notes"] = protocoleNotes.ProtocolNotes;
     payload["protocolling_by"] = "1";
     payload["created_by"] = "1";
@@ -1036,6 +1044,14 @@ export class AllServicesService {
     payload["patient_id"]=patientID;
     payload["mrn_number"]=mrn_no;
     return this.http.post(`${this.apiUrl}/procedures/show_protocol_request`,payload);
+  }
+
+  GetVettingandProtocolingData(patientID:any,mrn_no:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]=patientID;
+    payload["mrn_number"]=mrn_no;
+    return this.http.post(`${this.apiUrl}/procedures/show_vetting_protocol_request`,payload);
   }
 
 }

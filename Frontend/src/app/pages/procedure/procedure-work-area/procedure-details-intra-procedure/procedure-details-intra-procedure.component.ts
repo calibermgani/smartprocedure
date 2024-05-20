@@ -204,6 +204,7 @@ export class ProcedureDetailsIntraProcedureComponent {
   ngOnChanges(changes: SimpleChanges): void {
     console.log('Intra Changes',changes.SelectedIndex.currentValue);
     if(changes.SelectedIndex.currentValue == 3){
+      this.hideViewOnlyMode = true;
       let PatientID = localStorage.getItem('PatientID');
       let procedurename = localStorage.getItem('Procedure');
       let MRN_NO = localStorage.getItem('MRN_NO');
