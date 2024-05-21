@@ -6,30 +6,66 @@
         <p class="mb-0 px-3 py-2" class="viewonlymode_header mb-0">View Other User Details</p>
         <img src="assets/images/ViewOnlyModeleft.svg" style="position: relative;top: 43%;left: 95%;bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" class="leftexpand" (click)="HideViewOnlyArea()">
         <div class="accords px-1" style="overflow-x: scroll;height: 507px;">
-          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
+          <app-view-info></app-view-info>
+          <!-- <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
             <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode">
-              <span accordion-heading class="d-flex">
+              <span accordion-heading class="d-flex" (click)="OnClickingViewOnlyMode(x.headername,!group?.isOpen)">
                 <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
                   {{x.headername}}</h4>
 
                 <div class="float-end">
                   <img src="assets/images/detailed_view.svg" alt="detailed_view" width="10px" height="10px"
-                    class="mb-1 me-2" (click)="open()">
+                    class="mb-1 me-2">
                   <i class="mdi"
                     [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
                     style="font-size: 17px;"></i>
                 </div>
               </span>
+              <div class="text-muted" *ngIf="x.headername == 'VETTING & PROTOCOLING'">
+                <div class="py-2" style="border-bottom: 0.5px solid #8B8B8B !important;">
+                  <div class="d-flex flex-column mb-3">
+                    <h1 class="mb-1">Protocol</h1>
+                    <p style="font-weight: 400 !important;" class="mb-0">{{
+                      this.VettingandProtocolingDetails?.protocol?.protocolling_types?.name ?
+                      this.VettingandProtocolingDetails?.protocol?.protocolling_types?.name : '-' }}</p>
+                  </div>
+                  <div class="d-flex flex-column mb-3">
+                    <h1 class="mb-1">Protocol Details</h1>
+                    <p style="font-weight: 400 !important;" class="mb-0">{{
+                      this.VettingandProtocolingDetails?.protocol?.protocol_details ?
+                      this.VettingandProtocolingDetails?.protocol?.protocol_details : '-' }}</p>
+                  </div>
+                  <div class="d-flex flex-column mb-3">
+                    <h1 class="mb-1">Your Protocol</h1>
+                    <p style="font-weight: 400 !important;" class="mb-0">{{
+                      this.VettingandProtocolingDetails?.protocol?.add_your_protocol ?
+                      this.VettingandProtocolingDetails?.protocol?.add_your_protocol : '-' }}</p>
+                  </div>
+                  <div class="d-flex flex-column mb-2" *ngIf="this.VettingandProtocolingDetails?.protocol?.protocol_notes">
+                    <h1 class="mb-1">Protocoling Notes</h1>
+                    <p style="font-weight: 400 !important;" class="mb-0">{{
+                      this.VettingandProtocolingDetails?.protocol?.protocol_notes }}</p>
+                  </div>
+                </div>
+                <div class="py-2">
+                  <div class="d-flex flex-column mb-3">
+                    <h1 class="mb-1">Vetting Type</h1>
+                    <p style="font-weight: 400 !important;" class="mb-0">{{
+                      this.VettingandProtocolingDetails?.vetting?.vetting_types?.name ?
+                      this.VettingandProtocolingDetails?.vetting?.vetting_types?.name : '-' }}</p>
+                  </div>
+                  <div class="d-flex flex-column mb-2" *ngIf="this.VettingandProtocolingDetails?.vetting?.vetting_notes">
+                    <h1 class="mb-1">Vetting Notes</h1>
+                    <p style="font-weight: 400 !important;" class="mb-0">{{ this.VettingandProtocolingDetails?.vetting?.vetting_notes
+                      }}</p>
+                  </div>
+                </div>
+              </div>
               <div class="text-muted">
-                <strong class="text-body-emphasis">This is the first item's accordion body.</strong> It is hidden by
-                default, until the collapse plugin adds the appropriate classes that we use to style each element.
-                These classes control the overall appearance, as well as the showing and hiding via CSS
-                transitions. You can modify any of this with custom CSS or overriding our default variables. It's
-                also worth noting that just about any HTML can go within the <code>.accordion-body</code>, though
-                the transition does limit overflow.
+
               </div>
             </accordion-group>
-          </accordion>
+          </accordion> -->
         </div>
 
 

@@ -5,7 +5,8 @@
         <p class="mb-0 px-3 py-2" class="viewonlymode_header mb-0">View Other User Details</p>
         <img src="assets/images/ViewOnlyModeleft.svg" style="position: relative;top: 43%;left: 95%;bottom: 50%;cursor: pointer;width: 20px;height: 20px;z-index: 1;" class="leftexpand" (click)="HideViewOnlyArea()">
         <div class="accords px-1" style="overflow-x: scroll;height: 507px;">
-          <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
+          <app-view-info></app-view-info>
+          <!-- <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
             <accordion-group [isOpen]="isFirstOpen" class="accordion-item" #group *ngFor="let x of header_viewOnlymode">
               <span accordion-heading class="d-flex">
                 <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
@@ -28,7 +29,7 @@
                 the transition does limit overflow.
               </div>
             </accordion-group>
-          </accordion>
+          </accordion> -->
         </div>
 
 

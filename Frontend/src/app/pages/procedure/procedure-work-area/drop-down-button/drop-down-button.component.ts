@@ -13,6 +13,8 @@ export class DropDownButtonComponent {
 
   SelectedValue : any;
   agInit(params: ICellRendererParams): void {
+    console.log(params);
+
     // this.displayValue = new Array(params.value!).fill('#').join('')
   }
 

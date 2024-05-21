@@ -292,6 +292,7 @@ export class ProcedureDetailsPreProcedureComponent {
   ngOnChanges(changes: SimpleChanges){
     console.log('Pre Changes',changes.SelectedIndex.currentValue);
     if(changes.SelectedIndex.currentValue == 2){
+      this.hideViewOnlyMode = true;
 
       let PatientID = localStorage.getItem('PatientID');
       let procedurename = localStorage.getItem('Procedure');
@@ -312,7 +313,7 @@ export class ProcedureDetailsPreProcedureComponent {
       })
 
 
-      this.allService.GetAllItemsGrid().subscribe({
+      this.allService.GetItemUniqueList().subscribe({
         next:((res:any)=>{
           this.StoreItemGridData = res.data;
           this.StoreItem_Grid.api?.setRowData(this.StoreItemGridData);

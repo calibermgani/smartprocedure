@@ -81,7 +81,6 @@ export class ProcedureDetailsComponent implements OnInit {
    }
 
   ngOnInit() {
-    this.hideViewOnlyMode = true;
     this.http.get<MainTab>('assets/json/main-tabs.json').subscribe((res: any) => {
       this.mainTabsValue = res;
       for(let i=0;i<res.length;i++)
@@ -111,6 +110,7 @@ export class ProcedureDetailsComponent implements OnInit {
     this.allService.SendPatientRequest(this.CurrentPatientDetails,type,this.ReasonForm.value).subscribe({
       next:((res:any)=>{
         if(res.status == 'Success' && type=='Accepted'){
+          localStorage.setItem('ExamStatus','Accepted');
          this.CurrentPatientSelection = true;
         //  this.hideViewOnlyMode = false;
 
@@ -175,6 +175,7 @@ export class ProcedureDetailsComponent implements OnInit {
         return 0;
       }
       else if(res.status == 'Success' && type=='Rejected'){
+        localStorage.setItem('ExamStatus','Rejected');
         this.CloseModal('Reject');
         this.toastr.success(`${res.message}`, 'Successful', {
           positionClass: 'toast-top-center',
@@ -232,6 +233,36 @@ export class ProcedureDetailsComponent implements OnInit {
         });
       })
     })
+
+
+    let MRN = localStorage.getItem('MRN_NO');
+    let PatientID = localStorage.getItem('PatientID');
+      this.allService.GetVettingandProtocolingData(PatientID,MRN).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+           console.log('Vetting and Protocol Data',res);
+           this.enableNotes_Vetting = true;
+           this.VettingRequestForm.patchValue({
+            VettingNotes:res.data.vetting.vetting_notes
+           });
+           this.SelectedvettingType = res.data?.vetting?.vetting_types?.name;
+
+          //  this.enableNotes_Protocoling = true;
+          //  this.ProtocoingRequestForm.patchValue({
+          //   SelectProtocol:res.data.protocol.protocolling_types.name,
+          //   ProtocolDetails:res.data.protocol.protocol_details,
+          //   AddedProtocol:res.data.protocol.add_your_protocol,
+          //   ProtocolNotes:res.data.protocol.protocol_notes
+          //  })
+          }
+        }),
+        error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      });
   }
 
   SaveProtocolingRequest(data:any){
@@ -248,16 +279,11 @@ export class ProcedureDetailsComponent implements OnInit {
     console.log(ProtocolID);
 
     let AddProtocolID : any = '';
-    let value2 = this.ProtocoingRequestForm.get('AddedProtocol').value;
-    this.DuplicateAddProtocolingTypes.forEach(element => {
-      if(element.name == value2){
-        AddProtocolID = element.id
-      }
-    });
+
 
     console.log(AddProtocolID);
 
-    this.allService.SendProtocolRequest(this.CurrentPatientDetails,data.value,ProtocolID,AddProtocolID).subscribe({
+    this.allService.SendProtocolRequest(this.CurrentPatientDetails,data.value,ProtocolID).subscribe({
       next:((res:any)=>{
         if(res.status == 'Success'){
           this.toastr.success(`${res.message}`, 'Successful', {
@@ -275,13 +301,44 @@ export class ProcedureDetailsComponent implements OnInit {
         });
       })
     })
+
+
+    let MRN = localStorage.getItem('MRN_NO');
+    let PatientID = localStorage.getItem('PatientID');
+      this.allService.GetVettingandProtocolingData(PatientID,MRN).subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+          //  console.log('Vetting and Protocol Data',res);
+          //  this.enableNotes_Vetting = true;
+          //  this.VettingRequestForm.patchValue({
+          //   VettingNotes:res.data.vetting.vetting_notes
+          //  });
+          //  this.SelectedvettingType = res.data.vetting.vetting_types.name;
+
+           this.enableNotes_Protocoling = true;
+           this.ProtocoingRequestForm.patchValue({
+            SelectProtocol:res.data?.protocol?.protocolling_types?.name,
+            ProtocolDetails:res.data?.protocol?.protocol_details,
+            AddedProtocol:res.data?.protocol?.add_your_protocol,
+            ProtocolNotes:res.data?.protocol?.protocol_notes
+           })
+          }
+        }),
+        error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+            positionClass: 'toast-top-center',
+            timeOut:2000,
+          });
+        })
+      });
   }
 
-  // ngOnChanges(changes: SimpleChanges): void {
-  //   //Called before any other lifecycle hook. Use it to inject dependencies, but avoid any serious work here.
-  //   //Add '${implements OnChanges}' to the class.
-  //   console.log('Changes',changes);
-  // }
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log('Pre Changes',changes.SelectedIndex.currentValue);
+    if(changes.SelectedIndex.currentValue == 0){
+      this.hideViewOnlyMode = true;
+    }
+  }
 
   ngAfterViewInit(): void {
     console.log('Selected Index',this.SelectedIndex);
@@ -346,31 +403,25 @@ export class ProcedureDetailsComponent implements OnInit {
         })
       })
 
-      //Vetting Data
+      //Vetting and Protocol Data
       let MRN = localStorage.getItem('MRN_NO');
-      this.allService.GetVettingRequestData(PatientID,MRN).subscribe({
+      this.allService.GetVettingandProtocolingData(PatientID,MRN).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
-           console.log('Vetting Data',res);
+           console.log('Vetting and Protocol Data',res);
+           this.enableNotes_Vetting = true;
            this.VettingRequestForm.patchValue({
-            VettingNotes:res.data.vetting_notes
+            VettingNotes:res.data?.vetting?.vetting_notes
            });
+           this.SelectedvettingType = res.data?.vetting?.vetting_types?.name;
 
-          }
-        }),
-        error:((res:any)=>{
-            this.toastr.error(`Something went wrong`,'UnSuccessful',{
-            positionClass: 'toast-top-center',
-            timeOut:2000,
-          });
-        })
-      });
-
-      //Protocoling Data
-      this.allService.GetProtocolingRequestData(PatientID,MRN).subscribe({
-        next:((res:any)=>{
-          if(res.status == 'Success'){
-           console.log('Protocoling Data',res);
+           this.enableNotes_Protocoling = true;
+           this.ProtocoingRequestForm.patchValue({
+            SelectProtocol:res.data?.protocol?.protocolling_types?.name,
+            ProtocolDetails:res.data?.protocol?.protocol_details,
+            AddedProtocol:res.data?.protocol?.add_your_protocol,
+            ProtocolNotes:res.data?.protocol?.protocol_notes
+           })
           }
         }),
         error:((res:any)=>{
@@ -406,4 +457,6 @@ export class ProcedureDetailsComponent implements OnInit {
       }
     }
   }
+
+
 }

@@ -1,6 +1,6 @@
 import { NgClass } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
 import { AddQuantityComponent } from '../add-quantity/add-quantity.component';
@@ -200,6 +200,13 @@ export class ProcedureDetailsPostProcedureComponent {
     this.hideViewOnlyMode = false
   }
 
+  ngOnChanges(changes: SimpleChanges): void {
+
+    console.log('Pre Changes',changes.SelectedIndex.currentValue);
+    if(changes.SelectedIndex.currentValue == 4){
+      this.hideViewOnlyMode = true;
+    }
+  }
 
 
   ngAfterViewInit(): void {

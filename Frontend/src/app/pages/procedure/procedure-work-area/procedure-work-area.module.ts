@@ -25,6 +25,7 @@ import { ProcedureDetailsIntraProcedureComponent } from './procedure-details-int
 import { ProcedureDetailsPostProcedureComponent } from './procedure-details-post-procedure/procedure-details-post-procedure.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AgGridModule } from 'ag-grid-angular';
+import { ViewInfoComponent } from './view-info/view-info.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AgGridModule } from 'ag-grid-angular';
     ProcedureDetailsPreProcedureComponent,
     ProcedureDetailsIntraProcedureComponent,
     ProcedureDetailsPostProcedureComponent,
+    ViewInfoComponent,
   ],
   imports: [
     CommonModule,

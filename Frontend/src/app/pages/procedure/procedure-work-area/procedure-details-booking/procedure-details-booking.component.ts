@@ -258,6 +258,7 @@ export class ProcedureDetailsBookingComponent {
   ngOnChanges(changes: SimpleChanges): void {
     console.log('changes',changes.SelectedIndex.currentValue);
     if(changes.SelectedIndex.currentValue ==1){
+      this.hideViewOnlyMode = true;
       let PatientID = localStorage.getItem('PatientID');
       let procedurename = localStorage.getItem('Procedure');
       let MRN_NO = localStorage.getItem('MRN_NO');
@@ -275,7 +276,7 @@ export class ProcedureDetailsBookingComponent {
           });
         })
       })
-      this.allService.GetAllItemsGrid().subscribe({
+      this.allService.GetItemUniqueList().subscribe({
         next:((res:any)=>{
           this.StoreItemGridData = res.data;
           this.StoreItem_Grid.api?.setRowData(this.StoreItemGridData);
@@ -331,6 +332,34 @@ export class ProcedureDetailsBookingComponent {
 
 }
 
+VettingandProtocolingDetails : any = [];
+OnClickingViewOnlyMode(type:any,condition:boolean){
+  switch(type){
+    case 'VETTING & PROTOCOLING':{
+      console.log('cdtnn',condition);
+      if(condition == true ){  //&& this.VettingandProtocolingDetails.length == 0
+        let MRN = localStorage.getItem('MRN_NO');
+      let PatientID = localStorage.getItem('PatientID');
+        this.allService.GetVettingandProtocolingData(PatientID,MRN).subscribe({
+          next:((res:any)=>{
+            if(res.status == 'Success'){
+             console.log('Vetting and Protocol Data',res.data);
+             this.VettingandProtocolingDetails = res.data;
+            }
+          }),
+          error:((res:any)=>{
+              this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          })
+        });
+        break;
+      }
+    }
+
+  }
+}
 
 
 }
