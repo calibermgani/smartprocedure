@@ -122,6 +122,7 @@ export class WorkAreaComponent implements OnInit {
   public getMediationDetails: any = environment_new.getMediationDetails;
   public saveMediationData1: any = environment_new.saveMediationData;
   public deleteMediationData: any = environment_new.deleteMediationData;
+  public checkLists: any = environment_new.getCheckListData;
   miniList_details: any;
   procedureAlertsData: any;
   CurrentPatientDetails : any = [];
@@ -132,6 +133,12 @@ export class WorkAreaComponent implements OnInit {
   clinical_history: any = [];
   clinical_history_indication_data: any = [];
   clinical_history_postdiagonis_data: any = [];
+  check_list_data: any[] = [];
+  check_list_data1: any[] = [];
+  check_list_data2: any[] = [];
+  check_list_data3: any[] = [];
+  check_list_data4: any[] = [];
+  status: string;
 
   lab_data: any = [];
   mediation_data: any = [];
@@ -327,7 +334,7 @@ export class WorkAreaComponent implements OnInit {
         })
       });
     }
-
+    this.fetchCheckListData('Requesting', 'check_list_data');
   }
 
   toggleTabIcon(index: number) {
@@ -1197,6 +1204,46 @@ DeleteLabDataMediation() {
 }
 
 /** Mediation Tab End (ADAI) */
+
+onAccordionOpen(stage: string, isOpen: boolean): void {
+  console.log(stage,'stage', isOpen,'isOpen');
+  
+  if (isOpen) {
+    switch (stage) {
+      case 'Requesting':
+        this.fetchCheckListData('Requesting', 'check_list_data');
+        break;
+      case 'Scheduling':
+        this.fetchCheckListData('Scheduling', 'check_list_data1');
+        break;
+      case 'Pre-Procedure':
+        this.fetchCheckListData('Pre-Procedure', 'check_list_data2');
+        break;
+      case 'Intra-Procedure':
+        this.fetchCheckListData('Intra-Procedure', 'check_list_data3');
+        break;
+      case 'Post-Procedure':
+        this.fetchCheckListData('Post-Procedure', 'check_list_data4');
+        break;
+    }
+  }
+
+}
+
+fetchCheckListData(stage: string, target: string){
+  this.allService.GetCheckListData(stage).subscribe((response: any)=>{
+    console.log(response,'responsee');
+    if(response.status === 'Success'){
+      this[target] = response.check_list;
+    } else {
+      console.error('Error fetching data:', response.message);
+    } 
+  },
+  (error:any)=>{
+    console.error("API Error:", error)
+  }
+)
+}
 
 
 }

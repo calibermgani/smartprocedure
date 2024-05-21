@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { Observable } from 'rxjs';
 import { environment_new } from 'src/environments/environment';
 
 @Injectable({
@@ -13,6 +14,7 @@ export class AllServicesService {
     "token":"1a32e71a46317b9cc6feb7388238c95d",
   };
   public apiUrl: any = environment_new.apiUrl;
+  public checkLists: any = environment_new.getCheckListData;
   constructor(private http : HttpClient,private toastr : ToastrService,private datePipe: DatePipe) {
    }
 
@@ -1036,6 +1038,13 @@ export class AllServicesService {
     payload["patient_id"]=patientID;
     payload["mrn_number"]=mrn_no;
     return this.http.post(`${this.apiUrl}/procedures/show_protocol_request`,payload);
+  }
+
+  GetCheckListData(stageType: string){
+    let payloads:Object = {};
+    payloads["token"] = '1a32e71a46317b9cc6feb7388238c95d';
+    payloads["stage_type"] = stageType;
+    return this.http.post<any>(`${this.apiUrl}${this.checkLists}`, payloads);
   }
 
 }

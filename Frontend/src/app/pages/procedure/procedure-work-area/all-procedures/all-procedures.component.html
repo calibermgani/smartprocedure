@@ -81,7 +81,13 @@ height: 730px;">
     <h4 class="mb-2">Procedure Sub Status<img src="assets/images/edit_svg.svg" class="ms-1"></h4>
     <select class="form-selects" style="font-size: 9px !important;" [(ngModel)]="selectedStatus">
       <option value="Select Status" selected>Select Status</option>
-      <option *ngFor="let status of procedureSubStatusData" [value]="status.procedure_sub_status">{{status?.procedure_sub_status}}</option>
+      <!-- <option *ngFor="let status of procedureSubStatusData" [value]="status.procedure_sub_status">{{status?.procedure_sub_status}}</option> -->
+      <ng-container *ngIf="procedureSubStatusData && procedureSubStatusData.length > 0; else noData">
+        <option *ngFor="let status of procedureSubStatusData" [value]="status.procedure_sub_status">{{status?.procedure_sub_status}}</option>
+      </ng-container>
+      <ng-template #noData>
+        <option disabled>No Data Found</option>
+      </ng-template>
   </select>
   </div>
   <div class="me-1">
