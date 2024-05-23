@@ -1054,4 +1054,53 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/procedures/show_vetting_protocol_request`,payload);
   }
 
+  StoreIntraProcedure(ItemId:any,Qty:any,Type:any,Notes:any,Patientid:any,Procedurename:string,NRN_No:string,Accession_No:string){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["item_id"]=ItemId;
+    payload["patient_id"]=Patientid;
+    payload["mrn_no"]=NRN_No;
+    payload["procedure"]=Procedurename;
+    payload["accession_no"]=Accession_No;
+    payload["type"]=Type;
+    payload["no_of_qty"]=Qty.length>0 ? Qty : [null,null];
+    payload["notes"]=Notes.length>0 ? Notes : [null,null];
+    payload["created_by"]=1;
+    console.log(payload);
+    // return null;
+    return this.http.post(`${this.apiUrl}/procedures/store_intra_procedure`,payload);
+  }
+
+  GetPreProcedureUsedGridData(PatientId:any,ProcedureName:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]=PatientId;
+    payload["procedure"]=ProcedureName;
+    return this.http.post(`${this.apiUrl}/procedures/used_data`,payload);
+  }
+
+  GetProcedureDamagedGridData(PatientId:any,ProcedureName:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]=PatientId;
+    payload["procedure"]=ProcedureName;
+    return this.http.post(`${this.apiUrl}/procedures/damaged_data`,payload);
+  }
+
+  GetProcedureReturnedGridData(PatientId:any,ProcedureName:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]=PatientId;
+    payload["procedure"]=ProcedureName;
+    return this.http.post(`${this.apiUrl}/procedures/returned_data`,payload);
+  }
+
+  GetProcedureWastedGridData(PatientId:any,ProcedureName:any){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]=PatientId;
+    payload["procedure"]=ProcedureName;
+    return this.http.post(`${this.apiUrl}/procedures/wasted_data`,payload);
+  }
+
 }

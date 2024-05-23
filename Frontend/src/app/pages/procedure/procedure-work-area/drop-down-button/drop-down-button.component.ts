@@ -11,10 +11,10 @@ import { ICellRendererParams } from 'ag-grid-community';
 })
 export class DropDownButtonComponent {
 
-  SelectedValue : any;
+  SelectedValue : any = 'Used';
   agInit(params: ICellRendererParams): void {
     console.log(params);
-
+    return this.SelectedValue.value;
     // this.displayValue = new Array(params.value!).fill('#').join('')
   }
 

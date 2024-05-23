@@ -42,6 +42,7 @@ export class ProcedureDetailsPreProcedureComponent {
     overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">Please Go back to Material Dashboard Page</span>',
     suppressMenuHide: false,
     rowSelection: 'multiple',
+    suppressRowClickSelection:true,
     rowHeight: 35,
     pagination: false,
     suppressHorizontalScroll: false,
@@ -133,24 +134,30 @@ export class ProcedureDetailsPreProcedureComponent {
   cellClicked(headerName : any, params:any){
     switch(headerName){
       case 'action':{
-        let SelectedRow = this.gridApi_1.getSelectedRows()
-        let item_details : Object = {};
+        let SelectedRow = params.data;
+        let item_details: Object = {};
         console.log(this.StoreItemGridData);
-        this.StoreItemGridData.forEach((element,index) => {
-          if(element.id == SelectedRow[0].id){
-            this.StoreItemGridData.splice(index,1)
+        console.log(SelectedRow);
+        let flag: boolean = true;
+        this.myCartData.forEach((cartItemId, index) => {
+          if (SelectedRow.id == cartItemId.id) {
+            flag = false;
           }
         });
-        console.log(this.StoreItemGridData);
-        this.StoreItem_Grid.api?.setRowData(this.StoreItemGridData);
-       console.log(SelectedRow[0]);
-       console.log(this.myCartData.length);
-       item_details = { 'item_id': SelectedRow[0].id,'item_details' : SelectedRow[0]};
-       console.log(item_details);
 
-       this.myCartData.push(item_details);
-       console.log(this.myCartData);
-       this.CreateGroup();
+        if (flag == true) {
+          item_details = { 'item_id': SelectedRow.id, 'item_details': SelectedRow };
+          console.log(item_details);
+        }
+        console.log(item_details);
+
+        console.log('CartData', this.myCartData);
+        if (Object.keys(item_details).length > 0) {
+          this.myCartData.push(item_details);
+          console.log(this.myCartData);
+          this.CreateGroup();
+        }
+        this.StoreItem_Grid.api?.deselectAll();
       }
     }
   }
@@ -172,13 +179,24 @@ export class ProcedureDetailsPreProcedureComponent {
     let item_details : Object = {};
     this.SelectedRowData.forEach((element,index) => {
       console.log(element,index);
-      item_details = { 'item_id': element.id,'item_details' : element};
-      this.myCartData.push(item_details);
-      this.StoreItemGridData.splice(index,1);
+      let flag : boolean = true;
+      this.myCartData.forEach((CartItemid,index) => {
+        if(element.id == CartItemid.id){
+          flag = false;
+        }
+      });
+
+      if(flag == true){
+        item_details = { 'item_id': element.id,'item_details' : element};
+        this.myCartData.push(item_details);
+      }
+
+      // this.StoreItemGridData.splice(index,1);
     });
     console.log(this.myCartData);
     this.StoreItem_Grid.api?.setRowData(this.StoreItemGridData);
     this.CreateGroup();
+    this.StoreItem_Grid.api?.deselectAll();
   }
 
   Deleteitem(item:any){
