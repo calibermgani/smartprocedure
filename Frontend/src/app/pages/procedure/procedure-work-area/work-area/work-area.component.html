@@ -121,22 +121,21 @@
           <div class="tab-pane active show" id="tabContent1" role="tabpanel">
             <div class="accords"
               style="overflow-x: scroll !important;height: 670px;display: block !important;overflow-y: auto !important;">
-              <accordion [closeOthers]="false" class="accordion" [isAnimated]="true"
-                *ngFor="let x of procedureStagelist;let i = index">
-                <accordion-group [isOpen]="x.accord_open" class="accordion-item" #group>
+              <accordion [closeOthers]="false" class="accordion" [isAnimated]="true">
+                <accordion-group [isOpen]="false" class="accordion-item" #group (isOpenChange)="onAccordionOpen('Requesting', $event)">
                   <span accordion-heading class="d-flex">
                     <i class="mdi"
                       [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
                       style="font-size: 17px;"></i>
                     <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
-                      {{x.stage}}</h4>
+                      Requesting</h4>
                     <div class="float-end">
 
-                      <h4 class="mb-0 my-2" style="color: #D62424;">{{x.status}}</h4>
+                      <h4 class="mb-0 my-2" style="color: #D62424;">Yet to start</h4>
                     </div>
                   </span>
                   <div class="text-muted">
-                    <ul class="verti-timeline list-unstyled" *ngFor="let y of taskList[i]">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data">
                       <li class="event-list">
                         <div class="event-timeline-dot">
                           <div class="form-check font-size-16">
@@ -145,16 +144,168 @@
                         </div>
                         <div class="d-flex flex-column  w-100">
                           <div class="d-flex flex-row align-items-center">
-                            <p style="font-weight: 500 !important;" class="mb-0">{{y.task}}</p>
-                            <h4 class=" ms-2 mb-0">{{y.completed_date_time}}</h4>
-                            <h4 style="color: #D62424;" class="ms-2 mb-0">{{y.status}}</h4>
+                            <p style="font-weight: 500 !important;" class="mb-0">{{y.check_list_description}}</p>
+                            <h4 class=" ms-2 mb-0">{{y.updated_at}}</h4>
+                            <h4 style="color: #D62424;" class="ms-2 mb-0">{{y.created_at}}</h4>
                             <div class="ms-auto" (click)="AddNotes(x.stage)">
                               <img src="assets/images/edit_task_list.svg" width="12px" height="12px"
                                 style="cursor: pointer !important;">
                             </div>
                           </div>
                           <div>
-                            <h4 class="mt-1">{{y.role}},{{y.owner}}</h4>
+                            <!-- <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4> -->
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </accordion-group>
+                <accordion-group [isOpen]="false" class="accordion-item" #group (isOpenChange)="onAccordionOpen('Scheduling', $event)">
+                  <span accordion-heading class="d-flex">
+                    <i class="mdi"
+                    [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+                    style="font-size: 17px;"></i>
+                    <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+                      Scheduling</h4>
+                    <div class="float-end">
+
+                      <h4 class="mb-0 my-2" style="color: #D62424;">Yet to start</h4>
+                    </div>
+                  </span>
+                  <div class="text-muted">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data1">
+                      <li class="event-list">
+                        <div class="event-timeline-dot">
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox">
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column  w-100">
+                          <div class="d-flex flex-row align-items-center">
+                            <p style="font-weight: 500 !important;" class="mb-0">{{y.check_list_description}}</p>
+                            <h4 class=" ms-2 mb-0">{{y.updated_at}}</h4>
+                            <h4 style="color: #D62424;" class="ms-2 mb-0">{{y.created_at}}</h4>
+                            <div class="ms-auto" (click)="AddNotes(x.stage)">
+                              <img src="assets/images/edit_task_list.svg" width="12px" height="12px"
+                                style="cursor: pointer !important;">
+                            </div>
+                          </div>
+                          <div>
+                            <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </accordion-group>
+                <accordion-group [isOpen]="false" class="accordion-item" #group (isOpenChange)="onAccordionOpen('Pre-Procedure', $event)">
+                  <span accordion-heading class="d-flex">
+                    <i class="mdi"
+                      [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+                      style="font-size: 17px;"></i>
+                    <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+                      Pre-Procedure</h4>
+                    <div class="float-end">
+
+                      <h4 class="mb-0 my-2" style="color: #D62424;">Yet to start</h4>
+                    </div>
+                  </span>
+                  <div class="text-muted">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data2">
+                      <li class="event-list">
+                        <div class="event-timeline-dot">
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox">
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column  w-100">
+                          <div class="d-flex flex-row align-items-center">
+                            <p style="font-weight: 500 !important;" class="mb-0">{{y.check_list_description}}</p>
+                            <h4 class=" ms-2 mb-0">{{y.updated_at}}</h4>
+                            <h4 style="color: #D62424;" class="ms-2 mb-0">{{y.created_at}}</h4>
+                            <div class="ms-auto" (click)="AddNotes(x.stage)">
+                              <img src="assets/images/edit_task_list.svg" width="12px" height="12px"
+                                style="cursor: pointer !important;">
+                            </div>
+                          </div>
+                          <div>
+                            <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </accordion-group>
+                <accordion-group [isOpen]="false" class="accordion-item" #group (isOpenChange)="onAccordionOpen('Intra-Procedure', $event)">
+                  <span accordion-heading class="d-flex">
+                    <i class="mdi"
+                      [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+                      style="font-size: 17px;"></i>
+                    <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+                      Intra-Procedure</h4>
+                    <div class="float-end">
+
+                      <h4 class="mb-0 my-2" style="color: #D62424;">Yet to start</h4>
+                    </div>
+                  </span>
+                  <div class="text-muted">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data3">
+                      <li class="event-list">
+                        <div class="event-timeline-dot">
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox">
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column  w-100">
+                          <div class="d-flex flex-row align-items-center">
+                            <p style="font-weight: 500 !important;" class="mb-0">{{y.check_list_description}}</p>
+                            <h4 class=" ms-2 mb-0">{{y.updated_at}}</h4>
+                            <h4 style="color: #D62424;" class="ms-2 mb-0">{{y.created_at}}</h4>
+                            <div class="ms-auto" (click)="AddNotes(x.stage)">
+                              <img src="assets/images/edit_task_list.svg" width="12px" height="12px"
+                                style="cursor: pointer !important;">
+                            </div>
+                          </div>
+                          <div>
+                            <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </accordion-group>
+                <accordion-group [isOpen]="false" class="accordion-item" #group (isOpenChange)="onAccordionOpen('Post-Procedure', $event)">
+                  <span accordion-heading class="d-flex">
+                    <i class="mdi"
+                      [ngClass]="!group?.isOpen ? 'mdi mdi-chevron-down accor-plus-icon': 'mdi mdi-chevron-up accor-plus-icon'"
+                      style="font-size: 17px;"></i>
+                    <h4 class="p-2 flex-grow-1 mb-0" style="font-weight: bold !important; color: #000 !important;">
+                      Post-Proceudre</h4>
+                    <div class="float-end">
+
+                      <h4 class="mb-0 my-2" style="color: #D62424;">Yet to start</h4>
+                    </div>
+                  </span>
+                  <div class="text-muted">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data4">
+                      <li class="event-list">
+                        <div class="event-timeline-dot">
+                          <div class="form-check font-size-16">
+                            <input class="form-check-input" type="checkbox">
+                          </div>
+                        </div>
+                        <div class="d-flex flex-column  w-100">
+                          <div class="d-flex flex-row align-items-center">
+                            <p style="font-weight: 500 !important;" class="mb-0">{{y.check_list_description}}</p>
+                            <h4 class=" ms-2 mb-0">{{y.updated_at}}</h4>
+                            <h4 style="color: #D62424;" class="ms-2 mb-0">{{y.created_at}}</h4>
+                            <div class="ms-auto" (click)="AddNotes(x.stage)">
+                              <img src="assets/images/edit_task_list.svg" width="12px" height="12px"
+                                style="cursor: pointer !important;">
+                            </div>
+                          </div>
+                          <div>
+                            <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4>
                           </div>
                         </div>
                       </li>
