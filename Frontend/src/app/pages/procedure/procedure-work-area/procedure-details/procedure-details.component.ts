@@ -335,7 +335,7 @@ export class ProcedureDetailsComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('Pre Changes',changes.SelectedIndex.currentValue);
+    console.log('Requesting Changes',changes.SelectedIndex.currentValue);
     if(changes.SelectedIndex.currentValue == 0){
       this.hideViewOnlyMode = true;
     }

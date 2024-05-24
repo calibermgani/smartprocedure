@@ -15,23 +15,25 @@ export class AddQuantityComponent {
   TotalQytValue : number;
   constructor(private toastr : ToastrService,private authService : AuthfakeauthenticationService){}
 
-  agInit(params: ICellRendererParams): void {
+  agInit(params: ICellRendererParams)  {
     // this.displayValue = new Array(params.value!).fill('#').join('');
     console.log(params);
     this.TotalQytValue = params.data.total_no_of_qty;
+
+    return this.Qty_Value;
   }
 
   DecreaseQty(){
     if(this.Qty_Value>0){
       this.Qty_Value = this.Qty_Value - 1;
-      localStorage.setItem('Quantity',this.Qty_Value.toString());
+      // localStorage.setItem('Quantity',this.Qty_Value.toString());
     }
   }
 
   IncreaseQty(){
     if(this.Qty_Value < this.TotalQytValue){
       this.Qty_Value = this.Qty_Value + 1;
-      localStorage.setItem('Quantity',this.Qty_Value.toString());
+      // localStorage.setItem('Quantity',this.Qty_Value.toString());
     }
     else{
       this.toastr.warning('You cannot add a quantity that exceeds the total available quantity.','Note',{

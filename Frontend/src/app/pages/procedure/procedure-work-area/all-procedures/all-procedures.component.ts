@@ -116,7 +116,9 @@ export class AllProceduresComponent implements OnInit {
           this.loadProcedureSubStatus('Intra-procedure');
           break;
         case 4:
-          this.SelectedComponent = 4;
+          console.log('ijnn');
+
+        this.SelectedComponent = 4;
           localStorage.setItem('Stage Type','Post-procedure');
           // Call API for step 4
           this.loadProcedureSubStatus('Post-procedure');
@@ -152,7 +154,7 @@ export class AllProceduresComponent implements OnInit {
     });
 
     this.http.get('assets/json/mycart-data.json').subscribe((res:any)=>{
-      this.myCartData = res;      
+      this.myCartData = res;
     });
     this.getUnderStatusDetails();
     this.loadProcedureSubStatus('Requesting');

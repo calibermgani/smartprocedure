@@ -189,7 +189,7 @@ export class WorkAreaComponent implements OnInit {
   delete_postdiagonis_id : number;
   delete_lab_id : number;
   delete_mediation_id: number;
-  allCheckboxesSelected: boolean = false;
+  
 
   slides = [
     { "image": 'assets/images/fall_fill.svg',"name":'Fall',"tooltip":'Fall 19-25' },
@@ -371,7 +371,7 @@ export class WorkAreaComponent implements OnInit {
     }
   }
 
-  setActiveTab(index: number) {        
+  setActiveTab(index: number) {
     this.activeTab = index;
     console.log('Main Tab',index)
     if(index===2){
@@ -588,6 +588,7 @@ export class WorkAreaComponent implements OnInit {
     localStorage.removeItem('MRN_NO');
     localStorage.removeItem('ExamStatus');
     localStorage.removeItem('Stage Type');
+    localStorage.removeItem('AccessionNo');
     this.router.navigateByUrl('/procedure');
   }
 
@@ -603,7 +604,7 @@ export class WorkAreaComponent implements OnInit {
 
     // return null;
     console.log('Call Clinical History API');
-    return this.http.post(`${this.apiUrl}${this.clinicalDiagnosis}`,payload); 
+    return this.http.post(`${this.apiUrl}${this.clinicalDiagnosis}`,payload);
   }
 
 
@@ -645,7 +646,7 @@ export class WorkAreaComponent implements OnInit {
     payload['added_by'] = 1;
     payload['procedure'] = this.procedure_id;
 
-    
+
     this.http.post(`${this.apiUrl}${this.saveData1}`, payload).subscribe((response:any) => {
       console.log('Data saved successfully:', response);
       this.toastr.success(`${response.message}`,'Successfull', {
@@ -736,8 +737,8 @@ Clinical_history_indication() {
   // return null;
   //console.log('Call Clinical History Indication API');
   return this.http.post(`${this.apiUrl}${this.clinicalHistoryIndication}`,payload);
-  
-} 
+
+}
 
 
 get rowControls1() {
@@ -777,7 +778,7 @@ saveDataIndication() {
   payload['added_by'] = 1;
   payload['procedure'] = this.procedure_id;
 
-  
+
   this.http.post(`${this.apiUrl}${this.saveDataIndication1}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
@@ -861,8 +862,8 @@ Clinical_history_postdiagonis() {
   // return null;
   //console.log('Call Clinical History Indication API');
   return this.http.post(`${this.apiUrl}${this.clinicalPostDiagnosis}`,payload);
-  
-} 
+
+}
 
 get rowControls2() {
   return (this.tableFormPostdiagonis.get('rows') as FormArray).controls;
@@ -902,7 +903,7 @@ saveDataPostDiagonis() {
   payload['added_by'] = 1;
   payload['procedure'] = this.procedure_id;
 
-  
+
   this.http.post(`${this.apiUrl}${this.saveDatapostDiagnosis1}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
@@ -988,8 +989,8 @@ GetLabDetails() {
   // return null;
   //console.log('Call Clinical History Indication API');
   return this.http.post(`${this.apiUrl}${this.getLabDetails1}`,payload);
-  
-} 
+
+}
 
 get rowControlslab() {
   return (this.tablelab.get('rows') as FormArray).controls;
@@ -1028,7 +1029,7 @@ saveDataLab() {
   payload['added_by'] = 1;
   payload['procedure'] = this.procedure_id;
 
-  
+
   this.http.post(`${this.apiUrl}${this.saveDataLab1}`, payload).subscribe((response:any) => {
     console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
@@ -1068,7 +1069,7 @@ DeleteLabData() {
   payload['deleted_by'] = 1;
   payload['procedure'] = this.procedure_id;
 
-  this.http.post(`${this.apiUrl}${this.patientLabDelete}`, payload).subscribe((response:any) => {       
+  this.http.post(`${this.apiUrl}${this.patientLabDelete}`, payload).subscribe((response:any) => {
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
       timeOut: 2000,
@@ -1103,14 +1104,14 @@ GetMediationDetails() {
   payload["stage_type"]='Requesting';
   payload["mrn_number"]=this.mrn_number;
   payload["patient_id"]=this.patient_id;
-  payload["procedure"] = this.procedure_id; 
+  payload["procedure"] = this.procedure_id;
 
 
   // return null;
   //console.log('Call Mediation API');
   return this.http.post(`${this.apiUrl}${this.getMediationDetails}`,payload);
-  
-} 
+
+}
 
 get rowMediationlab() {
   return (this.tableMedication.get('rows') as FormArray).controls;
@@ -1144,12 +1145,12 @@ saveMediationData() {
   payload["stage_type"]='Requesting';
   payload["mrn_number"]= localStorage.getItem('MRN_NO');
   payload["patient_id"]=localStorage.getItem('PatientID');
-  payload["procedure"] = this.procedure_id; 
+  payload["procedure"] = this.procedure_id;
   payload['patient_mediation_data'] = rowData;
   payload['created_by'] = 1;
   payload['added_by'] = 1;
 
-  
+
   this.http.post(`${this.apiUrl}${this.saveMediationData1}`, payload).subscribe((response:any) => {
     // console.log('Data saved successfully:', response);
     this.toastr.success(`${response.message}`,'Successfull', {
@@ -1189,7 +1190,7 @@ DeleteLabDataMediation() {
   payload['deleted_by'] = 1;
   payload['procedure'] = this.procedure_id;
 
-  this.http.post(`${this.apiUrl}${this.deleteMediationData}`, payload).subscribe((response:any) => {       
+  this.http.post(`${this.apiUrl}${this.deleteMediationData}`, payload).subscribe((response:any) => {
     this.toastr.success(`${response.message}`,'Successfull', {
       positionClass: 'toast-top-center',
       timeOut: 2000,

@@ -156,7 +156,7 @@
                               <div class="tab-pane" role="tabpanel" style="width: 100% !important;">
                                 <ul class="nav line-tab px-1 nav-tabs  nav-tabs-custom nav-justified m-1 mt-2" role="tablist"
                                   style="background: #F3F4F8 !important;width: 360px !important;height: 25px !important;white-space: nowrap; border: 1px solid #F3F4F8;border-radius: 12px !important;align-items: center;padding: 0px 5px !important;height: auto !important;">
-                                  <li class="nav-item" role="presentation" style="height: 20px !important;">
+                                  <li class="nav-item" role="presentation" style="height: 20px !important;" (click)="SwitchTab('Used')">
                                     <a class="navs-links active" data-bs-toggle="tab" href="#used" role="tab"
                                       aria-selected="true" style="white-space: nowrap;">
                                       <div class="d-flex flex-row">
@@ -164,7 +164,7 @@
                                       </div>
                                     </a>
                                   </li>
-                                  <li class="nav-item" role="presentation" style="height: 20px !important;">
+                                  <li class="nav-item" role="presentation" style="height: 20px !important;" (click)="SwitchTab('Returned')">
                                     <a class="navs-links" data-bs-toggle="tab" href="#returned" role="tab" aria-selected="false"
                                       tabindex="-1" style="white-space: nowrap;">
                                       <div class="d-flex flex-row">
@@ -172,14 +172,15 @@
                                       </div>
                                     </a>
                                   </li>
-                                  <li class="nav-item" role="presentation" style="height: 20px !important;">
+                                  <li class="nav-item" role="presentation" style="height: 20px !important;" (click)="SwitchTab('Damaged')">
                                     <a class="navs-links" data-bs-toggle="tab" href="#damaged" role="tab" aria-selected="false"
                                       tabindex="-1" style="white-space: nowrap;">
                                       <div class="d-flex flex-row">
                                         <h4 class="d-none d-sm-block mb-0 details_tab" style="color: #747474">Damaged</h4>
                                       </div>
                                     </a>
-                                  </li><li class="nav-item" role="presentation">
+                                  </li>
+                                  <li class="nav-item" role="presentation" (click)="SwitchTab('Waste')">
                                     <a class="navs-links" data-bs-toggle="tab" href="#waste" role="tab" aria-selected="false"
                                       tabindex="-1" style="white-space: nowrap;">
                                       <div class="d-flex flex-row">
@@ -201,19 +202,54 @@
                                     </div>
 
                                     <div class="m-2">
-                                      <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
+                                      <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid_1
                                       style="width: 100%;height: 252px;position: relative !important;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
-                                      [rowData]="StoreItemGridData" (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
+                                       (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
                                     </div>
                                   </div>
                                   <div class="tab-pane" id="returned" role="tabpanel">
+                                    <div style="background-color: #F3F4F8;" class="my-2 p-1">
+                                      <label class="modal-label-edit">Barcode</label>
+                                      <div class="d-flex justify-content-start">
+                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type"></div>
+                                        <div class="ms-2"><button class="btn-new" style="padding:4px !important;width: 65px !important;height: 26px !important;">Scan</button></div>
+                                      </div>
+                                    </div>
 
+                                    <div class="m-2">
+                                      <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid_2
+                                      style="width: 100%;height: 252px;position: relative !important;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
+                                       (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
+                                    </div>
                                   </div>
                                   <div class="tab-pane" id="damaged" role="tabpanel">
+                                    <div style="background-color: #F3F4F8;" class="my-2 p-1">
+                                      <label class="modal-label-edit">Barcode</label>
+                                      <div class="d-flex justify-content-start">
+                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type"></div>
+                                        <div class="ms-2"><button class="btn-new" style="padding:4px !important;width: 65px !important;height: 26px !important;">Scan</button></div>
+                                      </div>
+                                    </div>
 
+                                    <div class="m-2">
+                                      <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid_3
+                                      style="width: 100%;height: 252px;position: relative !important;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
+                                       (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
+                                    </div>
                                   </div>
                                   <div class="tab-pane" id="waste" role="tabpanel">
+                                    <div style="background-color: #F3F4F8;" class="my-2 p-1">
+                                      <label class="modal-label-edit">Barcode</label>
+                                      <div class="d-flex justify-content-start">
+                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type"></div>
+                                        <div class="ms-2"><button class="btn-new" style="padding:4px !important;width: 65px !important;height: 26px !important;">Scan</button></div>
+                                      </div>
+                                    </div>
 
+                                    <div class="m-2">
+                                      <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid_4
+                                      style="width: 100%;height: 252px;position: relative !important;"  [defaultColDef]="defaultColDef"></ag-grid-angular>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
@@ -270,17 +306,17 @@
         <div class="d-flex flex-row mb-4" style="width: 100%;">
           <div style="width: 50%;">
             <label for="items_category" class="modal-label mb-1">Item Name</label>
-            <h1 class="" style="font-weight: 500 !important;">ORS Juice</h1>
+            <h1 class="" style="font-weight: 500 !important;">{{ this.SelectedItem.item?.item_name ? this.SelectedItem.item?.item_name : '-' }}</h1>
           </div>
           <div style="width: 50%;">
             <label for="items_category" class="modal-label mb-1">Item No</label>
-            <h1 class="" style="font-weight: 500 !important;">42254</h1>
+            <h1 class="" style="font-weight: 500 !important;">{{ this.SelectedItem.item?.item_number ? this.SelectedItem.item?.item_number : '-' }}</h1>
           </div>
         </div>
 
         <div class="d-flex flex-column mb-2 mt-1" style="width: 100%;">
           <label for="items_category" class="modal-label mb-1">Comment</label>
-          <h1 style="font-weight: 500 !important;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </h1>
+          <h1 style="font-weight: 500 !important;">{{ this.SelectedItem.notes ? this.SelectedItem.notes : '-' }}</h1>
         </div>
 
       </div>
@@ -289,7 +325,7 @@
       <div class="d-flex justify-content-end p-3">
         <!-- <button type="button" class="btn-new me-2"
           style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="viewnote?.hide()">Cancel</button> -->
-        <button type="button" class="btn-new" style="width: auto !important;" (click)="viewnote?.hide()">Close</button>
+        <button type="button" class="btn-new" style="width: auto !important;" (click)="CloseModal('Notes')">Close</button>
       </div>
     </div>
   </div>
