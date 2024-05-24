@@ -6,6 +6,8 @@ import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef 
 import { AddQuantityComponent } from '../add-quantity/add-quantity.component';
 import { DropDownButtonComponent } from '../drop-down-button/drop-down-button.component';
 import { ModalDirective } from 'ngx-bootstrap/modal';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -18,6 +20,7 @@ export class ProcedureDetailsPostProcedureComponent {
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
   @ViewChild('viewnote')viewnote:ModalDirective;
   @ViewChild('viewitem')viewitem:ModalDirective;
+  @Output() save = new EventEmitter<boolean>();
   @Input() StageValue: any;
   mainTabsValue: any = [];
   subTabs: any[] = [];
@@ -79,7 +82,7 @@ export class ProcedureDetailsPostProcedureComponent {
   };
 
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private allService: AllServicesService, private toastr: ToastrService) { }
 
   ngOnInit() {
     this.http.get('assets/json/main-tabs5.json').subscribe((res: any) => {
@@ -214,4 +217,16 @@ export class ProcedureDetailsPostProcedureComponent {
       this.StoreItem_Grid.api.sizeColumnsToFit();
     // }, 2000);
  }
+ onSaveCheckBoxes() {
+  if (!this.allService.areAllChecked()) {
+    this.toastr.error('Please select all checkboxes before saving.','UnSuccessful',{
+      positionClass: 'toast-top-center',
+      timeOut: 5000,
+    });
+  }else{
+    this.save.emit(true);
+    this.allService.clearCheckBoxes();
+  }
+}
+
 }

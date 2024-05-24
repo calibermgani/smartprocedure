@@ -1,6 +1,6 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, UntypedFormArray, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SelectionChangedEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
@@ -29,6 +29,7 @@ export class ProcedureDetailsBookingComponent {
   MyCartform : UntypedFormGroup;
   isFirstOpen: boolean = false;
   ItemCount : number = 0;
+  @Output() save = new EventEmitter<boolean>();
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
     editable: false,
@@ -193,6 +194,7 @@ export class ProcedureDetailsBookingComponent {
   }
 
   CheckOutSchedulling(formData:any){
+    this.onSaveCheckBoxes();
     console.log(formData.value);
     let ItemId : any = [];
     let Quantity : any = [];
@@ -361,5 +363,16 @@ OnClickingViewOnlyMode(type:any,condition:boolean){
   }
 }
 
+onSaveCheckBoxes() {
+  if (!this.allService.areAllChecked()) {
+    this.toastr.error('Please select all checkboxes before saving.','UnSuccessful',{
+      positionClass: 'toast-top-center',
+      timeOut: 5000,
+    });
+  }else{
+    this.save.emit(true);
+    this.allService.clearCheckBoxes();
+  }
+}
 
 }

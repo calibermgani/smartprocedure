@@ -133,11 +133,11 @@ export class WorkAreaComponent implements OnInit {
   clinical_history: any = [];
   clinical_history_indication_data: any = [];
   clinical_history_postdiagonis_data: any = [];
-  check_list_data: any[] = [];
-  check_list_data1: any[] = [];
-  check_list_data2: any[] = [];
-  check_list_data3: any[] = [];
-  check_list_data4: any[] = [];
+  check_list_data:  {checked : boolean}[] = [{checked: false}];
+  check_list_data1: {checked : boolean}[] = [{checked: false}];
+  check_list_data2: {checked : boolean}[] = [{checked: false}];
+  check_list_data3: {checked : boolean}[] = [{checked: false}];
+  check_list_data4: {checked : boolean}[] = [{checked: false}];
   status: string;
 
   lab_data: any = [];
@@ -189,7 +189,7 @@ export class WorkAreaComponent implements OnInit {
   delete_postdiagonis_id : number;
   delete_lab_id : number;
   delete_mediation_id: number;
-  
+  allCheckboxesSelected: boolean = false;
 
   slides = [
     { "image": 'assets/images/fall_fill.svg',"name":'Fall',"tooltip":'Fall 19-25' },
@@ -1245,6 +1245,30 @@ fetchCheckListData(stage: string, target: string){
 )
 }
 
+updateCheckboxStates(index: number, state: boolean, length: number , stage: string): void {    
+  if(stage === 'Requesting'){
+    const lengthofState = length;
+    this.allService.updateCheckboxState(index, state, lengthofState);
+    this.check_list_data[index].checked = state;
+  }else if(stage === 'Scheduling'){
+    const lengthofState = length;
+    this.allService.updateCheckboxState(index, state, lengthofState);
+    this.check_list_data1[index].checked = state;
+  }else if(stage === 'Pre-Procedure'){
+    const lengthofState = length;
+    this.allService.updateCheckboxState(index, state, lengthofState);
+    this.check_list_data2[index].checked = state;
+  }else if(stage === 'Intra-Procedure'){
+    const lengthofState = length;
+    this.allService.updateCheckboxState(index, state, lengthofState);
+    this.check_list_data3[index].checked = state;
+  }else if(stage === 'Post-Procedure'){
+    const lengthofState = length;
+    this.allService.updateCheckboxState(index, state, lengthofState);
+    this.check_list_data4[index].checked = state;
+  }
+
+}
 
 }
 

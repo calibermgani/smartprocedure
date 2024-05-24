@@ -17,6 +17,8 @@ export class AllProceduresComponent implements OnInit {
 
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
   @ViewChild('stepOne') stepOne!: CdkStepper;
+  @ViewChild('cdkStepper') cdkStepper!: CdkStepper;
+
   stepperData: any;
   VettingCondition:boolean = false;
   BookingCondition:boolean = false;
@@ -88,38 +90,39 @@ export class AllProceduresComponent implements OnInit {
   onStepSelectionChange(event: StepperSelectionEvent) {
     console.log('Event',event);
     // Identify the selected step and call the corresponding API
-    switch (event.selectedIndex) {
-      case 0:
-        this.SelectedComponent = 0;
-        localStorage.setItem('Stage Type','Requesting');
-        // Call API for step 0
-        this.loadProcedureSubStatus('Requesting');
-        break;
-      case 1:
-        this.SelectedComponent = 1;
-        localStorage.setItem('Stage Type','Schedulling');
-        // Call API for step 1
-        this.loadProcedureSubStatus('Schedulling');
-        break;
-      case 2:
-        this.SelectedComponent = 2;
-        localStorage.setItem('Stage Type','Pre-procedure');
-        // Call API for step 2
-        this.loadProcedureSubStatus('Pre-procedure');
-        break;
-      case 3:
-        this.SelectedComponent = 3;
-        localStorage.setItem('Stage Type','Intra-procedure');
-        // Call API for step 3
-        this.loadProcedureSubStatus('Intra-procedure');
-        break;
-      case 4:
-        this.SelectedComponent = 4;
-        localStorage.setItem('Stage Type','Post-procedure');
-        // Call API for step 4
-        this.loadProcedureSubStatus('Post-procedure');
-        break;
-    }
+      switch (event.selectedIndex) {
+        case 0:
+          this.SelectedComponent = 0;
+          localStorage.setItem('Stage Type','Requesting');
+          // Call API for step 0
+          this.loadProcedureSubStatus('Requesting');
+          break;
+        case 1:
+          this.SelectedComponent = 1;
+          localStorage.setItem('Stage Type','Schedulling');
+          // Call API for step 1
+          this.loadProcedureSubStatus('Schedulling');
+          break;
+        case 2:
+          this.SelectedComponent = 2;
+          localStorage.setItem('Stage Type','Pre-procedure');
+          // Call API for step 2
+          this.loadProcedureSubStatus('Pre-procedure');
+          break;
+        case 3:
+          this.SelectedComponent = 3;
+          localStorage.setItem('Stage Type','Intra-procedure');
+          // Call API for step 3
+          this.loadProcedureSubStatus('Intra-procedure');
+          break;
+        case 4:
+          this.SelectedComponent = 4;
+          localStorage.setItem('Stage Type','Post-procedure');
+          // Call API for step 4
+          this.loadProcedureSubStatus('Post-procedure');
+          break;
+      }
+  
   }
 
   ngOnInit() {
@@ -271,6 +274,13 @@ export class AllProceduresComponent implements OnInit {
        console.error('Error fetching procedure sub status:', error);
       }
     )
+  }
+
+  onSaveStepOne(data:any) {
+    console.log('Step one saved',data);
+    if(data){
+      this.cdkStepper.next();
+    }
   }
 
 }

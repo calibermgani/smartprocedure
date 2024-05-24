@@ -2,13 +2,15 @@ import { DatePipe } from '@angular/common';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ToastrModule, ToastrService } from 'ngx-toastr';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { environment_new } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AllServicesService {
+  private checkboxStates: boolean[] = [];
+  getStateLength: any;
 
   public payload:Object = {
     "token":"1a32e71a46317b9cc6feb7388238c95d",
@@ -17,6 +19,23 @@ export class AllServicesService {
   public checkLists: any = environment_new.getCheckListData;
   constructor(private http : HttpClient,private toastr : ToastrService,private datePipe: DatePipe) {
    }
+
+   checklist : any ;
+   updateCheckboxState(index: number, state: boolean, length:number): void {    
+    this.checklist = length;
+    if (this.checkboxStates.length !== length) {
+      this.checkboxStates = new Array(length).fill(false);
+    }
+    this.checkboxStates[index] = state;
+  }
+
+  areAllChecked(): boolean {    
+    return this.checkboxStates.every(state => state) && this.checkboxStates.length == this.checklist;
+  }
+
+  clearCheckBoxes(){
+    this.checkboxStates = [];
+  }
 
   formatDate(date: Date): string {
     return this.datePipe.transform(date, 'yyyy-MM-dd');

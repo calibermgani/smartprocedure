@@ -26,35 +26,35 @@ height: 730px;">
       <div class="step-bullet">.</div>
       <p class="step-title">Requesting</p>
     </ng-template>
-    <app-procedure-details #stepOne  [SelectedIndex]="this.SelectedComponent"></app-procedure-details>
+    <app-procedure-details #stepOne  [SelectedIndex]="this.SelectedComponent" (save)="onSaveStepOne($event)"></app-procedure-details>
   </cdk-step>
   <cdk-step [stepControl]="stepTwo.stepTwoForm" [optional]="true" *ngIf="BookingCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Scheduling</p>
     </ng-template>
-    <app-procedure-details-booking #stepTwo [SelectedIndex]="this.SelectedComponent"></app-procedure-details-booking>
+    <app-procedure-details-booking #stepTwo [SelectedIndex]="this.SelectedComponent" (save)="onSaveStepOne($event)"></app-procedure-details-booking>
   </cdk-step>
   <cdk-step [stepControl]="stepThree.stepThreeForm" [optional]="true" *ngIf="PreProcedureCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Pre-procedure</p>
     </ng-template>
-    <app-procedure-details-pre-procedure #stepThree [SelectedIndex]="this.SelectedComponent"></app-procedure-details-pre-procedure>
+    <app-procedure-details-pre-procedure #stepThree [SelectedIndex]="this.SelectedComponent" (save)="onSaveStepOne($event)"></app-procedure-details-pre-procedure>
   </cdk-step>
   <cdk-step [stepControl]="stepFour.stepFourForm" [optional]="true" *ngIf="IntraProcedureCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Intra-procedure</p>
     </ng-template>
-    <app-procedure-details-intra-procedure #stepFour [SelectedIndex]="this.SelectedComponent"></app-procedure-details-intra-procedure>
+    <app-procedure-details-intra-procedure #stepFour [SelectedIndex]="this.SelectedComponent" (save)="onSaveStepOne($event)"></app-procedure-details-intra-procedure>
   </cdk-step>
   <cdk-step [stepControl]="stepFive.stepFiveForm" [optional]="true" *ngIf="PostProcedureCondition == true">
     <ng-template cdkStepLabel>
       <div class="step-bullet">.</div>
       <p class="step-title">Post-procedure</p>
     </ng-template>
-    <app-procedure-details-post-procedure #stepFive [SelectedIndex]="this.SelectedComponent"></app-procedure-details-post-procedure>
+    <app-procedure-details-post-procedure #stepFive [SelectedIndex]="this.SelectedComponent" (save)="onSaveStepOne($event)"></app-procedure-details-post-procedure>
   </cdk-step>
 </ng-stepper>
 </div>
