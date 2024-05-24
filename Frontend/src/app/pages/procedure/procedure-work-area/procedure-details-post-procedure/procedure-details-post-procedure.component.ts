@@ -25,7 +25,7 @@ export class ProcedureDetailsPostProcedureComponent {
   @ViewChild('viewitem')viewitem:ModalDirective;
   @Output() save = new EventEmitter<boolean>();
   @Input() StageValue: any;
-  @Input() StageValue: any
+  // @Input() StageValue: any
   @Input() SelectedIndex : any;;
   mainTabsValue: any = [];
   subTabs: any[] = [];
