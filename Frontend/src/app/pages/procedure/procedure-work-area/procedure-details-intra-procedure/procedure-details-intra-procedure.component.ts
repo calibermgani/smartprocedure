@@ -488,4 +488,26 @@ export class ProcedureDetailsIntraProcedureComponent {
       // this.getCellRendererInstances();
     }, 1000);
  }
+
+ CloseModal(type:any){
+  switch(type){
+    case 'note':{
+      this.Notes = '';
+      this.addnote?.hide();
+      break;
+    }
+  }
+ }
+
+ onSaveCheckBoxes() {
+  if (!this.allService.areAllChecked()) {
+    this.toastr.error('Please select all checkboxes before saving.','UnSuccessful',{
+      positionClass: 'toast-top-center',
+      timeOut: 5000,
+    });
+  }else{
+    this.save.emit(true);
+    this.allService.clearCheckBoxes();
+  }
+}
 }
