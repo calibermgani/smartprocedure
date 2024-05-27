@@ -17,6 +17,8 @@ export class AllServicesService {
   };
   public apiUrl: any = environment_new.apiUrl;
   public checkLists: any = environment_new.getCheckListData;
+  public checkBoxesKizin: any = environment_new.kiziCheckBoxesData;
+  public kiziCheckBoxesTimeLine: any = environment_new.kiziCheckBoxesTimeLine;
   constructor(private http : HttpClient,private toastr : ToastrService,private datePipe: DatePipe) {
    }
 
@@ -1129,6 +1131,41 @@ export class AllServicesService {
     payloads["token"] = '1a32e71a46317b9cc6feb7388238c95d';
     payloads["stage_type"] = stageType;
     return this.http.post<any>(`${this.apiUrl}${this.checkLists}`, payloads);
+  }
+
+  kizinCheckBoxesData(stageType: string, patientId: any, MRN_NO: string, checked: boolean, procedure: any, check_list_id: number, added_by: number, created_by: number){
+    let payLoads = {};
+    payLoads["token"] = '1a32e71a46317b9cc6feb7388238c95d';
+    payLoads["patient_id"] = patientId;
+    payLoads["mrn_no"] = MRN_NO;
+    payLoads["procedure"] = procedure;
+    payLoads["stage_type"] = stageType;
+    payLoads["checked"] = checked;
+    payLoads["checklist_id"] = check_list_id;
+    payLoads["added_by"] = added_by;
+    payLoads["created_by"] = created_by;
+    return this.http.post<any>(`${this.apiUrl}${this.checkBoxesKizin}`, payLoads);
+  }
+
+  kizinTimeLineData(){
+    let payLoads = {};
+    payLoads["token"] = '1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post<any>(`${this.apiUrl}${this.kiziCheckBoxesTimeLine}`, payLoads);
+  }
+  
+  formattedDate(date: Date): string {
+    let month = date.getMonth() + 1; 
+    let day = date.getDate();
+    let year = date.getFullYear();
+    return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
+  }
+
+  formatTime(date: Date): string {
+    return date.toLocaleTimeString('en-US', {
+      hour: '2-digit',
+      minute: '2-digit',
+      hour12: true
+    });
   }
 
 }

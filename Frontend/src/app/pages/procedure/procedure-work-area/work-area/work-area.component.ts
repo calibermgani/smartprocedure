@@ -153,6 +153,13 @@ export class WorkAreaComponent implements OnInit {
   isolation_alert: string = '';
   pregnant_alert: string = '';
   covid_alert: string = '';
+  getCheckBoxesData1: any[] = [];
+  getCheckBoxesData2: any[] = [];
+  getCheckBoxesData3: any[] = [];
+  getCheckBoxesData4: any[] = [];
+  getCheckBoxesData5: any[] = [];
+  checkListNumber: number;
+  kizinData: any[] = [];
   // Editable Field
   pre_diagnosis_editable_field: boolean = false;
   indication_editable_field: boolean = false;
@@ -278,9 +285,9 @@ export class WorkAreaComponent implements OnInit {
       })
     })
 
-    this.http.get<timeline>('assets/json/timeline.json').subscribe((res: any) => {
-      this.timeline_data = res;
-    });
+    // this.http.get<timeline>('assets/json/timeline.json').subscribe((res: any) => {
+    //   this.timeline_data = res;
+    // });
 
 
    /** Patient Clinical History Table Stat API By Gani */
@@ -335,6 +342,7 @@ export class WorkAreaComponent implements OnInit {
       });
     }
     this.fetchCheckListData('Requesting', 'check_list_data');
+    this.kizinTimeLineData();
   }
 
   toggleTabIcon(index: number) {
@@ -1233,9 +1241,11 @@ onAccordionOpen(stage: string, isOpen: boolean): void {
 
 fetchCheckListData(stage: string, target: string){
   this.allService.GetCheckListData(stage).subscribe((response: any)=>{
-    console.log(response,'responsee');
     if(response.status === 'Success'){
       this[target] = response.check_list;
+      if (response.check_list && response.check_list.length > 0) {
+        this.checkListNumber = response.check_list[0].id;
+      }
     } else {
       console.error('Error fetching data:', response.message);
     } 
@@ -1246,30 +1256,83 @@ fetchCheckListData(stage: string, target: string){
 )
 }
 
-updateCheckboxStates(index: number, state: boolean, length: number , stage: string): void {    
+updateCheckboxStates(index: number, state: boolean, length: number , stage: string): void { 
+  const lengthofState = length;  
+  let patient_id = localStorage.getItem('PatientID')
+  let mrn_number = localStorage.getItem('MRN_NO');
+  let procedure_id = localStorage.getItem('Procedure');
+  let stageType = stage;
+  let added_by = 1;
+  let created_by = 1;
+  let checkListIds = this.checkListNumber ; 
   if(stage === 'Requesting'){
-    const lengthofState = length;
     this.allService.updateCheckboxState(index, state, lengthofState);
     this.check_list_data[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by  ).subscribe((response:any)=>{
+      if(response.status === 'Success'){
+        this.getCheckBoxesData1 = response;
+        this.kizinTimeLineData();
+      }
+    })
   }else if(stage === 'Scheduling'){
-    const lengthofState = length;
-    this.allService.updateCheckboxState(index, state, lengthofState);
-    this.check_list_data1[index].checked = state;
+    this.allService.updateCheckboxState(index, state, lengthofState);  
+    this.check_list_data[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
+      if(response.status === 'Success'){
+        this.getCheckBoxesData2 = response;   
+      }
+    })
   }else if(stage === 'Pre-Procedure'){
-    const lengthofState = length;
-    this.allService.updateCheckboxState(index, state, lengthofState);
-    this.check_list_data2[index].checked = state;
+    this.allService.updateCheckboxState(index, state, lengthofState);  
+    this.check_list_data[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
+      if(response.status === 'Success'){
+        this.getCheckBoxesData3 = response;
+        this.kizinTimeLineData();  
+      }
+    })
   }else if(stage === 'Intra-Procedure'){
-    const lengthofState = length;
-    this.allService.updateCheckboxState(index, state, lengthofState);
-    this.check_list_data3[index].checked = state;
+    this.allService.updateCheckboxState(index, state, lengthofState);  
+    this.check_list_data[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
+      if(response.status === 'Success'){
+        this.getCheckBoxesData4 = response;  
+        this.kizinTimeLineData();
+      }
+    })
   }else if(stage === 'Post-Procedure'){
-    const lengthofState = length;
-    this.allService.updateCheckboxState(index, state, lengthofState);
-    this.check_list_data4[index].checked = state;
+    this.allService.updateCheckboxState(index, state, lengthofState);   
+    this.check_list_data[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
+      if(response.status === 'Success'){
+        this.getCheckBoxesData5 = response; 
+        this.kizinTimeLineData();
+      }
+    })
   }
-
 }
+
+kizinTimeLineData(){
+  this.allService.kizinTimeLineData().subscribe((res: any)=>{
+    this.kizinData = res.data;
+    if(this.kizinData){
+      this.kizinData = this.kizinData.map((dateTime: any)=>{
+        let date = new Date(dateTime.created_at);
+        dateTime.created_at = this.allService.formattedDate(date);
+        dateTime.created_time = this.allService.formatTime(date);
+        return dateTime;
+      })
+    }
+    return res;
+    
+  })
+}
+
 
 }
 

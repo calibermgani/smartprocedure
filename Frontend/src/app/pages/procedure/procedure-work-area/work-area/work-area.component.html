@@ -326,18 +326,18 @@
             <div class="tab-pane" role="tabpanel">
               <div class="d-flex flex-column"
                 style="margin: 15px 0px; overflow-x: scroll !important;height: 645px;display: block !important;overflow-y: auto !important;">
-                <div class="d-flex" *ngFor="let x of timeline_data">
+                <div class="d-flex" *ngFor="let x of kizinData">
                   <h4 style="border-right: 1px solid #000;padding:20px 20px 20px 80px" class="mb-0">
-                    {{x.date}}<br>{{x.time}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px"
+                    {{x.created_at}}<br>{{x.created_time}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px"
                     style="position: relative;
                 right: 1.5%;
                 margin-top: 20px;">
                   <div class="d-flex flex-column" style="padding:9px 5px 20px 10px">
                     <h4 style="color: #1B1B1B;" class="mb-1">
-                      {{x.procedure_status}}
+                      {{x.stage_id}}
                     </h4>
-                    <h4 style="color: #1B1B1B;line-height: 14.5px;" class="mb-1"> {{x.description}}</h4>
-                    <h4 style="color: #747474;">{{x.owner}}{{x.role}}</h4>
+                    <h4 style="color: #1B1B1B;line-height: 14.5px;" class="mb-1"> {{x.procedure}}</h4>
+                    <h4 style="color: #747474;">{{x.added_by}}-{{x.created_by}}</h4>
                   </div>
                 </div>
               </div>

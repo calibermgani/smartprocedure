@@ -231,58 +231,58 @@ export class ProcedureComponent implements OnInit {
           return capitalizedStr;
         }
         else
-          return '-Nil-';
+          return '-';
       }
       case 'MRN': {
         if (params.value) {
           return params.value;
         }
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Gender': {
         if (params.value) {
           return params.value;
         }
         else {
-          return '-Nil-';
+          return '-';
         }
       }
       case 'Type': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'DOB': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Age': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Location': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Exam Status': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Study ID': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Priority': {
         switch(params.value){
@@ -313,37 +313,37 @@ export class ProcedureComponent implements OnInit {
 
         }
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Study Date And Time': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Accession Number': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Requesting Physician': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Speciality': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Claim Note': {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Assigned To': {
         let x: any;
@@ -358,31 +358,31 @@ export class ProcedureComponent implements OnInit {
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Blood':{
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Weight':{
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Height':{
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
       case 'Procedure Name':{
         if (params.value)
           return params.value;
         else
-          return '-Nil-';
+          return '-';
       }
     }
   }
