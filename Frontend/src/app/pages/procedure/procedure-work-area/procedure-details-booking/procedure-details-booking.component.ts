@@ -23,6 +23,7 @@ export class ProcedureDetailsBookingComponent {
   header_viewOnlymode: any[] = [];
   myCartData : any = [];
   CurrentPatientDetails : any = [];
+  category : any = [];
   Addtofavourite_bool:boolean = false;
   hideViewOnlyMode : boolean = true;
   StoreItemGridData:any = [];
@@ -309,6 +310,17 @@ export class ProcedureDetailsBookingComponent {
         })
       })
       this.StoreItem_Grid.api?.sizeColumnsToFit();
+
+      this.allService.ItemCategoryOptions().subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            res.categories.forEach((element) => {
+              this.category.push(element.categories);
+            });
+            console.log(this.category);
+          }
+        })
+      })
     }
   }
 

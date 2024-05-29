@@ -1,5 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { ToastrModule, ToastrService } from 'ngx-toastr';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
 
 @Component({
   selector: 'app-allitems-list-view',
@@ -13,17 +15,32 @@ export class AllitemsListViewComponent implements OnInit{
   showEditablefields:boolean = false;
   selectedListItems:any[]= [];
   folder_structure_value:any = [];
-  constructor(private http : HttpClient){}
+  constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService){}
 
   ngOnInit(): void {
     this.http.get('assets/json/allItems-listView.json').subscribe((res:any)=>{
       this.ListViewData = res;
     });
 
-    this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
-      this.folder_structure_value = res;
-      console.log('response',this.folder_structure_value);
+    // this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
+    //   this.folder_structure_value = res;
+    //   console.log('response',this.folder_structure_value);
+    // });
+
+    this.allServices.GetAllItemsGrid().subscribe({
+      next:((res:any)=>{
+        console.log(res.data);
+        // this.ListViewData = res.data
+        return;
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong', 'UnSuccessful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      })
     });
+
   }
 
   selectedItemIndex: number;

@@ -61,7 +61,7 @@ export class AllItemsComponent implements OnInit {
   taxRate = 0.125;
   totalprice: any;
   selectedExportType:string;
-  selectedView:any = 'table';
+  selectedView:any = 'list';
   qty: number = 0;
   textcontent:any;
   resize:boolean = false;

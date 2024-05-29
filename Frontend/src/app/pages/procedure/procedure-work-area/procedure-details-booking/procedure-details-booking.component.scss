@@ -138,7 +138,7 @@
   padding-right: 3px !important; // Adjust this value to leave space for the image
   background-image: url('/assets/images/barcode_input_type.svg') !important;
   background-repeat: no-repeat !important;
-  background-position: 127px !important; // Adjust the position as needed
+  background-position: 124px !important; // Adjust the position as needed
   background-size: 16px 16px !important; // Adjust the size of the image
 }
 .drop
@@ -148,6 +148,20 @@
     min-height: 30px !important;
   }
 }
+
+::ng-deep .ng-select-container{
+  height: 20px !important;
+    min-height: 27px !important;
+    font-size: 12px !important;
+}
+::ng-deep .ng-dropdown-panel.ng-select-bottom
+{
+  background: #fff !important;
+  opacity: 1;
+  font-size: 12px !important;
+  margin-top: 6px !important;
+}
+
 
 .viewonlymode_header
 {
