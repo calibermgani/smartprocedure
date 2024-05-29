@@ -35,5 +35,6 @@ export const environment_new:IEnvironment = {
   deleteMediationData:'/procedures/patient_mediation_delete',
   AllProcedureStatusData: '/procedures/procedure_sub_status',
   kiziCheckBoxesData: '/procedures/kizin_tasks',
-  kiziCheckBoxesTimeLine: '/procedures/kizin_timelines'
+  kiziCheckBoxesTimeLine: '/procedures/kizin_timelines',
+  getCheckListData: '/procedures/check_list_index'
 };
