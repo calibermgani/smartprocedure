@@ -136,12 +136,8 @@
                                   <div class="me-2">
                                     <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
                                   </div>
-                                  <div class="me-2">
-                                    <select class="form-selects" placeholder="Select Category" style="width: 150px !important;">
-                                      <option>Select</option>
-                                      <option>Large select</option>
-                                      <option>Small select</option>
-                                    </select>
+                                  <div class="me-2" style="width: 30%;" *ngIf="this.category.length>0">
+                                    <ng-select [items]="this.category" placeholder="Select Category"></ng-select>
                                   </div>
                                   <div class="me-2">
                                     <button class="btn-new" style="height: 26px !important;
@@ -210,19 +206,13 @@
                       <div class="col-7 mycart-body-2" [ngClass]="{'hideStoreItem': hideViewOnlyMode == false }">
                         <div class="d-flex flex-wrap flex-row my-2">
                           <div class="me-2">
-                            <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" >
+                            <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+                          </div>
+                          <div class="me-2" style="width: 30%;" *ngIf="this.category.length>0">
+                            <ng-select [items]="this.category" placeholder="Select Category"></ng-select>
                           </div>
                           <div class="me-2">
-                            <select class="form-selects" placeholder="Select Category">
-                              <option>Select</option>
-                              <option>Large select</option>
-                              <option>Small select</option>
-                          </select>
-                          </div>
-                          <div class="me-2">
-                            <button class="btn-new" style="height: 26px !important;
-                            width: 103px !important;
-                            padding: 4px !important;">Search</button>
+                            <button class="btn-new" style="height: 26px !important;width: 103px !important;padding: 4px !important;">Search</button>
                           </div>
                         </div>
 

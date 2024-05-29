@@ -23,6 +23,7 @@ export class ProcedureDetailsPreProcedureComponent {
   header_viewOnlymode: any[] = [];
   myCartData : any = [];
   CurrentPatientDetails : any = [];
+  category : any = [];
   MyCartform : UntypedFormGroup;
   Addtofavourite_bool:boolean = false;
   hideViewOnlyMode : boolean = true;
@@ -349,6 +350,17 @@ export class ProcedureDetailsPreProcedureComponent {
         })
       })
       this.StoreItem_Grid.api?.sizeColumnsToFit();
+
+      this.allService.ItemCategoryOptions().subscribe({
+        next:((res:any)=>{
+          if(res.status == 'Success'){
+            res.categories.forEach((element) => {
+              this.category.push(element.categories);
+            });
+            console.log(this.category);
+          }
+        })
+      })
     }
    }
 

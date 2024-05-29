@@ -2311,7 +2311,6 @@ SelectedItemStatus:string = '';
           })
         });
       }
-
     })
 
     this.authfakeauthenticationService.ExportAstypeObservable.subscribe({

@@ -24,7 +24,7 @@ export class AuthfakeauthenticationService {
     public AllItemsGridPayload = new BehaviorSubject<any>('');
     AllItemsPayload = this.AllItemsGridPayload.asObservable();
 
-    public ReloadAllItemsGridData = new BehaviorSubject<any>('');
+    public ReloadAllItemsGridData = new BehaviorSubject<any>(false);
     ReloadGrid = this.ReloadAllItemsGridData.asObservable();
 
     public SearchItembyCategory = new BehaviorSubject<any>('');
