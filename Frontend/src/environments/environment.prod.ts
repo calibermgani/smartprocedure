@@ -33,5 +33,7 @@ export const environment_new:IEnvironment = {
   getMediationDetails:'/procedures/patient_mediation_index',
   saveMediationData:'/procedures/patient_mediation_store',
   deleteMediationData:'/procedures/patient_mediation_delete',
-  AllProcedureStatusData: '/procedures/procedure_sub_status'
+  AllProcedureStatusData: '/procedures/procedure_sub_status',
+  kiziCheckBoxesData: '/procedures/kizin_tasks',
+  kiziCheckBoxesTimeLine: '/procedures/kizin_timelines'
 };
