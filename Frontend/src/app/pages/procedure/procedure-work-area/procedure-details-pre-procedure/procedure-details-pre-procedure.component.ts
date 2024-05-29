@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Input, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SelectionChangedEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
@@ -15,6 +15,7 @@ export class ProcedureDetailsPreProcedureComponent {
 
 
   @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
+  @Output() save = new EventEmitter<boolean>();
   @Input() StageValue: any;
   @Input() SelectedIndex : any;
   mainTabsValue: any = [];
@@ -212,6 +213,7 @@ export class ProcedureDetailsPreProcedureComponent {
   }
 
   CheckOutSchedulling(formData:any){
+    this.onSaveCheckBoxes();
     console.log(formData.value);
     let ItemId : any = [];
     let Quantity : any = [];
@@ -362,5 +364,16 @@ export class ProcedureDetailsPreProcedureComponent {
     }
    }
 
+   onSaveCheckBoxes() {
+    if (!this.allService.areAllChecked()) {
+      this.toastr.error('Please select all checkboxes before saving.','UnSuccessful',{
+        positionClass: 'toast-top-center',
+        timeOut: 5000,
+      });
+    }else{
+      this.save.emit(true);
+      this.allService.clearCheckBoxes();
+    }
+  }
 
 }

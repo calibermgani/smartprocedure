@@ -22,6 +22,7 @@ export class ProcedureDetailsIntraProcedureComponent {
   @ViewChild('addnewtem') addnewtem : ModalDirective;
   @ViewChild('addnote') addnote : ModalDirective;
   @ViewChild('viewitem') viewitem : ModalDirective;
+  @Output() save = new EventEmitter<boolean>();
   @Input() StageValue: any;
   @Input() SelectedIndex : any;
   Addnoteform : UntypedFormGroup;
@@ -329,6 +330,9 @@ export class ProcedureDetailsIntraProcedureComponent {
 
 
   StoreIntraProcedureCheckOut(){
+    let QtyValue = localStorage.getItem('Quantity');
+    console.log(parseInt(QtyValue));
+    this.onSaveCheckBoxes();
     let itemId : any = [];
     let Qty : any = [];
     let action : any = [];
@@ -494,4 +498,16 @@ export class ProcedureDetailsIntraProcedureComponent {
     }
   }
  }
+
+ onSaveCheckBoxes() {
+  if (!this.allService.areAllChecked()) {
+    this.toastr.error('Please select all checkboxes before saving.','UnSuccessful',{
+      positionClass: 'toast-top-center',
+      timeOut: 5000,
+    });
+  }else{
+    this.save.emit(true);
+    this.allService.clearCheckBoxes();
+  }
+}
 }

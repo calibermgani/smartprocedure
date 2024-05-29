@@ -135,11 +135,11 @@
                     </div>
                   </span>
                   <div class="text-muted">
-                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data;  let i = index">
                       <li class="event-list">
                         <div class="event-timeline-dot">
                           <div class="form-check font-size-16">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" [checked]="y.checked" (click)="updateCheckboxStates(i, $event.target.checked, check_list_data.length, 'Requesting')">
                           </div>
                         </div>
                         <div class="d-flex flex-column  w-100">
@@ -147,7 +147,7 @@
                             <p style="font-weight: 500 !important;" class="mb-0">{{y.check_list_description}}</p>
                             <h4 class=" ms-2 mb-0">{{y.updated_at}}</h4>
                             <h4 style="color: #D62424;" class="ms-2 mb-0">{{y.created_at}}</h4>
-                            <div class="ms-auto" (click)="AddNotes(x.stage)">
+                            <div class="ms-auto" (click)="AddNotes()">
                               <img src="assets/images/edit_task_list.svg" width="12px" height="12px"
                                 style="cursor: pointer !important;">
                             </div>
@@ -173,11 +173,11 @@
                     </div>
                   </span>
                   <div class="text-muted">
-                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data1">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data1; let i = index">
                       <li class="event-list">
                         <div class="event-timeline-dot">
                           <div class="form-check font-size-16">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" [checked]="y.checked" (click)="updateCheckboxStates(i, $event.target.checked, check_list_data1.length,'Scheduling')">
                           </div>
                         </div>
                         <div class="d-flex flex-column  w-100">
@@ -191,7 +191,7 @@
                             </div>
                           </div>
                           <div>
-                            <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4>
+                            <!-- <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4> -->
                           </div>
                         </div>
                       </li>
@@ -211,11 +211,11 @@
                     </div>
                   </span>
                   <div class="text-muted">
-                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data2">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data2; let i = index">
                       <li class="event-list">
                         <div class="event-timeline-dot">
                           <div class="form-check font-size-16">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" [checked]="y.checked" (click)="updateCheckboxStates(i, $event.target.checked, check_list_data2.length, 'Pre-Procedure')">
                           </div>
                         </div>
                         <div class="d-flex flex-column  w-100">
@@ -229,7 +229,7 @@
                             </div>
                           </div>
                           <div>
-                            <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4>
+                            <!-- <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4> -->
                           </div>
                         </div>
                       </li>
@@ -249,11 +249,11 @@
                     </div>
                   </span>
                   <div class="text-muted">
-                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data3">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data3; let i = index">
                       <li class="event-list">
                         <div class="event-timeline-dot">
                           <div class="form-check font-size-16">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" [checked]="y.checked" (click)="updateCheckboxStates(i, $event.target.checked, check_list_data3.length, 'Intra-Procedure')">
                           </div>
                         </div>
                         <div class="d-flex flex-column  w-100">
@@ -267,7 +267,7 @@
                             </div>
                           </div>
                           <div>
-                            <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4>
+                            <!-- <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4> -->
                           </div>
                         </div>
                       </li>
@@ -287,11 +287,11 @@
                     </div>
                   </span>
                   <div class="text-muted">
-                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data4">
+                    <ul class="verti-timeline list-unstyled" *ngFor="let y of check_list_data4;let i = index">
                       <li class="event-list">
                         <div class="event-timeline-dot">
                           <div class="form-check font-size-16">
-                            <input class="form-check-input" type="checkbox">
+                            <input class="form-check-input" type="checkbox" (click)="updateCheckboxStates(i, $event.target.checked, check_list_data4.length, 'Post-Procedure')">
                           </div>
                         </div>
                         <div class="d-flex flex-column  w-100">
@@ -305,7 +305,7 @@
                             </div>
                           </div>
                           <div>
-                            <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4>
+                            <!-- <h4 class="mt-1">{{y.created_by?y.created_by:'-'}},{{y.updated_by?y.updated_by:'-'}}</h4> -->
                           </div>
                         </div>
                       </li>
@@ -326,18 +326,18 @@
             <div class="tab-pane" role="tabpanel">
               <div class="d-flex flex-column"
                 style="margin: 15px 0px; overflow-x: scroll !important;height: 645px;display: block !important;overflow-y: auto !important;">
-                <div class="d-flex" *ngFor="let x of timeline_data">
+                <div class="d-flex" *ngFor="let x of kizinData">
                   <h4 style="border-right: 1px solid #000;padding:20px 20px 20px 80px" class="mb-0">
-                    {{x.date}}<br>{{x.time}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px"
+                    {{x.created_at}}<br>{{x.created_time}}</h4><img src="assets/images/timeline_dot.svg" width="12px" height="12px"
                     style="position: relative;
                 right: 1.5%;
                 margin-top: 20px;">
                   <div class="d-flex flex-column" style="padding:9px 5px 20px 10px">
                     <h4 style="color: #1B1B1B;" class="mb-1">
-                      {{x.procedure_status}}
+                      {{x.stage_id}}
                     </h4>
-                    <h4 style="color: #1B1B1B;line-height: 14.5px;" class="mb-1"> {{x.description}}</h4>
-                    <h4 style="color: #747474;">{{x.owner}}{{x.role}}</h4>
+                    <h4 style="color: #1B1B1B;line-height: 14.5px;" class="mb-1"> {{x.procedure}}</h4>
+                    <h4 style="color: #747474;">{{x.added_by}}-{{x.created_by}}</h4>
                   </div>
                 </div>
               </div>

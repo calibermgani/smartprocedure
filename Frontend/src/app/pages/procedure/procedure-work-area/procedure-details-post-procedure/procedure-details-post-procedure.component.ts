@@ -23,7 +23,9 @@ export class ProcedureDetailsPostProcedureComponent {
   @ViewChild('StoreItem_Grid_4') StoreItem_Grid_4: AgGridAngular;
   @ViewChild('viewnote')viewnote:ModalDirective;
   @ViewChild('viewitem')viewitem:ModalDirective;
-  @Input() StageValue: any
+  @Output() save = new EventEmitter<boolean>();
+  @Input() StageValue: any;
+  // @Input() StageValue: any
   @Input() SelectedIndex : any;;
   mainTabsValue: any = [];
   subTabs: any[] = [];
@@ -406,4 +408,16 @@ export class ProcedureDetailsPostProcedureComponent {
   ngAfterViewInit(): void {
 
  }
+ onSaveCheckBoxes() {
+  if (!this.allService.areAllChecked()) {
+    this.toastr.error('Please select all checkboxes before saving.','UnSuccessful',{
+      positionClass: 'toast-top-center',
+      timeOut: 5000,
+    });
+  }else{
+    this.save.emit(true);
+    this.allService.clearCheckBoxes();
+  }
+}
+
 }

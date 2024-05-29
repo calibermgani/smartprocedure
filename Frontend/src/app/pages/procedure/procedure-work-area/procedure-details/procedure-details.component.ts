@@ -1,6 +1,6 @@
 import { CdkStepper } from '@angular/cdk/stepper';
 import { HttpBackend, HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, Input, OnInit, SimpleChanges, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnInit, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDirective } from 'ngx-bootstrap/modal';
@@ -58,6 +58,7 @@ export class ProcedureDetailsComponent implements OnInit {
   ReasonForm : UntypedFormGroup;
   private patientDetailsSubscription: Subscription | undefined;
   @ViewChild('Reject', { static: false }) Reject?: ModalDirective;
+  @Output() save = new EventEmitter<boolean>();
 
 
 
@@ -458,5 +459,16 @@ export class ProcedureDetailsComponent implements OnInit {
     }
   }
 
+  onSaveCheckBoxes() {
+    if (!this.allService.areAllChecked()) {
+      this.toastr.error('Please select all checkboxes before saving.','UnSuccessful',{
+        positionClass: 'toast-top-center',
+        timeOut: 5000,
+      });
+    }else{
+      this.save.emit(true);
+      this.allService.clearCheckBoxes();
+    }
+  }
 
 }

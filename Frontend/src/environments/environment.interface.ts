@@ -20,5 +20,7 @@ export interface IEnvironment {
   deleteMediationData?: string;
   AllProcedureStatusData?: string; 
   getCheckListData?: string;
+  kiziCheckBoxesData?: string;
+  kiziCheckBoxesTimeLine?: string;
   
 }
