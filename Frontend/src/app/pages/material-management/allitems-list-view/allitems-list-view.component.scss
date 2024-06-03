@@ -7,7 +7,7 @@
   position: absolute;
   bottom: 6px;
   left: 20px;
-  font-weight: 500 !important;background: #F3F4F8;border-radius: 10px;padding: 1px 4px 1px 4px !important;
+  font-weight: 500 !important;background: #000 ;border-radius: 10px;padding: 3px 4px 3px 4px !important;
 }
 .dropdown-item{
   padding: 0.55rem 0.9rem !important;
@@ -16,4 +16,18 @@
 .dropdown-item:hover
 {
   background: #F3F4F8 !important;
+}
+
+.appear_green{
+  color: #17B927 !important;
+  padding: 2px 8px 2px 8px;
+  border-radius: 6px;
+  background: #E8F8EA;
+}
+
+.appear_red{
+  color: #D62424 !important;
+  padding: 2px 8px 2px 8px;
+  border-radius: 6px;
+  background: #FBE9E9;
 }

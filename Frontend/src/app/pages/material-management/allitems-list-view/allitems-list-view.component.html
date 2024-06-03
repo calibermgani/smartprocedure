@@ -7,11 +7,12 @@
         <div class="flex-shrink-1">
           <div class="d-flex flex-row align-items-center">
             <div class="me-2">
-              <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" style="margin-top: 0.25rem !important;"
+              <input class="form-check-input" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" style="margin-top: 0.25rem !important;" [(ngModel)]="OverAllCheckboxValue" (click)="UncheckAllItems()"
                 value="option1">
             </div>
-            <div>
-              <h1 style="color: #fff !important;">Deselect | {{selected_row_data_length }} Item selected</h1>
+            <div class="d-flex align-items-center">
+              <!-- <h1 style="color: #fff !important;"> Deselect | {{ this.SelectedItems.length }} Item selected</h1> -->
+              <h1 style="color: #fff !important;" class="pointer" (click)="UncheckAllItems()">Deselect |</h1><h1 style="color: #fff !important;" class="ps-2">{{ this.SelectedItems.length }} Item selected</h1>
             </div>
           </div>
         </div>
@@ -54,17 +55,18 @@
       <div style="border:0.5px solid #8B8B8B ;border-radius: 6px;" class="my-3">
         <div class="d-flex flex-wrap">
           <div style="position: relative;right: 13px;">
-            <input id="customCheck" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
-              (click)="selectgrid()" style="position: relative;left: 17px;top:4px;">
+            <input id="customCheck_items" type="checkbox" class="form-check-input" style="border: 1px solid #747474;"
+              (click)="selectgrid(x.id)" style="position: relative;left: 17px;top:4px;">
             <img src="assets/images/listItems_img.png" style="width: 177px;height:86px;border-radius: 5px 0px 0px 5px;" class="pointer"
               (click)="viewitem?.show()">
-              <div *ngIf="x.items" class="card-item-count pointer">
-                <h5 class="mb-0">Items:&nbsp;{{ x.items }}</h5>
+              <div *ngIf="x.item_entry_status == 'clone'" class="card-item-count pointer">
+                <h5 class="mb-0" style="font-weight: 500 !important;text-align: center;color: #fff !important;">New</h5>
               </div>
           </div>
           <div class="d-flex flex-wrap flex-column  align-items-start me-5">
-            <div class="d-flex flex-wrap my-2">
-              <h1 class="header_name_bold">{{ x.procedure_name }}</h1>
+            <div class="d-flex flex-wrap my-2 align-items-center">
+              <h1 class="header_name_bold">{{ x.item_name }}</h1>
+              <p [ngClass]="x.item_status == 'Active' ? 'appear_green' : 'appear_red'" class="mb-0 ms-2"> {{ x.item_status == 'Active' ? 'Active' : 'Inactive' }}</p>
             </div>
             <div class="d-flex flex-wrap align-items-center mb-2">
               <p class="mb-0">MRN :</p>
@@ -72,32 +74,27 @@
                 &nbsp;
                 |</p>
               <p class="mb-0 ms-2" style="color: #D62424 !important;">Expiry :</p>
-              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.expiry_date }}
+              <p style="color: #8B8B8B !important;font-weight: 400 !important;" class="mb-0 ms-1">{{ x.expired_date }}
               </p>
             </div>
             <div class="d-flex flex-wrap align-items-center mb-2">
               <p class="mb-0">Procedure :</p>
-              <p style="font-weight: 400 !important;" class="mb-0 ms-2">{{ x.procedure_value }}</p>
+              <p style="font-weight: 400 !important;    width: 100px;
+              white-space: nowrap;
+              text-overflow: ellipsis;
+              overflow: hidden;" class="mb-0 ms-2">{{ x.item_procedure_id }}</p>
             </div>
           </div>
           <div class="d-flex flex-wrap flex-column justify-centent-between ms-5 mt-2" style="width: 700px;">
-            <div class="mb-2">
+            <div class="mb-2 d-flex align-items-center">
               <p class="mb-1">Note</p>
-              <h5 style="color: #1B1B1B !important;font-weight: 400 !important;line-height: 12px;" class="mb-0">{{
-                x.note
-                }}</h5>
+              <h5 style="color: #1B1B1B !important;font-weight: 400 !important;line-height: 12px;" class="mb-1 ms-2">{{x.note ? x.note : '-'}}</h5>
             </div>
             <div class="mb-0 d-flex flex-row align-items-center">
               <h5 class="mb-0" style="color: #1B1B1B !important;">Tags</h5>
               <div class="d-flex flex-wrap align-items-start flex-row ms-2">
                 <div style="background:#F3F4F8;border-radius: 10px;padding: 1px 6px 1px 6px;" class="me-2">
-                  <p style="color: #747474 !important;font-weight: 400 !important;" class="mb-0">Test</p>
-                </div>
-                <div style="background:#F3F4F8;border-radius: 10px;padding: 1px 6px 1px 6px;" class="me-2">
-                  <p style="color: #747474 !important;font-weight: 400 !important;" class="mb-0">Test</p>
-                </div>
-                <div style="background:#F3F4F8;border-radius: 10px;padding: 1px 6px 1px 6px;" class="me-2">
-                  <p style="color: #747474 !important;font-weight: 400 !important;" class="mb-0">Test</p>
+                  <p style="color: #747474 !important;font-weight: 400 !important;" class="mb-0">{{ x.tag }}</p>
                 </div>
               </div>
             </div>
@@ -124,15 +121,14 @@
                     style="color:#000;font-size:14px"></i>Delete</a>
               </div>
             </div>
-            <div class="pointer" (click)="OpenNestedList(i)" *ngIf="x.sub">
-              <img
-                [src]="showNestedList == true && i==selectedItemIndex ? 'assets/images/close_itemListView.svg' : 'assets/images/open_ItemListView.svg' "
-                style="width: 16px; height: 16px;">
+            <div class="pointer" >
+              <img src="assets/images/histroy.svg" style="width: 16px; height: 16px;">
             </div>
           </div>
         </div>
       </div>
-      <div *ngIf="showNestedList == true && i==selectedItemIndex">
+
+      <!-- <div *ngIf="showNestedList == true && i==selectedItemIndex">
         <div style="background: #ECECEC;border-radius: 6px;" class="my-3 ms-5" *ngFor="let y of x.sub">
           <div class="d-flex flex-wrap">
             <div style="position: relative;right: 13px;">
@@ -202,7 +198,8 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
+
     </div>
   </div>
 </div>
