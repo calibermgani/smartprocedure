@@ -213,7 +213,7 @@ export class ProcedureDetailsPreProcedureComponent {
   }
 
   CheckOutSchedulling(formData:any){
-    this.onSaveCheckBoxes();
+    // this.onSaveCheckBoxes();
     console.log(formData.value);
     let ItemId : any = [];
     let Quantity : any = [];

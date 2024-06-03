@@ -415,14 +415,22 @@ export class ProcedureDetailsIntraProcedureComponent {
      console.log('Notes ID',this.Id);
      console.log('Notes',this.Notes_Array);
 
-     let NewArray : any =[];
+     let NewArray : any[] =[];
+     itemId.forEach((element) => {
+      NewArray.push('');
+     });
      this.Id.forEach((notesid:number,notesIndex:number) => {
+      let flag : boolean = true;
+      let Currentindex : number;
       itemId.map((itemid:number,itemIndex:number) => {
         if(notesid == itemid){
-          NewArray.splice(itemIndex,0,this.Notes_Array[notesIndex])
+          console.log('itemIndex',itemIndex)
+          NewArray.splice(itemIndex,1,this.Notes_Array[notesIndex])
         }
       });
      });
+
+
 
 
      console.log('New Array',NewArray);
@@ -430,6 +438,8 @@ export class ProcedureDetailsIntraProcedureComponent {
       let procedurename = localStorage.getItem('Procedure');
       let MRN_NO = localStorage.getItem('MRN_NO')
       let AccessionNo = localStorage.getItem('AccessionNo')
+
+
 
      this.allService.StoreIntraProcedure(itemId,Qty,action,NewArray,PatientID,procedurename,MRN_NO,AccessionNo).subscribe({
       next:((res:any)=>{

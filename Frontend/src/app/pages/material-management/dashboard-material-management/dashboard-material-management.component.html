@@ -1,26 +1,28 @@
 <div class="cards">
   <h1 class="header_name_bold mb-2" style="text-align: left !important;">Material Summary</h1>
   <div class="row mb-2">
-    <div class="top-cards col" *ngFor="let x of material_summary_data" style="width: max-content !important ;height:auto !important">
+    <div class="top-cards col" *ngFor="let x of material_summary_data;let i = index" style="width: max-content !important ;height:auto !important">
       <div class="material_sum_card d-flex flex-row align-items-center"
         (click)="ChangeGrid(x.type)" [ngClass]="material_type_name == x.type ? 'material_sum_card':'disable_cards'">
         <div class="flex-shrink-0">
-          <img [src]="x.imgPath" width="40px" height="40px" class="material_summary_image">
+          <img [src]="this.material_summary_data1[i].imgPath" width="40px" height="40px" class="material_summary_image">
         </div>
         <div class="flex-grow-1 ms-1">
           <a style="font-size: 28px; font-weight: 600 ;color: #000 !important;"
             class="mb-1 quantity_size">{{x.quantity}}</a>
-            <div class="float-end">
-            <button type="button" class="btn"  placement="bottom" [tooltip]="tolTemplate"  *ngIf="x.alert" style="background: none !important;
-            padding: 0px !important;
-            border: none !important;">
-              <img src="assets/images/procedure_alert.gif" width="30px" height="30px">
-          </button>
-          <ng-template #tolTemplate style="background: transparent !important;">
-            <a class="dropdown-item mb-0" href="javascript: void(0);" style="background: #D62424;color: #fff;border-radius: 6px 6px 0px 0px !important;margin-bottom: 10px;"> <img src="assets/images/Procedure_notification_alert.svg" class="me-2">{{x.alert_data}}
-            </a>
-          </ng-template>
-        </div>
+            <!-- <div class="float-end">
+              <button type="button" class="btn" placement="bottom" [tooltip]="tolTemplate" *ngIf="x.alert" style="background: none !important;
+                        padding: 0px !important;
+                        border: none !important;">
+                <img src="assets/images/procedure_alert.gif" width="30px" height="30px">
+              </button>
+              <ng-template #tolTemplate style="background: transparent !important;">
+                <a class="dropdown-item mb-0" href="javascript: void(0);"
+                  style="background: #D62424;color: #fff;border-radius: 6px 6px 0px 0px !important;margin-bottom: 10px;"> <img
+                    src="assets/images/Procedure_notification_alert.svg" class="me-2">{{x.alert_data}}
+                </a>
+              </ng-template>
+            </div> -->
           <h1 class="header_name_bold">{{x.type}}</h1>
         </div>
       </div>

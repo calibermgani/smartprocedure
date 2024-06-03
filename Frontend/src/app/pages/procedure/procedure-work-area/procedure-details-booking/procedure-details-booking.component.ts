@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { CdkStepper } from '@angular/cdk/stepper';
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
@@ -212,7 +213,7 @@ export class ProcedureDetailsBookingComponent {
   }
 
   CheckOutSchedulling(formData:any){
-    this.onSaveCheckBoxes();
+    // this.onSaveCheckBoxes();
     console.log(formData.value);
     let ItemId : any = [];
     let Quantity : any = [];
@@ -285,7 +286,13 @@ export class ProcedureDetailsBookingComponent {
       this.allService.GetMyCartDetails(procedurename).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
-            this.myCartData = res.my_cart.procedure_item;
+            console.log(res);
+            res.my_cart.procedure_item.forEach((data)=>{
+              if(data.item_details != null){
+                this.myCartData.push(data);
+              }
+            })
+            console.log('My Cart Data',this.myCartData);
             this.CreateGroup();
           }
         }),

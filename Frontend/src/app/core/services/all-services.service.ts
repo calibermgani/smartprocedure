@@ -19,11 +19,12 @@ export class AllServicesService {
   public checkLists: any = environment_new.getCheckListData;
   public checkBoxesKizin: any = environment_new.kiziCheckBoxesData;
   public kiziCheckBoxesTimeLine: any = environment_new.kiziCheckBoxesTimeLine;
+  public materialdashboard : any = environment_new.materialdashboard;
   constructor(private http : HttpClient,private toastr : ToastrService,private datePipe: DatePipe) {
    }
 
    checklist : any ;
-   updateCheckboxState(index: number, state: boolean, length:number): void {    
+   updateCheckboxState(index: number, state: boolean, length:number): void {
     this.checklist = length;
     if (this.checkboxStates.length !== length) {
       this.checkboxStates = new Array(length).fill(false);
@@ -31,7 +32,7 @@ export class AllServicesService {
     this.checkboxStates[index] = state;
   }
 
-  areAllChecked(): boolean {    
+  areAllChecked(): boolean {
     return this.checkboxStates.every(state => state) && this.checkboxStates.length == this.checklist;
   }
 
@@ -1152,9 +1153,9 @@ export class AllServicesService {
     payLoads["token"] = '1a32e71a46317b9cc6feb7388238c95d';
     return this.http.post<any>(`${this.apiUrl}${this.kiziCheckBoxesTimeLine}`, payLoads);
   }
-  
+
   formattedDate(date: Date): string {
-    let month = date.getMonth() + 1; 
+    let month = date.getMonth() + 1;
     let day = date.getDate();
     let year = date.getFullYear();
     return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year}`;
@@ -1166,6 +1167,12 @@ export class AllServicesService {
       minute: '2-digit',
       hour12: true
     });
+  }
+
+  MaterialDashboard(){
+    let payLoads = {};
+    payLoads["token"] = '1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post<any>(`${this.apiUrl}${this.materialdashboard}`, payLoads);
   }
 
 }

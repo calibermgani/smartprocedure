@@ -1,3 +1,5 @@
+import { S } from "@fullcalendar/core/internal-common";
+
 export interface IEnvironment {
   production: boolean;
   name?: string;
@@ -18,9 +20,10 @@ export interface IEnvironment {
   getMediationDetails?: string;
   saveMediationData?: string;
   deleteMediationData?: string;
-  AllProcedureStatusData?: string; 
+  AllProcedureStatusData?: string;
   getCheckListData?: string;
   kiziCheckBoxesData?: string;
   kiziCheckBoxesTimeLine?: string;
-  
+  materialdashboard?:string
+
 }

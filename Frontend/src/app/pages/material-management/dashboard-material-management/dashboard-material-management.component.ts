@@ -32,6 +32,7 @@ interface SubData {
 export class DashboardMaterialManagementComponent implements OnInit {
 
   material_summary_data: any = [];
+  material_summary_data1: any = [];
   filter_daily_consumed: any = [];
   procedure_list:any = [];
   items_list : any = [];
@@ -163,8 +164,23 @@ export class DashboardMaterialManagementComponent implements OnInit {
   ngOnInit(): void {
     this.authfakeauthenticationService.changeSideMenu('material-management');
     this.Http.get('assets/json/material_summary_data.json').subscribe((res: any) => {
-      this.material_summary_data = res;
+      this.material_summary_data1 = res;
     });
+
+    this.allService.MaterialDashboard().subscribe({
+      next:((res:any)=>{
+        if(res.status == 'Success'){
+          console.log(res);
+          this.material_summary_data = res.data;
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
     this.ChangeGrid('Daily consumed');
   }
 
@@ -338,7 +354,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
         this.allService.GetDamagedItems().subscribe({
           next:((res:any)=>{
             if(res.status=='Success'){
-              this.myGrid_1.api.setRowData(res.procedures);
+              this.myGrid_1.api.setRowData(res.item_damaged_list);
               this.gridOptions1.api?.sizeColumnsToFit();
             }
           }),

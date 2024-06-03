@@ -41,8 +41,8 @@ export const environment_new:IEnvironment = {
   AllProcedureStatusData: '/procedures/procedure_sub_status',
   getCheckListData: '/procedures/check_list_index',
   kiziCheckBoxesData: '/procedures/kizin_tasks',
-  kiziCheckBoxesTimeLine: '/procedures/kizin_timelines'
-
+  kiziCheckBoxesTimeLine: '/procedures/kizin_timelines',
+  materialdashboard : '/items/procedure_item_dashboard'
 };
 
 
