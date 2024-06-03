@@ -1243,9 +1243,9 @@ fetchCheckListData(stage: string, target: string){
   this.allService.GetCheckListData(stage).subscribe((response: any)=>{
     if(response.status === 'Success'){
       this[target] = response.check_list;
-      if (response.check_list && response.check_list.length > 0) {
-        this.checkListNumber = response.check_list[0].id;
-      }
+      response.check_list.forEach((element,index) => {
+        this.allService.updateCheckboxState(index, element.checked, response.check_list.length);
+      });
     } else {
       console.error('Error fetching data:', response.message);
     } 
@@ -1256,7 +1256,7 @@ fetchCheckListData(stage: string, target: string){
 )
 }
 
-updateCheckboxStates(index: number, state: boolean, length: number , stage: string): void { 
+updateCheckboxStates(index: number, state: boolean, length: number , stage: string, checkListId: number): void { 
   const lengthofState = length;  
   let patient_id = localStorage.getItem('PatientID')
   let mrn_number = localStorage.getItem('MRN_NO');
@@ -1264,7 +1264,7 @@ updateCheckboxStates(index: number, state: boolean, length: number , stage: stri
   let stageType = stage;
   let added_by = 1;
   let created_by = 1;
-  let checkListIds = this.checkListNumber ; 
+  let checkListIds = checkListId ; 
   if(stage === 'Requesting'){
     this.allService.updateCheckboxState(index, state, lengthofState);
     this.check_list_data[index].checked = state;
@@ -1277,8 +1277,8 @@ updateCheckboxStates(index: number, state: boolean, length: number , stage: stri
     })
   }else if(stage === 'Scheduling'){
     this.allService.updateCheckboxState(index, state, lengthofState);  
-    this.check_list_data[index].checked = state;
-    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.check_list_data1[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data1[index].checked;
     this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
       if(response.status === 'Success'){
         this.getCheckBoxesData2 = response;   
@@ -1286,8 +1286,8 @@ updateCheckboxStates(index: number, state: boolean, length: number , stage: stri
     })
   }else if(stage === 'Pre-Procedure'){
     this.allService.updateCheckboxState(index, state, lengthofState);  
-    this.check_list_data[index].checked = state;
-    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.check_list_data2[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data2[index].checked;
     this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
       if(response.status === 'Success'){
         this.getCheckBoxesData3 = response;
@@ -1296,8 +1296,8 @@ updateCheckboxStates(index: number, state: boolean, length: number , stage: stri
     })
   }else if(stage === 'Intra-Procedure'){
     this.allService.updateCheckboxState(index, state, lengthofState);  
-    this.check_list_data[index].checked = state;
-    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.check_list_data3[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data3[index].checked;
     this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
       if(response.status === 'Success'){
         this.getCheckBoxesData4 = response;  
@@ -1306,8 +1306,8 @@ updateCheckboxStates(index: number, state: boolean, length: number , stage: stri
     })
   }else if(stage === 'Post-Procedure'){
     this.allService.updateCheckboxState(index, state, lengthofState);   
-    this.check_list_data[index].checked = state;
-    let checkedOrNOT: boolean = this.check_list_data[index].checked;
+    this.check_list_data4[index].checked = state;
+    let checkedOrNOT: boolean = this.check_list_data4[index].checked;
     this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
       if(response.status === 'Success'){
         this.getCheckBoxesData5 = response; 
