@@ -3,7 +3,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SideBarDef, ToolPanelDef } from 'ag-grid-community';
-import 'ag-grid-enterprise';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
@@ -64,27 +63,6 @@ export class ProcedureComponent implements OnInit {
     filter: true,
   };
   columnDefs1: ColDef[] = [];
-
-  public sideBar: SideBarDef | string | string[] | boolean | null = {
-    toolPanels: [
-      {
-        id: 'columns',
-        labelDefault: 'Columns Visibility',
-        labelKey: 'columns',
-        iconKey: 'columns',
-        toolPanel: 'agColumnsToolPanel',
-        toolPanelParams: {
-          suppressRowGroups: true,
-          suppressValues: true,
-          suppressPivots: true,
-          suppressPivotMode: true,
-          suppressColumnFilter: false,
-          suppressColumnSelectAll: false,
-        },
-      } as ToolPanelDef,
-    ],
-    defaultToolPanel: null,
-  };
 
 
   constructor(private router: Router, private http: HttpClient,private allServices: AllServicesService,private toastr : ToastrService,private authService : AuthfakeauthenticationService) {
