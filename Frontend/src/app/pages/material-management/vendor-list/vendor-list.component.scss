@@ -170,3 +170,6 @@ border-bottom: none !important;
   --ag-row-hover-color: transparent !important;
 }
 
+:host ::ng-deep .ag-floating-filter-button{
+  color: #fff !important;
+}

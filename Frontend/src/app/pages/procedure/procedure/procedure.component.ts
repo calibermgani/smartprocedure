@@ -61,6 +61,7 @@ export class ProcedureComponent implements OnInit {
     sortable: true,
     resizable: true,
     filter: true,
+    floatingFilter:true
   };
   columnDefs1: ColDef[] = [];
 
@@ -153,7 +154,7 @@ export class ProcedureComponent implements OnInit {
           if (key == 'checkboxSelection') {
             console.log('IN');
             let headerName = '';
-            colDefs.push({ checkboxSelection: true, headerCheckboxSelection: true, width: 50, cellRenderer: this.cellrendered.bind(this, key), headerName: headerName })
+            colDefs.push({ checkboxSelection: true, headerCheckboxSelection: true, width: 50, cellRenderer: this.cellrendered.bind(this, key), headerName: headerName,floatingFilter:false })
           }
           else if(key != 'id') {
             colDefs.push({ field: key, cellRenderer: this.cellrendered.bind(this, key),onCellClicked:this.cellClicked.bind(this,key) })

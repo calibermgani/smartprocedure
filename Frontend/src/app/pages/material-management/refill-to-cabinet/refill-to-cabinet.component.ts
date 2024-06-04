@@ -21,7 +21,7 @@ export class RefillToCabinetComponent {
     sortable: true,
     resizable: true,
     filter: true,
-    // floatingFilter: true,
+    floatingFilter: true,
   };
   gridOptions1: GridOptions = {
     defaultColDef: {

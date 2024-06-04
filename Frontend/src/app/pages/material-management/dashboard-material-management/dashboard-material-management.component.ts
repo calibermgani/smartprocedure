@@ -52,7 +52,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
     sortable: true,
     resizable: true,
     filter: true,
-    // floatingFilter: true,
+    floatingFilter: true,
   };
   gridOptions1: GridOptions = {
     defaultColDef: {

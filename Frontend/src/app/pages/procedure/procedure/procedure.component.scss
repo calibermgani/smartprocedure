@@ -149,3 +149,7 @@
   background-position: 120px !important; // Adjust the position of the icon
   background-size: 20px !important;
 }
+
+:host ::ng-deep .ag-floating-filter-button{
+  color: #fff !important;
+}
