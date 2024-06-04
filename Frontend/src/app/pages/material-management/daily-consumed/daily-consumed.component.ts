@@ -98,26 +98,7 @@ export class DailyConsumedComponent implements OnInit{
       params.successCallback(params.data.sub);
     },
   } as IDetailCellRendererParams<MainData, SubData>;
-  public sideBar: SideBarDef | string | string[] | boolean | null = {
-    toolPanels: [
-      {
-        id: 'columns',
-        labelDefault: 'Columns Visibility',
-        labelKey: 'columns',
-        iconKey: 'columns',
-        toolPanel: 'agColumnsToolPanel',
-        toolPanelParams: {
-          suppressRowGroups: true,
-          suppressValues: true,
-          suppressPivots: true,
-          suppressPivotMode: true,
-          suppressColumnFilter: false,
-          suppressColumnSelectAll: false,
-        },
-      } as ToolPanelDef,
-    ],
-    defaultToolPanel: null,
-  };
+
 
   public Material_utilized_columnDef : ColDef[] = [
     { field: 'mrn_no', headerName:'MRN No', cellRenderer: 'agGroupCellRenderer' },

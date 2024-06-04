@@ -7,7 +7,6 @@ import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
 import { environment_new } from 'src/environments/environment';
-import 'ag-grid-enterprise';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 
 interface MainData {
@@ -420,26 +419,7 @@ export class AllItemsTableViewComponent {
       return params.data.id;
     },
   };
-  public sideBar: SideBarDef | string | string[] | boolean | null = {
-    toolPanels: [
-      {
-        id: 'columns',
-        labelDefault: 'Columns Visibility',
-        labelKey: 'columns',
-        iconKey: 'columns',
-        toolPanel: 'agColumnsToolPanel',
-        toolPanelParams: {
-          suppressRowGroups: true,
-          suppressValues: true,
-          suppressPivots: true,
-          suppressPivotMode: true,
-          suppressColumnFilter: false,
-          suppressColumnSelectAll: false,
-        },
-      } as ToolPanelDef,
-    ],
-    defaultToolPanel: null,
-  };
+
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     // arbitrarily expand a row for presentational purposes
