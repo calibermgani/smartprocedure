@@ -9,7 +9,6 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AgGridModule } from 'ag-grid-angular';
 
-
 @NgModule({
   declarations: [
     ProcedureComponent

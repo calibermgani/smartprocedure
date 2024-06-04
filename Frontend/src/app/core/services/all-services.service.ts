@@ -682,6 +682,18 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/items/near_expired_items`,payload);
   }
 
+  GetBackToCabinet(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/procedures/back_to_cabinet`,payload);
+  }
+
+  GetRefilltoCabinet(){
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    return this.http.post(`${this.apiUrl}/items/item_refill_to_cabinet`,payload);
+  }
+
   SearchNearItemsByDate(data:any){
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';

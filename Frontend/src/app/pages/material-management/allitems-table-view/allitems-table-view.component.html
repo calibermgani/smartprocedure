@@ -49,7 +49,7 @@
       <div>
         <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnMainDefs" [gridOptions]="gridOptions1" #myGrid_1
           style="width: 100%;height: 576px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
-          (selectionChanged)="onSelectionChanged($event)" [sideBar]="sideBar"></ag-grid-angular>
+          (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
       </div>
       <!-- <div *ngIf="ChangeGrid == true">
         <ag-grid-angular style="width: 100%;height:576px;" class="ag-theme-alpine" [columnDefs]="daily_consumed_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsDailyConsumed" #myGrid_2
