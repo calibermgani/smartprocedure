@@ -6,7 +6,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
-import 'ag-grid-enterprise';
+
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 
