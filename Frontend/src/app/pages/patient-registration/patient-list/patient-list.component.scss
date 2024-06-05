@@ -1,13 +1,11 @@
 .tab_filter_img
 {
   background: #F3F4F8;
-  padding: 8px;
   cursor: pointer;
 }
 
 
 .add_patient_img{
-  background-image: url('/assets/images/add_patient_img.svg') !important;
   background-repeat: no-repeat !important;
   background-size: 18px !important;
   background-position: 4px 9px !important;
@@ -18,7 +16,7 @@
 .ag-theme-alpine
 {
   --ag-row-hover-color: none !important;
-  --ag-header-background-color : #594585 !important;
+  // --ag-header-background-color : #594585 !important;
   --ag-selected-row-background-color : transparent !important
 }
 ::ng-deep .ag-row{
@@ -39,27 +37,33 @@
   background:#F3F4F8 !important;
   z-index: 2 ;
   cursor: pointer !important;
+  background: #FBF9FF !important;
 }
 
 ::ng-deep .ag-row-even{
   margin: 10px 0px !important;
-  background: none !important;
+  // background: none !important;
   cursor: pointer !important;
+  background-color: #ffffff !important;
 }
 
-
+::ng-deep .ag-cell-label-container{
+  border-right: 1px solid rgba(89, 69, 133, 0.15) !important;
+}
 
 ::ng-deep .ag-header-viewport
 {
-  background: #594585;
+  background: #E4DAFA;
   // border: 1px solid #C9C9C9;
 }
 
 ::ng-deep .ag-header-cell-text
 {
-  font-size: 12px !important;
+  font-size: 13px !important;
   font-weight: 500 !important;
-  color: #fff !important;
+  color: #594585 !important;
+  line-height: 19.5px !important;
+  font-family: 'Poppins' !important;
 }
 
 ::ng-deep .ag-cell-value
@@ -76,14 +80,14 @@
 
 ::ng-deep .ag-root-wrapper
 {
-  border: 1px solid #747474 !important;
+  border: 1px solid #E7E1F3 !important;
   font-family: poppins !important;
 }
 
 ::ng-deep .ag-root-wrapper
 {
-  border: 1px solid #747474 !important;
-  border-radius: 15px;
+  // border: 1px solid #E7E1F3 !important;
+  // border-radius: 6px;
   font-family: poppins !important;
 }
 ::ng-deep .ag-row-group-expanded
@@ -102,6 +106,10 @@
   color: #fff !important;
 }
 
+::ng-deep .ag-body-horizontal-scroll-viewport{
+  overflow-x: hidden !important;
+}
+
 .viewItem_data
 {
   font-weight: 500 !important;
@@ -109,16 +117,119 @@
 .dis_procedure{
   // display: flex;
   // flex-direction: row;
-  padding: 3px 8px 3px 9px;
-  border-radius: 12px;
-  background: #664E9A;
-  color: #fff !important;
-  font-size: 9px !important;
-  font-weight: 500 !important;
-  margin:0px 9px 4px 0px !important;
-  height: 18px !important;
+  // padding: 3px 8px 3px 9px;
+  // border-radius: 12px;
+  // background: #664E9A;
+  // color: #fff !important;
+  // font-size: 9px !important;
+  // font-weight: 500 !important;
+  // margin:0px 9px 4px 0px !important;
+  // height: 18px !important;
 }
 
 ::ng-deep .ag-cell-value{
   border: none !important;
+}
+
+::ng-deep .ag-ltr .ag-header{
+  border-bottom: none !important;
+}
+
+.refresh-button{
+    border: 1px solid #594585;
+    border-radius: 4px;
+    padding: 2px 22px 3px 10px;
+    color: #594585;
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 500;
+    background: white;
+    line-height: 25px;
+}
+
+.refresh-button1{
+  border: 1px solid #594585;
+  border-radius: 4px;
+  padding: 2px 22px 3px 10px;
+  color: #594585;
+  font-family: 'Poppins';
+  font-size: 14px;
+  font-weight: 500;
+  background: white;
+  line-height: 25px;
+}
+
+.form-selects {
+  width: 100% !important;
+  padding: 0.5rem !important;
+  border: 1px solid #B1CBD4 !important;
+  color: #A8ACAD !important;
+  border-radius: 4px !important;
+}
+
+.accordion-button {
+  background-color: #F3F4F8;
+  color: #000;
+}
+
+.accordion-button:focus {
+  box-shadow: none;
+}
+
+.accordion-body {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.accordion-body{
+  border: none;
+}
+
+.accordion-button{
+  background-color: #ffffff;
+}
+
+.button-sizing{
+    border: 1px solid #CFC3E9;
+    color: #594585;
+    padding: 6px 24px 4px 24px;
+    border-radius: 4px;
+    font-weight: 500;
+    background: #fff;
+    cursor: pointer;
+}
+
+.button-sizing1{
+  border: 1px solid #594585;
+  color: #ffffff;
+  padding: 5px 20px 3px 24px;
+  border-radius: 4px;
+  font-weight: 500;
+  background: #594585;
+  cursor: pointer;
+}
+
+.search-designs{
+  border: 1px solid #B1CBD4;
+  padding: 6px;
+  border-radius: 4px;
+  color: #A8ACAD;
+  font-size: 12px;
+  font-weight: 400;
+  font-family: 'Poppins';
+  width: 17rem;
+  // margin-right: 1rem;
+  font-style: italic;
+}
+
+.ag-header-cell .ag-focus-managed{
+  left: 1644px !important;
+}
+
+::ng-deep .ag-cell-value{
+  font-size: 13px !important;
+    color: #6D6B71 !important;
+    font-weight: 400 !important;
 }

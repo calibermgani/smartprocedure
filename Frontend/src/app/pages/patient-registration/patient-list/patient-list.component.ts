@@ -57,10 +57,10 @@ export class PatientListComponent implements OnInit{
 
   columnMainDefs: ColDef[] = [
     {
-      field: 'first_name',
-      headerName: 'First name',
-      cellRenderer: this.cellrendered.bind(this,'first_name'),
-      onCellClicked: this.CellClicked.bind(this, 'first_name')
+      field: 'mrn_number',
+      headerName: 'MRN Number',
+      cellRenderer: this.cellrendered.bind(this,'mrn_number'),
+      onCellClicked: this.CellClicked.bind(this, 'mrn_number')
       // cellRenderer: 'agGroupCellRenderer',
       // cellRendererParams:(params:any)=>{
       //   if(params.data.item_entry_status == 'clone'){
@@ -79,9 +79,9 @@ export class PatientListComponent implements OnInit{
       // }
     },
     {
-      field: 'middle_name',
-      headerName: 'Middle name',
-      cellRenderer: this.cellrendered.bind(this, 'middle_name'),
+      field: 'patient_name',
+      headerName: 'Patient Name',
+      cellRenderer: this.cellrendered.bind(this, 'patient_name'),
     },
     {
       field: 'surname',
@@ -89,139 +89,19 @@ export class PatientListComponent implements OnInit{
       cellRenderer: this.cellrendered.bind(this, 'surname')
     },
     {
-      field: 'name_of_children',
-      headerName: 'Name of Children',
-      cellRenderer: this.cellrendered.bind(this, 'name_of_children')
-    },
-    {
-      field: 'name_of_partner',
-      headerName: 'Name of Partner',
-      cellRenderer: this.cellrendered.bind(this, 'name_of_partner')
-    },
-    {
-      field: 'occupation',
-      headerName: 'Occupation',
-      cellRenderer: this.cellrendered.bind(this, 'occupation')
-    },
-    {
-      field: 'dob',
-      headerName: 'DOB',
-      cellRenderer: this.cellrendered.bind(this, 'dob')
-    },
-    {
-      field: 'age',
-      headerName: 'Age',
-      cellRenderer: this.cellrendered.bind(this, 'age')
-    },
-    {
       field: 'gender',
       headerName: 'Gender',
       cellRenderer: this.cellrendered.bind(this, 'gender')
     },
     {
-      field: 'marital_status',
-      headerName: 'Martial Status',
-      cellRenderer: this.cellrendered.bind(this, 'marital_status')
-    },
-    {
-      field: 'language',
-      headerName: 'Language',
-      cellRenderer: this.cellrendered.bind(this, 'language')
-    },
-    {
-      field: 'referred_by',
-      headerName: 'Referred by',
-      cellRenderer: this.cellrendered.bind(this, 'referred_by')
-    },
-    {
-      field: 'telephone',
-      headerName: 'Primary telephone',
-      cellRenderer: this.cellrendered.bind(this, 'telephone')
-    },
-    {
-      field: 'primary_email',
-      headerName: 'Primary email',
-      cellRenderer: this.cellrendered.bind(this, 'primary_email')
-    },
-    {
-      field: 'address_type',
+      field: 'type',
       headerName: 'Type',
-      cellRenderer: this.cellrendered.bind(this, 'address_type')
-    },
-    {
-      field: 'flat_unit_no',
-      headerName: 'Flat unit no',
-      cellRenderer: this.cellrendered.bind(this, 'flat_unit_no')
-    },
-    {
-      field: 'street_no',
-      headerName: 'Street no',
-      cellRenderer: this.cellrendered.bind(this, 'street_no')
-    },
-    {
-      field: 'street_name',
-      headerName: 'Street Name',
-      cellRenderer: this.cellrendered.bind(this, 'street_name')
-    },
-    {
-      field: 'suburb',
-      headerName: 'Subrub',
-      cellRenderer: this.cellrendered.bind(this, 'suburb')
-    },
-    {
-      field: 'town_city',
-      headerName: 'Town city',
-      cellRenderer: this.cellrendered.bind(this, 'town_city')
-    },
-    {
-      field: 'state',
-      headerName: 'State',
-      cellRenderer: this.cellrendered.bind(this, 'state')
-    },
-    {
-      field: 'post_code',
-      headerName: 'Post Code',
-      cellRenderer: this.cellrendered.bind(this, 'post_code')
+      cellRenderer: this.cellrendered.bind(this, 'type')
     },
     {
       field: 'blood_group',
-      headerName: 'Blood group',
+      headerName: 'blood Group',
       cellRenderer: this.cellrendered.bind(this, 'blood_group')
-    },
-    {
-      field: 'height',
-      headerName: 'Height',
-      cellRenderer: this.cellrendered.bind(this, 'height')
-    },
-    {
-      field: 'weight',
-      headerName: 'Weight',
-      cellRenderer: this.cellrendered.bind(this, 'weight')
-    },
-    {
-      field: 'blood_pressure',
-      headerName: 'Blood Pressure',
-      cellRenderer: this.cellrendered.bind(this, 'blood_pressure')
-    },
-    {
-      field: 'heart_beat',
-      headerName: 'Heart beat',
-      cellRenderer: this.cellrendered.bind(this, 'heart_beat')
-    },
-    {
-      field: 'temperature',
-      headerName: 'Temperature',
-      cellRenderer: this.cellrendered.bind(this, 'temperature')
-    },
-    {
-      field: 'spo2',
-      headerName: 'SPO2',
-      cellRenderer: this.cellrendered.bind(this, 'spo2')
-    },
-    {
-      field: 'respiratory_rate',
-      headerName: 'Respiratory rate',
-      cellRenderer: this.cellrendered.bind(this, 'respiratory_rate')
     },
     {
       field: 'specialty',
@@ -234,31 +114,9 @@ export class PatientListComponent implements OnInit{
       cellRenderer: this.cellrendered.bind(this, 'priority')
     },
     {
-      field: 'view',
-      width:10,
-      resizable:false,
-      filter:false,
-      pinned:"right",
-      cellRenderer: this.cellrendered.bind(this, 'view'),
-      onCellClicked: this.CellClicked.bind(this, 'view')
-    },
-    {
       field: 'edit',
-      width:10,
-      filter:false,
-      resizable:false,
-      pinned:"right",
-      cellRenderer: this.cellrendered.bind(this, 'edit'),
-      onCellClicked: this.CellClicked.bind(this, 'edit')
-    },
-    {
-      field: 'delete',
-      width:20,
-      resizable:false,
-      filter:false,
-      pinned:"right",
-      cellRenderer: this.cellrendered.bind(this, 'delete'),
-      onCellClicked: this.CellClicked.bind(this, 'delete')
+      headerName: 'Edit',
+      cellRenderer: this.cellrendered.bind(this, 'edit')
     },
     // {
     //   field: 'note',
@@ -380,7 +238,7 @@ export class PatientListComponent implements OnInit{
         <div><i class="mdi mdi-eye-outline" style="color:#855EDB;font-size:18px"></i></div></div>`
       }
       case 'edit':{
-        return `<div class="d-flex justify-content-center"><div><i class="mdi mdi-pencil-outline" style="color:#000;font-size:18px"></i></div></div>`
+        return `<div class="d-flex justify-content-center"><img src="assets/New Images/Vector.svg" style="color:#000;font-size:18px"></imgs=></div>`
       }
       case 'delete':{
         return `<div class="d-flex justify-content-center"><div><i class="mdi mdi-trash-can-outline" style="color:red;font-size:18px"></i></div></div>`
@@ -539,4 +397,10 @@ export class PatientListComponent implements OnInit{
   OnSearchpatientList(data:any){
     this.patientListGrid.api?.setQuickFilter(this.SearchPatientList);
   }
+
+  onRowClicked(events){
+    const rowData = events.data;
+    this.router.navigateByUrl('patient-registration/patient-view');
+  }
+
 }
