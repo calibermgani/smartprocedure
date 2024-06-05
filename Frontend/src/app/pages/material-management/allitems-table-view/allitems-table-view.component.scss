@@ -241,3 +241,8 @@ border-bottom: none !important;
 {
   opacity: 0;
 }
+
+
+:host ::ng-deep .ag-floating-filter-button{
+  color: #fff !important;
+}

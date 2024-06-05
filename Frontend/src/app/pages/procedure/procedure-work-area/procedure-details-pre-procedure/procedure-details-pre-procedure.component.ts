@@ -213,7 +213,7 @@ export class ProcedureDetailsPreProcedureComponent {
   }
 
   CheckOutSchedulling(formData:any){
-    this.onSaveCheckBoxes();
+    // this.onSaveCheckBoxes();
     console.log(formData.value);
     let ItemId : any = [];
     let Quantity : any = [];
@@ -374,6 +374,11 @@ export class ProcedureDetailsPreProcedureComponent {
       this.save.emit(true);
       this.allService.clearCheckBoxes();
     }
+  }
+
+  item_Search :any ;
+  OnStoreItemChange(){
+    this.StoreItem_Grid?.api.setQuickFilter(this.item_Search);
   }
 
 }

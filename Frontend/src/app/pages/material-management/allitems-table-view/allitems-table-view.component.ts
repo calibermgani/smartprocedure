@@ -2,64 +2,63 @@ import { HttpClient } from '@angular/common/http';
 import { ChangeDetectorRef, Component, ElementRef, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, FirstDataRenderedEvent, GetRowIdFunc, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, IsRowMaster, SelectionChangedEvent, SideBarDef, ToolPanelDef, ValueFormatterParams } from 'ag-grid-community';
+import { ColDef, FirstDataRenderedEvent, GetRowIdFunc, GetRowIdParams, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams, IsRowMaster, ModuleRegistry, SelectionChangedEvent, SideBarDef, ToolPanelDef, ValueFormatterParams } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
 import { environment_new } from 'src/environments/environment';
-import 'ag-grid-enterprise';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
 
-interface MainData {
-  item_no:string,
-  item_name:string,
-  item_category:string,
-  item_description:string,
-  item_procedures:string,
-  cat_no:string,
-  lot_no:string,
-  size:string,
-  item_vendor:string,
-  price:number,
-  unit:number,
-  expired_date:string,
-  store_qty:string,
-  cabinet_qty:string,
-  min_level:string,
-  tag:string,
-  item_notes:string,
-  image_url:string,
-  item_barcode:string,
-  view:string,
-  edit:string,
-  delete:string
-  item_clones:SubData[]
-}
-interface SubData {
-  "id":number,
-  "item_no":string,
-  "item_name":string,
-  "item_category":string,
-  "item_description":string,
-  "item_procedures":string,
-  "cat_no":string,
-  "lot_no":string,
-  "size":string,
-  "item_vendor":string,
-  "price":number,
-  "unit":number,
-  "expired_date":string,
-  "store_qty":string,
-  "cabinet_qty":string,
-  "min_level":string,
-  "tag":string,
-  "item_notes":string,
-  "image_url":string,
-  "item_barcode":string,
-  "view":string,
-  "edit":string,
-  "delete":string
-}
+// interface MainData {
+//   item_no:string,
+//   item_name:string,
+//   item_category:string,
+//   item_description:string,
+//   item_procedures:string,
+//   cat_no:string,
+//   lot_no:string,
+//   size:string,
+//   item_vendor:string,
+//   price:number,
+//   unit:number,
+//   expired_date:string,
+//   store_qty:string,
+//   cabinet_qty:string,
+//   min_level:string,
+//   tag:string,
+//   item_notes:string,
+//   image_url:string,
+//   item_barcode:string,
+//   view:string,
+//   edit:string,
+//   delete:string
+//   item_clones:SubData[]
+// }
+// interface SubData {
+//   "id":number,
+//   "item_no":string,
+//   "item_name":string,
+//   "item_category":string,
+//   "item_description":string,
+//   "item_procedures":string,
+//   "cat_no":string,
+//   "lot_no":string,
+//   "size":string,
+//   "item_vendor":string,
+//   "price":number,
+//   "unit":number,
+//   "expired_date":string,
+//   "store_qty":string,
+//   "cabinet_qty":string,
+//   "min_level":string,
+//   "tag":string,
+//   "item_notes":string,
+//   "image_url":string,
+//   "item_barcode":string,
+//   "view":string,
+//   "edit":string,
+//   "delete":string
+// }
 
 
 @Component({
@@ -127,6 +126,7 @@ export class AllItemsTableViewComponent {
       resizable:false,
       headerCheckboxSelection: true,
       width:20,
+      floatingFilter:false
     },
     {
       field: 'item_number',
@@ -146,7 +146,7 @@ export class AllItemsTableViewComponent {
           New</div>
           </div>` };
         }
-      }
+      },
     },
     {
       field: 'item_name',
@@ -398,7 +398,7 @@ export class AllItemsTableViewComponent {
     sortable: true,
     resizable: true,
     filter: true,
-    // floatingFilter: true,
+    floatingFilter: true,
   };
   gridOptions1: GridOptions = {
     defaultColDef: {
@@ -420,26 +420,7 @@ export class AllItemsTableViewComponent {
       return params.data.id;
     },
   };
-  public sideBar: SideBarDef | string | string[] | boolean | null = {
-    toolPanels: [
-      {
-        id: 'columns',
-        labelDefault: 'Columns Visibility',
-        labelKey: 'columns',
-        iconKey: 'columns',
-        toolPanel: 'agColumnsToolPanel',
-        toolPanelParams: {
-          suppressRowGroups: true,
-          suppressValues: true,
-          suppressPivots: true,
-          suppressPivotMode: true,
-          suppressColumnFilter: false,
-          suppressColumnSelectAll: false,
-        },
-      } as ToolPanelDef,
-    ],
-    defaultToolPanel: null,
-  };
+
 
   onFirstDataRendered(params: FirstDataRenderedEvent) {
     // arbitrarily expand a row for presentational purposes

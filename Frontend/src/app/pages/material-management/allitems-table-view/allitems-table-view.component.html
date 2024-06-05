@@ -10,7 +10,7 @@
               <input class="form-check-input SelectedCheckbox" type="checkbox" name="inlineRadioOptions" id="inlineRadio1" [(ngModel)]="AllItemsChecked"
                 value="option1" (click)="UnSelectAllItems(AllItemsChecked)">
             </div>
-            <div class="d-flex flex-row">
+            <div class="d-flex flex-row align-items-center">
               <h1 style="color: #fff !important;" class="pointer" (click)="UnSelectAllItems(AllItemsChecked)">Deselect |</h1><h1 style="color: #fff !important;" class="ps-2">{{selected_row_data_length }} Item selected</h1>
             </div>
           </div>
@@ -49,7 +49,7 @@
       <div>
         <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnMainDefs" [gridOptions]="gridOptions1" #myGrid_1
           style="width: 100%;height: 576px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
-          (selectionChanged)="onSelectionChanged($event)" [sideBar]="sideBar"></ag-grid-angular>
+          (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
       </div>
       <!-- <div *ngIf="ChangeGrid == true">
         <ag-grid-angular style="width: 100%;height:576px;" class="ag-theme-alpine" [columnDefs]="daily_consumed_columnDef" [defaultColDef]="defaultColDef" [gridOptions]="gridOptionsDailyConsumed" #myGrid_2

@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { CdkStepper } from '@angular/cdk/stepper';
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, Input, Output, SimpleChanges, ViewChild } from '@angular/core';
@@ -30,6 +31,7 @@ export class ProcedureDetailsBookingComponent {
   MyCartform : UntypedFormGroup;
   isFirstOpen: boolean = false;
   ItemCount : number = 0;
+  item_Search :any ;
   @Output() save = new EventEmitter<boolean>();
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
@@ -212,7 +214,7 @@ export class ProcedureDetailsBookingComponent {
   }
 
   CheckOutSchedulling(formData:any){
-    this.onSaveCheckBoxes();
+    // this.onSaveCheckBoxes();
     console.log(formData.value);
     let ItemId : any = [];
     let Quantity : any = [];
@@ -285,7 +287,13 @@ export class ProcedureDetailsBookingComponent {
       this.allService.GetMyCartDetails(procedurename).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
-            this.myCartData = res.my_cart.procedure_item;
+            console.log(res);
+            res.my_cart.procedure_item.forEach((data)=>{
+              if(data.item_details != null){
+                this.myCartData.push(data);
+              }
+            })
+            console.log('My Cart Data',this.myCartData);
             this.CreateGroup();
           }
         }),
@@ -402,6 +410,10 @@ onSaveCheckBoxes() {
     this.save.emit(true);
     this.allService.clearCheckBoxes();
   }
+}
+
+OnStoreItemChange(){
+  this.StoreItem_Grid?.api.setQuickFilter(this.item_Search);
 }
 
 }

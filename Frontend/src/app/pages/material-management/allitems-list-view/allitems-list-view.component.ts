@@ -15,12 +15,14 @@ export class AllitemsListViewComponent implements OnInit{
   showEditablefields:boolean = false;
   selectedListItems:any[]= [];
   folder_structure_value:any = [];
+  OverAllCheckboxValue : boolean = false;
+  SelectedItems : number[] = [];
   constructor(private http : HttpClient,private allServices : AllServicesService,private toastr : ToastrService){}
 
   ngOnInit(): void {
-    this.http.get('assets/json/allItems-listView.json').subscribe((res:any)=>{
-      this.ListViewData = res;
-    });
+    // this.http.get('assets/json/allItems-listView.json').subscribe((res:any)=>{
+    //   this.ListViewData = res;
+    // });
 
     // this.http.get('assets/json/folder_name.json').subscribe((res:any)=>{
     //   this.folder_structure_value = res;
@@ -30,7 +32,7 @@ export class AllitemsListViewComponent implements OnInit{
     this.allServices.GetAllItemsGrid().subscribe({
       next:((res:any)=>{
         console.log(res.data);
-        // this.ListViewData = res.data
+        this.ListViewData = res.data
         return;
       }),
       error:((res:any)=>{
@@ -71,7 +73,35 @@ export class AllitemsListViewComponent implements OnInit{
     console.log('----------------------------');
   }
 
-  selectgrid(){
-    this.showEditablefields =! this.showEditablefields;
+  selectgrid(Item_ID: number) {
+    if (this.SelectedItems.length == 0) {
+      this.SelectedItems.push(Item_ID);
+    }
+    else {
+      let flag = true;
+      this.SelectedItems.forEach((IDs, index) => {
+        if (Item_ID == IDs) {
+          this.SelectedItems.splice(index, 1);
+          flag = false;
+        }
+      });
+      if (flag == true) {
+        this.SelectedItems.push(Item_ID);
+      }
+    }
+
+    // console.log('Updated Selected Item', this.SelectedItems);
+
+    if (this.SelectedItems.length > 0){this.showEditablefields = true;this.OverAllCheckboxValue=true;}
+    else {this.showEditablefields = false;this.OverAllCheckboxValue = false;}
+  }
+
+  UncheckAllItems(){
+    const checkboxes = document.querySelectorAll<HTMLInputElement>('#customCheck_items');
+      checkboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+      });
+      this.showEditablefields = false;
+      this.SelectedItems = [];
   }
 }

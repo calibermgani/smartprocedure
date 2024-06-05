@@ -11,3 +11,7 @@
   cursor:not-allowed;
   pointer-events:all !important;
 }
+
+:host ::ng-deep .ag-floating-filter-button{
+  color: #fff !important;
+}

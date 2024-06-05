@@ -240,3 +240,7 @@ background: #81D152;
   }
 
 }
+
+:host ::ng-deep .ag-floating-filter-button{
+  color: #fff !important;
+}

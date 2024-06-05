@@ -190,6 +190,8 @@ export class ProcedureDetailsPostProcedureComponent {
           onCellClicked:this.cellClicked.bind(this,'notes')
         },
       ]
+      this.itemSearch_used = null;
+      this.StoreItem_Grid_1.api.setQuickFilter(this.itemSearch_used);
 
       this.allService.GetPreProcedureUsedGridData(PatientID,procedurename).subscribe({
         next:(res:any)=>{
@@ -206,6 +208,7 @@ export class ProcedureDetailsPostProcedureComponent {
           });
         }
       });
+
       break;
      }
      case 'Returned':{
@@ -245,7 +248,9 @@ export class ProcedureDetailsPostProcedureComponent {
           cellRenderer: this.cellRendered.bind(this, 'notes'),
           onCellClicked:this.cellClicked.bind(this,'notes')
         },
-      ]
+      ];
+      this.itemSearch_returned = null;
+      this.StoreItem_Grid_2.api.setQuickFilter(this.itemSearch_returned);
 
       this.allService.GetProcedureReturnedGridData(PatientID,procedurename).subscribe({
         next:(res:any)=>{
@@ -301,7 +306,9 @@ export class ProcedureDetailsPostProcedureComponent {
           cellRenderer: this.cellRendered.bind(this, 'notes'),
           onCellClicked:this.cellClicked.bind(this,'notes')
         },
-      ]
+      ];
+      this.itemSearch_damaged = null;
+      this.StoreItem_Grid_3.api.setQuickFilter(this.itemSearch_damaged);
 
       this.allService.GetProcedureDamagedGridData(PatientID,procedurename).subscribe({
         next:(res:any)=>{
@@ -357,7 +364,9 @@ export class ProcedureDetailsPostProcedureComponent {
           cellRenderer: this.cellRendered.bind(this, 'notes'),
           onCellClicked:this.cellClicked.bind(this,'notes')
         },
-      ]
+      ];
+      this.itemSearch_wasted = null;
+      this.StoreItem_Grid_4.api.setQuickFilter(this.itemSearch_wasted);
 
       this.allService.GetProcedureWastedGridData(PatientID,procedurename).subscribe({
         next:(res:any)=>{
@@ -417,6 +426,31 @@ export class ProcedureDetailsPostProcedureComponent {
   }else{
     this.save.emit(true);
     this.allService.clearCheckBoxes();
+  }
+}
+
+itemSearch_used:string;
+itemSearch_returned:string;
+itemSearch_damaged:string;
+itemSearch_wasted:string;
+OnGridSearch(type:string){
+  switch(type){
+    case 'Used':{
+      this.StoreItem_Grid_1.api.setQuickFilter(this.itemSearch_used);
+      break;
+    }
+    case 'Returned':{
+      this.StoreItem_Grid_2.api.setQuickFilter(this.itemSearch_returned);
+      break;
+    }
+    case 'Damaged':{
+      this.StoreItem_Grid_3.api.setQuickFilter(this.itemSearch_damaged);
+      break;
+    }
+    case 'Wasted':{
+      this.StoreItem_Grid_4.api.setQuickFilter(this.itemSearch_wasted);
+      break;
+    }
   }
 }
 

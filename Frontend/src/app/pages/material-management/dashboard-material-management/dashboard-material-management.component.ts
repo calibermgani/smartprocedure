@@ -6,7 +6,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, FirstDataRenderedEvent, GridApi, GridOptions, GridReadyEvent, IDetailCellRendererParams } from 'ag-grid-community';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { AuthfakeauthenticationService } from 'src/app/core/services/authfake.service';
-import 'ag-grid-enterprise';
+
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 
@@ -32,6 +32,7 @@ interface SubData {
 export class DashboardMaterialManagementComponent implements OnInit {
 
   material_summary_data: any = [];
+  material_summary_data1: any = [];
   filter_daily_consumed: any = [];
   procedure_list:any = [];
   items_list : any = [];
@@ -51,7 +52,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
     sortable: true,
     resizable: true,
     filter: true,
-    // floatingFilter: true,
+    floatingFilter: true,
   };
   gridOptions1: GridOptions = {
     defaultColDef: {
@@ -163,8 +164,23 @@ export class DashboardMaterialManagementComponent implements OnInit {
   ngOnInit(): void {
     this.authfakeauthenticationService.changeSideMenu('material-management');
     this.Http.get('assets/json/material_summary_data.json').subscribe((res: any) => {
-      this.material_summary_data = res;
+      this.material_summary_data1 = res;
     });
+
+    this.allService.MaterialDashboard().subscribe({
+      next:((res:any)=>{
+        if(res.status == 'Success'){
+          console.log(res);
+          this.material_summary_data = res.data;
+        }
+      }),
+      error:((res:any)=>{
+        this.toastr.error('Something went wrong','UnSuccessful',{
+          positionClass: 'toast-top-center',
+          timeOut:2000,
+        });
+      })
+    })
     this.ChangeGrid('Daily consumed');
   }
 
@@ -338,7 +354,7 @@ export class DashboardMaterialManagementComponent implements OnInit {
         this.allService.GetDamagedItems().subscribe({
           next:((res:any)=>{
             if(res.status=='Success'){
-              this.myGrid_1.api.setRowData(res.procedures);
+              this.myGrid_1.api.setRowData(res.item_damaged_list);
               this.gridOptions1.api?.sizeColumnsToFit();
             }
           }),
@@ -367,21 +383,36 @@ export class DashboardMaterialManagementComponent implements OnInit {
             onCellClicked: this.cellClicked.bind(this, 'accession_no')
           },
           {
-            field: 'procedure_code',
+            field: 'procedure.procedure_list_shortcode',
             headerName:'Procedure Code',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'procedure_code')
+            cellRenderer: this.cellRendered.bind(this, 'procedure.procedure_list_shortcode')
           },
           {
-            field: 'procedure_date',
+            field: 'procedure.created_at',
             headerName:'Procedure Date',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'procedure_date')
+            cellRenderer: this.cellRendered.bind(this, 'procedure.created_at')
           },
          ]
-        this.Http.get('assets/json/damaged_grid.json').subscribe((res: any) => {
-          this.myGrid_1.api.setRowData(res);this.gridOptions1.api?.sizeColumnsToFit();
-        });
+        // this.Http.get('assets/json/damaged_grid.json').subscribe((res: any) => {
+        //   this.myGrid_1.api.setRowData(res);this.gridOptions1.api?.sizeColumnsToFit();
+        // });
+
+        this.allService.GetBackToCabinet().subscribe({
+          next: ((res: any) => {
+            if (res.status == 'Success') {
+              this.myGrid_1.api.setRowData(res.back_to_cabinet_list);
+              this.gridOptions1.api?.sizeColumnsToFit();
+            }
+          }),
+          error: ((error: any) => {
+            this.toastr.error(`Something went wrong`, 'UnSuccessful', {
+              positionClass: 'toast-top-center',
+              timeOut: 2000,
+            });
+          })
+        })
         break;
       }
       case 'Near expired':{
@@ -415,11 +446,8 @@ export class DashboardMaterialManagementComponent implements OnInit {
         this.allService.GetNearExpiredItems().subscribe({
           next: ((res: any) => {
             if (res.status == 'Success') {
-              // this.damagedGriddata = res.data;
-              // this.tempGridData = this.damagedGriddata;
               this.myGrid_1.api.setRowData(res.data);
               this.gridOptions1.api?.sizeColumnsToFit();
-              // this.myGrid_nearexpired.api?.setRowData(this.damagedGriddata);
             }
           }),
           error: ((error: any) => {
@@ -478,10 +506,10 @@ export class DashboardMaterialManagementComponent implements OnInit {
       case 'Refill to Cabinet':{
         this.columnDefs1 = [
           {
-            field: 'item_no',
+            field: 'item_number',
             headerName:'Item No',
             filter: "agTextColumnFilter", suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'item_no')
+            cellRenderer: this.cellRendered.bind(this, 'item_number')
           },
           {
             field: 'item_name',
@@ -491,16 +519,31 @@ export class DashboardMaterialManagementComponent implements OnInit {
             onCellClicked: this.cellClicked.bind(this, 'item_name')
           },
           {
-            field: 'quantity',
+            field: 'store_qty',
             headerName:'Quanity',
             filter: "agTextColumnFilter",suppressMenu: false,
-            cellRenderer: this.cellRendered.bind(this, 'quantity')
+            cellRenderer: this.cellRendered.bind(this, 'store_qty')
           },
          ]
         this.Http.get('assets/json/material_summary_grid.json').subscribe((res: any) => {
           this.myGrid_1.api.setRowData(res);
           this.gridOptions1.api?.sizeColumnsToFit();
         });
+
+        this.allService.GetRefilltoCabinet().subscribe({
+          next:((res:any)=>{
+            if(res.status=='Success'){
+              this.myGrid_1.api.setRowData(res.data);
+              this.gridOptions1.api?.sizeColumnsToFit();
+            }
+          }),
+          error:((res:any)=>{
+            this.toastr.error(`Something went wrong`,'UnSuccessful',{
+              positionClass: 'toast-top-center',
+              timeOut:2000,
+            });
+          })
+        })
         break;
       }
       case 'Recall':{

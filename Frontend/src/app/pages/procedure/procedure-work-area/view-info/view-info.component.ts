@@ -28,7 +28,6 @@ export class ViewInfoComponent implements OnInit{
 OnClickingViewOnlyMode(type:any,condition:boolean){
   switch(type){
     case 'VETTING & PROTOCOLING':{
-      console.log('cdtnn',condition);
       if(condition == true ){  //&& this.VettingandProtocolingDetails.length == 0
         let MRN = localStorage.getItem('MRN_NO');
       let PatientID = localStorage.getItem('PatientID');
@@ -50,8 +49,6 @@ OnClickingViewOnlyMode(type:any,condition:boolean){
       }
     }
     case 'PROCEDURE TEAM':{
-      console.log('cdtnn2',condition);
-
       break;
     }
 

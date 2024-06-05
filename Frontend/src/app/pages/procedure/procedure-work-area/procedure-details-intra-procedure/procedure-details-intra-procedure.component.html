@@ -157,7 +157,7 @@
 
                             <div class="d-flex flex-wrap align-items-center m-2 px-2" style="width: 100%;">
                               <div class="me-2" style="width: 25%;">
-                                <input class="form-control-new-sm" [ngClass]="hideViewOnlyMode == true ? 'barcode_img_lg' : 'barcode_img_md' " type="text" placeholder="scan or type">
+                                <input class="form-control-new-sm" [ngClass]="hideViewOnlyMode == true ? 'barcode_img_lg' : 'barcode_img_md' " type="text" placeholder="scan or type" (input)="MyCartGridSearch()" [(ngModel)]="myCartItemSearch">
                               </div>
                               <div class="me-2" style="width: 25%;">
                                 <select class="form-selects" placeholder="Select Category" style="width: 100% !important;">
@@ -179,7 +179,7 @@
                             </div>
 
                             <div class="m-2">
-                              <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid
+                              <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #StoreItem_Grid_1
                               style="width: 100%;height: 325px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
                               [rowData]="StoreItemGridData" (selectionChanged)="onSelectionChanged($event)"></ag-grid-angular>
                             </div>
@@ -225,7 +225,7 @@
 
 
 
-<div bsModal #addnote="bs-modal" class="modal fade"  role="dialog" aria-labelledby="dialog-nested-name2">
+<div bsModal #addnote="bs-modal" class="modal fade"  role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
   <div class="modal-dialog modal-dialog-centered" style="max-width:450px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -264,7 +264,7 @@
   </div>
 </div>
 
-<div bsModal #addnewtem="bs-modal" class="modal fade" role="dialog" aria-labelledby="dialog-nested-name2">
+<div bsModal #addnewtem="bs-modal" class="modal fade" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
     <div class="modal-content p-2">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 mt-3 mb-2"
@@ -312,7 +312,7 @@
           <div class="col-7 mycart-body-2">
             <div class="d-flex flex-wrap flex-row my-2">
               <div class="me-2">
-                <input class="form-control-new-sm barcode_img_1" type="text" placeholder="scan or type" style="width: 30%;">
+                <input class="form-control-new-sm barcode_img_1" type="text" placeholder="scan or type" style="width: 30%;" (input)="OnPopUpItemSearch()" [(ngModel)]="itemSearch">
               </div>
               <div class="me-2">
                 <select class="form-selects" placeholder="Select Category" style="width: 30%;">
@@ -345,7 +345,7 @@
   </div>
 </div>
 
-<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"

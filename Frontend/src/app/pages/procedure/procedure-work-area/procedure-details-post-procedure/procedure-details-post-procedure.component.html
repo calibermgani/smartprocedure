@@ -196,7 +196,7 @@
                                     <div style="background-color: #F3F4F8;" class="my-2 p-1">
                                       <label class="modal-label-edit">Barcode</label>
                                       <div class="d-flex justify-content-start">
-                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type"></div>
+                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" (input)="OnGridSearch('Used')" [(ngModel)]="itemSearch_used"></div>
                                         <div class="ms-2"><button class="btn-new" style="padding:4px !important;width: 65px !important;height: 26px !important;">Scan</button></div>
                                       </div>
                                     </div>
@@ -211,7 +211,7 @@
                                     <div style="background-color: #F3F4F8;" class="my-2 p-1">
                                       <label class="modal-label-edit">Barcode</label>
                                       <div class="d-flex justify-content-start">
-                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type"></div>
+                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" (input)="OnGridSearch('Returned')" [(ngModel)]="itemSearch_returned"></div>
                                         <div class="ms-2"><button class="btn-new" style="padding:4px !important;width: 65px !important;height: 26px !important;">Scan</button></div>
                                       </div>
                                     </div>
@@ -226,7 +226,7 @@
                                     <div style="background-color: #F3F4F8;" class="my-2 p-1">
                                       <label class="modal-label-edit">Barcode</label>
                                       <div class="d-flex justify-content-start">
-                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type"></div>
+                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" (input)="OnGridSearch('Damaged')" [(ngModel)]="itemSearch_damaged"></div>
                                         <div class="ms-2"><button class="btn-new" style="padding:4px !important;width: 65px !important;height: 26px !important;">Scan</button></div>
                                       </div>
                                     </div>
@@ -241,7 +241,7 @@
                                     <div style="background-color: #F3F4F8;" class="my-2 p-1">
                                       <label class="modal-label-edit">Barcode</label>
                                       <div class="d-flex justify-content-start">
-                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type"></div>
+                                        <div class=""><input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" (input)="OnGridSearch('Wasted')" [(ngModel)]="itemSearch_wasted"></div>
                                         <div class="ms-2"><button class="btn-new" style="padding:4px !important;width: 65px !important;height: 26px !important;">Scan</button></div>
                                       </div>
                                     </div>
@@ -292,7 +292,7 @@
   </div>
 </div>
 
-<div bsModal #viewnote="bs-modal" class="modal fade"  role="dialog" aria-labelledby="dialog-nested-name2">
+<div bsModal #viewnote="bs-modal" class="modal fade"  role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:450px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"
@@ -331,7 +331,7 @@
   </div>
 </div>
 
-<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1">
+<div bsModal #viewitem="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name1" [config]="{ignoreBackdropClick: true}">
   <div class="modal-dialog modal-dialog-centered" style="max-width:900px !important;">
     <div class="modal-content">
       <div class="d-flex justify-content-between align-items-center p-2 mx-2 my-3"

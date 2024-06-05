@@ -6,3 +6,7 @@
 .modal_value{
   font-weight: 400 !important;
 }
+
+:host ::ng-deep .ag-floating-filter-button{
+  color: #fff !important;
+}

@@ -25,7 +25,7 @@ export class WastedComponent {
     sortable: true,
     resizable: true,
     filter: true,
-    // floatingFilter: true,
+    floatingFilter: true,
   };
   gridOptions1: GridOptions = {
     defaultColDef: {
@@ -40,26 +40,6 @@ export class WastedComponent {
     suppressMovableColumns: true,
     suppressDragLeaveHidesColumns: true,
     suppressContextMenu: false,
-  };
-  public sideBar: SideBarDef | string | string[] | boolean | null = {
-    toolPanels: [
-      {
-        id: 'columns',
-        labelDefault: 'Columns Visibility',
-        labelKey: 'columns',
-        iconKey: 'columns',
-        toolPanel: 'agColumnsToolPanel',
-        toolPanelParams: {
-          suppressRowGroups: true,
-          suppressValues: true,
-          suppressPivots: true,
-          suppressPivotMode: true,
-          suppressColumnFilter: false,
-          suppressColumnSelectAll: false,
-        },
-      } as ToolPanelDef,
-    ],
-    defaultToolPanel: null,
   };
 
   ngOnInit(): void {}
