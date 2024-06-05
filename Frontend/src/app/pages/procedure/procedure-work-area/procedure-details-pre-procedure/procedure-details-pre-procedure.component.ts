@@ -376,4 +376,9 @@ export class ProcedureDetailsPreProcedureComponent {
     }
   }
 
+  item_Search :any ;
+  OnStoreItemChange(){
+    this.StoreItem_Grid?.api.setQuickFilter(this.item_Search);
+  }
+
 }

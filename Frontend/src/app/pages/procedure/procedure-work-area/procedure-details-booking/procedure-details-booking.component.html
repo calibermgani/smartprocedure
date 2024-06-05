@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="d-flex  align-items-center flex-wrap flex-row my-2">
                                   <div class="me-2">
-                                    <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+                                    <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" (input)="OnStoreItemChange()" [(ngModel)]="item_Search">
                                   </div>
                                   <div class="me-2" style="width: 30%;" *ngIf="this.category.length>0">
                                     <ng-select [items]="this.category" placeholder="Select Category"></ng-select>
@@ -210,7 +210,7 @@
                       <div class="col-7 mycart-body-2" [ngClass]="{'hideStoreItem': hideViewOnlyMode == false }">
                         <div class="d-flex flex-wrap flex-row my-2">
                           <div class="me-2">
-                            <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type">
+                            <input class="form-control-new-sm barcode_img" type="text" placeholder="scan or type" (input)="OnStoreItemChange()" [(ngModel)]="item_Search">
                           </div>
                           <div class="me-2" style="width: 30%;" *ngIf="this.category.length>0">
                             <ng-select [items]="this.category" placeholder="Select Category"></ng-select>

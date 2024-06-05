@@ -18,7 +18,8 @@ import { UntypedFormBuilder, UntypedFormGroup } from '@angular/forms';
   styleUrls: ['./procedure-details-intra-procedure.component.scss']
 })
 export class ProcedureDetailsIntraProcedureComponent {
-  @ViewChild('StoreItem_Grid') StoreItem_Grid: AgGridAngular;
+  @ViewChild('StoreItem_Grid_1') StoreItem_Grid: AgGridAngular;
+  @ViewChild('StoreItem_Grid_1') StoreItem_Grid_popup: AgGridAngular;
   @ViewChild('addnewtem') addnewtem : ModalDirective;
   @ViewChild('addnote') addnote : ModalDirective;
   @ViewChild('viewitem') viewitem : ModalDirective;
@@ -520,4 +521,14 @@ export class ProcedureDetailsIntraProcedureComponent {
     this.allService.clearCheckBoxes();
   }
 }
+
+  myCartItemSearch: any;
+  MyCartGridSearch() {
+    this.StoreItem_Grid_popup?.api.setQuickFilter(this.myCartItemSearch);
+  }
+
+  itemSearch: any;
+  OnPopUpItemSearch() {
+    this.StoreItem_Grid.api.setQuickFilter(this.itemSearch);
+  }
 }

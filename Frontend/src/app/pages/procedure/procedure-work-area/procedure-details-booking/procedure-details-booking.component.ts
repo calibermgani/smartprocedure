@@ -31,6 +31,7 @@ export class ProcedureDetailsBookingComponent {
   MyCartform : UntypedFormGroup;
   isFirstOpen: boolean = false;
   ItemCount : number = 0;
+  item_Search :any ;
   @Output() save = new EventEmitter<boolean>();
   public gridApi_1!: GridApi;
   public defaultColDef: ColDef = {
@@ -409,6 +410,10 @@ onSaveCheckBoxes() {
     this.save.emit(true);
     this.allService.clearCheckBoxes();
   }
+}
+
+OnStoreItemChange(){
+  this.StoreItem_Grid?.api.setQuickFilter(this.item_Search);
 }
 
 }
