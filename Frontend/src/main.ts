@@ -11,3 +11,7 @@ if (environment_new.production) {
 
 platformBrowserDynamic().bootstrapModule(AppModule)
   .catch(err => console.error(err));
+  
+  if ((window as any).ENABLE_PROD_MODE) {
+    enableProdMode();
+  }
