@@ -142,7 +142,6 @@ export class PatientListComponent implements OnInit{
         let middleName = data.middle_name;
         let surName = data.surname;
         let x = params.value +' '+ middleName +' '+ surName;
-        console.log(x);
         return x;
       }
       case 'middle_name': {
