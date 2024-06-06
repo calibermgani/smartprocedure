@@ -8,7 +8,7 @@
           <div class="tab_filter_img me-2" (click)="ReloadPatientList()">
             <div class="me-0"><button class="refresh-button"><img src="assets/New Images/refresh.svg" style="margin-right: 8px;" alt="refresh">Refresh</button></div>
           </div>
-          <div class="tab_filter_img" style="margin-right: 85px;">
+          <!-- <div class="tab_filter_img" style="margin-right: 85px;">
             <div style="border: 1px dotted #855EDB;width: 20px;height: 20px;">
               <div class="position-relative d-inline-block">
                 <div class="position-absolute bottom-0 end-0" style="left: -6px;top: -20px;">
@@ -22,6 +22,9 @@
                 </div>
               </div>
             </div>
+          </div> -->
+          <div class="tab_filter_img me-2" (click)="GridCSVExport()">
+            <div class="refresh-button1"><img src="assets/New Images/export.svg" style="margin-right: 8px;" alt="export">Export</div>
           </div>
 
           <div class="me-0"><button class="btn-new " style="padding: 5px 11px 5px 3px !important;" (click)="GoToRegisterPage()"><img src="assets/New Images/mdi_plus-circle.svg" style="margin-right: 16px;" alt="New Patient">New patient</button></div>

@@ -29,12 +29,27 @@ export class PatientListComponent implements OnInit{
   public tooltipShowDelay = 0;
   public tooltipHideDelay = 2000;
   public defaultColDef: ColDef = {
-    // floatingFilter: true,
+    editable: false,
+    enableRowGroup: true,
+    enablePivot: true,
+    enableValue: true,
+    sortable: true,
+    resizable: true,
+    filter: true,
+    floatingFilter:true,
     tooltipComponent: CustomTooltipComponent,
   };
   gridOptions1: GridOptions | any = {
     suppressMenuHide: false,
     rowHeight: 35,
+    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">No rows to show</span>',
+    rowSelection: 'multiple',
+    suppressRowClickSelection:true,
+    suppressHorizontalScroll: false,
+    suppressMovableColumns: true,
+    pagination: true,
+    suppressDragLeaveHidesColumns: true,
+    suppressContextMenu: true,
     getRowId: (params) => {
       return params.data.id;
     }
@@ -86,7 +101,7 @@ export class PatientListComponent implements OnInit{
       field: 'gender',
       headerName: 'Gender',
       cellRenderer: this.cellrendered.bind(this, 'gender'),
-     
+
     },
     {
       field: 'type',
@@ -415,6 +430,10 @@ export class PatientListComponent implements OnInit{
   }
   ngAfterViewInit(): void {
     this.patientListGrid?.api.sizeColumnsToFit();
+  }
+
+  GridCSVExport(){
+    this.gridApi_1.exportDataAsCsv();
   }
 
 }
