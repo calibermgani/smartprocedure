@@ -51,16 +51,18 @@ export class PatientListComponent implements OnInit{
     },
   };
   SelectedPatient: any = [];
-  ViewPatientData : any = []
+  ViewPatientData : any = [];
+  patient_Info : string;
+  pageSize : number;
 
 
 
   columnMainDefs: ColDef[] = [
     {
-      field: 'mrn_number',
+      field: 'mrn_no',
       headerName: 'MRN Number',
-      cellRenderer: this.cellrendered.bind(this,'mrn_number'),
-      onCellClicked: this.CellClicked.bind(this, 'mrn_number')
+      cellRenderer: this.cellrendered.bind(this,'mrn_no'),
+      onCellClicked: this.CellClicked.bind(this, 'mrn_no')
       // cellRenderer: 'agGroupCellRenderer',
       // cellRendererParams:(params:any)=>{
       //   if(params.data.item_entry_status == 'clone'){
@@ -79,9 +81,9 @@ export class PatientListComponent implements OnInit{
       // }
     },
     {
-      field: 'patient_name',
+      field: 'first_name',
       headerName: 'Patient Name',
-      cellRenderer: this.cellrendered.bind(this, 'patient_name'),
+      cellRenderer: this.cellrendered.bind(this, 'first_name'),
     },
     {
       field: 'surname',
@@ -116,7 +118,8 @@ export class PatientListComponent implements OnInit{
     {
       field: 'edit',
       headerName: 'Edit',
-      cellRenderer: this.cellrendered.bind(this, 'edit')
+      cellRenderer: this.cellrendered.bind(this, 'edit'),
+      onCellClicked: this.CellClicked.bind(this, 'edit')
     },
     // {
     //   field: 'note',
@@ -131,8 +134,16 @@ export class PatientListComponent implements OnInit{
 
   cellrendered(headerName: any, params: any) {
     switch (headerName) {
-      case 'first_name': {
+      case 'mrn_no':{
         return params.value ? params.value : '-';
+      }
+      case 'first_name': {
+        let data = params.node.data;
+        let middleName = data.middle_name;
+        let surName = data.surname;
+        let x = params.value +' '+ middleName +' '+ surName;
+        console.log(x);
+        return x;
       }
       case 'middle_name': {
         return params.value ? params.value : '-';
@@ -349,6 +360,14 @@ export class PatientListComponent implements OnInit{
 
   GoToProcedureWorkArea(){}
 
+  PatientListGridSearch(){
+    this.patientListGrid?.api.setQuickFilter(this.patient_Info);
+  }
+
+  setpaginationSize(){
+    this.patientListGrid?.api.paginationSetPageSize(this.pageSize);
+  }
+
 
   ReloadPatientList(){
     this.SearchPatientList='';
@@ -400,7 +419,10 @@ export class PatientListComponent implements OnInit{
 
   onRowClicked(events){
     const rowData = events.data;
-    this.router.navigateByUrl('patient-registration/patient-view');
+    // this.router.navigateByUrl('patient-registration/patient-view');
+  }
+  ngAfterViewInit(): void {
+    this.patientListGrid?.api.sizeColumnsToFit();
   }
 
 }
