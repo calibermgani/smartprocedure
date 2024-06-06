@@ -8,26 +8,21 @@
           <div class="tab_filter_img me-2" (click)="ReloadPatientList()">
             <div class="me-0"><button class="refresh-button"><img src="assets/New Images/refresh.svg" style="margin-right: 8px;" alt="refresh">Refresh</button></div>
           </div>
-          <div class="tab_filter_img me-2" (click)="ReloadPatientList()">
-            <div class="me-0"><button class="refresh-button1"><img src="assets/New Images/export.svg" style="margin-right: 8px;" alt="export">Export</button></div>
-          </div>
-
-          <!-- <div class="tab_filter_img me-2">
+          <div class="tab_filter_img" style="margin-right: 85px;">
             <div style="border: 1px dotted #855EDB;width: 20px;height: 20px;">
               <div class="position-relative d-inline-block">
-                <div class="position-absolute bottom-0 end-0" style="left: -6px;top: -19px;">
-                    <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right" title="Select Image">
-                        <div class="avatar-xs">
-                            <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16">
-                                <img src="assets/images/Download.svg" width="20px" height="20px" tooltip="Import" placement="bottom">
-                            </div>
-                        </div>
-                    </label>
-                    <input class="form-control d-none" value="" id="project-image-input" type="file" accept=".xlsx , .csv" (change)="SelectedFilePatientList($event)">
+                <div class="position-absolute bottom-0 end-0" style="left: -6px;top: -20px;">
+                  <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right"
+                    title="Select Image">
+                    <div class="refresh-button1"><img src="assets/New Images/export.svg" style="margin-right: 8px;"
+                        alt="export">Export</div>
+                  </label>
+                  <input class="form-control d-none" value="" id="project-image-input" type="file" accept=".xlsx , .csv"
+                    (change)="SelectedFilePatientList($event)">
                 </div>
+              </div>
             </div>
-            </div>
-          </div> -->
+          </div>
 
           <div class="me-0"><button class="btn-new " style="padding: 5px 11px 5px 3px !important;" (click)="GoToRegisterPage()"><img src="assets/New Images/mdi_plus-circle.svg" style="margin-right: 16px;" alt="New Patient">New patient</button></div>
         </div>
@@ -36,6 +31,12 @@
   </div>
   <hr style="border: 1px solid rgba(0, 0, 0, 0.1);top: 6px;">
 </div>
+
+
+
+
+
+
 
 <div class="cards mt-3">
   <!--Accordian status-->
@@ -130,7 +131,7 @@
       <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnMainDefs" [gridOptions]="gridOptions1" #patientListGrid
       style="width: 100%;height: 70vh;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
       (selectionChanged)="onSelectionChanged($event)" (rowClicked)="onRowClicked($event)" [tooltipShowDelay]="tooltipShowDelay"
-      [tooltipMouseTrack]="true" 
+      [tooltipMouseTrack]="true"
       ></ag-grid-angular>
     </div>
     </div>
