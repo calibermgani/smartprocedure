@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
-import { ColDef, GridApi, GridOptions, GridReadyEvent, SelectionChangedEvent } from 'ag-grid-community';
+import { ColDef, GridApi, GridOptions, GridReadyEvent, SelectionChangedEvent, ITooltipParams} from 'ag-grid-community';
+import { ClientSideRowModelModule } from "@ag-grid-community/client-side-row-model";
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { ToastrService } from 'ngx-toastr';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
 import { environment_new } from 'src/environments/environment';
+import { CustomTooltipComponent } from '../custom-tooltip/custom-tooltip.component';
 
 @Component({
   selector: 'app-patient-list',
@@ -24,31 +26,18 @@ export class PatientListComponent implements OnInit{
   public gridApi_1!: GridApi;
   public apiUrl: any = environment_new.imageUrl;
   patient_list : any = [];
+  public tooltipShowDelay = 0;
+  public tooltipHideDelay = 2000;
   public defaultColDef: ColDef = {
-    editable: false,
-    sortable: true,
-    resizable: true,
-    filter: true,
     // floatingFilter: true,
+    tooltipComponent: CustomTooltipComponent,
   };
-  gridOptions1: GridOptions = {
-    defaultColDef: {
-      filter: false,
-    },
-    overlayNoRowsTemplate: '<span class="ag-overlay-no-rows-center">No rows to show</span>',
+  gridOptions1: GridOptions | any = {
     suppressMenuHide: false,
-    rowSelection: 'multiple',
     rowHeight: 35,
-    pagination: true,
-    paginationPageSize:15,
-    suppressRowClickSelection:true,
-    suppressHorizontalScroll: false,
-    suppressMovableColumns: true,
-    suppressDragLeaveHidesColumns: true,
-    suppressContextMenu: false,
     getRowId: (params) => {
       return params.data.id;
-    },
+    }
   };
   SelectedPatient: any = [];
   ViewPatientData : any = []
@@ -82,6 +71,10 @@ export class PatientListComponent implements OnInit{
       field: 'patient_name',
       headerName: 'Patient Name',
       cellRenderer: this.cellrendered.bind(this, 'patient_name'),
+      tooltipValueGetter: (p: ITooltipParams) =>
+        "Create any fixed message, e.g. This is the Athlete’s Age ",
+      headerTooltip: "Tooltip for Age Column Header",
+      
     },
     {
       field: 'surname',
@@ -91,7 +84,8 @@ export class PatientListComponent implements OnInit{
     {
       field: 'gender',
       headerName: 'Gender',
-      cellRenderer: this.cellrendered.bind(this, 'gender')
+      cellRenderer: this.cellrendered.bind(this, 'gender'),
+     
     },
     {
       field: 'type',

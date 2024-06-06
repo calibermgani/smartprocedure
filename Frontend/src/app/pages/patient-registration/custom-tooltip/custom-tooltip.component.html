@@ -1,0 +1,42 @@
+<!-- <p>custom-tooltip works! {{params.value}}</p> -->
+<div class="profile-tooltip">
+    <div class="profile-container">
+        <img [src]="'assets/New Images/saudi_arabian.png'" alt="image">
+        <div class="profile-info">
+            <h3 class="profile-name">{{this.params?.Name}}</h3> - <h3 class="profile-gender">{{this.params?.gender}}</h3>
+        </div>
+        <span class="date-content">{{this.params?.dob}} , {{age}} years</span>
+        <hr style="border: 1px solid #E4CD79;">
+    </div>
+    
+    <div  class="d-flex flex-container">
+        <div class="d-flex flex-direction-column">
+            <span class="content">Email</span>
+            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 8rem;">{{this.params?.primary_email}}</h3>
+        </div>
+        <div class="d-flex flex-direction-column">
+            <span class="content">Phone</span>
+            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 7.8rem;">{{this.params?.telephone}}</h3>
+        </div>
+        <div class="d-flex flex-direction-column">
+            <span class="content">Occupation</span>
+            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 5.8rem;">{{this.params?.occupation}}</h3>
+        </div>
+        <div class="d-flex flex-direction-column">
+            <span class="content">Marital Status</span>
+            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 5rem;">{{this.params?.marital_status}}</h3>
+        </div>
+        <div class="d-flex flex-direction-column">
+            <span class="content">Referred By</span>
+            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 6rem;">{{this.params?.referred_by}}</h3>
+        </div>
+        <div class="d-flex flex-direction-column">
+            <span class="content">Children Name</span>
+            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 4.5rem;">{{this.params?.name_of_children}}</h3>
+        </div>
+        <div class="d-flex flex-direction-column">
+            <span class="content">Partner Name</span>
+            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 5rem;">{{this.params?.name_of_partner}}</h3>
+        </div>
+    </div>
+</div>
