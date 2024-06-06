@@ -1,7 +1,7 @@
 <!-- <p>custom-tooltip works! {{params.value}}</p> -->
 <div class="profile-tooltip">
     <div class="profile-container">
-        <img [src]="'assets/New Images/saudi_arabian.png'" alt="image">
+        <img [src]="this.params.image.endsWith('NULL') ? 'assets/New Images/saudi_arabian.png' : this.params.image" alt="image">
         <div class="profile-info">
             <h3 class="profile-name">{{this.params?.Name}}</h3> - <h3 class="profile-gender">{{this.params?.gender}}</h3>
         </div>
