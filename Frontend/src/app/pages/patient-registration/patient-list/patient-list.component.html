@@ -6,7 +6,7 @@
       <div class="d-flex ms-auto">
         <div class="d-flex justify-content-between align-items-center float-end ms-2 pointer" style="flex-wrap: wrap;">
           <div class="tab_filter_img me-2" (click)="ReloadPatientList()">
-            <div class="me-0"><button class="refresh-button"><img src="assets/New Images/refresh.svg" style="margin-right: 8px;" alt="refresh">Refresh</button></div>
+            <div class="me-0"><button class="refresh-button"><img src="assets/New_Images/refresh.svg" style="margin-right: 8px;" alt="refresh">Refresh</button></div>
           </div>
           <!-- <div class="tab_filter_img" style="margin-right: 85px;">
             <div style="border: 1px dotted #855EDB;width: 20px;height: 20px;">
@@ -24,10 +24,10 @@
             </div>
           </div> -->
           <div class="tab_filter_img me-2" (click)="GridCSVExport()">
-            <div class="refresh-button1"><img src="assets/New Images/export.svg" style="margin-right: 8px;" alt="export">Export</div>
+            <div class="refresh-button1"><img src="assets/New_Images/export.svg" style="margin-right: 8px;" alt="export">Export</div>
           </div>
 
-          <div class="me-0"><button class="btn-new " style="padding: 5px 11px 5px 3px !important;" (click)="GoToRegisterPage()"><img src="assets/New Images/mdi_plus-circle.svg" style="margin-right: 16px;" alt="New Patient">New patient</button></div>
+          <div class="me-0"><button class="btn-new " style="padding: 5px 11px 5px 3px !important;" (click)="GoToRegisterPage()"><img src="assets/New_Images/mdi_plus-circle.svg" style="margin-right: 16px;" alt="New Patient">New patient</button></div>
         </div>
       </div>
     </div>
@@ -137,6 +137,7 @@
       [tooltipMouseTrack]="true"
       ></ag-grid-angular>
     </div>
+    <!-- <app-custom-tooltip></app-custom-tooltip> -->
     </div>
 </div>
 

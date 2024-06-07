@@ -1,6 +1,6 @@
 .profile-tooltip {
     width: 25rem;
-    height: 27rem;
+    height: 19rem;
     padding: 10px;
     background-color: #FEF1C4;
     border: 1px solid #E4CD79;
@@ -28,17 +28,12 @@
     }
 
     .profiles {
-        margin: 0;
         font-size: 1em;
         color: #333;
     }
 
     hr {
         margin: 10px 0;
-    }
-
-    div {
-        margin-bottom: 10px;
     }
     .flex-container{
         flex-direction: column;
