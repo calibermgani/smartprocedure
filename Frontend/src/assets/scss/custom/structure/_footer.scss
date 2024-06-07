@@ -1,6 +1,6 @@
-// 
+//
 // _footer.scss
-// 
+//
 
 .footer {
     bottom: 0;
@@ -10,13 +10,14 @@
     color: var(--#{$prefix}footer-color);
     left: 250px;
     height: $footer-height;
-    background-color: var(--#{$prefix}footer-bg);
+    // background-color: var(--#{$prefix}footer-bg);
+    background-color: #E8E3E3;
 
     @media (max-width: 991.98px) {
         left: 0;
     }
 }
-  
+
 // Enlarge menu
 .vertical-collpsed {
     .footer {
@@ -31,5 +32,5 @@
 body[data-layout="horizontal"] {
     .footer {
         left: 0 !important;
-    }  
+    }
 }
