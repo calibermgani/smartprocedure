@@ -13,13 +13,13 @@
 
 
 
-.ag-theme-alpine
+:host ::ng-deep .ag-theme-alpine
 {
   --ag-row-hover-color: none !important;
   // --ag-header-background-color : #594585 !important;
   --ag-selected-row-background-color : transparent !important
 }
-::ng-deep .ag-row{
+:host ::ng-deep .ag-row{
   border-bottom : none !important
 }
 
@@ -27,12 +27,12 @@
 //   // background: none !important;
 // }
 
-::ng-deep .ag-row-selected::before
-{
-  background-color: transparent !important
-}
+// :host ::ng-deep .ag-row-selected::before
+// {
+//   background-color: transparent !important
+// }
 
-::ng-deep .ag-row-odd{
+:host ::ng-deep .ag-row-odd{
   margin: 10px 0px !important;
   background:#F3F4F8 !important;
   z-index: 2 ;
@@ -40,24 +40,23 @@
   background: #FBF9FF !important;
 }
 
-::ng-deep .ag-row-even{
+:host ::ng-deep .ag-row-even{
   margin: 10px 0px !important;
   // background: none !important;
   cursor: pointer !important;
   background-color: #ffffff !important;
 }
 
-::ng-deep .ag-cell-label-container{
+:host ::ng-deep .ag-cell-label-container{
   border-right: 1px solid rgba(89, 69, 133, 0.15) !important;
 }
 
-::ng-deep .ag-header-viewport
+:host ::ng-deep .ag-header-viewport
 {
-  background: #E4DAFA;
-  // border: 1px solid #C9C9C9;
+  background: #E4DAFA !important;
 }
 
-::ng-deep .ag-header-cell-text
+:host ::ng-deep .ag-header-cell-text
 {
   font-size: 13px !important;
   font-weight: 500 !important;
@@ -66,47 +65,47 @@
   font-family: 'Poppins' !important;
 }
 
-::ng-deep .ag-cell-value
-{
-  font-size: 10px !important;
-  font-weight: 400 !important;
-}
+// :host ::ng-deep .ag-cell-value
+// {
+//   font-size: 10px !important;
+//   font-weight: 400 !important;
+// }
 
-::ng-deep .ag-checkbox-input-wrapper
+:host ::ng-deep .ag-checkbox-input-wrapper
 {
   width: 15px !important;
   height: 15px !important;
 }
 
-::ng-deep .ag-root-wrapper
+:host ::ng-deep .ag-root-wrapper
 {
   border: 1px solid #E7E1F3 !important;
   font-family: poppins !important;
 }
 
-::ng-deep .ag-root-wrapper
+:host ::ng-deep .ag-root-wrapper
 {
   // border: 1px solid #E7E1F3 !important;
   // border-radius: 6px;
   font-family: poppins !important;
 }
-::ng-deep .ag-row-group-expanded
+:host ::ng-deep .ag-row-group-expanded
 {
   background: #8B8B8B !important;
 
-.ag-cell-value{
-  color: #fff !important;
-}
+// .ag-cell-value{
+//   color: #fff !important;
+// }
 .ag-icon-tree-open{
   color: #fff !important;
 }
 }
 
-::ng-deep .ag-icon-menu{
+:host ::ng-deep .ag-icon-menu{
   color: #fff !important;
 }
 
-::ng-deep .ag-body-horizontal-scroll-viewport{
+:host ::ng-deep .ag-body-horizontal-scroll-viewport{
   overflow-x: hidden !important;
 }
 
@@ -127,11 +126,11 @@
   // height: 18px !important;
 }
 
-::ng-deep .ag-cell-value{
-  border: none !important;
-}
+// :host ::ng-deep .ag-cell-value{
+//   border: none !important;
+// }
 
-::ng-deep .ag-ltr .ag-header{
+:host ::ng-deep .ag-ltr .ag-header{
   border-bottom: none !important;
 }
 
@@ -156,7 +155,6 @@
   font-size: 14px;
   font-weight: 500;
   background: white;
-  width: max-content;
   line-height: 25px;
 }
 
@@ -225,11 +223,11 @@
   font-style: italic;
 }
 
-.ag-header-cell .ag-focus-managed{
+:host ::ng-deep.ag-header-cell .ag-focus-managed{
   left: 1644px !important;
 }
 
-::ng-deep .ag-cell-value{
+:host ::ng-deep .ag-cell-value{
   font-size: 13px !important;
     color: #6D6B71 !important;
     font-weight: 400 !important;
