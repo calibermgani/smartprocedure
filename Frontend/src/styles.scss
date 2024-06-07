@@ -58,12 +58,14 @@ ngx-dropzone-preview {
 }
 
 .cards{
-  border-radius: 12px;
+  border-radius: 6px;
+  border:1px solid #E7E1F3;
   padding: 10px;
   gap: 10px;
   background: #fff;
 }
 
+// Old Styles .......................................................................................
 h1{
   font-size: 12px  !important;
   font-weight: 600 !important;
