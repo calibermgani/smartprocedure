@@ -1,0 +1,175 @@
+<div class="cards">
+    <div class="row">
+      <div class="col-12">
+        <div class="d-flex align-items-center" style="background: #F1EBFF;padding: 15px;border-radius: 6px;">
+          <h1 class="header_name_bold">User</h1>
+          <div class="d-flex ms-auto">
+            <div class="me-0"><button class="button-design" (click)="OpenModal('addstaff')"><img src="assets/images/add_img_modal.svg"
+              width="16px" height="16px" style="margin: 3px 0px 4px -8px;">Add</button></div>
+            <div class="d-flex justify-content-between align-items-center float-end ms-2 pointer" style="flex-wrap: wrap;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row py-2  mx-0 my-2" style="background: #F3F4F8;padding: 10px;border-radius: 8px;">
+       <div class="col-12 col-md-3 mb-2 mb-md-0">
+          <ng-select [items]="sortBy_Users" placeholder="All" class="w-100"></ng-select>
+       </div>
+       <div class="col-12 col-md-6 mb-2 mb-md-0 d-flex align-items-center">
+          <ng-select [items]="sortBy_ActiveAndInactive" placeholder="Active" class="w-50 me-2"></ng-select>
+          <button class="border-0 me-2" style="font-size: 10px;" type="button">Reset</button>
+          <button class="button-design" style="font-size: 10px;">Search</button>
+       </div>
+       <div class="col-12 col-md-3">
+        <div class="w-70 ms-auto">
+            <input type="text" placeholder="Search" class="form-control"
+              style="height: 35px;font-size: 0.66rem !important;height: 34px;">
+          </div>
+       </div>
+</div>
+<div class="mt-2">
+  <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnUserDefs" [gridOptions]="gridOptions1" #patientListGrid
+  style="width: 100%;height: 576px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"
+  ></ag-grid-angular>
+</div>
+</div>
+
+<div bsModal #addstaff="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
+  <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+    <div class="modal-content">
+      <div class="d-flex justify-content-between align-items-center p-2 m-3" style="background: #F3F4F8;">
+        <h1 class="flex-grow-1" style="font-size: 14px !important;color: #1B1B1B !important;">Add New Staff
+        </h1>
+        <img src="assets/images/Close_icon.svg" width="24px" height="24px" (click)="CloseModal('addstaff')"
+          style="cursor: pointer;">
+      </div>
+      <form >
+        <div class="row p-3">
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="cat_no" class="modal-label-edit">Role<span style="color: red;">*</span></label>
+              <ng-select [items]="sortBy_Users"></ng-select>
+              <!-- <div  class="invalid-feedback">
+                <div
+                  >
+                  Please fill the field</div>
+                <div
+                  >
+                  Category Code should be more than one character</div>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="cat_no" class="modal-label-edit">Full name<span style="color: red;">*</span></label>
+              <input type="text" class="form-control-new" formControlName="CategorySubCode" minlength="2">
+              <!-- <div  class="invalid-feedback">
+                <div
+                  >
+                  Please fill the field</div>
+                <div
+                  >
+                  Category Code should be more than one character</div>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="cat_no" class="modal-label-edit">Contact number<span style="color: red;">*</span></label>
+              <input type="text" class="form-control-new" formControlName="CategorySubCode" minlength="2">
+              <!-- <div  class="invalid-feedback">
+                <div
+                  >
+                  Please fill the field</div>
+                <div
+                  >
+                  Category Code should be more than one character</div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="items_no" class="modal-label-edit">SCFHS Registration</label>
+              <input type="text" class="form-control-new" formControlName="CategoryName"  minlength="2">
+              <!-- <div  class="invalid-feedback">
+                <div
+                  >
+                  Please fill the field</div>
+                <div
+                  >
+                  Category name should be more than one character</div>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="cat_no" class="modal-label-edit">Beep number</label>
+              <input type="text" class="form-control-new" formControlName="CategorySubCode" minlength="2">
+              <!-- <div  class="invalid-feedback">
+                <div
+                  >
+                  Please fill the field</div>
+                <div
+                  >
+                  Category Code should be more than one character</div>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="cat_no" class="modal-label-edit">Extrension number</label>
+              <input type="text" class="form-control-new" formControlName="CategorySubCode" minlength="2">
+              <!-- <div  class="invalid-feedback">
+                <div
+                  >
+                  Please fill the field</div>
+                <div
+                  >
+                  Category Code should be more than one character</div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="row p-3">
+          <div class="col-4">
+            <div class="mb-3">
+              <label for="items_no" class="modal-label-edit">Email</label>
+              <input type="text" class="form-control-new" formControlName="CategoryName"  minlength="2">
+              <!-- <div  class="invalid-feedback">
+                <div
+                  >
+                  Please fill the field</div>
+                <div
+                  >
+                  Category name should be more than one character</div>
+              </div> -->
+            </div>
+          </div>
+          <div class="col-8">
+            <div class="mb-3">
+              <label for="cat_no" class="modal-label-edit">Speciality<span style="color: red;">*</span></label>
+              <input type="text" class="form-control-new" formControlName="CategorySubCode" minlength="2">
+              <!-- <div  class="invalid-feedback">
+                <div
+                  >
+                  Please fill the field</div>
+                <div
+                  >
+                  Category Code should be more than one character</div>
+              </div> -->
+            </div>
+          </div>
+        </div>
+        <div class="d-flex justify-content-end p-3">
+          <button type="button" class="btn-new me-2"
+            style="background:#F3F4F8 !important;color: #000 !important;width: auto !important;" (click)="CloseModal('addstaff')"
+            >Close</button>
+          <button type="button" class="btn-new" style="width: auto !important;" >Submit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

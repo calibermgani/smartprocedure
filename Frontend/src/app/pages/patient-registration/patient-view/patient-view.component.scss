@@ -1,0 +1,337 @@
+.horizontal-line{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding-bottom: 6px;
+    margin-bottom: 10px;
+}
+
+.refresh-button {
+    border: 1px solid #594585;
+    border-radius: 4px;
+    padding: 3px 10px 2px 7px;
+    color: #594585;
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 500;
+    background: white;
+    line-height: 25px;
+}
+
+.refresh-button1 {
+    border: 1px solid #594585;
+    border-radius: 4px;
+    padding: 2px 22px 3px 10px;
+    color: #594585;
+    font-family: 'Poppins';
+    font-size: 14px;
+    font-weight: 500;
+    background: white;
+    line-height: 25px;
+}
+
+.text-style {
+    font-size: 12px;
+    border: 1px solid;
+    width: 86px;
+    border-radius: 9px;
+    background-color: #3ABE0B;
+    color: #fff;
+    padding: 1px 0px 1px 7px;
+    font-weight: 600;
+    font-family: 'Poppins';
+}
+
+.name-style {
+    font-size: 15px;
+    color: #594585;
+    font-weight: 500;
+    font-family: 'Poppins';
+}
+
+.mrn-style {
+    font-size: 12px;
+    font-weight: 500;
+    font-family: 'Poppins';
+}
+
+.date-age-style {
+    font-size: 12px !important;
+    color: #4C5557;
+    font-weight: 500;
+    font-family: 'Poppins';
+}
+
+.profile-details {
+    font-family: 'Poppins';
+    font-size: 13px;
+    font-weight: 500;
+    color: #A8ACAD;
+    word-wrap: break-word;
+    word-break: break-all;
+    margin-left: 1rem;
+}
+
+.profiles {
+    font-family: 'Poppins';
+    font-weight: 400;
+    font-size: 13px;
+    color: #4C5557;
+}
+
+.profile-design{
+    width: 96%;
+    height: 70rem;
+    border: 1px solid rgba(231, 225, 243, 1);
+    // margin: -0.7rem 0rem 0rem -1.2rem;
+    background-color: rgba(251, 249, 255, 1);
+}
+
+.languages {
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 13px;
+    width: fit-content;
+    border-radius: 10px;
+    color: #594585;
+    background-color: #E7E1F3;
+    padding: 1px 5px 1px 5px;
+}
+
+.parent {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.vitals-text{
+    margin: -1.1rem 0rem 1rem 2rem;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: 'Poppins';
+    color: #594585 !important;
+}
+
+.edit-button{
+    margin: -1.1rem 1rem 0rem -.7rem !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: 'Poppins';
+    color: #594585 !important;
+}
+
+.blood-pressure-text{
+    font-family: 'Poppins';
+    margin-left: 16px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.pressure-value{
+    margin-left: 35px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2D9508;
+    font-family: 'Poppins';
+}
+
+.heart-beat{
+    font-family: 'Poppins';
+    margin-left: 16px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.beat-value{
+    margin-left: 60px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #FA0404;
+    font-family: 'Poppins';
+}
+
+.temperature{
+    font-family: 'Poppins';
+    margin-left: 16px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.temperature-value{
+    margin-left: 45px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2B3B3E;
+    font-family: 'Poppins';
+}
+
+.spo2{
+    font-family: 'Poppins';
+    margin-left: 16px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.spo2-value{
+    margin-left: 95px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2B3B3E;
+    font-family: 'Poppins';
+}
+
+.respiratory{
+    font-family: 'Poppins';
+    margin-left: 16px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.respiratory-time{
+    margin-left: 24px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2D9508;
+    font-family: 'Poppins';
+}
+
+.precaution-text{
+    margin: -1.1rem 0rem 1rem 2rem;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: 'Poppins';
+    color: #594585 !important;
+}
+
+.precautions{
+    margin: -1.1rem 1rem 0rem -.7rem !important;
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    font-family: 'Poppins';color: #594585 !important;
+}
+
+.fall-texts{
+    font-family: 'Poppins';
+    margin-left: 16px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.fall-value{
+    margin-left: 85px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2B3B3E;
+    font-family: 'Poppins';
+}
+
+.isolation-text{
+    font-family: 'Poppins';
+    margin-left: 16px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.isolation-value{
+    margin-left: 54px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2B3B3E;
+    font-family: 'Poppins';
+}
+
+.covid-text{
+    font-family: 'Poppins';
+    margin-left: 22px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.covid-value{
+    margin-left: 68px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2B3B3E;
+    font-family: 'Poppins';
+}
+
+.pregnant-text{
+    font-family: 'Poppins';
+    margin-left: 3px;
+    font-weight: 500;
+    color: #526A84;
+    font-size: 12px;
+}
+
+.pregnant-value{
+    margin-left: 55px;
+    font-weight: 500;
+    font-size: 13px;
+    color: #2B3B3E;
+    font-family: 'Poppins';
+}
+
+.vitals-edit {
+    // width: 30%;
+    height: auto;
+    border: 1px solid rgba(231, 225, 243, 1);
+    border-radius: 6px;
+    // margin-left: -.5rem;
+}
+
+.precautions-edit {
+    // width: 30%;
+    height: auto;
+    border: 1px solid rgba(231, 225, 243, 1);
+    border-radius: 6px;
+}
+
+.precautions-edit1 {
+    // width: 34%;
+    height: auto;
+    border: 1px solid rgba(231, 225, 243, 1);
+    border-radius: 6px;
+    // margin-right: 1.3rem;
+}
+
+.button-container button{
+    font-size: 12px;
+    border: none;
+    border-radius: 6px;
+    width: 9.8rem;
+    background-color: #F0F0F0;
+    color: #526A84;
+    font-weight: 500;
+    height: 2rem;
+}
+
+.nav-tabs-custom .nav-link {
+    color: #000 !important; 
+    background: none;
+}
+.nav-tabs-custom .nav-link::after {
+    border-bottom: 3px solid #594585 !important; /* Border bottom color */
+}
+
+.nav-tabs-custom .nav-link.active h1{
+    color: #594585 !important; /* Active text color */
+
+}
+@media (max-width: 768px) {
+    .nav-tabs-custom .nav-item {
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+// .nav-tabs-custom{
+//     margin-left: -1rem !important;
+// }

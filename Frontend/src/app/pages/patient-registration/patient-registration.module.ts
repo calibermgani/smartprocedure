@@ -13,11 +13,17 @@ import { AgGridModule } from 'ag-grid-angular';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { MaterialManagementModule } from '../material-management/material-management.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { PatientViewComponent } from './patient-view/patient-view.component';
+import { CustomTooltipComponent } from './custom-tooltip/custom-tooltip.component';
+import { ClinicalHistoryTabComponent } from './clinical-history-tab/clinical-history-tab.component';
 
 @NgModule({
   declarations: [
     RegistrationPageComponent,
-    PatientListComponent
+    PatientListComponent,
+    PatientViewComponent,
+    CustomTooltipComponent,
+    ClinicalHistoryTabComponent
   ],
   imports: [
     CommonModule,

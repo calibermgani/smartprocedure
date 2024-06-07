@@ -354,3 +354,14 @@ button:disabled
 .custom-tooltip p:first-of-type {
   font-weight: bold;
 }
+
+.clinical-history-button{
+  width: 4.5rem;
+  height: 1.6rem;
+  border: 1px solid #594585;
+  background: #594585;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  line-height: 1rem;
+}

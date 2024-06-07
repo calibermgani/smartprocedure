@@ -23,6 +23,8 @@ const routes: Routes = [
   { path: 'staff-management', loadChildren: () => import('./staff-management/staff-management.module').then(m => m.StaffManagementModule), canActivate: [AuthGuard] },
   { path: 'material-management', loadChildren: () => import('./material-management/material-management.module').then(m => m.MaterialManagementModule), canActivate: [AuthGuard] },
   { path: 'patient-registration', loadChildren: () => import('./patient-registration/patient-registration.module').then(m => m.PatientRegistrationModule), canActivate: [AuthGuard] },
+  { path: 'users-list', loadChildren: () => import('./users/users.module').then(m => m.UsersModule), canActivate: [AuthGuard] },
+
 ];
 
 @NgModule({

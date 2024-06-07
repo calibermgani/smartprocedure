@@ -256,7 +256,7 @@ export class PatientListComponent implements OnInit{
         <div><i class="mdi mdi-eye-outline" style="color:#855EDB;font-size:18px"></i></div></div>`
       }
       case 'edit':{
-        return `<div class="d-flex justify-content-center"><img src="assets/New Images/Vector.svg" style="color:#000;font-size:18px"></imgs=></div>`
+        return `<div class="d-flex justify-content-center"><img src="assets/New_Images/Vector.svg" style="color:#000;font-size:18px"></imgs=></div>`
       }
       case 'delete':{
         return `<div class="d-flex justify-content-center"><div><i class="mdi mdi-trash-can-outline" style="color:red;font-size:18px"></i></div></div>`
@@ -426,7 +426,7 @@ export class PatientListComponent implements OnInit{
 
   onRowClicked(events){
     const rowData = events.data;
-    // this.router.navigateByUrl('patient-registration/patient-view');
+    this.router.navigateByUrl('patient-registration/patient-view');
   }
   ngAfterViewInit(): void {
     this.patientListGrid?.api.sizeColumnsToFit();

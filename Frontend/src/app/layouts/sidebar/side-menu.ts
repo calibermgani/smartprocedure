@@ -61,9 +61,15 @@ export const SIDEMENU: MenuItem[] = [
   },
   {
     id: 10,
-    label: 'PATIENT',
+    label: 'PATIENT list',
     icon: 'mdi mdi-human-child',
     link: 'patient-registration/patient_list',
+  },
+  {
+    id: 12,
+    label: 'USERS',
+    icon: 'mdi mdi-account-plus',
+    link: 'users-list',
   }
 ];
 

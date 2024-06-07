@@ -1282,6 +1282,7 @@ updateCheckboxStates(index: number, state: boolean, length: number , stage: stri
     this.allService.kizinCheckBoxesData(stageType, patient_id, mrn_number, checkedOrNOT, procedure_id, checkListIds, added_by, created_by ).subscribe((response:any)=>{
       if(response.status === 'Success'){
         this.getCheckBoxesData2 = response;   
+        this.kizinTimeLineData();
       }
     })
   }else if(stage === 'Pre-Procedure'){
