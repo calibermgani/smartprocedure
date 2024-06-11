@@ -221,3 +221,11 @@
   :host ::ng-deep .content{
     margin-top: 1px !important;
   }
+
+  .back_to_list{
+    background-image: url('/assets/New_Images/back_to_patientlist.svg') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: 4px !important;
+    background-size: 20px !important;
+  }

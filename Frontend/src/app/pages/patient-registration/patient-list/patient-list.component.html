@@ -6,7 +6,7 @@
       <div class="d-flex ms-auto">
         <div class="d-flex justify-content-between align-items-center float-end ms-2 pointer" style="flex-wrap: wrap;">
           <div class="tab_filter_img me-2" (click)="ReloadPatientList()">
-            <div class="me-0"><button class="refresh-button"><img src="assets/New_Images/refresh.svg" style="margin-right: 8px;" alt="refresh">Refresh</button></div>
+            <div class="me-0"><button class="refresh-button"><img src="assets/New_Images/refresh.svg" style="margin-right: 8px;" >Refresh</button></div>
           </div>
           <!-- <div class="tab_filter_img" style="margin-right: 85px;">
             <div style="border: 1px dotted #855EDB;width: 20px;height: 20px;">
@@ -27,7 +27,7 @@
             <div class="refresh-button1"><img src="assets/New_Images/export.svg" style="margin-right: 8px;" alt="export">Export</div>
           </div>
 
-          <div class="me-0"><button class="btn-new " style="padding: 5px 11px 5px 3px !important;" (click)="GoToRegisterPage()"><img src="assets/New_Images/mdi_plus-circle.svg" style="margin-right: 16px;" alt="New Patient">New patient</button></div>
+          <div class="me-0"><button class="btn-primary" style="padding: 5px 11px 5px 3px !important;" (click)="GoToRegisterPage()"><img src="assets/New_Images/mdi_plus-circle.svg" style="margin-right: 16px;" alt="New Patient">New patient</button></div>
         </div>
       </div>
     </div>
@@ -46,57 +46,31 @@
   <div class="accordion mt-2" id="filterAccordion" style="background-color: #FAF8FF !important; border-radius: 4px;">
     <div class="accordion-item" style="border: 1px solid
      #E7E1F3 !important;">
-      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" style="font-weight: 500;color: #000000; background-color: #FAF8FF
-        !important;border-bottom: none !important;">
-        Filters
-      </button>
-      <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#filterAccordion">
+      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" style="font-weight: 500;color: #000000; background-color: #FAF8FF
+        !important;border-bottom: none !important;">Filters</button>
+      <div id="collapseOne" class="accordion-collapse" aria-labelledby="headingOne" data-bs-parent="#filterAccordion">
         <div class="accordion-body" style="background: #FAF8FF !important;">
           <div class="mb-0 d-flex" style="margin-top: -1rem;">
             <div style="width: 12%;" class="me-3">
               <div><label for="" style="font-weight: 600;color: rgba(0, 0, 0, 0.5)">Patient Type</label></div>
-              <div>
-                <select class="form-selects" style="
-                padding: 7% !important;border: 1px solid
-                #B1CBD4 !important;color: #A8ACAD !important;">
-                  <option ></option>
-                </select>
-              </div>
+              <div> <ng-select [items]="this.Patient_type" placeholder="Select the Patient type" *ngIf="this.Patient_type"  [(ngModel)]="SelectedPatientType"></ng-select> </div>
             </div>
             <div style="width: 12%;" class="me-3">
               <div><label for="" style="font-weight: 600;color: rgba(0, 0, 0, 0.5)">Blood Group</label></div>
-              <div>
-                <select class="form-selects" style="
-                padding: 7% !important;border: 1px solid
-                #B1CBD4 !important;color: #A8ACAD !important;">
-                  <option ></option>
-                </select>
-              </div>
+              <div> <ng-select [items]="this.Blood_Group" placeholder="Select the Blood Group" *ngIf="this.Blood_Group" [(ngModel)]="SelectedBloodGroup"></ng-select> </div>
             </div>
             <div style="width: 12%;" class="me-3">
               <div><label for="" style="font-weight: 600;color: rgba(0, 0, 0, 0.5)">Speciality</label></div>
-              <div>
-                <select class="form-selects" style="
-                padding: 7% !important;border: 1px solid
-                #B1CBD4 !important;color: #A8ACAD !important;">
-                  <option ></option>
-                </select>
-              </div>
+              <div> <ng-select [items]="this.Speciality" placeholder="Select the Speciality" *ngIf="this.Speciality" [(ngModel)]="SelectedSpeciality"></ng-select> </div>
             </div>
             <div style="width: 12%;" class="me-3">
               <div><label for="" style="font-weight: 600;color: rgba(0, 0, 0, 0.5)">Priority</label></div>
-              <div>
-                <select class="form-selects" style="
-                padding: 7% !important;border: 1px solid
-                #B1CBD4 !important;color: #A8ACAD !important;">
-                  <option ></option>
-                </select>
-              </div>
+              <div> <ng-select [items]="this.Priority" placeholder="Select the Priority" *ngIf="this.Priority"  [(ngModel)]="SelectedPriority"></ng-select> </div>
             </div>
             <div style="width: 20%;">
               <div style="margin-top: 1.7rem;">
-                <button class="button-sizing">Reset</button>
-                <button class="button-sizing1 ms-2" style="margin-left: 10px;">Search</button>
+                <button class="button-sizing" (click)="ResetFilter()">Reset</button>
+                <button class="button-sizing1 ms-2" style="margin-left: 10px;" (click)="SearchBy(SelectedPatientType,SelectedBloodGroup,SelectedSpeciality,SelectedPriority)">Search</button>
               </div>
             </div>
           </div>

@@ -232,3 +232,9 @@
     color: #6D6B71 !important;
     font-weight: 400 !important;
 }
+
+:host ::ng-deep .ng-dropdown-panel-items
+{
+  background: #fff;
+  border:1px solid #BEBEBF !important;
+}
