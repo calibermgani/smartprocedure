@@ -6,7 +6,7 @@
       <div class="d-flex ms-auto">
         <div class="d-flex justify-content-between align-items-center float-end ms-2 pointer" style="flex-wrap: wrap;">
           <div class="tab_filter_img me-2" (click)="ReloadPatientList()">
-            <div class="me-0"><button class="refresh-button"><img src="assets/New_Images/refresh.svg" style="margin-right: 8px;" >Refresh</button></div>
+            <div class="me-0"><button class="btn-secondary"><img src="assets/New_Images/refresh.svg" style="margin-right: 8px;" >Refresh</button></div>
           </div>
           <!-- <div class="tab_filter_img" style="margin-right: 85px;">
             <div style="border: 1px dotted #855EDB;width: 20px;height: 20px;">
@@ -69,8 +69,8 @@
             </div>
             <div style="width: 20%;">
               <div style="margin-top: 1.7rem;">
-                <button class="button-sizing" (click)="ResetFilter()">Reset</button>
-                <button class="button-sizing1 ms-2" style="margin-left: 10px;" (click)="SearchBy(SelectedPatientType,SelectedBloodGroup,SelectedSpeciality,SelectedPriority)">Search</button>
+                <button class="btn-outline" (click)="ResetFilter()" style="padding: 6px 14px 6px 14px !important;">Reset</button>
+                <button class="btn-primary ms-2" style="margin-left: 10px;" (click)="SearchBy(SelectedPatientType,SelectedBloodGroup,SelectedSpeciality,SelectedPriority)" style="padding: 6px 14px 6px 14px !important;">Search</button>
               </div>
             </div>
           </div>

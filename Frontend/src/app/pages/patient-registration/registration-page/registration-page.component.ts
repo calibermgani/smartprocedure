@@ -23,44 +23,42 @@ export class RegistrationPageComponent {
   otherdetailsform : UntypedFormGroup;
   public apiUrl: any = environment_new.imageUrl;
   @ViewChild('cdkStepper') cdkStepper : CdkStep;
+  FirstPageValidation : boolean;
 
   constructor(private formbuilder : UntypedFormBuilder,private allService : AllServicesService,private toastr : ToastrService,private router : Router){
     this.personaldetailsform = this.formbuilder.group({
-      title : ['Mr'],
+      title : [,[Validators.required]],
       first_name:['',[Validators.required, Validators.pattern('^[a-zA-Z]+$'),Validators.maxLength(50)]],
-      middle_name:[''],
-      last_name:['',[Validators.required, Validators.pattern('^[a-zA-Z]+$'),Validators.maxLength(50)]],
+      middle_name:['',[Validators.required, Validators.pattern('^[a-zA-Z]+$'),Validators.maxLength(50)]],
+      last_name:[''],
       partner_name : [],
       children_name: [],
-      occupation:['', [Validators.required]],
       dob:[new Date(),[Validators.required]],
-      age:['',[Validators.required]],
+      age:[''],
       language : [],
       referred_by : [],
       gender : [,[Validators.required]],
-      martial_status : [,[Validators.required]]
+      martial_status : ['']
     });
 
     this.contactDetailsform = this.formbuilder.group({
       telephone_number:[,[Validators.required,Validators.pattern('\\d*')]],
-      email:['',[Validators.required,Validators.email]]
-    });
-
-    this.addressform = this.formbuilder.group({
-      addresstype:[,[Validators.required]],
+      email:[,[Validators.required,Validators.email]],
       flatNo : [],
       StreetNo : [],
-      StreetName : [,[Validators.required]],
+      StreetName : [],
       suburb : [],
       town : [],
       state : [],
-      postcode : ['',[Validators.required]]
+      postcode : []
     });
 
+
+
     this.healthdetailsform = this.formbuilder.group({
-      bloodgroup:[,[Validators.required]],
-      height : [,[Validators.required,Validators.pattern('\\d*')]],
-      weight : [,[Validators.required,Validators.pattern('\\d*')]],
+      bloodgroup:[],
+      height : [,[Validators.pattern('\\d*')]],
+      weight : [,[Validators.pattern('\\d*')]],
       bloodPressure : [],
       heartBeat : [],
       temperature : [],
@@ -68,7 +66,7 @@ export class RegistrationPageComponent {
       respiratoryRate : [],
       Speciality : [],
       Priority: [,[Validators.required]],
-      Procedure :[,[Validators.required]]
+      Patient_type :[,[Validators.required]]
     });
 
     this.otherdetailsform = this.formbuilder.group({
@@ -147,6 +145,9 @@ export class RegistrationPageComponent {
       })
     }
     this.getProcedures();
+
+    console.log('FirstPageValidation',this.FirstPageValidation);
+
   }
 
   Procedure:any = [];
@@ -176,8 +177,20 @@ export class RegistrationPageComponent {
   }
 
 
-  onStepSelectionChange(event: StepperSelectionEvent) {
+  onStepSelectionChange(event: StepperSelectionEvent) { }
 
+  SelectedGender:string;
+  SelectGender(type:string){
+    switch(type){
+      case 'Male':{
+        this.SelectedGender = 'Male';
+        break;
+      }
+      case 'Female':{
+        this.SelectedGender = 'Female';
+        break;
+      }
+    }
   }
 
   BackToPatientList(){
@@ -307,5 +320,99 @@ export class RegistrationPageComponent {
       };
       this.showImage = true;
     }
+  }
+
+  CurrentPage : string = 'Personal Details';
+  StageOne : boolean = true;
+  StageTwo : boolean = false;
+  StageThree : boolean = false;
+  ReachedEnd : boolean = false;
+  SelectCurrentPage(type:string){
+    switch(type){
+      case 'Personal Details':{
+        this.CurrentPage = 'Personal Details';
+        this.StageOne = true;
+        break;
+      }
+      case 'Contact Details':{
+        this.CurrentPage = 'Contact Details';
+        this.StageTwo = true;
+        break;
+      }
+      case 'Health Details':{
+        this.CurrentPage = 'Health Details';
+        this.StageThree = true;
+        break;
+      }
+      case 'Other Details':{
+        this.CurrentPage = 'Other Details';
+        this.ReachedEnd = true;
+        break;
+      }
+    }
+  }
+
+  NextToPersonalDetails(formData:any){
+
+    this.personaldetailsform.patchValue({
+      gender:this.SelectedGender
+    })
+    console.log('Valid 1',this.personaldetailsform.valid);
+    console.log('value 1',formData.value);
+
+    this.FirstPageValidation = this.personaldetailsform.valid;
+    this.SelectCurrentPage('Contact Details');
+  }
+
+  NextToHealthDetails(formData:any){
+    console.log('value 2',formData.value);
+    console.log('Valid 2',this.contactDetailsform.valid);
+    this.SelectCurrentPage('Health Details');
+  }
+
+  NextToOtherDetails(formData : any){
+    console.log('value 3',formData.value);
+    console.log('Valid 3',this.healthdetailsform.valid);
+    this.SelectCurrentPage('Other Details');
+  }
+
+
+  BackTopersonalDetails(){
+    this.SelectCurrentPage('Personal Details');
+  }
+  BackToContactDetails(){
+    this.SelectCurrentPage('Contact Details');
+  }
+
+  BackToHealthDetails(){
+    this.SelectCurrentPage('Health Details');
+  }
+
+  RegisterNewPatient(){
+
+  }
+
+   // File Upload
+   imageURL: any;
+   NewFiles : File[]= [];
+   onSelect(event: any) {
+     this.NewFiles.push(...event.addedFiles);
+     let file: File = event.addedFiles[0];
+     const reader = new FileReader();
+     reader.onload = () => {
+       this.imageURL = reader.result as string;
+       setTimeout(() => {
+         // this.profile.push(this.imageURL)
+       }, 100);
+     }
+     reader.readAsDataURL(file);
+
+     console.log(this.NewFiles);
+
+   }
+
+   onRemove(event) {
+    console.log(event);
+    this.NewFiles.splice(this.NewFiles.indexOf(event), 1);
   }
 }

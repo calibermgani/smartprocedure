@@ -130,6 +130,7 @@ export class PatientListComponent implements OnInit{
     {
       field: 'edit',
       headerName: 'Edit',
+      floatingFilter:false,
       cellRenderer: this.cellrendered.bind(this, 'edit'),
       onCellClicked: this.CellClicked.bind(this, 'edit')
     },

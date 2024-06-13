@@ -16,6 +16,7 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PatientViewComponent } from './patient-view/patient-view.component';
 import { CustomTooltipComponent } from './custom-tooltip/custom-tooltip.component';
 import { ClinicalHistoryTabComponent } from './clinical-history-tab/clinical-history-tab.component';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { ClinicalHistoryTabComponent } from './clinical-history-tab/clinical-his
     AgGridModule,
     ModalModule.forRoot(),
     MaterialManagementModule,
-    SharedModule
+    SharedModule,
+    NgxDropzoneModule,
   ]
 })
 export class PatientRegistrationModule { }
