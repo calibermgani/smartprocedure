@@ -1,0 +1,101 @@
+<div class="cards labs-tab">
+    <div class="row mt-1 m-0">
+        <div class="col-12 d-flex justify-content-between" (click)="OpenModal('addstaff')">
+                <h3 class="lab-texts">Labs</h3>
+                <button class="clinical-history-button"><img src="assets/New_Images/uil_edit.png" width="20px" alt="add-img">Edit</button>
+        </div>
+        <p class="lab-codes">EST X-RAY, PA AND LATERAL (701020) case provide</p>
+        <div class="table-content">
+            <table class="table responsi">
+                <thead class="table-header">
+                    <tr>
+                        <th scope="col">Test Name</th>
+                        <th scope="col">Result</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Updated By</th>
+                        <th scope="col">Updated On</th>
+                    </tr>
+                </thead>
+                <tbody class="table-body">
+                    <tr>
+                        <th>Diagnosis 1</th>
+                        <th>3424434</th>
+                        <th>05/22/2024 | 05.20 PM</th>
+                        <th>Noor Lucas</th>
+                        <th>05/22/2024 | 05.20 PM</th>
+                    </tr>
+                    <tr>
+                        <th>Diagnosis 1</th>
+                        <th>3424434</th>
+                        <th>05/22/2024 | 05.20 PM</th>
+                        <th>Noor Lucas</th>
+                        <th>05/22/2024 | 05.20 PM</th>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> 
+    <div class="row">
+        <div class="col-12 mt-3 d-flex justify-content-center">
+            <button class="w-100 emr-button">Click Here to view More Records in EMR</button>
+        </div>
+    </div>
+</div>
+
+<div bsModal #addstaff="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+      <div class="modal-content" style="width: 85%;">
+        <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
+          <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Lab
+          </h1>
+          <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('addstaff')"
+            style="cursor: pointer;">
+        </div>
+        <div class="row mt-1">
+            <div class="col-12 p-4">
+                <div class="table-border">
+                    <table class="table responsive" style=" background-color: #FAFAFA;">
+                        <thead>
+                            <tr>
+                                <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Test Name</th>
+                                <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Result</th>
+                                <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Date</th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>
+                                    <input type="text" name="test-name" class="test-name">
+                                </th>
+                                <th>
+                                    <input type="text" name="result" class="result">
+                                </th>
+                                <th >
+                                    <input type="date" name="date" class="date">
+                                </th>
+                                    <th>
+                                        <img src="assets/New_Images/mdi_minus-circle.png" alt="remove-labs" height="24px" width="24px" class="mt-1 ms-auto">
+                                    </th>
+                                    <th>
+                                        <img src="assets/New_Images/diagnosis.png" alt="add-labs" height="24px" width="24px" class="mt-1 ms-auto">
+                                    </th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+        
+            </div>
+        </div>
+          <div class="d-flex justify-content-center p-3 mt-5">
+            <button type="button" class="btn-new me-2"
+              style="background:#ffffff !important;color: #594585 !important;width: auto !important; border: 1px solid #594585 !important; font-weight: 500;
+              font-size: 12px !important;
+          " (click)="CloseModal('addstaff')"
+              >Cancel</button>
+            <button type="button" class="btn-new" style="width: auto !important;" >Submit</button>
+          </div>
+      </div>
+    </div>
+  </div>

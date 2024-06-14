@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ITooltipAngularComp } from 'ag-grid-angular';
 import { ITooltipParams } from 'ag-grid-community';
+import { AllServicesService } from 'src/app/core/services/all-services.service';
 
 @Component({
   selector: 'app-custom-tooltip',
@@ -9,22 +10,15 @@ import { ITooltipParams } from 'ag-grid-community';
 })
 export class CustomTooltipComponent implements ITooltipAngularComp {
 
+  constructor(private allService: AllServicesService){}
+
   public params: any = [];
   public age: number;
   agInit(params: ITooltipParams<any, any, any>): void {
     this.params = params.data;
-    this.age = this.calculateAge(this.params.dob);
+    this.age = this.allService.calculateAge(this.params.dob);
   }
 
-  calculateAge(dob: string): number {
-    const birthDate = new Date(dob);
-    const today = new Date();
-    let age = today.getFullYear() - birthDate.getFullYear();
-    const monthDifference = today.getMonth() - birthDate.getMonth();
-    if (monthDifference < 0 || (monthDifference === 0 && today.getDate() < birthDate.getDate())) {
-      age--;
-    }
-    return age;
-  }
+
 
 }
