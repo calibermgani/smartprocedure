@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-12 horizontal-line">
+    <div class="col-12 horizontal-line m-0">
         <div class="d-flex align-items-center">
             <h1 class="header_name_bold" style="color: #526a84 !important">
                 Patient View
@@ -10,7 +10,7 @@
                     <div class="tab_filter_img me-2">
                         <div class="me-0">
                             <button class="refresh-button">
-                                <img src="assets/New_Images/ic_baseline-refresh.svg" style="margin-right: 8px"
+                                <img src="assets/New_Images/refresh.svg" style="margin-right: 8px"
                                     alt="refresh" />Refresh
                             </button>
                         </div>
@@ -30,117 +30,129 @@
 </div>
 
 <div class="row">
-<div class="col-2 p-0">
-    <div class="profile-design">
-      <div class="d-flex justify-content-center mt-3 flex-column align-items-center w-auto">
-          <img src="assets/New_Images/saudi_arabian.png" />
-          <h3 class="text-style">Out Patient</h3>
-        <h3 class="name-style">Fernando Jimenez</h3>
-        <span class="mrn-style">MRN: 342354</span>
-        <p class="date-age-style">07/05/2024 - 33 years, Male</p>
-    </div>
-      <hr style="border: 1px solid #e7defa" />
-      <div class="profile-details d-flex flex-column gap-1">
-              <span>Blood Group</span>
-              <h3 style="
+    <div class="col-2 p-0" style="margin-left: -0.4rem;">
+        <div class="profile-design">
+            <div class="d-flex justify-content-center mt-3 flex-column align-items-center w-auto">
+                <img src="assets/New_Images/saudi_arabian.png" />
+                <h3 class="text-style" >{{this.patient?.patient_type}}</h3>
+                <h3 class="name-style">{{this.patient?.Name}}</h3>
+                <span class="mrn-style">MRN: {{this.patient?.mrn_no}}</span>
+                <p class="date-age-style">{{this.patient?.dob}} - {{this.patientAge}} years, Male</p>
+            </div>
+            <hr style="border: 1px solid #e7defa" />
+            <div class="profile-details d-flex flex-column gap-1">
+                <span>Blood Group</span>
+                <h3 style="
           font-family: 'Poppins';
           font-weight: 500;
           font-size: 13px;
           color: #fa0404;
         ">
-                  A1+
-              </h3>
-              <span>Phone Number</span>
-              <h3 class="profiles">3453656714</h3>
-              <span>Email</span>
-              <h3 class="profiles">fernando@gmail.com</h3>
-              <span>Address</span>
-              <h3 class="profiles">Ar Riyadh, 1221 SA-0</h3>
-              <span>Marital Status</span>
-              <h3 class="profiles">Married+</h3>
-              <span>Occupation</span>
-              <h3 class="profiles">Employee</h3>
-              <span>Language</span>
-              <h3 class="languages">arabic</h3>
-              <span>Referred By</span>
-              <h3 class="profiles">-</h3>
-          <div  class="parent">
-              <div>
-                  <span>Height</span>
-                  <h3 class="profiles" style="margin-top: 4px;">169 cm</h3>
-              </div>
-              <div>
-                  <span>Weight</span>
-                  <h3 class="profiles" style="margin-top: 4px;">57.5 kg</h3>
-              </div>
-          </div>
-      </div>
-  </div>
-</div>
+                    {{this.patient?.blood_group}}
+                </h3>
+                <span>Phone Number</span>
+                <h3 class="profiles">{{this.patient?.telephone}}</h3>
+                <span>Email</span>
+                <h3 class="profiles">{{this.patient?.primary_email}}</h3>
+                <span>Address</span>
+                <h3 class="profiles">{{this.patient?.address_type}}</h3>
+                <span>Marital Status</span>
+                <h3 class="profiles">{{this.patient?.marital_status}}</h3>
+                <span>Occupation</span>
+                <h3 class="profiles">{{this.patient?.occupation}}</h3>
+                <span>Language</span>
+                <h3 class="languages">{{this.patient?.language}}</h3>
+                <span>Referred By</span>
+                <h3 class="profiles">{{this.patient?.referred_by}}</h3>
+                <div class="parent">
+                    <div>
+                        <span>Height</span>
+                        <h3 class="profiles" style="margin-top: 4px;">{{this.patient?.height === 'NULL'? '-': this.patient?.height}}cm</h3>
+                    </div>
+                    <div>
+                        <span>Weight</span>
+                        <h3 class="profiles" style="margin-top: 4px;">{{this.patient?.weight === 'NULL' ? '-': this.patient?.weight}} kg</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-<div class="col-10 p-0">
-    <div class="row justify-content-between m-0">
-        <div class="col-4 vitals-edit cards" style="padding: 0;">
+    <div class="col-10 p-0 mt-3">
+        <div class="row justify-content-between m-0">
+            <div class="col-4 vitals-edit cards p-0">
                 <div class="d-flex justify-content-between flex-row">
                     <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;"><p class="vitals-text">Vitals</p>
+                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;">
+                        <p class="vitals-text">Vitals</p>
                     </div>
-                    <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;"><p class="edit-button">Edit</p>
-                    </div> 
+                    <div style="margin: .4rem 0rem 0rem .4rem;cursor: pointer;"  (click)="OpenModal('edit_vitals')" >
+                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;">
+                        <p class="edit-button">Edit</p>
+                    </div>
                 </div>
                 <hr style="border: 1px solid rgba(231, 225, 243, 1);
-                margin-top: -.4rem;">    
+                margin-top: -.4rem;">
                 <div class="d-flex flex-column gap-2" style="margin: 0px 0px 0px 15px;">
                     <div class="d-flex justify-content-around flex-wrap">
                         <img src="assets/New_Images/blood-pressure.png" alt="blood-pressure">
                         <span class="blood-pressure-text">Blood Pressure</span>
                         <span class="pressure-value">120/80</span>
-                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image" style="margin-left: 33px;">
+                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image"
+                            style="margin-left: 33px;">
                     </div>
                     <div class="d-flex justify-content-around flex-wrap">
                         <img src="assets/New_Images/heart-beat.png" alt="heart-beat">
                         <span class="heart-beat">Heart Beat</span>
                         <span class="beat-value">96/min</span>
-                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image" style="margin-left: 28px;">
+                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image"
+                            style="margin-left: 28px;">
                     </div>
                     <div class="d-flex justify-content-around flex-wrap">
                         <img src="assets/New_Images/temperature.png" alt="Temperature">
                         <span class="temperature">Temperature</span>
                         <span class="temperature-value">99.2 C</span>
-                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image" style="margin-left: 36px;">
+                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image"
+                            style="margin-left: 36px;">
                     </div>
                     <div class="d-flex justify-content-around flex-wrap">
                         <img src="assets/New_Images/sPo2.png" alt="SpO2">
                         <span class="spo2">S<sub>p</sub>O2</span>
                         <span class="spo2-value" style="">99</span>
-                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image" style="margin-left: 59px;">
+                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image"
+                            style="margin-left: 59px;">
                     </div>
                     <div class="d-flex justify-content-around flex-wrap">
                         <img src="assets/New_Images/Aspiratory.png" alt="Respiratory-rate">
                         <span class="respiratory">Respiratory Rate</span>
                         <span class="respiratory-time">55/min</span>
-                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image" style="margin-left: 28px;">
+                        <img src="assets/New_Images/material-symbols_info.svg" alt="info-image"
+                            style="margin-left: 28px;">
                     </div>
-                </div> 
+                </div>
                 <hr style="border: 1px solid rgba(231, 225, 243, 1);">
                 <div style="margin: -.3rem 0rem 0rem 2.2rem ;font-family: 'Poppins';">
-                   <span style="color: 
-                   #717E85;"> Updated by</span> <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>  </p> 
+                    <span style="color: 
+                   #717E85;"> Updated by</span>
+                    <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
+                            style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
+                    </p>
                 </div>
-        </div>
-        <div class="col-4 precautions-edit cards" style="padding: 0;">
+            </div>
+            <div class="col-4 precautions-edit cards p-0">
                 <div class="d-flex justify-content-between flex-row">
                     <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;"><p class="precaution-text">Precautions</p>
+                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;">
+                        <p class="precaution-text">Precautions</p>
                     </div>
-                    <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;"><p class="precautions">Edit</p>
-                    </div> 
+                    <div style="margin: .4rem 0rem 0rem .4rem;cursor: pointer;" (click)="OpenModal('edit_precautions')">
+                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;">
+                        <p class="precautions">Edit</p>
+                    </div>
                 </div>
                 <hr style="border: 1px solid rgba(231, 225, 243, 1);
-                margin-top: -.4rem;">    
+                margin-top: -.4rem;">
                 <div class="d-flex flex-column gap-2" style="margin: 0px 0px 0px 15px;">
                     <div class="d-flex justify-content-around flex-wrap">
                         <img src="assets/New_Images/Fall.png" alt="fall">
@@ -158,62 +170,269 @@
                         <span class="covid-value">100%</span>
                     </div>
                     <div class="d-flex justify-content-around flex-wrap">
-                        <img src="assets/New_Images/Pregnant.png" alt="Pregnant">
+                        <img src="assets/New_Images/pregnant.png" alt="Pregnant">
                         <span class="pregnant-text">Pregnant</span>
                         <span class="pregnant-value">-</span>
                     </div>
-                </div> 
+                </div>
                 <hr style="border: 1px solid rgba(231, 225, 243, 1); margin-top: 2.7rem;">
                 <div style="margin: -.3rem 0rem 0rem 2.2rem ;font-family: 'Poppins';">
-                   <span style="color: 
-                   #717E85;"> Updated by</span> <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span> </p> 
+                    <span style="color: 
+                   #717E85;"> Updated by</span>
+                    <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
+                            style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
+                    </p>
                 </div>
-        </div>
-        <div class="col-4 precautions-edit1 cards" style="padding: 0;">
+            </div>
+            <div class="col-4 precautions-edit1 cards p-0">
                 <div class="d-flex justify-content-between flex-row">
                     <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;"><p style="margin: -1.1rem 0rem 1rem 2rem; font-size: 13px !important;font-weight: 500 !important;font-family: 'Poppins';color: #594585 !important;">Precautions</p>
+                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;">
+                        <p
+                            style="margin: -1.1rem 0rem 1rem 2rem; font-size: 13px !important;font-weight: 500 !important;font-family: 'Poppins';color: #594585 !important;">
+                            Precautions</p>
                     </div>
-                    <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;"><p style="margin: -1.1rem 1rem 0rem -.7rem !important;font-size: 13px !important;font-weight: 500 !important;font-family: 'Poppins';color: #594585 !important;">Edit</p>
-                    </div> 
+                    <div style="margin: .4rem 0rem 0rem .4rem;cursor: pointer;" (click)="OpenModal('edit_alerts')">
+                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;">
+                        <p
+                            style="margin: -1.1rem 1rem 0rem -.7rem !important;font-size: 13px !important;font-weight: 500 !important;font-family: 'Poppins';color: #594585 !important;">
+                            Edit</p>
+                    </div>
                 </div>
                 <hr style="border: 1px solid rgba(231, 225, 243, 1); margin-top: -0.4rem;">
                 <div class="d-flex button-container justify-content-around flex-wrap">
                     <button>High Blood Pressure</button>
                     <button>Pacemaker Tube</button>
                 </div>
-                <hr style="border: 1px solid rgba(231, 225, 243, 1); margin-top: 7rem;">
+                <hr style="border: 1px solid rgba(231, 225, 243, 1); margin-top: 7.1rem;">
                 <div style="margin: -.3rem 0rem 0rem 2.2rem ;">
                     <span style="color: 
                     #717E85;"> Updated by</span>
                     <div style="font-family: 'Poppins';">
-                        <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>  </p> 
+                        <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
+                                style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
+                        </p>
                     </div>
-                 </div>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <!--edit_vitals popup-->
+        <div bsModal #edit_vitals="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+              <div class="modal-content" style="width: 85%;">
+                <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
+                  <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Edit Vitals
+                  </h1>
+                  <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('edit_vitals')"
+                    style="cursor: pointer;">
+                </div>
+                <div class="row p-4 d-flex justify-content-around flex-row mt-4">
+                    <div class="col-5 w-48 p-0 vitals_border">
+                        <div class="border-right">
+                            <img src="assets/New_Images/edit_bloodgroup.png" alt="edit_bloodgroup" width="40px" height="40px">
+                        </div>
+                        <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
+                            <label for="blood_pressure" class="text-label me-auto ms-2">Blood Pressure</label>
+                            <input type="text" class="edit-input">
+                        </div>
+                    </div>
+                    <div class="col-5 w-48 p-0 vitals_border">
+                        <div class="border-right">
+                            <img src="assets/New_Images/edit_heartbeat.png" alt="edit_heartbeat" width="40px" height="40px">
+                        </div>
+                        <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
+                            <label for="blood_pressure" class="text-label me-auto ms-2">Heart Beat</label>
+                            <input type="text" class="edit-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-4 d-flex justify-content-around flex-row">
+                    <div class="col-5 w-48 p-0 vitals_border">
+                        <div class="border-right">
+                            <img src="assets/New_Images/edit_respiratory.png" alt="edit_respiratory" width="40px" height="40px">
+                        </div>
+                        <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
+                            <label for="blood_pressure" class="text-label me-auto ms-2">S<sub>p</sub>O2</label>
+                            <input type="text" class="edit-input">
+                        </div>
+                    </div>
+                    <div class="col-5 w-48 p-0 vitals_border">
+                        <div class="border-right">
+                            <img src="assets/New_Images/edit_SpO2.png" alt="edit_SpO2" width="40px" height="40px">
+                        </div>
+                        <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
+                            <label for="blood_pressure" class="text-label me-auto ms-2">Respiratory Rate</label>
+                            <input type="text" class="edit-input">
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-4 ms-3">
+                    <div class="col-6 p-0 vitals_border" style="width: 43.5%;">
+                        <div class="border-right">
+                            <img src="assets/New_Images/edit_temperature.png" alt="edit_temperature" width="40px" height="40px">
+                        </div>
+                        <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
+                            <label for="blood_pressure" class="text-label me-auto ms-2">Temperature</label>
+                            <div class="d-flex ms-2">
+                                <input type="text" class="edit-input" style="border-radius: 4px 0px 0px 4px !important;width: 70% !important;">
+                            <span class="temperature-cel">in cel</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                  <div class="d-flex justify-content-center p-3 mt-3">
+                    <button type="button" class="btn-new me-2"
+                      style="background:#ffffff !important;color: #594585 !important;width: auto !important; border: 1px solid #594585 !important; font-weight: 500;
+                      font-size: 12px !important;
+                  " (click)="CloseModal('edit_vitals')"
+                      >Cancel</button>
+                    <button type="button" class="btn-new" style="width: auto !important;" >Update</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <!--edit_precautions popup-->
+          <div bsModal #edit_precautions="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+              <div class="modal-content" style="width: 85%;">
+                <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
+                  <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Edit Precautions
+                  </h1>
+                  <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('edit_precautions')"
+                    style="cursor: pointer;">
+                </div>
+                <div class="row p-4 d-flex justify-content-around">
+                    <div class="col-6 precautions-border p-0 mt-2" style="height: 10rem;">
+                        <div class="d-flex justify-content-between precautions-spacings">
+                            <img src="assets/New_Images/edit-fall.png" alt="fall" width="30px" height="30px">
+                            <span class="precautions_texts me-auto mt-1 ms-2 ">Fall</span>
+                            <div class="form-check form-switch form-switch-md ps-0">
+                                <input type="checkbox" class="form-check-input ms-3 mt-1" (change)="toggleSlider($event,'fall')">
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <input type="text" name="precautions" class="precautions-input" [disabled]="isSliderDisabled">
+                            <ngx-slider style="height: 40px;margin: 25px 0 15px;"  [(value)]="value" [options]="options"></ngx-slider>
+                        </div>
+                    </div>
+                    <div class="col-6 precautions-border p-0 mt-2" style="height: 10rem;">
+                        <div class="d-flex justify-content-between precautions-spacings">
+                            <img src="assets/New_Images/edit-isolation.png" alt="isolation" width="30px" height="30px">
+                            <span class="precautions_texts me-auto mt-1 ms-2 ">Isolation</span>
+                            <div class="form-check form-switch form-switch-md ps-0">
+                                <input type="checkbox" class="form-check-input ms-3 mt-1" (change)="toggleSlider($event,'isolation')">
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <input type="text" name="precautions" class="precautions-input" [disabled]="isSliderDisabled1">
+                            <ngx-slider style="height: 40px;margin: 25px 0 15px;" [(value)]="value" [options]="options"></ngx-slider>
+                        </div>
+                    </div>
+                </div>
+                <div class="row p-4 d-flex justify-content-around">
+                    <div class="col-6 precautions-border p-0 mt-2" style="height: 10rem;">
+                        <div class="d-flex justify-content-between precautions-spacings">
+                            <img src="assets/New_Images/edit-pregnant.png" alt="pregnant" width="30px" height="30px">
+                            <span class="precautions_texts me-auto mt-1 ms-2 ">Pregnant</span>
+                            <div class="form-check form-switch form-switch-md ps-0">
+                                <input type="checkbox" class="form-check-input ms-3 mt-1" (change)="toggleSlider($event,'pregnant')">
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <input type="text" name="precautions" class="precautions-input" [disabled]="isSliderDisabled2">
+                            <ngx-slider style="height: 40px;margin: 25px 0 15px;" [(value)]="value" [options]="options"></ngx-slider>
+                        </div>
+                    </div>
+                    <div class="col-6 precautions-border p-0 mt-2" style="height: 10rem;">
+                        <div class="d-flex justify-content-between precautions-spacings">
+                            <img src="assets/New_Images/edit-covid.png" alt="covid" width="30px" height="30px">
+                            <span class="precautions_texts me-auto mt-1 ms-2 ">COVID</span>
+                            <div class="form-check form-switch form-switch-md ps-0">
+                                <input type="checkbox" class="form-check-input ms-3 mt-1" (change)="toggleSlider($event,'covid')">
+                            </div>
+                        </div>
+                        <div style="padding: 20px;">
+                            <input type="text" name="precautions" class="precautions-input" [disabled]="isSliderDisabled3">
+                            <ngx-slider style="height: 40px;margin: 25px 0 15px;" [(value)]="value" [options]="options"></ngx-slider>
+                        </div>
+                    </div>  
+                </div>
+                  <div class="d-flex justify-content-center p-3 mt-1">
+                    <button type="button" class="btn-new me-2"
+                      style="background:#ffffff !important;color: #594585 !important;width: auto !important; border: 1px solid #594585 !important; font-weight: 500;
+                      font-size: 12px !important;
+                  " (click)="CloseModal('edit_precautions')"
+                      >Cancel</button>
+                    <button type="button" class="btn-new" style="width: auto !important;" >Update</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <!--alerts popup precautions-->
+          <div bsModal #edit_alerts="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+              <div class="modal-content" style="width: 85%;">
+                <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
+                  <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Choose the Alerts
+                  </h1>
+                  <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('edit_alerts')"
+                    style="cursor: pointer;">
+                </div>
+                <div class="d-flex justify-content-between p-2 m-4" style="border-bottom: 1px solid #D9D9D9;">
+                    <input class="form-check-input" type="checkbox" style="width: 24px !important;height: 24px !important;">
+                    <label class="me-auto ms-1 mt-2" style="font-family: 'Poppins';font-weight: 500;font-size: 13px;color: #2B3B3E;">Select all Alert</label>
+                    <a class="mt-2 mb-auto" href="#reset" style="font-family: 'Poppins';font-weight: 500;font-size: 12px;color: #594585;  border-bottom: 1px solid #594585 !important;">Reset</a>
+                </div>
+                <div class="d-flex justify-content-around">
+                    <button class="edit_alerts_buttons">High Blood Pressure</button>
+                    <button class="edit_alerts_buttons">Nasogastric Tube</button>
+                    <button class="edit_alerts_buttons">Pacemaker Tube</button>
+                    <button class="edit_alerts_buttons">Cochlea Implants</button>
+                </div>
+                <div class="d-flex justify-content-around mt-4">
+                    <button class="edit_alerts_buttons">Adrenal Insufficiency</button>
+                    <button class="edit_alerts_buttons">Glucose 6 Hosphate</button>
+                </div>
+                  <div class="d-flex justify-content-center p-3 mt-3">
+                    <button type="button" class="btn-new me-2"
+                      style="background:#ffffff !important;color: #594585 !important;width: auto !important; border: 1px solid #594585 !important; font-weight: 500;
+                      font-size: 12px !important;
+                  " (click)="CloseModal('edit_alerts')"
+                      >Cancel</button>
+                    <button type="button" class="btn-new" style="width: auto !important;" >Update</button>
+                  </div>
+              </div>
+            </div>
+          </div>
         <div class="row mt-3 m-0">
             <div class="col-12 p-0">
                 <ul class="nav nav-tabs nav-tabs-custom nav-justified" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" data-bs-toggle="tab" href="#clinical_items" role="tab" aria-selected="true">
-                            <h1 class="d-none d-sm-block name"> <img src="assets/New_Images/clinical_history.png" alt="clinical"> Clinical History</h1>
+                        <a class="nav-link active" data-bs-toggle="tab" href="#clinical_items" role="tab"
+                            aria-selected="true">
+                            <h1 class="d-none d-sm-block name nav_tabs_texts"> <img src="assets/New_Images/clinical_history.png"
+                                    alt="clinical"> Clinical History</h1>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" data-bs-toggle="tab" href="#labs" role="tab" aria-selected="false">
-                            <h1 class="d-none d-sm-block name"><img src="assets/New_Images/labs.png" alt="clinical">Labs</h1>
+                            <h1 class="d-none d-sm-block name nav_tabs_texts"><img src="assets/New_Images/labs.png" alt="clinical">Labs
+                            </h1>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" data-bs-toggle="tab" href="#medication" role="tab" aria-selected="false">
-                            <h1 class="d-none d-sm-block name"><img src="assets/New_Images/medication.png" alt="clinical">Medication</h1>
+                            <h1 class="d-none d-sm-block name nav_tabs_texts"><img src="assets/New_Images/medication.png"
+                                    alt="clinical">Medication</h1>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" data-bs-toggle="tab" href="#care_team" role="tab" aria-selected="false">
-                            <h1 class="d-none d-sm-block name"><img src="assets/New_Images/care_team.png" alt="clinical">Care Team</h1>
+                            <h1 class="d-none d-sm-block name nav_tabs_texts"><img src="assets/New_Images/care_team.png"
+                                    alt="clinical">Care Team</h1>
                         </a>
                     </li>
                 </ul>
@@ -222,13 +441,57 @@
                         <app-clinical-history-tab></app-clinical-history-tab>
                     </div>
                     <div id="labs" class="tab-pane fade" role="tabpanel">
-                     </div>
+                        <app-labs></app-labs>
+                    </div>
                     <div id="medication" class="tab-pane fade" role="tabpanel">
-                     </div>
+                        <app-medication></app-medication>
+                    </div>
                     <div id="care_team" class="tab-pane fade" role="tabpanel">
-                     </div>
+                        <app-care-team></app-care-team>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-3 m-0 d-flex justify-content-between mb-4">
+            <div class="col-8 other-details cards p-0">
+                <div class="d-flex ms-2">
+                    <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger"><span class="other-text ms-2">Other
+                        details</span>
+                </div>
+                <hr class="mt-0" style="color:rgba(231, 225, 243, 1);">
+                <div class="ms-3">
+                    <h4 class="notes-title">Speciality</h4>
+                    <p class="content-style">Diagnostic</p>
+                    <h4 class="notes-title">Critical Information</h4>
+                    <p class="content-style">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente eum
+                        fugit aperiam ullam quae minus, voluptatum officia facere rem esse velit repellat hic unde! Nam
+                        eius ullam blanditiis eligendi quia!</p>
+                    <h4 class="notes-title">Notes</h4>
+                    <p class="content-style">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam reiciendis
+                        provident harum dolorum laudantium voluptatum enim, et iste exercitationem blanditiis,
+                        dignissimos officia. Expedita, sed? Non eligendi dolore totam assumenda consectetur.</p>
+                </div>
+            </div>
+            <div class="col-4 documents cards p-0">
+                <div class="d-flex ms-2">
+                    <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger"><span
+                        class="other-text ms-2">Documents</span>
+                </div>
+                <hr class="mt-0" style="color:rgba(231, 225, 243, 1);">
+                <div class="d-flex flex-row justify-content-between ms-3">
+                    <h4 class="download-content">Scanned report.pdf
+                    </h4>
+                    <img src="assets/New_Images/fa_download.png" class="me-3" alt="download" width="16px" height="15px">
+                </div>
+                <hr style="color: #B1CBD4; border: 0.5px dotted;margin: 0;width: 93%;" class="ms-3">
+                <div class="d-flex flex-row justify-content-between ms-3 mt-2">
+                    <h4 class="download-content">Scanned report.pdf
+                    </h4>
+                    <img src="assets/New_Images/fa_download.png" class="me-3" alt="download" width="16px" height="15px">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+   
