@@ -221,3 +221,109 @@
   :host ::ng-deep .content{
     margin-top: 1px !important;
   }
+
+  .back_to_list{
+    background-image: url('/assets/New_Images/back_to_patientlist.svg') !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+    background-position: 4px !important;
+    background-size: 20px !important;
+  }
+
+  .avatar-md{
+    height: 2.5rem !important;
+    width : 2.5rem !important;
+  }
+  .rounded-circle{
+    // background: #E2E2E2 !important;
+    border: 2px solid #ffff !important;
+    padding: 0.35rem !important;
+  }
+
+  .Section-label{
+    color: #526A84 !important;
+    font-weight: 580 !important;
+  }
+
+  .field-label{
+    color: #717E85 !important;
+    white-space: nowrap;
+  }
+
+  .male_outline{
+    border: 1px solid #B1CBD4;border-radius: 6px;padding: 6px 16px;
+  }
+
+  .female_outline{
+    border: 1px solid #B1CBD4;border-radius: 6px;padding: 6px 16px;
+  }
+
+  .male_fill{
+    background: #50C8EF;
+    border: none;
+    border-radius: 6px;padding: 6px 16px;
+    h5{
+      color: #fff !important;
+    }
+  }
+
+  .female_fill{
+    background: #FC7CB4;
+    border: none;border-radius: 6px;padding: 6px 16px;
+    h5{
+      color: #fff !important;
+    }
+  }
+
+  .bg-color{
+    background: #594585;
+  }
+
+  .bg-gray{
+    background: #E2E2E2;
+  }
+
+  .completed{
+    background-image: url('/assets/New_Iamges/completed_tick.svg');
+    background-position: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .rejected{
+    background-image: url('/assets/New_Iamges/rejected.svg');
+    background-position: 20px;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .outer_card{
+    background: rgba(89, 69, 133, 0.05);
+    border-radius: 10px;
+    width: fit-content;
+  }
+
+  .field_img{
+  background: rgba(89, 69, 133, 0.1);
+  border-radius: 10px 0px 0px 10px;
+  padding: 15px;
+  }
+
+  .new_label{
+    width: auto;
+    border: 1px solid #B1CBD4;
+    color: #717E85;
+    text-wrap: nowrap;
+    padding: 6px;
+    background: #E8E8E8;
+    border-radius: 0px 4px 4px 0px;
+    height: 35px
+  }
+
+  .file_upload_area{
+    background: #F5F5F5;
+    padding: 5px;
+    width: 100%;
+    margin: 0px !important;
+    height: 100%;
+  }

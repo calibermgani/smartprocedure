@@ -20,6 +20,7 @@ import { LabsComponent } from './labs/labs.component';
 import { MedicationComponent } from './medication/medication.component';
 import { CareTeamComponent } from './care-team/care-team.component';
 import { NgxSliderModule } from 'ngx-slider-v2';
+import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { NgxSliderModule } from 'ngx-slider-v2';
     ModalModule.forRoot(),
     MaterialManagementModule,
     SharedModule,
-    NgxSliderModule
+    NgxSliderModule,
+    NgxDropzoneModule,
   ]
 })
 export class PatientRegistrationModule { }

@@ -471,3 +471,609 @@
     </ng-stepper> -->
 
 
+
+    <div class="row" style="padding-bottom: 20px;border-bottom: 1px solid rgba(0, 0, 0, 0.1);">
+      <div class="col-12">
+        <div class="d-flex justify-content-between align-items-center">
+          <h2 style="color: #526A84 !important;" class="mb-0">New Patient Registration</h2>
+          <button class="btn-secondary back_to_list" style="padding: 2px 7px 2px 31px !important;"
+            (click)="BackToPatientList()">Patient Listing</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col-2 ps-5 py-5">
+        <div class="d-flex flex-column py-5">
+          <div class="d-flex pointer" (click)="SelectCurrentPage('Personal Details')">
+            <div class="flex-shrink-0" style="z-index: 9;position: relative;">
+              <img [src]="this.CurrentPage == 'Personal Details' ? 'assets/New_Images/Personal_Details_white.svg': 'assets/New_Images/Personal_Details_grey.svg' " class="avatar-md rounded-circle img-thumbnail" [ngClass]="this.CurrentPage == 'Personal Details' ? 'bg-color' : 'bg-gray' ">
+              <div *ngIf="StageOne == true && this.CurrentPage != 'Personal Details' ">
+                <img [src]=" this.personaldetailsform.valid ? '/assets/New_Images/completed_tick.svg' : '/assets/New_Images/rejected.svg' " style="position: absolute;top: 25px;right: 0px;">
+              </div>
+
+            </div>
+            <div class="flex-grow-0 align-self-center"
+              style="border-left: 2px solid #FFFFFF;height: 100px;position: relative;right: 22px;padding-left: 40px;padding-top: 11px;">
+              <div class="text-muted">
+                <h5 class="mb-0 Section-label">Personal Details</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex pointer" (click)="SelectCurrentPage('Contact Details')">
+            <div class="flex-shrink-0" style="z-index: 9;position: relative;">
+              <img [src]="this.CurrentPage == 'Contact Details' ? 'assets/New_Images/contact_details_white.svg': 'assets/New_Images/contact_details_grey.svg' " class="avatar-md rounded-circle img-thumbnail" [ngClass]="this.CurrentPage == 'Contact Details' ? 'bg-color' : 'bg-gray' ">
+              <div *ngIf="this.StageTwo == true && this.CurrentPage != 'Contact Details'  ">
+                <img [src]=" this.contactDetailsform.valid ? '/assets/New_Images/completed_tick.svg' : '/assets/New_Images/rejected.svg' " style="position: absolute;top: 25px;right: 0px;">
+              </div>
+            </div>
+            <div class="flex-grow-0 align-self-center"
+              style="border-left: 2px solid #FFFFFF;height: 100px;position: relative;right: 22px;padding-left: 40px;padding-top: 11px;">
+              <div class="text-muted">
+                <h5 class="mb-0 Section-label">Contact Details</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex pointer" (click)="SelectCurrentPage('Health Details')">
+            <div class="flex-shrink-0" style="z-index: 9;position: relative;">
+              <img [src]="this.CurrentPage == 'Health Details' ? 'assets/New_Images/health_details_white.svg': 'assets/New_Images/health_details_grey.svg' "  class="avatar-md rounded-circle img-thumbnail" [ngClass]="this.CurrentPage == 'Health Details' ? 'bg-color' : 'bg-gray' ">
+              <div *ngIf="this.StageThree == true && this.CurrentPage != 'Health Details'  ">
+                <img [src]=" this.healthdetailsform.valid ? '/assets/New_Images/completed_tick.svg' : '/assets/New_Images/rejected.svg' " style="position: absolute;top: 25px;right: 0px;">
+              </div>
+            </div>
+            <div class="flex-grow-0 align-self-center"
+              style="border-left: 2px solid #FFFFFF;height: 100px;position: relative;right: 22px;padding-left: 40px;padding-top: 11px;">
+              <div class="text-muted">
+                <h5 class="mb-0 Section-label">Health Details</h5>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex pointer" (click)="SelectCurrentPage('Other Details')">
+            <div class="flex-shrink-0" style="z-index: 9;position: relative;">
+              <img [src]="this.CurrentPage == 'Other Details' ? 'assets/New_Images/other_details_white.svg': 'assets/New_Images/other_details_grey.svg' " class="avatar-md rounded-circle img-thumbnail" [ngClass]="this.CurrentPage == 'Other Details' ? 'bg-color' : 'bg-gray' ">
+              <div *ngIf="this.ReachedEnd == true && this.CurrentPage != 'Other Details'  ">
+                <img [src]=" this.otherdetailsform.valid  ? '/assets/New_Images/completed_tick.svg' : '/assets/New_Images/rejected.svg' " style="position: absolute;top: 25px;right: 0px;">
+              </div>
+            </div>
+            <div class="flex-grow-0 align-self-center"
+              style="position: relative;right: 22px;padding-left: 40px;">
+              <div class="text-muted">
+                <h5 class="mb-0 Section-label">Other Details</h5>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-10">
+
+        <!-- Personal Details -->
+        <div *ngIf="this.CurrentPage == 'Personal Details'">
+          <div class="cards" style="width: 95% !important;height: 570px !important;overflow-y: scroll;">
+            <form [formGroup]="personaldetailsform">
+              <div class="row m-4">
+                <h4 class="mb-4">Personal Details</h4>
+                <div class="col-9">
+                  <div class="row  mb-4">
+                    <div class="col-6">
+                      <div class="d-flex">
+                        <div style="width: 15%;" class="me-3">
+                          <h5 class="field-label">Title<span style="color: red;">*</span></h5>
+                          <ng-select [items]="['Mr','Mrs','Ms']" formControlName="title"></ng-select>
+                          <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                            <div *ngIf="(this.personaldetailsform.controls.title.dirty || this.personaldetailsform.controls.title.touched) && this.personaldetailsform.controls.title.errors?.required">
+                              Please fill the field</div>
+                          </div>
+                        </div>
+                        <div style="width: 85%;">
+                          <h5 class="field-label">First Name<span style="color: red;">*</span></h5>
+                          <input class="form-control" type="text" placeholder="Enter First Name" formControlName="first_name" appPreventSpaces>
+                          <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                            <div
+                              *ngIf="(this.personaldetailsform.controls.first_name.dirty || this.personaldetailsform.controls.first_name.touched) && this.personaldetailsform.controls.first_name.errors?.required">
+                              Please fill the field</div>
+                            <div
+                              *ngIf="(this.personaldetailsform.controls.first_name.dirty || this.personaldetailsform.controls.first_name.touched) && this.personaldetailsform.controls.first_name.errors?.pattern">
+                              Please enter only alphabets</div>
+                            <div
+                              *ngIf="(this.personaldetailsform.controls.first_name.dirty || this.personaldetailsform.controls.first_name.touched) && this.personaldetailsform.controls.first_name.errors?.maxlength">
+                              Must not exceed 50 characters.</div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div>
+                        <h5 class="field-label">Middle Name<span style="color: red;">*</span></h5>
+                        <input class="form-control" type="text" placeholder="Enter Middle Name" formControlName="middle_name" appPreventSpaces>
+                        <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                          <div
+                            *ngIf="(this.personaldetailsform.controls.middle_name.dirty || this.personaldetailsform.controls.middle_name.touched) && this.personaldetailsform.controls.middle_name.errors?.required">
+                            Please fill the field</div>
+                          <div
+                            *ngIf="(this.personaldetailsform.controls.middle_name.dirty || this.personaldetailsform.controls.middle_name.touched) && this.personaldetailsform.controls.middle_name.errors?.pattern">
+                            Please enter only alphabets</div>
+                          <div
+                            *ngIf="(this.personaldetailsform.controls.middle_name.dirty || this.personaldetailsform.controls.middle_name.touched) && this.personaldetailsform.controls.middle_name.errors?.maxlength">
+                            Must not exceed 50 characters.</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <div class="col-6">
+                      <div>
+                        <h5 class="field-label">Surname</h5>
+                        <input class="form-control" type="text" placeholder="Enter Last Name" formControlName="last_name">
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="d-flex">
+                        <div style="width: 85%;" class="me-3">
+                          <h5 class="field-label">DOB<span style="color: red;">*</span></h5>
+                          <input type="text" placeholder="Select Date" class="form-control" bsDatepicker
+                            [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }"
+                            formControlName="dob">
+                            <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                              <div
+                                *ngIf="(this.personaldetailsform.controls.dob.dirty || this.personaldetailsform.controls.dob.touched) && this.personaldetailsform.controls.dob.errors?.required">
+                                Please fill the field</div>
+                            </div>
+                        </div>
+                        <div style="width: 15%;">
+                          <h5 class="field-label">Age</h5>
+                          <input class="form-control" type="number"  formControlName="age">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <div class="col-6">
+                      <div>
+                        <h5 class="field-label">Gender<span style="color: red;">*</span></h5>
+                        <div class="d-flex">
+                          <div class="me-3 pointer" [ngClass]="SelectedGender == 'Male' ? 'male_fill' : 'male_outline' "
+                            (click)="SelectGender('Male')">
+                            <h5 class="mb-0"><img src="assets/New_Images/Male.svg"
+                                [src]="SelectedGender == 'Male' ? 'assets/New_Images/Male_fill.svg' : 'assets/New_Images/Male.svg'"
+                                class="me-2" >Male</h5>
+                          </div>
+                          <div [ngClass]="SelectedGender == 'Female' ? 'female_fill pointer' : 'female_outline pointer' "
+                            (click)="SelectGender('Female')">
+                            <h5 class="mb-0"><img
+                                [src]="SelectedGender == 'Female' ? 'assets/New_Images/Female_fill.svg' : 'assets/New_Images/Female.svg'"
+                                class="me-2">Female</h5>
+                          </div>
+                        </div>
+                        <div *ngIf="this.personaldetailsform.invalid" class="invalid-feedback">
+                          <div
+                            *ngIf="(this.personaldetailsform.controls.gender.dirty || this.personaldetailsform.controls.gender.touched) && this.personaldetailsform.controls.gender.errors?.required">
+                            Please fill the field</div>
+                        </div>
+
+
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div>
+                        <h5 class="field-label">Marital Status</h5>
+                        <ng-select [items]="['Married','Unmarried','Single']" placeholder="Select the Status"
+                          formControlName="martial_status"></ng-select>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row mb-4">
+                    <div class="col-6">
+                      <div>
+                        <h5 class="field-label">Name of Children</h5>
+                        <input type="text" class="form-control" placeholder="" formControlName="children_name">
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div>
+                        <h5 class="field-label">Name of Partner</h5>
+                        <input type="text" class="form-control" formControlName="partner_name">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mb-4">
+                    <div class="col-6">
+                      <div>
+                        <h5 class="field-label">Language</h5>
+                        <ng-select [items]="[]" placeholder="Select the Language" formControlName="language"></ng-select>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div>
+                        <h5 class="field-label">Referred By</h5>
+                        <input type="text" class="form-control" formControlName="referred_by">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-3 d-flex justify-content-center align-items-center">
+                  <div class="position-relative d-inline-block">
+                    <div class="position-absolute bottom-0 end-0">
+                      <label for="project-image-input" class="mb-0" data-bs-toggle="tooltip" data-bs-placement="right"
+                        title="Select Image">
+                        <div class="avatar-xs">
+                          <div class="avatar-title bg-light border rounded-circle text-muted cursor-pointer shadow font-size-16"
+                            style="background: #594585 !important;">
+                            <img src="assets/New_Images/upload_pic.svg" style="width: 20px;height: 20px;">
+                          </div>
+                        </div>
+                      </label>
+                      <input class="form-control d-none" value="" id="project-image-input" type="file"
+                        accept="image/png, image/gif, image/jpeg" (change)="AddImage($event)">
+                    </div>
+                    <div class="avatar-lg" style="width: 10rem !important;height: 10rem !important;">
+                      <div class="avatar-title bg-light rounded-circle" style="padding: 0px !important;">
+                        <img
+                          [src]="this.ProfileImage != null ? this.ProfileImage : 'assets/New_Images/Default_Patient_Img.svg' "
+                          id="projectlogo-img" class="avatar-md h-auto rounded-circle"
+                          style="width: 10rem !important;height: 10rem !important;padding: 0px !important;" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="d-flex justify-content-between align-items-center my-3" style="width: 95%;">
+            <div class="d-flex">
+              <img src="assets/New_Images/exclamation.svg">
+              <h5 class="mb-0">Fill all fields that have asterisk<span style="color: red;">*</span></h5>
+            </div>
+            <div>
+              <button type="button" class="btn-secondary me-2" style="padding:5px 12px 5px 12px !important">Cancel</button>
+              <button type="button" class="btn-primary" style="padding:5px 20px 5px 20px !important"
+                (click)="NextToPersonalDetails(this.personaldetailsform)">Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contact Details -->
+        <div *ngIf="this.CurrentPage == 'Contact Details' ">
+          <div class="cards" style="width: 95% !important;height: 570px !important;overflow-y: scroll;">
+            <form [formGroup]="contactDetailsform">
+              <div class="row m-4">
+                <h4 class="mb-4">Contact Details</h4>
+
+                <div class="row mb-4">
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Primary Telephone<span style="color: red;">*</span></h5>
+                      <input class="form-control" type="text" placeholder="Enter Telephone Number" formControlName="telephone_number" appPreventSpaces>
+                      <div *ngIf="this.contactDetailsform.invalid" class="invalid-feedback">
+                        <div
+                          *ngIf="(this.contactDetailsform.controls.telephone_number.dirty || this.contactDetailsform.controls.telephone_number.touched) && this.contactDetailsform.controls.telephone_number.errors?.required">
+                          Please fill the field</div>
+                          <div
+                          *ngIf="(this.contactDetailsform.controls.telephone_number.dirty || this.contactDetailsform.controls.telephone_number.touched) && this.contactDetailsform.controls.telephone_number.errors?.pattern">
+                          Please enter only numbers</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Primary Email<span style="color: red;">*</span></h5>
+                      <input class="form-control" type="text" placeholder="Enter Email Id" formControlName="email">
+                      <div *ngIf="this.contactDetailsform.invalid" class="invalid-feedback">
+                        <div
+                          *ngIf="(this.contactDetailsform.controls.email.dirty || this.contactDetailsform.controls.email.touched) && this.contactDetailsform.controls.email.errors?.required">
+                          Please fill the field</div>
+                        <div
+                          *ngIf="(this.contactDetailsform.controls.email.dirty || this.contactDetailsform.controls.email.touched) && this.contactDetailsform.controls.email.errors?.email">
+                         Please enter a valid email address</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex">
+                      <div style="width: 50%;" class="me-3">
+                        <h5 class="field-label">Flat Unit No</h5>
+                        <input class="form-control" type="text" placeholder="Enter Flat No" formControlName="flatNo">
+                      </div>
+                      <div style="width: 50%;">
+                        <h5 class="field-label">Street No</h5>
+                        <input class="form-control" type="text" placeholder="Enter Street No" formControlName="StreetNo">
+                      </div>
+                    </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Street Name</h5>
+                      <input class="form-control" type="text" placeholder="Enter Street Name" formControlName="StreetName">
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Subrub</h5>
+                      <input class="form-control" type="text" placeholder="Enter Suburb" formControlName="suburb">
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Town City</h5>
+                      <input class="form-control" type="text" placeholder="Enter your city" formControlName="town">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">State</h5>
+                    <ng-select [items]="[]" formControlName="state"></ng-select>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Subrub</h5>
+                      <input class="form-control" type="text" placeholder="Enter Suburb" formControlName="postcode">
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="d-flex justify-content-between align-items-center my-3" style="width: 95%;">
+            <div class="d-flex">
+              <img src="assets/New_Images/exclamation.svg">
+              <h5 class="mb-0">Fill all fields that have asterisk<span style="color: red;">*</span></h5>
+            </div>
+            <div>
+              <button type="button" class="btn-secondary me-2" style="padding:5px 12px 5px 12px !important" >Cancel</button>
+              <button type="button" class="btn-primary me-2" style="padding:5px 20px 5px 20px !important"
+              (click)="BackTopersonalDetails()">Previous</button>
+              <button type="button" class="btn-primary" style="padding:5px 20px 5px 20px !important"
+                (click)="NextToHealthDetails(this.contactDetailsform)">Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Health Details -->
+        <div *ngIf="this.CurrentPage == 'Health Details' ">
+          <div class="cards" style="width: 95% !important;height: 570px !important;">
+            <form [formGroup]="healthdetailsform">
+              <div class="row m-4">
+                <h4 class="mb-4">Contact Details</h4>
+
+                <div class="row mb-5">
+                  <div class="col-4">
+                    <div class="d-flex align-items-center outer_card">
+                      <span class="field_img"><img src="assets/New_Images/blood_group.svg" width="55px"></span>
+                      <div class="px-4 py-2" style="width: 100%;">
+                        <h5 class="field-label">Blood Group</h5>
+                        <input class="form-control mb-2" type="text" placeholder="" formControlName="bloodgroup">
+                      </div>
+                    </div>
+                    <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
+                      <div
+                        *ngIf="(this.healthdetailsform.controls.Patient_type.dirty || this.healthdetailsform.controls.Patient_type.touched) && this.healthdetailsform.controls.Patient_type.errors?.required">
+                        Please fill the field</div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex align-items-center outer_card">
+                      <span class="field_img"><img src="assets/New_Images/height_SVG.svg" width="55px"></span>
+                      <div class="px-4 py-2" style="width: 100%;">
+                        <h5 class="field-label">Height</h5>
+                        <div class="d-flex align-items-center">
+                          <input class="form-control mb-2" type="text" placeholder="" formControlName="height" style="border-radius: 4px 0px 0px 4px !important;border-right:none !important">
+                          <span class="new_label mb-2 mb-2"><h5 class="mb-0" style="color: #717E85 !important;font-weight: 580 !important;">in cm</h5></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex align-items-center outer_card">
+                      <span class="field_img"><img src="assets/New_Images/weight_SVG.svg" width="55px"></span>
+                      <div class="px-4 py-2" style="width: 100%;">
+                        <h5 class="field-label">Weight</h5>
+                        <div class="d-flex align-items-center">
+                          <input class="form-control mb-2" type="text" placeholder="" formControlName="weight" style="border-radius: 4px 0px 0px 4px !important;border-right:none !important">
+                          <span class="new_label mb-2"><h5 class="mb-0" style="color: #717E85 !important;font-weight: 580 !important;">in kg</h5></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-5">
+                  <div class="col-4">
+                    <div class="d-flex align-items-center outer_card">
+                      <span class="field_img"><img src="assets/New_Images/blood_pressure.svg" width="55px"></span>
+                      <div class="px-4 py-2" style="width: 100%;">
+                        <h5 class="field-label">Blood Pressure</h5>
+                        <input class="form-control mb-2" type="text" placeholder="" formControlName="bloodPressure">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex align-items-center outer_card">
+                      <span class="field_img"><img src="assets/New_Images/heart_beat.svg" width="55px"></span>
+                      <div class="px-4 py-2" style="width: 100%;">
+                        <h5 class="field-label">Heart Beat</h5>
+                        <div class="d-flex align-items-center">
+                          <input class="form-control mb-2" type="text" placeholder="" formControlName="heartBeat">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex align-items-center outer_card">
+                      <span class="field_img"><img src="assets/New_Images/temperature.svg" width="55px"></span>
+                      <div class="px-4 py-2" style="width: 100%;">
+                        <h5 class="field-label">Temperature</h5>
+                        <div class="d-flex align-items-center">
+                          <input class="form-control mb-2" type="text" placeholder="" formControlName="temperature"
+                            style="border-radius: 4px 0px 0px 4px !important;border-right:none !important">
+                          <span class="new_label mb-2">
+                            <h5 class="mb-0" style="color: #717E85 !important;font-weight: 580 !important;">in cel</h5>
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-5">
+                  <div class="col-4">
+                    <div class="d-flex align-items-center outer_card">
+                      <span class="field_img"><img src="assets/New_Images/SPO2.svg" width="55px"></span>
+                      <div class="px-4 py-2" style="width: 100%;">
+                        <h5 class="field-label">SpO2</h5>
+                        <input class="form-control mb-2" type="text" placeholder="" formControlName="spo2">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div class="d-flex align-items-center outer_card">
+                      <span class="field_img"><img src="assets/New_Images/resp_rate.svg" width="55px"></span>
+                      <div class="px-4 py-2" style="width: 100%;">
+                        <h5 class="field-label">Respiratory Rate</h5>
+                        <div class="d-flex align-items-center">
+                          <input class="form-control mb-2" type="text" placeholder="" formControlName="respiratoryRate">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Speciality</h5>
+                      <ng-select [items]="[]" formControlName="Speciality"></ng-select>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Patient Type<span style="color: red;">*</span></h5>
+                      <ng-select [items]="[]" formControlName="Patient_type"></ng-select>
+                      <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
+                        <div
+                          *ngIf="(this.healthdetailsform.controls.Patient_type.dirty || this.healthdetailsform.controls.Patient_type.touched) && this.healthdetailsform.controls.Patient_type.errors?.required">
+                          Please fill the field</div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-4">
+                    <div>
+                      <h5 class="field-label">Priority<span style="color: red;">*</span></h5>
+                      <ng-select [items]="[]" formControlName="Priority"></ng-select>
+                      <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
+                        <div
+                          *ngIf="(this.healthdetailsform.controls.Priority.dirty || this.healthdetailsform.controls.Priority.touched) && this.healthdetailsform.controls.Priority.errors?.required">
+                          Please fill the field</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </form>
+          </div>
+          <div class="d-flex justify-content-between align-items-center my-3" style="width: 95%;">
+            <div class="d-flex">
+              <img src="assets/New_Images/exclamation.svg">
+              <h5 class="mb-0">Fill all fields that have asterisk<span style="color: red;">*</span></h5>
+            </div>
+            <div>
+              <button type="button" class="btn-secondary me-2" style="padding:5px 12px 5px 12px !important">Cancel</button>
+              <button type="button" class="btn-primary me-2" style="padding:5px 20px 5px 20px !important"
+              (click)="BackToContactDetails()">Previous</button>
+              <button type="button" class="btn-primary" style="padding:5px 20px 5px 20px !important"
+                (click)="NextToOtherDetails(this.healthdetailsform)">Next</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Other Details -->
+        <div *ngIf="this.CurrentPage == 'Other Details' ">
+          <div class="cards" style="width: 95% !important;height: 570px !important;">
+            <form [formGroup]="otherdetailsform">
+              <div class="row m-4">
+                <h4 class="mb-4">Contact Details</h4>
+
+                <div class="row mb-5">
+                  <div class="col-6">
+                    <div>
+                      <h5 class="field-label">Critical Information</h5>
+                      <input class="form-control" type="text" placeholder="" formControlName="clientInformation" style="height: 120px !important;">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <h5 class="field-label">Attach Documents</h5>
+                    <ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'image/*,.pdf,.txt,.doc,.docx,.xls,.xlsx,.ppt,.pptx'" style="height: 120px !important;min-height: 120px !important;overflow: hidden !important;">
+                      <ngx-dropzone-label class="file_upload_area">
+                        <div class="d-flex flex-column justify-content-center">
+                          <div class="mb-1">
+                            <img src="assets/New_Images/file_upload.svg" style="width: 50px;height: 50px;">
+                          </div>
+                          <div>
+                            <h5>Drop a file or click to browse</h5>
+                          </div>
+                          <div>
+                            <h6 style="color: #717E85 !important;">Your files should be a .jpg, .pdf, .txt, .doc, .docx</h6>
+                          </div>
+                        </div>
+                      </ngx-dropzone-label>
+                  </ngx-dropzone>
+                  </div>
+                </div>
+
+                <div class="row mb-5">
+                  <div class="col-6">
+                    <div>
+                      <h5 class="field-label">Notes</h5>
+                      <input class="form-control" type="text" placeholder="" formControlName="notes" style="height: 120px !important;">
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <h5 class="field-label">Attached Documents</h5>
+                    <ngx-dropzone-preview   class="border rounded" [removable]="false" (removed)="onRemove()">
+                      <ngx-dropzone-label style="width: 100%;margin-top: 30px;">
+                          <div class="d-flex flex-row justify-content-between mb-2"  *ngFor="let f of NewFiles;let i = index" style="border-bottom: 2px dashed #BACED6;padding: 6px;">
+                            <h5>{{ f.name }}</h5>
+                            <div (click)="onRemove(i)">
+                              <img src="assets/New_Images/delete_icon.svg">
+                            </div>
+                          </div>
+                      </ngx-dropzone-label>
+                  </ngx-dropzone-preview>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+          <div class="d-flex justify-content-between align-items-center my-3" style="width: 95%;">
+            <div class="d-flex">
+              <img src="assets/New_Images/exclamation.svg">
+              <h5 class="mb-0">Fill all fields that have asterisk<span style="color: red;">*</span></h5>
+            </div>
+            <div>
+              <button type="button" class="btn-secondary me-2" style="padding:5px 12px 5px 12px !important">Cancel</button>
+                <button type="button" class="btn-primary me-2" style="padding:5px 20px 5px 20px !important"
+                (click)="BackToHealthDetails()">Previous</button>
+              <button type="button" class="btn-primary" style="padding:5px 20px 5px 20px !important"
+                (click)="RegisterPatient(this.personaldetailsform,this.contactDetailsform,this.healthdetailsform,this.otherdetailsform)">Submit</button>
+            </div>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>

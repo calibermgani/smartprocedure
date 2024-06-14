@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AgGridAngular } from 'ag-grid-angular';
 import { ColDef, GridApi, GridOptions, GridReadyEvent, SelectionChangedEvent, ITooltipParams} from 'ag-grid-community';
@@ -19,7 +19,7 @@ export class PatientListComponent implements OnInit{
   @ViewChild('patientListGrid') patientListGrid!: AgGridAngular;
   @ViewChild('viewitem', { static: false }) viewitem?: ModalDirective;
 
-  constructor(private allService : AllServicesService,private toastr : ToastrService,private router : Router){}
+  constructor(private allService : AllServicesService,private toastr : ToastrService,private router : Router,private cdr: ChangeDetectorRef){}
 
   ngOnInit(): void {}
 
@@ -59,6 +59,10 @@ export class PatientListComponent implements OnInit{
   patient_Info : string;
   pageSize : number;
 
+  SelectedPatientType:string;
+  SelectedBloodGroup:string;
+  SelectedSpeciality:string;
+  SelectedPriority:string;
 
 
   columnMainDefs: ColDef[] = [
@@ -105,9 +109,9 @@ export class PatientListComponent implements OnInit{
 
     },
     {
-      field: 'type',
+      field: 'patient_type',
       headerName: 'Type',
-      cellRenderer: this.cellrendered.bind(this, 'type')
+      cellRenderer: this.cellrendered.bind(this, 'patient_type')
     },
     {
       field: 'blood_group',
@@ -127,6 +131,7 @@ export class PatientListComponent implements OnInit{
     {
       field: 'edit',
       headerName: 'Edit',
+      floatingFilter:false,
       cellRenderer: this.cellrendered.bind(this, 'edit'),
       onCellClicked: this.CellClicked.bind(this, 'edit')
     },
@@ -252,6 +257,9 @@ export class PatientListComponent implements OnInit{
       case 'priority': {
         return params.value ? params.value : '-';
       }
+      case 'patient_type':{
+        return params.value ? params.value : '-';
+      }
       case 'view':{
         return `<div class="d-flex justify-content-center">
         <div><i class="mdi mdi-eye-outline" style="color:#855EDB;font-size:18px"></i></div></div>`
@@ -328,6 +336,12 @@ export class PatientListComponent implements OnInit{
     const selectedNodes: any = event.api.getSelectedRows();
   }
 
+  Patient_type : any[] = [];
+  Blood_Group : any[] = [];
+  Speciality : any[] = [];
+  Priority : any [] = [];
+  TempGriddata : any = [];
+
   onGridReady_1(params: GridReadyEvent) {
     this.gridApi_1 = params.api;
     this.allService.GetPatientList().subscribe({
@@ -335,7 +349,34 @@ export class PatientListComponent implements OnInit{
         if(res.status == 'Success'){
           console.log(res);
           this.patient_list = res.patient_list;
+          this.TempGriddata = this.patient_list;
           this.patientListGrid?.api?.setRowData(this.patient_list);
+
+          const patient_Type = 'patient_type';
+          const ArrayForPatientType = [...new Map(this.patient_list.map(item => [item[patient_Type], item])).values()];
+          console.log('ArrayForPatientType', ArrayForPatientType);
+          this.Patient_type = ArrayForPatientType.map(item => item[patient_Type]);
+          console.log('Patient_type', this.Patient_type);
+
+          const Bloodgroup = 'blood_group';
+          const ArrayForBloodGroup = [...new Map(this.patient_list.map(item => [item[Bloodgroup], item])).values()];
+          console.log('ArrayForBloodGroup', ArrayForBloodGroup);
+          this.Blood_Group = ArrayForBloodGroup.map(item => item[Bloodgroup])
+          console.log('Blood_Group', this.Blood_Group);
+
+          const Speciality = 'specialty'
+          const ArrayForSpeciality = [...new Map(this.patient_list.map(item => [item[Speciality], item])).values()];
+          console.log('ArrayForSpeciality', ArrayForSpeciality);
+          this.Speciality = ArrayForSpeciality.map(item => item[Speciality]);
+          console.log('Speciality', this.Speciality);
+
+          const priority = 'priority'
+          const ArrayForPriority = [...new Map(this.patient_list.map(item => [item[priority], item])).values()];
+          console.log('ArrayForSpeciality', ArrayForPriority);
+          this.Priority = ArrayForPriority.map(item => item[priority]);
+          console.log('Priority', this.Priority);
+
+
         }
       }),
       error:((res:any)=>{
@@ -346,6 +387,245 @@ export class PatientListComponent implements OnInit{
       })
     })
   }
+
+
+  SearchBy(PatientType:any,BloodGroup:any,Speciality:any,Priority:any){
+    // console.log(PatientType);
+    // console.log(BloodGroup);
+    // console.log(Speciality);
+    // console.log(Priority);
+    let GridData = [];
+    let count = 0;
+    if(PatientType == undefined){
+      console.log('in1');
+      count = count+1;
+    }
+    if(BloodGroup == undefined){
+      console.log('in2');
+      count = count+1;
+    }
+    if(Speciality == undefined){
+      console.log('in3');
+      count = count+1;
+    }
+    if(Priority == undefined){
+      console.log('in4');
+      count = count+1;
+    }
+    // console.log(count);
+
+    switch(count){
+      case 3: {
+        this.patient_list.map(item => {
+          if (count == 3) {
+            if (PatientType == item['patient_type'] || BloodGroup == item['blood_group'] || Speciality == item['specialty'] || Priority == item['priority']) {
+              GridData.push(item);
+            }
+          }
+        });
+        this.patientListGrid?.api?.setRowData(GridData);
+        break;
+      }
+      case 1: {
+        this.patient_list.map(item => {
+          if (PatientType == null) {
+            if (BloodGroup == item['blood_group'] && Speciality == item['specialty'] && Priority == item['priority']) {
+              GridData.push(item);
+            }
+          }
+          else if (BloodGroup == null) {
+            if (PatientType == item['patient_type'] && Speciality == item['specialty'] && Priority == item['priority']) {
+              GridData.push(item);
+            }
+          }
+          else if (Speciality == null) {
+            if (PatientType == item['patient_type'] && BloodGroup == item['blood_group'] && Priority == item['priority']) {
+              GridData.push(item);
+            }
+          }
+          else if (Priority == null) {
+            if (PatientType == item['patient_type'] && BloodGroup == item['blood_group'] && Speciality == item['specialty']) {
+              GridData.push(item);
+            }
+          }
+        });
+        this.patientListGrid?.api?.setRowData(GridData);
+        break;
+      }
+      case 2:{
+        this.patient_list.map(item => {
+          if(PatientType == null && BloodGroup == null){
+            if (Speciality == item['specialty'] && Priority == item['priority']){
+                    GridData.push(item);
+              }
+          }
+          else if(PatientType == null && Speciality ==null){
+            if (BloodGroup == item['blood_group'] && Priority == item['priority']){
+                  GridData.push(item);
+              }
+          }
+          else if(PatientType == null && Priority == null){
+            if (BloodGroup == item['blood_group'] && Speciality == item['specialty']) {
+                GridData.push(item);
+              }
+          }
+          else if(BloodGroup == null && Speciality==null){
+            if (PatientType == item['patient_type'] &&  Priority == item['priority']) {
+                  GridData.push(item);
+              }
+          }
+          else if(BloodGroup == null && Priority == null){
+            if (PatientType == item['patient_type'] && Speciality == item['specialty'] ) {
+              GridData.push(item);
+            }
+          }
+          else if(Speciality == null && Priority == null){
+            if (PatientType == item['patient_type'] && BloodGroup == item['blood_group']) {
+              GridData.push(item);
+            }
+          }
+        });
+        this.patientListGrid?.api?.setRowData(GridData);
+        break;
+      }
+      case 4 :{
+        this.patientListGrid?.api?.setRowData(this.TempGriddata);
+        break;
+      }
+    }
+
+    // this.patient_list.map(item => {
+    //   if(PatientType == null){
+    //     if(BloodGroup == item['blood_group'] && Speciality == item['specialty'] && Priority == item['priority']){
+    //       GridData.push(item);
+    //     }
+    //   }
+    //   else if(BloodGroup == null){
+    //     if (PatientType == item['patient_type']  && Speciality == item['specialty'] && Priority == item['priority']) {
+    //       GridData.push(item);
+    //     }
+    //   }
+    //   else if(Speciality == null){
+    //     if (PatientType == item['patient_type'] && BloodGroup == item['blood_group']  && Priority == item['priority']) {
+    //       GridData.push(item);
+    //     }
+    //   }
+    //   else if(Priority == null){
+    //     if (PatientType == item['patient_type'] && BloodGroup == item['blood_group'] && Speciality == item['specialty']) {
+    //       GridData.push(item);
+    //     }
+    //   }
+    //   else if(PatientType == null && BloodGroup == null){
+    //     if (Speciality == item['specialty'] && Priority == item['priority']) {
+    //       GridData.push(item);
+    //     }
+    //   }
+    //   else if(BloodGroup == null && Priority == null){
+    //     if (PatientType == item['patient_type']  && Priority == item['priority']) {
+    //       GridData.push(item);
+    //     }
+    //   }
+    //   else if(Speciality == null  && Priority == null){
+    //     if (PatientType == item['patient_type'] && BloodGroup == item['blood_group'] && Speciality == item['specialty'] && Priority == item['priority']) {
+    //       GridData.push(item);
+    //     }
+    //   }
+    //   else{
+    //     if (PatientType == item['patient_type'] && BloodGroup == item['blood_group'] && Speciality == item['specialty'] && Priority == item['priority']) {
+    //       GridData.push(item);
+    //     }
+    //   }
+
+
+    //   if (count == 3) {
+    //     if (PatientType == item['patient_type'] || BloodGroup == item['blood_group'] || Speciality == item['specialty'] || Priority == item['priority']) {
+    //       GridData.push(item);
+    //       console.log(item);
+    //     }
+    //   }
+
+    // });
+    // this.patientListGrid?.api?.setRowData(GridData);
+  }
+
+  ResetFilter(){
+    this.SelectedPatientType = null;
+    this.SelectedBloodGroup = null;
+    this.SelectedSpeciality = null;
+    this.SelectedPriority = null;
+    this.patientListGrid?.api?.setRowData(this.TempGriddata);
+  }
+
+  SearchbyPatientType(event:any){
+    const Bloodgroup = 'patient_type';
+    let gridData = [];
+    if (event != undefined) {
+      this.patient_list.map(item => {
+        if (event == item[Bloodgroup]) {
+          gridData.push(item)
+        }
+      });
+      console.log(gridData);
+      this.patientListGrid?.api?.setRowData(gridData);
+    }
+    else {
+      this.patientListGrid?.api?.setRowData(this.TempGriddata);
+    }
+  }
+
+  SearchByBloodGroup(event:any){
+    const Bloodgroup = 'blood_group';
+    let gridData = [];
+    if (event != undefined) {
+      this.patient_list.map(item => {
+        if (event == item[Bloodgroup]) {
+          gridData.push(item)
+        }
+      });
+      console.log(gridData);
+      this.patientListGrid?.api?.setRowData(gridData);
+    }
+    else {
+      this.patientListGrid?.api?.setRowData(this.TempGriddata);
+    }
+  }
+
+  SearchBySpeciality(event:any){
+    const Bloodgroup = 'specialty';
+    let gridData = [];
+    if (event != undefined) {
+      this.patient_list.map(item => {
+        if (event == item[Bloodgroup]) {
+          gridData.push(item)
+        }
+      });
+      console.log(gridData);
+      this.patientListGrid?.api?.setRowData(gridData);
+    }
+    else {
+      this.patientListGrid?.api?.setRowData(this.TempGriddata);
+    }
+  }
+
+  SearchByPriority(event:any){
+    const Bloodgroup = 'priority';
+    let gridData = [];
+    if (event != undefined) {
+      this.patient_list.map(item => {
+        if (event == item[Bloodgroup]) {
+          gridData.push(item)
+        }
+      });
+      console.log(gridData);
+      this.patientListGrid?.api?.setRowData(gridData);
+    }
+    else {
+      this.patientListGrid?.api?.setRowData(this.TempGriddata);
+    }
+  }
+
+
+
 
   GoToRegisterPage(){
     this.router.navigateByUrl('patient-registration/register');
