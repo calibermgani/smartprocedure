@@ -1,0 +1,36 @@
+.medication-tab{
+    width: 100%;
+    height: auto;
+    border-radius: 0px 0px 6px 6px;
+    border: 1px solid #E2DAF1;
+}
+
+.lab-texts{
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 14px;
+    color: #594585;
+}
+
+.lab-codes{
+    font-family: 'Poppins';
+    font-weight: 400 !important;
+    font-style: italic;
+    font-size: 12px !important;
+    line-height: 18px !important;
+    color: rgba(168, 172, 173, 1) !important;
+}
+
+.table-content{
+    border: 1px solid #E8E2F6;
+    border-radius: 6px;
+}
+
+::ng-deep .table thead th{
+    color: #000 !important;
+}
+
+::ng-deep .table tbody th {
+    color: #526A84 !important;
+    border: none;
+}

@@ -1,0 +1,63 @@
+.labs-tab{
+    width: 100%;
+    height: auto;
+    border-radius: 0px 0px 6px 6px;
+    border: 1px solid #E2DAF1;
+}
+
+.lab-texts{
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 14px;
+    color: #594585;
+}
+
+.lab-codes{
+    font-family: 'Poppins';
+    font-weight: 400 !important;
+    font-style: italic;
+    font-size: 12px !important;
+    line-height: 18px !important;
+    color: rgba(168, 172, 173, 1) !important;
+}
+
+.table-content{
+    border: 1px solid #E8E2F6;
+    border-radius: 6px;
+}
+
+::ng-deep .table thead th{
+    color: #000 !important;
+}
+
+::ng-deep .table tbody th {
+    color: #526A84 !important;
+    border: none;
+}
+
+.table-border{
+    border: 1px solid #D7E5EA;
+    border-radius: 6px;
+
+}
+
+.test-name{
+    border: 1px solid #B1CBD4;
+    width: 200px;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.result{
+    border: 1px solid #B1CBD4;
+    width: 100px;
+    border-radius: 4px;
+    padding: 6px;
+}
+
+.date{
+    border: 1px solid #B1CBD4;
+    width: 185px;
+    border-radius: 4px;
+    padding: 6px;
+}

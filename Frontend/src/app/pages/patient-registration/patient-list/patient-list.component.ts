@@ -95,6 +95,7 @@ export class PatientListComponent implements OnInit{
         "Create any fixed message, e.g. This is the Athlete’s Age ",
       headerTooltip: "Tooltip for Age Column Header",
       cellRenderer: this.cellrendered.bind(this, 'first_name'),
+      onCellClicked: this.CellClicked.bind(this, 'first_name')
     },
     {
       field: 'surname',
@@ -278,20 +279,23 @@ export class PatientListComponent implements OnInit{
   CellClicked(headerName: any, params: any) {
     switch (headerName) {
       case 'first_name':{
-        this.allService.SendPatientProcedureRequest(params.data.id).subscribe({
-          next:((res:any)=>{
-            this.toastr.success(`${res.message}`, 'Successful', {
-              positionClass: 'toast-top-center',
-              timeOut: 2000,
-            });
-          }),
-          error:((res:any)=>{
-            this.toastr.error(`${res.message}`, 'UnSuccessful', {
-              positionClass: 'toast-top-center',
-              timeOut: 2000,
-            });
-          })
-        })
+        const rowData = params.data;
+        this.allService.setPatientData(rowData);
+        this.router.navigateByUrl('patient-registration/patient-view');
+        // this.allService.SendPatientProcedureRequest(params.data.id).subscribe({
+        //   next:((res:any)=>{
+        //     this.toastr.success(`${res.message}`, 'Successful', {
+        //       positionClass: 'toast-top-center',
+        //       timeOut: 2000,
+        //     });
+        //   }),
+        //   error:((res:any)=>{
+        //     this.toastr.error(`${res.message}`, 'UnSuccessful', {
+        //       positionClass: 'toast-top-center',
+        //       timeOut: 2000,
+        //     });
+        //   })
+        // })
         break;
       }
       case 'view':{
@@ -704,10 +708,11 @@ export class PatientListComponent implements OnInit{
     this.patientListGrid.api?.setQuickFilter(this.SearchPatientList);
   }
 
-  onRowClicked(events){
-    const rowData = events.data;
-    this.router.navigateByUrl('patient-registration/patient-view');
-  }
+  // onRowClicked(events){
+  //   const rowData = events.data;
+  //   this.allService.setPatientData(rowData);
+  //   this.router.navigateByUrl('patient-registration/patient-view');
+  // }
   ngAfterViewInit(): void {
     this.patientListGrid?.api.sizeColumnsToFit();
   }

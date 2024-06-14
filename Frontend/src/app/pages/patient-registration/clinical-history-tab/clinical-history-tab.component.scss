@@ -1,6 +1,6 @@
 .clinical-history{
     width: 100%;
-    height: 40em;
+    height: auto;
     border-radius: 0px 0px 6px 6px;
     border: 1px solid #E2DAF1;
     // margin-left: -1rem;
@@ -32,19 +32,63 @@
     background-color: #F2EEFC;
     padding: 4px;
 }
-
-.table-header{
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 18px;
-    color: #4C5557;
+::ng-deep .table thead th{
+    color: #000 !important;
 }
 
-.table-body{
+::ng-deep .table tbody th {
+    color: #526A84 !important;
+    border: none;
+}
+
+.nav-tabs-custom .nav-link {
+    color: #000 !important; 
+    background: none;
+}
+
+.nav-tabs-custom .nav-link.active{
+    background-color: #F3F2F2;
+}
+
+.nav-tabs-custom .nav-link::after {
+    border-bottom: 3px solid #F3F2F2 !important; 
+}
+
+
+.nav-tabs-custom .nav-link {
+    color: #526A84 !important; 
+    background: none;
+}
+
+.nav-tabs-custom .nav-link h1.name {
+    color: #526A84 !important; 
+}
+
+.nav-tabs-custom .nav-link.active h1{
+    color: #594585 !important;
+}
+
+.pre_diagnosis_style{
+    background-color: #F3F2F2;
+    width: auto;
+    height: 6rem;
+}
+
+.indication_style{
+    background-color: #F3F2F2;
+    width: auto;
+    height: 6rem;
+}
+
+.post_diagnosis_style{
+    background-color: #F3F2F2;
+    width: auto;
+    height: 6rem;
+}
+
+.name{
     font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 12px;
-    line-height: 18px;
-    color: #526A84;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    line-height: 21px;
 }

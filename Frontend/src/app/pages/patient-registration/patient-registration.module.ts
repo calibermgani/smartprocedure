@@ -16,6 +16,10 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { PatientViewComponent } from './patient-view/patient-view.component';
 import { CustomTooltipComponent } from './custom-tooltip/custom-tooltip.component';
 import { ClinicalHistoryTabComponent } from './clinical-history-tab/clinical-history-tab.component';
+import { LabsComponent } from './labs/labs.component';
+import { MedicationComponent } from './medication/medication.component';
+import { CareTeamComponent } from './care-team/care-team.component';
+import { NgxSliderModule } from 'ngx-slider-v2';
 import { NgxDropzoneModule } from 'ngx-dropzone';
 
 @NgModule({
@@ -24,8 +28,11 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     PatientListComponent,
     PatientViewComponent,
     CustomTooltipComponent,
-    ClinicalHistoryTabComponent
-  ],
+    ClinicalHistoryTabComponent,
+    LabsComponent,
+    MedicationComponent,
+    CareTeamComponent
+    ],
   imports: [
     CommonModule,
     PatientRegistrationRoutingModule,
@@ -39,6 +46,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     ModalModule.forRoot(),
     MaterialManagementModule,
     SharedModule,
+    NgxSliderModule,
     NgxDropzoneModule,
   ]
 })
