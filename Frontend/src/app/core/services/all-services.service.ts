@@ -910,7 +910,7 @@ export class AllServicesService {
   }
 
 
-  Registerpatient(PersonalDetails:any,ContactDetails:any,Address:any,healthDetails:any,Otherdetails:any,image:any){
+  Registerpatient(PersonalDetails:any,ContactDetails:any,healthDetails:any,Otherdetails:any,image:any,documents:any){
     let formData = new FormData;
     formData.append("token","1a32e71a46317b9cc6feb7388238c95d");
 
@@ -934,7 +934,6 @@ export class AllServicesService {
     formData.append('name_of_partner',PersonalDetails.partner_name);
     formData.append('name_of_children ',PersonalDetails.children_name);
     formData.append('referred_by',PersonalDetails.referred_by);
-    formData.append('occupation',PersonalDetails.occupation);
     formData.append('gender',PersonalDetails.gender);
     formData.append('dob',this.formatDate(PersonalDetails.dob) );
     formData.append('age',PersonalDetails.age);
@@ -944,16 +943,14 @@ export class AllServicesService {
     //Contact Details
     formData.append('telephone',ContactDetails.telephone_number);
     formData.append('primary_email',ContactDetails.email);
-
-    //Address
-    formData.append('address_type',Address.addresstype);
-    formData.append('flat_unit_no',Address.flatNo);
-    formData.append('street_no',Address.StreetNo);
-    formData.append('street_name',Address.StreetName);
-    formData.append('suburb',Address.suburb);
-    formData.append('town_city',Address.town);
-    formData.append('state',Address.state);
-    formData.append('post_code',Address.postcode);
+    // formData.append('address_type',Address.addresstype);
+    formData.append('flat_unit_no',ContactDetails.flatNo);
+    formData.append('street_no',ContactDetails.StreetNo);
+    formData.append('street_name',ContactDetails.StreetName);
+    formData.append('suburb',ContactDetails.suburb);
+    formData.append('town_city',ContactDetails.town);
+    formData.append('state',ContactDetails.state);
+    formData.append('post_code',ContactDetails.postcode);
 
     //health Details
     formData.append('blood_group',healthDetails.bloodgroup);
@@ -966,11 +963,17 @@ export class AllServicesService {
     formData.append('temperature',healthDetails.temperature);
     formData.append('priority',healthDetails.Priority);
     formData.append('specialty',healthDetails.Speciality);
-    formData.append('procedure',healthDetails.Procedure);
+    formData.append('patient_type',healthDetails.Patient_type);
+    formData.append('procedure','Procedure 1');
 
     //Other Details
     formData.append('critical_information',Otherdetails.clientInformation);
     formData.append('notes',Otherdetails.notes);
+    // formData.append('notes',documents);
+    for (let i = 0; i < documents.length; i++) {
+      let file: File = documents[i];
+      formData.append("documents", file, file.name); // the filed name is `files` because the server side declares a `Files` property
+  }
     formData.append('created_by',"1");
 
     formData.forEach((value, key) => {
@@ -981,7 +984,7 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}/procedures/store_patient_details`,formData);
   }
 
-  UpdateRegisteredPatient(PersonalDetails:any,ContactDetails:any,Address:any,healthDetails:any,Otherdetails:any,image:any,Patient_ID:any){
+  UpdateRegisteredPatient(PersonalDetails:any,ContactDetails:any,healthDetails:any,Otherdetails:any,image:any,Patient_ID:any,documents:any){
     let formData = new FormData;
     formData.append("token","1a32e71a46317b9cc6feb7388238c95d");
 
@@ -1005,45 +1008,46 @@ export class AllServicesService {
     formData.append('name_of_partner',PersonalDetails.partner_name);
     formData.append('name_of_children ',PersonalDetails.children_name);
     formData.append('referred_by',PersonalDetails.referred_by);
-    formData.append('occupation',PersonalDetails.occupation);
     formData.append('gender',PersonalDetails.gender);
     formData.append('dob',this.formatDate(PersonalDetails.dob) );
     formData.append('age',PersonalDetails.age);
     formData.append('marital_status',PersonalDetails.martial_status);
     formData.append('language',PersonalDetails.language);
 
-    //Contact Details
-    formData.append('telephone',ContactDetails.telephone_number);
-    formData.append('primary_email',ContactDetails.email);
+     //Contact Details
+     formData.append('telephone',ContactDetails.telephone_number);
+     formData.append('primary_email',ContactDetails.email);
+     // formData.append('address_type',Address.addresstype);
+     formData.append('flat_unit_no',ContactDetails.flatNo);
+     formData.append('street_no',ContactDetails.StreetNo);
+     formData.append('street_name',ContactDetails.StreetName);
+     formData.append('suburb',ContactDetails.suburb);
+     formData.append('town_city',ContactDetails.town);
+     formData.append('state',ContactDetails.state);
+     formData.append('post_code',ContactDetails.postcode);
 
-    //Address
-    formData.append('address_type',Address.addresstype);
-    formData.append('flat_unit_no',Address.flatNo);
-    formData.append('street_no',Address.StreetNo);
-    formData.append('street_name',Address.StreetName);
-    formData.append('suburb',Address.suburb);
-    formData.append('town_city',Address.town);
-    formData.append('state',Address.state);
-    formData.append('post_code',Address.postcode);
-
-    //health Details
-    formData.append('blood_group',healthDetails.bloodgroup);
-    formData.append('weight',healthDetails.weight);
-    formData.append('height',healthDetails.height);
-    formData.append('blood_pressure',healthDetails.bloodPressure);
-    formData.append('heart_beat',healthDetails.heartBeat);
-    formData.append('spo2',healthDetails.spo2);
-    formData.append('respiratory_rate',healthDetails.respiratoryRate);
-    formData.append('temperature',healthDetails.temperature);
-    formData.append('priority',healthDetails.Priority);
-    formData.append('specialty',healthDetails.Speciality);
-    formData.append('procedure_id',healthDetails.Procedure);
-
+     //health Details
+     formData.append('blood_group',healthDetails.bloodgroup);
+     formData.append('weight',healthDetails.weight);
+     formData.append('height',healthDetails.height);
+     formData.append('blood_pressure',healthDetails.bloodPressure);
+     formData.append('heart_beat',healthDetails.heartBeat);
+     formData.append('spo2',healthDetails.spo2);
+     formData.append('respiratory_rate',healthDetails.respiratoryRate);
+     formData.append('temperature',healthDetails.temperature);
+     formData.append('priority',healthDetails.Priority);
+     formData.append('specialty',healthDetails.Speciality);
+     formData.append('patient_type',healthDetails.Patient_type);
+     formData.append('procedure','Procedure 1');
     //Other Details
     formData.append('critical_information',Otherdetails.clientInformation);
     formData.append('notes',Otherdetails.notes);
     formData.append('updated_by',"1");
     formData.append('patient_id',Patient_ID);
+    for (let i = 0; i < documents.length; i++) {
+      let file: File = documents[i];
+      formData.append("documents", file, file.name); // the filed name is `files` because the server side declares a `Files` property
+  }
 
     formData.forEach((value, key) => {
       const values = formData.getAll(key);

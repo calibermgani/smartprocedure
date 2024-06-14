@@ -80,8 +80,13 @@ export class RegistrationPageComponent {
       this.allService.GetSpecificPatientDetails(patientId).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
+            this.StageOne = true;
+            this.StageTwo = true;
+            this.StageThree = true;
+            this.ReachedEnd = true;
             let languagesArray : any = null;
             this.showImage = true;
+            this.SelectedGender = res.patient.gender;
             this.ProfileImage = this.apiUrl+res.patient.image;
             if(res.patient.language){
               let languagesString = res.patient.language;
@@ -95,7 +100,6 @@ export class RegistrationPageComponent {
               last_name:res.patient.surname != 'null' ? res.patient.surname : '',
               partner_name : res.patient.name_of_partner != 'null' ? res.patient.name_of_partner : '',
               children_name:res.patient.name_of_children != 'null' ? res.patient.name_of_children : '',
-              occupation:res.patient.occupation != 'null' ? res.patient.occupation : '',
               dob:res.patient.dob != 'null' ? res.patient.dob : '',
               age:res.patient.age != 'null' ? res.patient.age : '',
               language : res.patient.language != 'null' ? languagesArray : null,
@@ -105,10 +109,7 @@ export class RegistrationPageComponent {
             });
             this.contactDetailsform.patchValue({
               telephone_number:res.patient.telephone != 'null' ? res.patient.telephone : '',
-              email:res.patient.primary_email != 'null' ? res.patient.primary_email : ''
-            });
-            this.addressform.patchValue({
-              addresstype:res.patient.address_type != 'null' ? res.patient.address_type : null,
+              email:res.patient.primary_email != 'null' ? res.patient.primary_email : '',
               flatNo : res.patient.flat_unit_no != 'null' ? res.patient.flat_unit_no : '',
               StreetNo : res.patient.street_no != 'null' ? res.patient.street_no : '',
               StreetName : res.patient.street_name != 'null' ? res.patient.street_name : '',
@@ -128,7 +129,8 @@ export class RegistrationPageComponent {
               respiratoryRate : res.patient.respiratory_rate  != 'null' ? res.patient.respiratory_rate : '',
               Speciality :res.patient.specialty != 'null' ? res.patient.specialty : '',
               Priority: res.patient.priority != 'null' ? res.patient.priority : null,
-              Procedure : res.patient.procedure != 'null' ? res.patient.procedure : null
+              Patient_type : res.patient.patient_type != 'nill' ? res.patient.patient_type : null
+              // Procedure : res.patient.procedure != 'null' ? res.patient.procedure : null
             });
             this.otherdetailsform.patchValue({
               clientInformation :res.patient.critical_information != 'null' ? res.patient.critical_information : '',
@@ -217,52 +219,56 @@ export class RegistrationPageComponent {
     console.log(FormValue);
   }
 
-  RegisterPatient(PersonalDetails:any,ContactDetails:any,Address:any,healthDetails:any,Otherdetails:any){
+  RegisterPatient(PersonalDetails:any,ContactDetails:any,healthDetails:any,Otherdetails:any){
 
     let procedure_value = this.healthdetailsform.value.Procedure;
     let newArray: any = [];
-    if (procedure_value) {
-      if (this.ProcedureOption_Index) {
-        this.ProcedureOption_Index.forEach(element => {
-          if (procedure_value == element.procedure_name) {
-            newArray.push(element.id);
-            let procedureStrings: any = newArray.map(num => num.toString());
-            console.log(procedureStrings);
-            this.healthdetailsform.patchValue({
-              Procedure: procedureStrings?.[0]
-            })
-          }
-        });
-      }
-    }
-    else {
-      this.healthdetailsform.patchValue({
-        Procedure: null
-      })
-    }
+    // if (procedure_value) {
+    //   if (this.ProcedureOption_Index) {
+    //     this.ProcedureOption_Index.forEach(element => {
+    //       if (procedure_value == element.procedure_name) {
+    //         newArray.push(element.id);
+    //         let procedureStrings: any = newArray.map(num => num.toString());
+    //         console.log(procedureStrings);
+    //         this.healthdetailsform.patchValue({
+    //           Procedure: procedureStrings?.[0]
+    //         })
+    //       }
+    //     });
+    //   }
+    // }
+    // else {
+    //   this.healthdetailsform.patchValue({
+    //     Procedure: null
+    //   })
+    // }
     console.log(this.healthdetailsform.value);
 
     let patientId = localStorage.getItem('Patient_ID');
     if(patientId){
       console.log(PersonalDetails);
       console.log(ContactDetails);
-      console.log(Address);
-      console.log(this.healthdetailsform.value);
+      console.log(healthDetails);
       console.log(Otherdetails);
       console.log(this.Patient_img);
       console.log(patientId);
 
-      this.allService.UpdateRegisteredPatient(PersonalDetails,ContactDetails,Address,this.healthdetailsform.value,Otherdetails,this.Patient_img ? this.Patient_img : this.ProfileImage, patientId).subscribe({
+      this.allService.UpdateRegisteredPatient(PersonalDetails,ContactDetails,healthDetails,Otherdetails,this.Patient_img ? this.Patient_img : this.ProfileImage, patientId,this.NewFiles).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
             console.log(res);
             this.personaldetailsform.reset();
             this.contactDetailsform.reset();
-            this.addressform.reset();
             this.healthdetailsform.reset();
             this.otherdetailsform.reset();
-            this.cdkStepper.reset();
-            this.ProfileImage = '';
+            this.ProfileImage = null;
+            this.NewFiles = [];
+            this.SelectedGender = '';
+            this.CurrentPage = 'Personal Details';
+            this.StageOne = true;
+            this.StageTwo = false;
+            this.StageThree = false;
+            this.ReachedEnd = false;
           }
         }),
         error:((res:any)=>{
@@ -276,22 +282,26 @@ export class RegistrationPageComponent {
     else{
       console.log(PersonalDetails);
       console.log(ContactDetails);
-      console.log(Address);
-      console.log(this.healthdetailsform.value);
+      console.log(healthDetails);
       console.log(Otherdetails);
       console.log(this.Patient_img);
       console.log(patientId);
-      this.allService.Registerpatient(PersonalDetails,ContactDetails,Address,this.healthdetailsform.value,Otherdetails,this.Patient_img).subscribe({
+      this.allService.Registerpatient(PersonalDetails,ContactDetails,healthDetails,Otherdetails,this.Patient_img,this.NewFiles).subscribe({
         next:((res:any)=>{
           if(res.status == 'Success'){
             console.log(res);
             this.personaldetailsform.reset();
             this.contactDetailsform.reset();
-            this.addressform.reset();
             this.healthdetailsform.reset();
             this.otherdetailsform.reset();
-            this.cdkStepper.reset();
-            this.ProfileImage = '';
+            this.ProfileImage = null;
+            this.NewFiles = [];
+            this.SelectedGender = '';
+            this.CurrentPage = 'Personal Details';
+            this.StageOne = true;
+            this.StageTwo = false;
+            this.StageThree = false;
+            this.ReachedEnd = false;
           }
         }),
         error:((res:any)=>{
@@ -336,16 +346,22 @@ export class RegistrationPageComponent {
       }
       case 'Contact Details':{
         this.CurrentPage = 'Contact Details';
+        this.StageOne = true;
         this.StageTwo = true;
         break;
       }
       case 'Health Details':{
         this.CurrentPage = 'Health Details';
+        this.StageOne = true;
+        this.StageTwo = true;
         this.StageThree = true;
         break;
       }
       case 'Other Details':{
         this.CurrentPage = 'Other Details';
+        this.StageOne = true;
+        this.StageTwo = true;
+        this.StageThree = true;
         this.ReachedEnd = true;
         break;
       }
@@ -388,23 +404,19 @@ export class RegistrationPageComponent {
     this.SelectCurrentPage('Health Details');
   }
 
-  RegisterNewPatient(){
-
-  }
-
    // File Upload
-   imageURL: any;
+  //  imageURL: any;
    NewFiles : File[]= [];
    onSelect(event: any) {
      this.NewFiles.push(...event.addedFiles);
      let file: File = event.addedFiles[0];
      const reader = new FileReader();
-     reader.onload = () => {
-       this.imageURL = reader.result as string;
-       setTimeout(() => {
-         // this.profile.push(this.imageURL)
-       }, 100);
-     }
+    //  reader.onload = () => {
+    //    this.imageURL = reader.result as string;
+    //    setTimeout(() => {
+    //      // this.profile.push(this.imageURL)
+    //    }, 100);
+    //  }
      reader.readAsDataURL(file);
 
      console.log(this.NewFiles);

@@ -817,7 +817,7 @@
                   </div>
                   <div class="col-4">
                     <div>
-                      <h5 class="field-label">Subrub</h5>
+                      <h5 class="field-label">Postcode</h5>
                       <input class="form-control" type="text" placeholder="Enter Suburb" formControlName="postcode">
                     </div>
                   </div>
@@ -844,7 +844,7 @@
         <!-- Health Details -->
         <div *ngIf="this.CurrentPage == 'Health Details' ">
           <div class="cards" style="width: 95% !important;height: 570px !important;">
-            <form [formGroup]="healthdetailsform">
+            <form [formGroup]="healthdetailsform" style="overflow-y: scroll;height: -webkit-fill-available;">
               <div class="row m-4">
                 <h4 class="mb-4">Contact Details</h4>
 
@@ -960,7 +960,7 @@
                   <div class="col-4">
                     <div>
                       <h5 class="field-label">Patient Type<span style="color: red;">*</span></h5>
-                      <ng-select [items]="[]" formControlName="Patient_type"></ng-select>
+                      <ng-select [items]="['In Patient','Out Patient']" formControlName="Patient_type"></ng-select>
                       <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
                         <div
                           *ngIf="(this.healthdetailsform.controls.Patient_type.dirty || this.healthdetailsform.controls.Patient_type.touched) && this.healthdetailsform.controls.Patient_type.errors?.required">
@@ -971,7 +971,7 @@
                   <div class="col-4">
                     <div>
                       <h5 class="field-label">Priority<span style="color: red;">*</span></h5>
-                      <ng-select [items]="[]" formControlName="Priority"></ng-select>
+                      <ng-select [items]="['Low','Medium','High']" formControlName="Priority"></ng-select>
                       <div *ngIf="this.healthdetailsform.invalid" class="invalid-feedback">
                         <div
                           *ngIf="(this.healthdetailsform.controls.Priority.dirty || this.healthdetailsform.controls.Priority.touched) && this.healthdetailsform.controls.Priority.errors?.required">
@@ -1010,7 +1010,8 @@
                   <div class="col-6">
                     <div>
                       <h5 class="field-label">Critical Information</h5>
-                      <input class="form-control" type="text" placeholder="" formControlName="clientInformation" style="height: 120px !important;">
+                      <!-- <input class="form-control" type="text" placeholder="" formControlName="clientInformation" style="height: 120px !important;"> -->
+                      <textarea class="form-control" type="text" placeholder="" formControlName="clientInformation" style="height: 120px !important;"></textarea>
                     </div>
                   </div>
                   <div class="col-6">
@@ -1037,13 +1038,14 @@
                   <div class="col-6">
                     <div>
                       <h5 class="field-label">Notes</h5>
-                      <input class="form-control" type="text" placeholder="" formControlName="notes" style="height: 120px !important;">
+                      <!-- <input class="form-control" type="text" placeholder="" formControlName="notes" style="height: 120px !important;"> -->
+                      <textarea class="form-control" type="text" placeholder="" formControlName="notes" style="height: 120px !important;"></textarea>
                     </div>
                   </div>
                   <div class="col-6">
                     <h5 class="field-label">Attached Documents</h5>
                     <ngx-dropzone-preview   class="border rounded" [removable]="false" (removed)="onRemove()">
-                      <ngx-dropzone-label style="width: 100%;margin-top: 30px;">
+                      <ngx-dropzone-label style="width: 100%;margin-top: 21px;">
                           <div class="d-flex flex-row justify-content-between mb-2"  *ngFor="let f of NewFiles;let i = index" style="border-bottom: 2px dashed #BACED6;padding: 6px;">
                             <h5>{{ f.name }}</h5>
                             <div (click)="onRemove(i)">
@@ -1067,7 +1069,7 @@
                 <button type="button" class="btn-primary me-2" style="padding:5px 20px 5px 20px !important"
                 (click)="BackToHealthDetails()">Previous</button>
               <button type="button" class="btn-primary" style="padding:5px 20px 5px 20px !important"
-                (click)="RegisterPatient(this.personaldetailsform,this.contactDetailsform,this.healthdetailsform,this.otherdetailsform)">Submit</button>
+                (click)="RegisterPatient(this.personaldetailsform.value,this.contactDetailsform.value,this.healthdetailsform.value,this.otherdetailsform.value)">Submit</button>
             </div>
           </div>
         </div>

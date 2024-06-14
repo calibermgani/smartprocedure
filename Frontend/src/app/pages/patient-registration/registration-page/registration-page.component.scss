@@ -327,3 +327,8 @@
     margin: 0px !important;
     height: 100%;
   }
+
+  :host ::ng-deep .ng-select .ng-clear-wrapper{
+    height: 17px;
+    left: 10px;
+  }
