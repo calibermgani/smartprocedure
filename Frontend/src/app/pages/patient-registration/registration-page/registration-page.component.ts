@@ -74,6 +74,7 @@ export class RegistrationPageComponent {
       notes : []
     })
   }
+  transformedData : object;
   ngOnInit(): void {
     let patientId = localStorage.getItem('Patient_ID');
     if(patientId){
@@ -136,6 +137,11 @@ export class RegistrationPageComponent {
               clientInformation :res.patient.critical_information != 'null' ? res.patient.critical_information : '',
               notes : res.patient.notes != 'null' ? res.patient.notes : ''
             });
+
+            res.patient.document.forEach((element:any) => {
+              this.NewFiles.push(element);
+            });
+            console.log(this.NewFiles)
           }
         }),
         error:((res:any)=>{
@@ -149,8 +155,18 @@ export class RegistrationPageComponent {
     this.getProcedures();
 
     console.log('FirstPageValidation',this.FirstPageValidation);
-
   }
+
+  downloadFile(name:any) {
+    let link = document.createElement('a');
+    link.setAttribute('type', 'hidden');
+    link.href = this.apiUrl+name;
+    console.log(link.href);
+    link.download = 'ClientAssistance.xlsx';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
   Procedure:any = [];
   ProcedureOption_Index:any = [];
@@ -425,6 +441,8 @@ export class RegistrationPageComponent {
 
    onRemove(event) {
     console.log(event);
-    this.NewFiles.splice(this.NewFiles.indexOf(event), 1);
+    this.NewFiles.splice(event,1);
+    console.log(this.NewFiles);
+
   }
 }

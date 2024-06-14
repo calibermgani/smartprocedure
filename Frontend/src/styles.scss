@@ -45,6 +45,9 @@ ngx-dropzone-preview {
   background-image: none !important;
   padding: 20px !important;
   overflow-y: scroll;
+    position: relative !important;
+    overflow-x: hidden;
+  overflow-y: scroll;
   img {
     opacity: 1 !important;
   }
