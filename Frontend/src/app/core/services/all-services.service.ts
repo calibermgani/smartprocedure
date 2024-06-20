@@ -977,11 +977,12 @@ export class AllServicesService {
     //Other Details
     formData.append('critical_information',Otherdetails.clientInformation);
     formData.append('notes',Otherdetails.notes);
-    // formData.append('notes',documents);
+
     for (let i = 0; i < documents.length; i++) {
       let file: File = documents[i];
-      formData.append("documents", file, file.name); // the filed name is `files` because the server side declares a `Files` property
-  }
+      console.log(file);
+      formData.append("documents[]", file, file.name); // the filed name is `files` because the server side declares a `Files` property
+    }
     formData.append('created_by',"1");
 
     formData.forEach((value, key) => {
@@ -1054,7 +1055,12 @@ export class AllServicesService {
     formData.append('patient_id',Patient_ID);
     for (let i = 0; i < documents.length; i++) {
       let file: File = documents[i];
-      formData.append("documents", file, file.name); // the filed name is `files` because the server side declares a `Files` property
+      if(file.name){
+        formData.append("documents[]", file, file.name);
+      }
+      else{
+        formData.append("documents[]", file);
+      }
   }
 
     formData.forEach((value, key) => {

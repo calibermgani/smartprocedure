@@ -1,4 +1,3 @@
-<h1>Patient Registration works</h1>
 <!-- <div class="cards">
   <div style="width: 100% !important;height: 730px;">
     <!-- <div style=" position: relative;
@@ -1045,11 +1044,11 @@
                   </div>
                   <div class="col-6">
                     <h5 class="field-label">Attached Documents</h5>
-                    <ngx-dropzone-preview   class="border rounded" [removable]="false" (removed)="onRemove()">
-                      <ngx-dropzone-label style="width: 100%;margin-top: 21px;">
+                    <ngx-dropzone-preview   class="border rounded" [removable]="false" (removed)="onRemove()" *ngIf="transformedData == null">
+                      <ngx-dropzone-label style="width: -webkit-fill-available;position: absolute !important;height: 100px !important;padding: 10px !important;">
                           <div class="d-flex flex-row justify-content-between mb-2"  *ngFor="let f of NewFiles;let i = index" style="border-bottom: 2px dashed #BACED6;padding: 6px;">
-                            <h5>{{ f.name }}</h5>
-                            <div (click)="onRemove(i)">
+                            <h5 class="pointer" (click)="downloadFile(f.name ? f.name : f)">{{  f.name ? f.name : f.split('/').pop() }}</h5>
+                            <div (click)="onRemove(i)" class="pointer">
                               <img src="assets/New_Images/delete_icon.svg">
                             </div>
                           </div>
