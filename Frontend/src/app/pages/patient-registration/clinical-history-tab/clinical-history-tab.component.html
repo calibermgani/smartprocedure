@@ -1,16 +1,18 @@
 <div class="cards clinical-history">
     <div class="row mt-1">
-        <div class="col-12 d-flex justify-content-between" >
+        <div class="col-12 d-flex justify-content-between">
                 <h3 class="clicnical-texts">Clinical History</h3>
-                <button class="clinical-history-button" (click)="OpenModal('addstaff')"><img src="assets/New_Images/mdi_plus-circle.svg" width="20px" alt="add-img">Add</button>
+                <button class="btn-primary" style="line-height: 17px !important;" (click)="AddModal('addstaff')"><img src="assets/New_Images/mdi_plus-circle.svg" width="20px" height="20px" alt="add-img">Add</button>
         </div>
     </div> 
             <div class="row mt-2 mx-0">
                 <div class="col-12 clinical-table p-0">
                     <div class="d-flex justify-content-between header-designs">
-                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.5rem 1rem 0rem 1rem;">Pre Diagnosis</h3>
-                        <img src="assets/New_Images/Vector.svg" width="16px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto; color: #594585;">
-                        <h4 class="edit-texts">Edit</h4>
+                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.5rem 1rem 0rem .5rem;">Pre Diagnosis</h3>
+                        <img *ngIf="clinical_history.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'pre-diagnosis')" width="16px" height="16px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
+                        <h4 *ngIf="clinical_history.length > 0" class="edit-texts">Edit</h4>
+                        <img *ngIf="clinical_history.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
+                        <h4 *ngIf="clinical_history.length === 0" class="edit-texts">Add</h4>
                     </div>
                     <div>
                         <table class="table responsive">
@@ -27,18 +29,20 @@
                                 <tr *ngFor="let data of clinical_history">
                                     <th>{{data.diagnosis}}</th>
                                     <th>{{data.code}}</th>
-                                    <th>05/22/2024 | 05.20 PM</th>
-                                    <th>{{data.updated_by}}</th>
-                                    <th>05/22/2024 | 05.20 PM</th>
+                                    <th> {{data.created_at}} | {{data.created_Time}}</th>
+                                    <th>{{data.updated_by === null ? '-': data.updated_by}}</th>
+                                    <th>{{data.created_at}} | {{data.created_Time}}</th>
                                 </tr>
-                                <tr class="text-end"><td colspan="3" *ngIf="false">No Data Found</td></tr>
+                                <tr class="text-end"><td colspan="3" *ngIf="clinical_history.length < 0">No Data Found</td></tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="d-flex justify-content-between header-designs">
-                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.5rem 1rem 0rem 1rem;">Indication</h3>
-                        <img src="assets/New_Images/Vector.svg" width="16px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto;">
-                        <h4 class="edit-texts">Edit</h4>
+                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.7rem 1rem 0rem .5rem;">Indication</h3>
+                        <img *ngIf="indication.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'indication')"  width="16px" height="16px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
+                        <h4 *ngIf="indication.length > 0" class="edit-texts">Edit</h4>
+                        <img *ngIf="indication.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto;cursor: pointer;">
+                        <h4 *ngIf="indication.length === 0" class="edit-texts">Add</h4>
                     </div>
                     <div>
                         <table class="table">
@@ -55,17 +59,21 @@
                                 <tr *ngFor="let data of indication">
                                     <th>{{data.diagnosis}}</th>
                                     <th>{{data.code}}</th>
-                                    <th>05/22/2024 | 05.20 PM</th>
-                                    <th>{{data.updated_by}}</th>
-                                    <th>05/22/2024 | 05.20 PM</th>
+                                    <th> {{data.created_at}} | {{data.created_Time}}</th>
+                                    <th>{{data.updated_by === null ? '-': data.updated_by}}</th>
+                                    <th>{{data.created_at}} | {{data.created_Time}}</th>
                                 </tr>
+                                <tr class="text-end"><td colspan="3" *ngIf="indication.length < 0">No Data Found</td></tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="d-flex justify-content-between header-designs">
-                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.5rem 1rem 0rem 1rem;">Post Diagnosis</h3>
-                        <img src="assets/New_Images/add.svg" width="16px" alt="add-img" style="margin: 0.3rem -0.5rem 0rem auto;">
-                        <h4 class="edit-texts">Add</h4>
+                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.5rem 1rem 0rem .5rem;">Post Diagnosis</h3>
+                        <img *ngIf="post_diagnosis.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'post_diagnosis')"  width="14px" height="14px" alt="add-img" style="margin: 0.8rem -0.5rem 0rem auto;cursor: pointer;">
+                        <h4 *ngIf="post_diagnosis.length > 0" class="edit-texts">Edit</h4>
+                        <img *ngIf="post_diagnosis.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.8rem -0.5rem 0rem auto;cursor: pointer;">
+                        <h4 *ngIf="post_diagnosis.length === 0" class="edit-texts">Add</h4>
+               
                     </div>
                     <div>
                         <table class="table">
@@ -79,13 +87,14 @@
                                 </tr>
                             </thead>
                             <tbody class="table-body">
-                                <tr>
-                                    <!-- <th>Diagnosis 1</th>
-                                    <th>3424434</th>
-                                    <th>05/22/2024 | 05.20 PM</th>
-                                    <th>Noor Lucas</th>
-                                    <th>05/22/2024 | 05.20 PM</th> -->
+                                <tr *ngFor="let data of post_diagnosis">
+                                    <th>{{data.diagnosis}}</th>
+                                    <th>{{data.code}}</th>
+                                    <th> {{data.created_at}} | {{data.created_Time}}</th>
+                                    <th>{{data.updated_by === null ? '-': data.updated_by}}</th>
+                                    <th>{{data.created_at}} | {{data.created_Time}}</th>
                                 </tr>
+                                <tr class="text-end"><td colspan="3" *ngIf="post_diagnosis.length < 0">No Data Found</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -111,19 +120,19 @@
             <div class="col-12 p-5">
                 <div class="tab-pane" role="tabpanel" style="width: 100% !important;">
                 <ul class="nav line-tab px-0 nav-tabs  nav-tabs-custom nav-justified" role="tablist">
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item" role="presentation" (click)="selectDiagnosis('Pre-diagnosis')">
                         <a class="nav-link active"  data-bs-toggle="tab" href="#pre_diagnosis" role="tab" aria-controls="pre_diagnosis" style="padding: 0.7rem;"
                             aria-selected="true" >
                             <h1 class="d-none d-sm-block name"> Pre Diagnosis</h1>
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item" role="presentation" (click)="selectDiagnosis('indication')">
                         <a class="nav-link"  data-bs-toggle="tab" href="#indication" role="tab" aria-selected="false" aria-controls="indication"  tabindex="-1" style="padding: 0.7rem;" >
                             <h1 class="d-none d-sm-block name">Indication
                             </h1>
                         </a>
                     </li>
-                    <li class="nav-item" role="presentation">
+                    <li class="nav-item" role="presentation" (click)="selectDiagnosis('Post-diagnosis')">
                         <a class="nav-link"  data-bs-toggle="tab" href="#post_diagnosis" role="tab" aria-controls="post_diagnosis" aria-selected="false"  tabindex="-1" style="padding: 0.7rem;">
                             <h1 class="d-none d-sm-block name">Post Diagnosis</h1>
                         </a>
@@ -147,7 +156,9 @@
                                     </div>
                                     <div class="d-flex flex-column mt-1 ms-3" style="width: 25%;">
                                         <label for="code" class="nav-text-format">Date</label>
-                                        <input type="date" class="option_style" formControlName="date">
+                                          <input type="text" placeholder="Select Date" class="form-control" bsDatepicker
+                                            [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }"
+                                            formControlName="date">
                                     </div>
                                     <div *ngIf="rows.length > 0" class="image ms-2 d-flex align-items-center" style="margin-top: 31px;">
                                         <img *ngIf="i === 0 && rows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addRow()" alt="add-diagnosis" height="24px" width="24px">
@@ -161,11 +172,11 @@
                     </div>
                     <div  class="tab-pane" id="indication" role="tabpanel" aria-labelledby="indication-tab">
                         <form [formGroup]="tableFormIndication">
-                            <div formArrayName="rows">
-                        <div *ngFor="let diagnosis of rows.controls; let i = index" [formGroupName]="i" class="indication_style d-flex flex-row p-3">
+                            <div formArrayName="rows_1">
+                        <div *ngFor="let diagnosis of indication_rows.controls; let i = index" [formGroupName]="i" class="indication_style d-flex flex-row p-3">
                             <div class="d-flex flex-column mt-1" style="width: 37%;">
                                 <label for="diagnosis" class="nav-text-format">Diagnosis</label>
-                                <select name="diagnosis" id="diagnosis" class="option_style" formControlName="diagnosis">
+                                <select name="diagnosis" id="diagnosis" class="option_style" formControlName="diagnosis" >
                                     <option *ngFor="let options of pre_ind_post_diagnosis_options;">{{options}}</option>
                                     <option>Indication</option>
                                 </select>
@@ -176,9 +187,11 @@
                             </div>
                             <div class="d-flex flex-column mt-1 ms-3" style="width: 25%;">
                                 <label for="code" class="nav-text-format">Date</label>
-                                <input type="date" class="option_style" formControlName="date">
-                            </div>
-                            <div *ngIf="rows.length > 0" class="image ms-2 d-flex align-items-center" style="margin-top: 31px;">
+                                <input type="text" placeholder="Select Date" class="form-control" bsDatepicker
+                                    [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }"
+                                    formControlName="date">                            
+                                </div>
+                            <div *ngIf="indication_rows.length > 0" class="image ms-2 d-flex align-items-center" style="margin-top: 31px;">
                                 <img *ngIf="i === 0 && rows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addRowIndication()" alt="add-diagnosis" height="24px" width="24px">
                                 <img *ngIf="i === 0 && rows.length > 1" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowIndication(i)" alt="delete-diagnosis" height="24px" width="24px">
                                 <img *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowIndication(i)" alt="delete-diagnosis" height="24px" width="24px">
@@ -189,41 +202,45 @@
                         </form>
                     </div>
                     <div  class="tab-pane" id="post_diagnosis" role="tabpanel" aria-labelledby="post-diagnosis-tab">
-                        <div class="post_diagnosis_style d-flex flex-row p-3">
+                        <form [formGroup]="tableFormPostDiagnosis">
+                            <div formArrayName="rows_2">
+                        <div *ngFor="let diagnosis of post_diagnosis_rows.controls; let i = index" [formGroupName]="i" class="post_diagnosis_style d-flex flex-row p-3">
                             <div class="d-flex flex-column mt-1" style="width: 37%;">
                                 <label for="diagnosis" class="nav-text-format">Diagnosis</label>
-                                <select name="diagnosis" id="diagnosis" class="option_style">
+                                <select name="diagnosis" id="diagnosis" class="option_style" formControlName="diagnosis">
                                     <option *ngFor="let options of pre_ind_post_diagnosis_options;">{{options}}</option>
+                                    <option>Post-Diagnosis</option>
                                 </select>
                             </div>
                             <div class="d-flex flex-column mt-1 ms-3" style="width: 20%;">
                                 <label for="code" class="nav-text-format">Code</label>
-                                <input type="text" class="option_style">
+                                <input type="text" class="option_style" formControlName="code">
                             </div>
                             <div class="d-flex flex-column mt-1 ms-3" style="width: 25%;">
                                 <label for="code" class="nav-text-format">Date</label>
-                                <input type="date" class="option_style">
+                                <input type="text" placeholder="Select Date" class="form-control datePicker_image" bsDatepicker
+                                    [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }"
+                                    formControlName="date">                            
                             </div>
                             <div *ngIf="rows.length > 0" class="image ms-2 d-flex align-items-center" style="margin-top: 31px;">
-                                <img *ngIf="i === 0 && rows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addRow()" alt="add-diagnosis" height="24px" width="24px">
-                                <img *ngIf="i === 0 && rows.length > 1" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRow(i)" alt="delete-diagnosis" height="24px" width="24px">
-                                <img *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRow(i)" alt="delete-diagnosis" height="24px" width="24px">
-                                <img *ngIf="i > 0" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addRow()" alt="add-diagnosis" height="24px" width="24px">
+                                <img *ngIf="i === 0 && rows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addPostDiagnosis()" alt="add-diagnosis" height="24px" width="24px">
+                                <img *ngIf="i === 0 && rows.length > 1" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowDiagnosis(i)" alt="delete-diagnosis" height="24px" width="24px">
+                                <img *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowDiagnosis(i)" alt="delete-diagnosis" height="24px" width="24px">
+                                <img *ngIf="i > 0" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addPostDiagnosis()" alt="add-diagnosis" height="24px" width="24px">
                             </div>
                            </div>
+                           </div>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
         </div>
           <div class="d-flex justify-content-center p-3 mt-1">
-            <button type="button" class="btn-new me-2"
-              style="background:#ffffff !important;color: #594585 !important;width: auto !important; border: 1px solid #594585 !important; font-weight: 500;
-              font-size: 12px !important;
-          " (click)="CloseModal('addstaff')"
+            <button type="button" class="btn-outline me-3" style="width: 11% !important;" (click)="CloseModal('addstaff')"
               >Cancel</button>
-            <button type="button" class="btn-new" style="width: auto !important;" (click)="save_Indication_Data()" >Submit</button>
+            <button type="button" class="btn-primary" style="width: 11% !important;" (click)="clinical_history_save()" >Submit</button>
           </div>
       </div>
     </div>
-  </div>
+</div>

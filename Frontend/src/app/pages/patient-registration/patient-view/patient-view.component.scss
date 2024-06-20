@@ -28,17 +28,17 @@
     line-height: 25px;
 }
 
-.text-style {
-    font-size: 12px;
-    border: 1px solid;
-    // width: 85px;
-    border-radius: 9px;
-    background-color: #3ABE0B;
-    color: #fff;
-    padding: 1px 6px 1px 7px;
-    font-weight: 600;
-    font-family: 'Poppins';
-}
+// .text-style {
+//     font-size: 12px;
+//     border: 1px solid;
+//     // width: 85px;
+//     border-radius: 9px;
+//     background-color: #3ABE0B;
+//     color: #fff;
+//     padding: 1px 6px 1px 7px;
+//     font-weight: 600;
+//     font-family: 'Poppins';
+// }
 
 .in-patient-bg {
     background-color: #3ABE0B;
@@ -48,25 +48,25 @@
     background-color: #FF0000;
 }
 
-.name-style {
-    font-size: 15px;
-    color: #594585;
-    font-weight: 500;
-    font-family: 'Poppins';
-}
+// .name-style {
+//     font-size: 15px;
+//     color: #594585;
+//     font-weight: 500;
+//     font-family: 'Poppins';
+// }
 
-.mrn-style {
-    font-size: 12px;
-    font-weight: 500;
-    font-family: 'Poppins';
-}
+// .mrn-style {
+//     font-size: 12px;
+//     font-weight: 500;
+//     font-family: 'Poppins';
+// }
 
-.date-age-style {
-    font-size: 12px !important;
-    color: #4C5557;
-    font-weight: 500;
-    font-family: 'Poppins';
-}
+// .date-age-style {
+//     font-size: 12px !important;
+//     color: #4C5557;
+//     font-weight: 500;
+//     font-family: 'Poppins';
+// }
 
 .profile-details {
     font-family: 'Poppins';
@@ -79,15 +79,15 @@
 }
 
 .profiles {
-    font-family: 'Poppins';
-    font-weight: 400;
-    font-size: 13px;
-    color: #4C5557;
+    font-family: 'Poppins' !important;
+    font-weight: 400 !important;
+    font-size: 13px !important;
+    color: #4C5557 !important;
 }
 
 .profile-design{
     width: 96%;
-    height: 73rem;
+    height: 100% !important;
     border: 1px solid rgba(231, 225, 243, 1);
     // margin: -0.7rem 0rem 0rem -1.2rem;
     background-color: rgba(251, 249, 255, 1);
@@ -95,13 +95,13 @@
 
 .languages {
     font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 13px;
-    width: fit-content;
-    border-radius: 10px;
-    color: #594585;
-    background-color: #E7E1F3;
-    padding: 1px 5px 1px 5px;
+    font-weight: 500 !important;
+    font-size: 12px !important;
+    width: fit-content !important;
+    border-radius: 100px !important;
+    color: #594585 !important;
+    background-color: #E7E1F3 !important;
+    padding: 0px 7px 0px 7px !important;
 }
 
 .parent {
@@ -113,7 +113,6 @@
 }
 
 .vitals-text{
-    margin: -1.1rem 0rem 1rem 2rem;
     font-size: 13px !important;
     font-weight: 500 !important;
     font-family: 'Poppins';
@@ -121,7 +120,6 @@
 }
 
 .edit-button{
-    margin: -1.1rem 1rem 0rem -.7rem !important;
     font-size: 13px !important;
     font-weight: 500 !important;
     font-family: 'Poppins';
@@ -209,7 +207,6 @@
 }
 
 .precaution-text{
-    margin: -1.1rem 0rem 1rem 2rem;
     font-size: 13px !important;
     font-weight: 500 !important;
     font-family: 'Poppins';
@@ -217,74 +214,9 @@
 }
 
 .precautions{
-    margin: -1.1rem 1rem 0rem -.7rem !important;
     font-size: 13px !important;
     font-weight: 500 !important;
     font-family: 'Poppins';color: #594585 !important;
-}
-
-.fall-texts{
-    font-family: 'Poppins';
-    margin-left: 16px;
-    font-weight: 500;
-    color: #526A84;
-    font-size: 12px;
-}
-
-.fall-value{
-    margin-left: 85px;
-    font-weight: 500;
-    font-size: 13px;
-    color: #2B3B3E;
-    font-family: 'Poppins';
-}
-
-.isolation-text{
-    font-family: 'Poppins';
-    margin-left: 16px;
-    font-weight: 500;
-    color: #526A84;
-    font-size: 12px;
-}
-
-.isolation-value{
-    margin-left: 54px;
-    font-weight: 500;
-    font-size: 13px;
-    color: #2B3B3E;
-    font-family: 'Poppins';
-}
-
-.covid-text{
-    font-family: 'Poppins';
-    margin-left: 22px;
-    font-weight: 500;
-    color: #526A84;
-    font-size: 12px;
-}
-
-.covid-value{
-    margin-left: 68px;
-    font-weight: 500;
-    font-size: 13px;
-    color: #2B3B3E;
-    font-family: 'Poppins';
-}
-
-.pregnant-text{
-    font-family: 'Poppins';
-    margin-left: 3px;
-    font-weight: 500;
-    color: #526A84;
-    font-size: 12px;
-}
-
-.pregnant-value{
-    margin-left: 55px;
-    font-weight: 500;
-    font-size: 13px;
-    color: #2B3B3E;
-    font-family: 'Poppins';
 }
 
 .vitals-edit {
@@ -301,22 +233,22 @@
     border-radius: 6px;
 }
 
+.show_scroll{
+    overflow: hidden;
+}
+
+.show_scroll:hover{
+    transition-timing-function: ease-in-out 2s;
+    // transition: ease-in 2s;
+    // transition-property: ea;
+    overflow-y: scroll;
+}
+
 .precautions-edit1 {
     // width: 34%;
     height: auto;
     border: 1px solid rgba(231, 225, 243, 1);
     border-radius: 6px;
-}
-
-.button-container button{
-    font-size: 12px;
-    border: none;
-    border-radius: 6px;
-    width: 45%;
-    background-color: #F0F0F0;
-    color: #526A84;
-    font-weight: 500;
-    height: 2.063rem;
 }
 
  .nav-tabs-custom .nav-link {
@@ -399,41 +331,6 @@
     border-radius: 4px;
 }
 
-.precautions-border{
-    width: 40%;
-    border: 1px solid 
-    rgba(89, 69, 133, 0.05);
-    border-radius: 10px;
-    padding: 4rem;
-}
-
-.form-check-input{
-    width: 40px;
-    height: 20px;
-    left: -0.5rem;
-    position: relative;
-    float: right;
-}
-
-.precautions_texts{
-    font-family: 'Poppins';
-    font-weight: 500;
-    font-size: 13px;
-    line-height: 19.5px;
-    color: rgba(82, 106, 132, 1);
-}
-
-.precautions-spacings{
-    padding: 5px;
-    background-color: rgba(89, 69, 133, 0.1);
-    border-radius: 10px 10px 0px 0px;
-}
-
-.form-check-input:checked{
-    background-color: rgba(89, 69, 133, 1) !important;
-    border-color: rgba(89, 69, 133, 1) !important;
-}
-
 .temperature-cel{
     border-radius: 0px 4px 4px 0px !important;
     background: rgba(232, 232, 232, 1);
@@ -445,13 +342,6 @@
     font-weight: 500;
     font-size: 13px;
     line-height: 19.5px;
-}
-
-.precautions-input{
-    width: 100%;
-    border: 1px solid #B1CBD4;
-    border-radius: 4px;
-    height: 33px;
 }
 
 ::ng-deep .ngx-slider .ngx-slider-selection
@@ -498,3 +388,103 @@
 // .nav-tabs-custom{
 //     margin-left: -1rem !important;
 // }
+
+.patient_values{
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba(168, 172, 173, 1);
+}
+
+.main_values{
+    font-family: 'Poppins';
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    color: rgba(76, 85, 87, 1);
+}
+
+.patient_type{
+    border: 1px solid rgb(58, 190, 11);
+    border-radius: 100px;
+    width: 86px;
+    margin: -14px -7px;
+    text-align: center;
+    padding: 0px;
+    background-color: rgb(58, 190, 11);
+    color: #fff !important;
+    font-weight: 500 !important;
+}
+
+@media screen and (max-width: 1440px) {
+    .wrap-text{
+        flex-wrap: wrap;
+    }
+}
+
+.check_box{
+    border: 1px solid rgba(207, 195, 233, 1);
+    width: 110px;
+    height: 35px;
+    border-radius: 4px;
+}
+
+.check-yes, .check-no{
+    height: 27px;
+    width: 46px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    color: rgba(82, 106, 132, 1) !important;
+    margin-top: 3px;
+   
+}
+
+.selected {
+    background-color: rgba(196, 189, 212, 1);
+    color: rgba(89, 69, 133, 1) !important;
+    transition: background-color 0s, color 0s;
+    cursor: not-allowed;
+}
+
+.selected-card{
+    background-color: #f0eafb !important;
+}
+
+.check-box-style{
+    width: 18px;
+    height: 18px;
+    border: 1px solid #B1CBD4;
+    border-radius: 4px;
+}
+
+.form-check-input:checked{
+        background-color: #594585 !important;
+        border-color: #594585 !important;
+}
+
+.border-style{
+    border-right: 2px solid #ffffff !important;
+    background-color: #E4DAFA !important;
+    color: #594585 !important;
+}
+
+.header-style{
+    border-right: 2px solid #ffffff !important;
+    background-color: #FBF9FF !important;
+    color: #526A84 !important;
+}
+
+.list_color{
+    font-weight: 500 !important;
+    font-size: 12px !important;
+    font-family: 'Poppins';
+    color: #526A84 !important;
+}
+
+.list_color::marker{
+    color: #D9D9D9 !important;
+    width: 8px !important;
+    height: 8px !important;
+}

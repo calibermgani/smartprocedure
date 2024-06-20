@@ -26,6 +26,8 @@ export class AllServicesService {
   public clinicalHistoryIndication : any = environment_new.clinicalHistoryIndication;
   public saveData1 : any = environment_new.saveData;
   public saveDataIndication1 : any = environment_new.saveDataIndication;
+  public clinicalPostDiagnosis : any = environment_new.clinicalPostDiagnosis;
+  public saveDataPostDiagnosis1 : any = environment_new.saveDatapostDiagnosis;
   constructor(private http : HttpClient,private toastr : ToastrService,private datePipe: DatePipe) {
    }
 
@@ -1234,8 +1236,8 @@ export class AllServicesService {
     let patientData = localStorage.getItem('patientData');
     let patientDataJson = JSON.parse(patientData);
     payload["mrn_number"]=patientDataJson.mrn_no;
-    payload["patient_id"]=patientDataJson.id;
-    payload["procedure"]=patientDataJson.procedure === null ? '' : patientDataJson.procedure;
+    // payload["patient_id"]=patientDataJson.id;
+    payload["procedure"]= 'Procedure 1';
     return this.http.post(`${this.apiUrl}${this.clinicalDiagnosis}`,payload);
   }
 
@@ -1246,11 +1248,11 @@ export class AllServicesService {
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     payload["stage_type"]='Requesting';
     payload["mrn_number"]= patientDataJson.mrn_no;
-    payload["patient_id"]= patientDataJson.id;
+    // payload["patient_id"]= patientDataJson.id;
     payload['diagones_data'] = rowData;
     payload['created_by'] = 1;
     payload['added_by'] = 1;
-    payload['procedure'] = patientDataJson.procedure;
+    payload["procedure"]= 'Procedure 1';
     return this.http.post(`${this.apiUrl}${this.saveData1}`, payload);
   }
 
@@ -1260,9 +1262,9 @@ export class AllServicesService {
     let patientData = localStorage.getItem('patientData');
     let patientDataJson = JSON.parse(patientData);
     payload["stage_type"]='Requesting';
-    payload["mrn_number"]=patientDataJson.mrn_number;
-    payload["patient_id"]=patientDataJson.patient_id;
-    payload["procedure"]=patientDataJson.procedure === null ? '' : patientDataJson.procedure;
+    payload["mrn_number"]=patientDataJson.mrn_no;
+    // payload["patient_id"]=patientDataJson.patient_id;
+    payload["procedure"]= 'Procedure 1';
     return this.http.post(`${this.apiUrl}${this.clinicalHistoryIndication}`,payload);
   }
 
@@ -1273,12 +1275,39 @@ export class AllServicesService {
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
     payload["stage_type"]='Requesting';
     payload["mrn_number"]=patientDataJson.mrn_no;
-    payload["patient_id"]=patientDataJson.id;
-    payload["procedure"]=patientDataJson.procedure;
+    // payload["patient_id"]=patientDataJson.id;
+    payload["procedure"]= 'Procedure 1';
     payload['indication_data'] = rowData;
     payload['created_by'] = 1;
     payload['added_by'] = 1;
     return this.http.post(`${this.apiUrl}${this.saveDataIndication1}`, payload);
+  }
+
+  Get_Post_Diagnosis_History() {
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["stage_type"]='Requesting';
+    payload["mrn_number"]=patientDataJson.mrn_no;
+    // payload["patient_id"]=patientDataJson.id;
+    payload["procedure"]= 'Procedure 1';
+    return this.http.post(`${this.apiUrl}${this.clinicalPostDiagnosis}`,payload);
+  }
+
+  save_PostDiagnosis_Data(rowData : any) {
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["stage_type"]='Requesting';
+    payload["mrn_number"]=patientDataJson.mrn_no;
+    // payload["patient_id"]=patientDataJson.id;
+    payload['post_diagnosis_data'] = rowData;
+    payload['created_by'] = 1;
+    payload['added_by'] = 1;
+    payload["procedure"]= 'Procedure 1';
+    return this.http.post(`${this.apiUrl}${this.saveDataPostDiagnosis1}`, payload);
   }
 
 }

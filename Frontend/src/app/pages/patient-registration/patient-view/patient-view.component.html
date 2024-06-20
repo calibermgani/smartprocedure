@@ -1,3 +1,4 @@
+<!--patient top view-->
 <div class="row">
     <div class="col-12 horizontal-line m-0">
         <div class="d-flex align-items-center">
@@ -29,27 +30,61 @@
     </div>
 </div>
 
+<!--patient profile view-->
 <div class="row">
     <div class="col-2 p-0" style="margin-left: -0.4rem;">
-        <div class="profile-design">
-            <div class="d-flex justify-content-center mt-3 flex-column align-items-center w-auto">
-                <img src="assets/New_Images/saudi_arabian.png" />
-                <h3 class="text-style" >{{this.patient?.patient_type}}</h3>
-                <h3 class="name-style">{{this.patient?.Name}}</h3>
-                <span class="mrn-style">MRN: {{this.patient?.mrn_no}}</span>
-                <p class="date-age-style">{{this.patient?.dob}} - {{this.patientAge}} years, Male</p>
+        <div class="profile-design ">
+            <div class="d-flex p-2 flex-row w-auto wrap-text">
+                <div class="d-flex flex-column ms-2">
+                    <img class="mt-3" src="assets/New_Images/saudi_arabian.png" width="71px" height="71px" />
+                    <h6 class="patient_type">out Patient</h6>
+                </div>
+                <div class="p-2 ms-2 d-flex flex-column">
+                    <h5 style="color:#594585 !important;">{{this.patient?.Name}}</h5>
+                    <div class="d-flex typography-texts">
+                        MRN:<span class="profile-values ms-1">{{this.patient?.mrn_no}}</span>
+                    </div>
+                    <div class="d-flex mt-1 typography-texts">
+                        D.O.B:<span class="profile-values ms-1">342354</span>
+                    </div>
+                    <div class="d-flex flex-row mt-1 typography-texts flex-wrap">
+                        Gender:<span class="profile-values ms-1">{{this.patient?.gender}}</span>
+                        <div class="ms-3">
+                            Age:<span class="profile-values ms-1">{{this.patient?.age}}</span>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <hr style="border: 1px solid #e7defa" />
-            <div class="profile-details d-flex flex-column gap-1">
-                <span>Blood Group</span>
-                <h3 style="
-          font-family: 'Poppins';
-          font-weight: 500;
-          font-size: 13px;
-          color: #fa0404;
-        ">
-                    {{this.patient?.blood_group}}
-                </h3>
+            <div class="row d-flex p-1 m-1 flex-row w-auto h-auto " style="border-top: 1px solid rgba(231, 222, 250, 1); border-bottom: 1px solid rgba(231, 222, 250, 1);">
+                    <div class="col-4 d-flex flex-row p-1 align-items-center justify-content-around flex-wrap" style="border-right: 1px solid  rgba(231, 222, 250, 1);">
+                        <div class="d-flex">
+                            <img src="assets/New_Images/blood.png" alt="blood" width="25px" height="25px">
+                        </div>
+                        <div class="ps-0">
+                            <h6 class="mb-0" style="font-weight: 500 !important;color: rgba(168, 172, 173, 1) !important;">BG</h6>
+                            <h6 class="mb-auto" style="font-weight: 500 !important;color: rgba(250, 4, 4, 1) !important;">A1+</h6>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-center flex-row p-1 justify-content-around flex-wrap" style="border-right: 1px solid  rgba(231, 222, 250, 1);">
+                        <div class="d-flex ms-1">
+                            <img src="assets/New_Images/height.png" alt="height" width="20px" height="20px">
+                        </div>
+                        <div  class="ps-2">
+                            <h6 class="mb-0" style="font-weight: 500 !important;color: rgba(168, 172, 173, 1) !important;">Height</h6>
+                            <h6 class="mb-auto" style="font-weight: 500 !important;color: rgba(76, 85, 87, 1) !important;">18cm</h6>
+                        </div>
+                    </div>
+                    <div class="col-4 d-flex align-items-center justify-content-around flex-row p-1 flex-wrap">
+                        <div class="d-flex ms-1">
+                            <img src="assets/New_Images/weight.png" alt="weight" width="20px" height="20px">
+                        </div>
+                        <div class="ps-2">
+                            <h6 class="mb-0" style="font-weight: 500 !important;color: rgba(168, 172, 173, 1) !important;">Weight</h6>
+                            <h6 class="mb-auto" style="font-weight: 500 !important;color:rgba(76, 85, 87, 1) !important;">80kg</h6>
+                        </div>
+                    </div>               
+            </div>
+            <div class="profile-details d-flex flex-column gap-1 mt-3">
                 <span>Phone Number</span>
                 <h3 class="profiles">{{this.patient?.telephone}}</h3>
                 <span>Email</span>
@@ -64,37 +99,25 @@
                 <h3 class="languages">{{this.patient?.language}}</h3>
                 <span>Referred By</span>
                 <h3 class="profiles">{{this.patient?.referred_by}}</h3>
-                <div class="parent">
-                    <div>
-                        <span>Height</span>
-                        <h3 class="profiles" style="margin-top: 4px;">{{this.patient?.height === 'NULL'? '-': this.patient?.height}}cm</h3>
-                    </div>
-                    <div>
-                        <span>Weight</span>
-                        <h3 class="profiles" style="margin-top: 4px;">{{this.patient?.weight === 'NULL' ? '-': this.patient?.weight}} kg</h3>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
 
-
-    <div class="col-10 p-0 mt-3">
+<!--patient edit/add view-->
+    <div class="col-10 p-0 mt-3" style="overflow-x: hidden;overflow-y: auto;height: 45%;">
         <div class="row justify-content-between m-0">
             <div class="col-4 vitals-edit cards p-0">
-                <div class="d-flex justify-content-between flex-row">
-                    <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;">
-                        <p class="vitals-text">Vitals</p>
+                <div class="d-flex justify-content-between flex-row p-2" style="border-bottom: 1px solid rgba(231, 225, 243, 1);">
+                    <div class="mt-2">
+                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" class="ms-2">
+                        <span class="vitals-text ms-2">Vitals</span>
                     </div>
-                    <div style="margin: .4rem 0rem 0rem .4rem;cursor: pointer;"  (click)="OpenModal('edit_vitals')" >
-                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;">
-                        <p class="edit-button">Edit</p>
+                    <div class="mt-2 me-3" style="cursor: pointer;"  (click)="OpenModal('edit_vitals')" >
+                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" class="ms-3">
+                        <span class="edit-button ms-2">Edit</span>
                     </div>
                 </div>
-                <hr style="border: 1px solid rgba(231, 225, 243, 1);
-                margin-top: -.4rem;">
-                <div class="d-flex flex-column gap-2" style="margin: 0px 0px 0px 15px;">
+                <div class="d-flex flex-column gap-2 mt-4" style="margin: 0px 0px 0px 15px;">
                     <div class="d-flex justify-content-around flex-wrap">
                         <img src="assets/New_Images/blood-pressure.png" alt="blood-pressure">
                         <span class="blood-pressure-text">Blood Pressure</span>
@@ -131,87 +154,112 @@
                             style="margin-left: 28px;">
                     </div>
                 </div>
-                <hr style="border: 1px solid rgba(231, 225, 243, 1);">
-                <div style="margin: -.3rem 0rem 0rem 2.2rem ;font-family: 'Poppins';">
-                    <span style="color: 
-                   #717E85;"> Updated by</span>
-                    <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
-                            style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
-                    </p>
+                <div class="mt-4" style="font-family: 'Poppins'; border-top: 1px solid rgba(231, 225, 243, 1);">
+                    <div class="mt-2 ms-4">
+                        <span style="color: 
+                        #717E85;"> Updated by</span>
+                         <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
+                                 style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
+                         </p>
+                    </div>
                 </div>
             </div>
             <div class="col-4 precautions-edit cards p-0">
-                <div class="d-flex justify-content-between flex-row">
-                    <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;">
-                        <p class="precaution-text">Precautions</p>
+                <div class="d-flex justify-content-between flex-row p-2" style="border-bottom: 1px solid rgba(231, 225, 243, 1);">
+                    <div class="mt-2">
+                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" class="ms-2">
+                        <span class="precaution-text ms-2">Precautions</span>
                     </div>
-                    <div style="margin: .4rem 0rem 0rem .4rem;cursor: pointer;" (click)="OpenModal('edit_precautions')">
-                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;">
-                        <p class="precautions">Edit</p>
-                    </div>
-                </div>
-                <hr style="border: 1px solid rgba(231, 225, 243, 1);
-                margin-top: -.4rem;">
-                <div class="d-flex flex-column gap-2" style="margin: 0px 0px 0px 15px;">
-                    <div class="d-flex justify-content-around flex-wrap">
-                        <img src="assets/New_Images/Fall.png" alt="fall">
-                        <span class="fall-texts">Fall</span>
-                        <span class="fall-value">50%</span>
-                    </div>
-                    <div class="d-flex justify-content-around flex-wrap">
-                        <img src="assets/New_Images/isolation.png" alt="isolation">
-                        <span class="isolation-text">Isolation</span>
-                        <span class="isolation-value">70%</span>
-                    </div>
-                    <div class="d-flex justify-content-around flex-wrap">
-                        <img src="assets/New_Images/COVID.png" alt="COVID">
-                        <span class="covid-text">COVID</span>
-                        <span class="covid-value">100%</span>
-                    </div>
-                    <div class="d-flex justify-content-around flex-wrap">
-                        <img src="assets/New_Images/pregnant.png" alt="Pregnant">
-                        <span class="pregnant-text">Pregnant</span>
-                        <span class="pregnant-value">-</span>
+                    <div class="mt-2 me-3" style="cursor: pointer;" (click)="OpenModal('edit_precautions')">
+                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" class="ms-3">
+                        <span class="precautions ms-2">Edit</span>
                     </div>
                 </div>
-                <hr style="border: 1px solid rgba(231, 225, 243, 1); margin-top: 2.7rem;">
-                <div style="margin: -.3rem 0rem 0rem 2.2rem ;font-family: 'Poppins';">
-                    <span style="color: 
-                   #717E85;"> Updated by</span>
-                    <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
-                            style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
-                    </p>
+                <div class="d-flex flex-column mt-3 w-85 show_scroll" style="height: 140px;">
+                        <div class="d-flex ms-4">
+                            <img src="assets/New_Images/Fall.png"  alt="fall" width="20px" height="20px">
+                            <h6 class="ms-5" style="font-weight: 500 !important; color: rgba(82, 106, 132, 1) !important;">Fall</h6>
+                            <h5 style="margin-left: 9rem;">Yes</h5>
+                        </div>
+                        <div class="d-flex ms-4">
+                            <img src="assets/New_Images/allergy.png" alt="allergy" width="20px" height="20px">
+                            <h6 class="ms-5" style="font-weight: 500 !important; color: rgba(82, 106, 132, 1) !important;">Allergy</h6>
+                            <h5 style="margin-left: 7.7rem;">Yes</h5>
+                        </div>
+                        <div class="d-flex ms-4">
+                            <img src="assets/New_Images/isolation.png" alt="isolation" width="20px" height="20px">
+                            <h6 class="ms-5" style="font-weight: 500 !important; color: rgba(82, 106, 132, 1) !important;">Isolation</h6>
+                            <h5 style="margin-left: 7.2rem;">Yes</h5>
+                        </div>
+                        <div class="d-flex ms-4">
+                            <img src="assets/New_Images/COVID.png" alt="covid" width="20px" height="20px">
+                            <h6 class="ms-5" style="font-weight: 500 !important; color: rgba(82, 106, 132, 1) !important;">COVID</h6>
+                            <h5 style="margin-left: 8rem;color: rgba(250, 4, 4, 1) !important;">Yes</h5>
+                        </div>
+                        <div class="d-flex ms-4 flex-wrap">
+                            <img src="assets/New_Images/gcs.png" alt="gcs" width="20px" height="20px">
+                            <h6 class="ms-5" style="font-weight: 500 !important; color: rgba(82, 106, 132, 1) !important;">GCS</h6>
+                            <h5 style="margin-left: 8.9rem;color: #2D9508 !important;">4-Mild</h5>
+                            <h5 class="ms-4" style="color: rgba(89, 69, 133, 1) !important;border-bottom: 1px solid  rgba(89, 69, 133, 1);cursor: pointer;" (click)="OpenModal('view_gcs')">View</h5>
+                        </div>
+                        <div class="d-flex ms-4">
+                            <img src="assets/New_Images/pregnant.png" alt="pregnant" width="20px" height="20px">
+                            <h6 class="ms-5" style="font-weight: 500 !important; color: rgba(82, 106, 132, 1) !important;">Pregnant</h6>
+                            <h5 style="margin-left: 7.1rem;">Yes</h5>
+                        </div>
+                        <div class="d-flex ms-4">
+                            <img src="assets/New_Images/diabetic.png" alt="diabetic" width="20px" height="20px">
+                            <h6 class="ms-5" style="font-weight: 500 !important; color: rgba(82, 106, 132, 1) !important;">Diabetic</h6>
+                            <h5 style="margin-left: 7.5rem;">Yes</h5>
+                        </div>
+                        <div class="d-flex ms-4">
+                            <img src="assets/New_Images/contrast.png" alt="needle" width="20px" height="20px">
+                            <h6 class="ms-5" style="font-weight: 500 !important; color: rgba(82, 106, 132, 1) !important;">Contrast Reaction</h6>
+                            <h5 style="margin-left: 3.9rem;">Yes</h5>
+                        </div>
+                </div>
+                <div class="mt-4" style="font-family: 'Poppins';border-top: 1px solid rgba(231, 225, 243, 1);">
+                    <div class="mt-2 ms-4">
+                        <span style="color: 
+                        #717E85;"> Updated by</span>
+                         <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
+                                 style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
+                         </p>
+                    </div>
                 </div>
             </div>
             <div class="col-4 precautions-edit1 cards p-0">
-                <div class="d-flex justify-content-between flex-row">
-                    <div style="margin: .4rem 0rem 0rem .4rem;">
-                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" style="margin-left: 10px;">
-                        <p
-                            style="margin: -1.1rem 0rem 1rem 2rem; font-size: 13px !important;font-weight: 500 !important;font-family: 'Poppins';color: #594585 !important;">
-                            Precautions</p>
+                <div class="d-flex justify-content-between flex-row p-2" style="border-bottom: 1px solid rgba(231, 225, 243, 1);">
+                    <div class="mt-2">
+                        <img src="assets/New_Images/fa_navicon.svg" alt="ham-burger" class="ms-3">
+                        <span class="ms-2"
+                            style="font-size: 13px !important;font-weight: 500 !important;font-family: 'Poppins';color: #594585 !important;">
+                           Other Precautions</span>
                     </div>
-                    <div style="margin: .4rem 0rem 0rem .4rem;cursor: pointer;" (click)="OpenModal('edit_alerts')">
-                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" style="margin-left: -36px;">
-                        <p
-                            style="margin: -1.1rem 1rem 0rem -.7rem !important;font-size: 13px !important;font-weight: 500 !important;font-family: 'Poppins';color: #594585 !important;">
-                            Edit</p>
+                    <div class="mt-2" style="cursor: pointer;" (click)="OpenModal('edit_alerts')">
+                        <img src="assets/New_Images/uil_edit.svg" alt="ham-burger" class="ms-2">
+                        <span class="ms-2 me-3" 
+                            style="font-size: 13px !important;font-weight: 500 !important;font-family: 'Poppins';color: #594585 !important;">
+                            Edit</span>
                     </div>
                 </div>
-                <hr style="border: 1px solid rgba(231, 225, 243, 1); margin-top: -0.4rem;">
-                <div class="d-flex button-container justify-content-around flex-wrap">
-                    <button>High Blood Pressure</button>
-                    <button>Pacemaker Tube</button>
+                <div class="d-flex flex-wrap mt-3 ms-2">
+                    <ul>
+                        <li class="list_color">High Blood Pressure</li>
+                        <li class="list_color mt-3">Pacemaker Tube</li>
+                        <li class="list_color mt-3">Nasogastric Tube</li>
+                        <li class="list_color mt-3">Cochlea Implants</li>
+                    </ul>
                 </div>
-                <hr style="border: 1px solid rgba(231, 225, 243, 1); margin-top: 7.1rem;">
-                <div style="margin: -.3rem 0rem 0rem 2.2rem ;">
-                    <span style="color: 
-                    #717E85;"> Updated by</span>
-                    <div style="font-family: 'Poppins';">
-                        <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
-                                style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
-                        </p>
+                <div style="border-top: 1px solid rgba(231, 225, 243, 1);margin-top: 1.7rem;">
+                    <div class="mt-2 ms-4">
+                        <span style="color: 
+                        #717E85;"> Updated by</span>
+                        <div style="font-family: 'Poppins';">
+                            <p style="font-weight: 500;font-size: 12px;"> Leslie Alexander <span
+                                    style="font-weight: 400;font-size: 11px;color: #717E85;">on 05/28/2024 | 3:30 pm </span>
+                            </p>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -222,7 +270,7 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
               <div class="modal-content" style="width: 85%;">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
-                  <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Edit Vitals
+                  <h1 class="flex-grow-1 mt-2" style="font-size: 14px !important;color: #594585 !important;">Edit Vitals
                   </h1>
                   <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('edit_vitals')"
                     style="cursor: pointer;">
@@ -282,12 +330,9 @@
                     </div>
                 </div>
                   <div class="d-flex justify-content-center p-3 mt-3">
-                    <button type="button" class="btn-new me-2"
-                      style="background:#ffffff !important;color: #594585 !important;width: auto !important; border: 1px solid #594585 !important; font-weight: 500;
-                      font-size: 12px !important;
-                  " (click)="CloseModal('edit_vitals')"
-                      >Cancel</button>
-                    <button type="button" class="btn-new" style="width: auto !important;" >Update</button>
+                    <button type="button" class="btn-outline me-3" style="width: 11% !important;" (click)="CloseModal('edit_vitals')"
+                    >Cancel</button>
+                  <button type="button" class="btn-primary" style="width: 11% !important;">Submit</button>
                   </div>
               </div>
             </div>
@@ -298,74 +343,197 @@
             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
               <div class="modal-content" style="width: 85%;">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
-                  <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Edit Precautions
+                  <h1 class="flex-grow-1 mt-2" style="font-size: 14px !important;color: #594585 !important;">Edit Precautions
                   </h1>
                   <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('edit_precautions')"
                     style="cursor: pointer;">
                 </div>
-                <div class="row p-4 d-flex justify-content-around">
-                    <div class="col-6 precautions-border p-0 mt-2" style="height: 10rem;">
-                        <div class="d-flex justify-content-between precautions-spacings">
-                            <img src="assets/New_Images/edit-fall.png" alt="fall" width="30px" height="30px">
-                            <span class="precautions_texts me-auto mt-1 ms-2 ">Fall</span>
-                            <div class="form-check form-switch form-switch-md ps-0">
-                                <input type="checkbox" class="form-check-input ms-3 mt-1" (change)="toggleSlider($event,'fall')">
-                            </div>
-                        </div>
-                        <div style="padding: 20px;">
-                            <input type="text" name="precautions" class="precautions-input" [disabled]="isSliderDisabled">
-                            <ngx-slider style="height: 40px;margin: 25px 0 15px;"  [(value)]="value" [options]="options"></ngx-slider>
-                        </div>
-                    </div>
-                    <div class="col-6 precautions-border p-0 mt-2" style="height: 10rem;">
-                        <div class="d-flex justify-content-between precautions-spacings">
-                            <img src="assets/New_Images/edit-isolation.png" alt="isolation" width="30px" height="30px">
-                            <span class="precautions_texts me-auto mt-1 ms-2 ">Isolation</span>
-                            <div class="form-check form-switch form-switch-md ps-0">
-                                <input type="checkbox" class="form-check-input ms-3 mt-1" (change)="toggleSlider($event,'isolation')">
-                            </div>
-                        </div>
-                        <div style="padding: 20px;">
-                            <input type="text" name="precautions" class="precautions-input" [disabled]="isSliderDisabled1">
-                            <ngx-slider style="height: 40px;margin: 25px 0 15px;" [(value)]="value" [options]="options"></ngx-slider>
+                <div style="height: 29rem; overflow-y: auto;">
+                <div class="row d-flex flex-column p-0 m-3 mt-auto" style="border-bottom: 1px solid rgba(242, 240, 245, 1);">
+                    <div class="col-12 w-75 d-flex flex-row p-2">
+                        <img src="assets/New_Images/slippery.png" alt="fall" width="30px" height="30px">
+                        <h4 class="ms-3 mt-1" style="color: rgba(82, 106, 132, 1) !important;">Fall</h4>
+                        <div class="ms-auto check_box d-flex flex-row justify-content-around p-0">
+                            <h5 class="check-yes p-1 me-2" [ngClass]="{'selected': isYesSelected['fall']}"  (click)="selectYes('fall')">Yes</h5>
+                            <h5 class="check-no p-1" [ngClass]="{'selected': !isYesSelected['fall']}"  (click)="selectNo('fall')">No</h5>
                         </div>
                     </div>
                 </div>
-                <div class="row p-4 d-flex justify-content-around">
-                    <div class="col-6 precautions-border p-0 mt-2" style="height: 10rem;">
-                        <div class="d-flex justify-content-between precautions-spacings">
-                            <img src="assets/New_Images/edit-pregnant.png" alt="pregnant" width="30px" height="30px">
-                            <span class="precautions_texts me-auto mt-1 ms-2 ">Pregnant</span>
-                            <div class="form-check form-switch form-switch-md ps-0">
-                                <input type="checkbox" class="form-check-input ms-3 mt-1" (change)="toggleSlider($event,'pregnant')">
-                            </div>
-                        </div>
-                        <div style="padding: 20px;">
-                            <input type="text" name="precautions" class="precautions-input" [disabled]="isSliderDisabled2">
-                            <ngx-slider style="height: 40px;margin: 25px 0 15px;" [(value)]="value" [options]="options"></ngx-slider>
+                <div class="row d-flex flex-column p-0 m-3 mt-auto" style="border-bottom: 1px solid rgba(242, 240, 245, 1);">
+                    <div class="col-12 w-75 d-flex flex-row p-2">
+                        <img src="assets/New_Images/rash.png" alt="fall" width="30px" height="30px">
+                        <h4 class="ms-3 mt-1" style="color: rgba(82, 106, 132, 1) !important;">Allergy</h4>
+                        <div class="ms-auto check_box d-flex flex-row justify-content-around p-0">
+                            <h5 class="check-yes p-1 me-2" [ngClass]="{'selected': isYesSelected['allergy']}" (click)="selectYes('allergy')">Yes</h5>
+                            <h5 class="check-no p-1" [ngClass]="{'selected': !isYesSelected['allergy']}" (click)="selectNo('allergy')">No</h5>
                         </div>
                     </div>
-                    <div class="col-6 precautions-border p-0 mt-2" style="height: 10rem;">
-                        <div class="d-flex justify-content-between precautions-spacings">
-                            <img src="assets/New_Images/edit-covid.png" alt="covid" width="30px" height="30px">
-                            <span class="precautions_texts me-auto mt-1 ms-2 ">COVID</span>
-                            <div class="form-check form-switch form-switch-md ps-0">
-                                <input type="checkbox" class="form-check-input ms-3 mt-1" (change)="toggleSlider($event,'covid')">
-                            </div>
-                        </div>
-                        <div style="padding: 20px;">
-                            <input type="text" name="precautions" class="precautions-input" [disabled]="isSliderDisabled3">
-                            <ngx-slider style="height: 40px;margin: 25px 0 15px;" [(value)]="value" [options]="options"></ngx-slider>
-                        </div>
-                    </div>  
                 </div>
-                  <div class="d-flex justify-content-center p-3 mt-1">
-                    <button type="button" class="btn-new me-2"
-                      style="background:#ffffff !important;color: #594585 !important;width: auto !important; border: 1px solid #594585 !important; font-weight: 500;
-                      font-size: 12px !important;
-                  " (click)="CloseModal('edit_precautions')"
-                      >Cancel</button>
-                    <button type="button" class="btn-new" style="width: auto !important;" >Update</button>
+                <div class="row d-flex flex-column p-0 m-3 mt-auto" style="border-bottom: 1px solid rgba(242, 240, 245, 1);">
+                    <div class="col-12 w-75 d-flex flex-row p-2">
+                        <img src="assets/New_Images/social-withdrawal.png" alt="fall" width="30px" height="30px">
+                        <h4 class="ms-3 mt-1" style="color: rgba(82, 106, 132, 1) !important;">Isolation</h4>
+                        <div class="ms-auto check_box d-flex flex-row justify-content-around p-0">
+                            <h5 class="check-yes p-1 me-2" [ngClass]="{'selected': isYesSelected['isolation']}" (click)="selectYes('isolation')">Yes</h5>
+                            <h5 class="check-no p-1" [ngClass]="{'selected': !isYesSelected['isolation']}" (click)="selectNo('isolation')">No</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-column p-0 m-3 mt-auto" style="border-bottom: 1px solid rgba(242, 240, 245, 1);">
+                    <div class="col-12 w-75 d-flex flex-row p-2">
+                        <img src="assets/New_Images/patient.png" alt="fall" width="30px" height="30px">
+                        <h4 class="ms-3 mt-1" style="color: rgba(82, 106, 132, 1) !important;">COVID</h4>
+                        <div class="ms-auto check_box d-flex flex-row justify-content-around p-0">
+                            <h5 class="check-yes p-1 me-2" [ngClass]="{'selected': isYesSelected['covid']}" (click)="selectYes('covid')">Yes</h5>
+                            <h5 class="check-no p-1" [ngClass]="{'selected': !isYesSelected['covid']}" (click)="selectNo('covid')">No</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-column p-0 m-3 mt-auto" style="border-bottom: 1px solid rgba(242, 240, 245, 1);">
+                    <div class="col-12 w-75 d-flex flex-row p-2">
+                        <img src="assets/New_Images/eye-care.png" alt="fall" width="30px" height="30px">
+                        <h4 class="ms-3 mt-1" style="color: rgba(82, 106, 132, 1) !important;">GCS</h4>
+                        <div class="ms-auto check_box d-flex flex-row justify-content-around p-0">
+                            <h5 class="check-yes p-1 me-2" [ngClass]="{'selected': isYesSelected['gcs']}" (click)="selectYes('gcs')">Yes</h5>
+                            <h5 class="check-no p-1" [ngClass]="{'selected': !isYesSelected['gcs']}" (click)="selectNo('gcs')">No</h5>
+                        </div>
+                    </div>
+                </div>
+                <div #contrastContent *ngIf="isYesSelected['gcs']" class="row p-3 m-1">
+                    <div class="col-4" style="border-right: 1px solid  rgba(231, 225, 243, 1);">
+                        <h5 class="ms-1" style="color: #594585 !important;">Eye Opening</h5>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Spontaneous</h5>
+                            <h5 style="color: #594585 !important;">4</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">To Sound</h5>
+                            <h5 style="color: #594585 !important;">3</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">To Pressure</h5>
+                            <h5 style="color: #594585 !important;">2</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">None</h5>
+                            <h5 style="color: #594585 !important;">1</h5>
+                        </div>
+                    </div>
+                    <div class="col-4" style="border-right: 1px solid  rgba(231, 225, 243, 1);">
+                        <h5 class="ms-1" style="color: #594585 !important;">Verbal Response</h5>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Orientated</h5>
+                            <h5 style="color: #594585 !important;">5</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Confused</h5>
+                            <h5 style="color: #594585 !important;">4</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Words</h5>
+                            <h5 style="color: #594585 !important;">3</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Sounds</h5>
+                            <h5 style="color: #594585 !important;">2</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">None</h5>
+                            <h5 style="color: #594585 !important;">1</h5>
+                        </div>
+                    </div>
+                    <div class="col-4" style="border-right: 1px solid  rgba(231, 225, 243, 1);">
+                        <h5 class="ms-1" style="color: #594585 !important;">Motor Response</h5>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Obey Commands</h5>
+                            <h5 style="color: #594585 !important;">6</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Localising</h5>
+                            <h5 style="color: #594585 !important;">5</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Normal Flexion</h5>
+                            <h5 style="color: #594585 !important;">4</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Abnormal Flexion</h5>
+                            <h5 style="color: #594585 !important;">3</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Extension</h5>
+                            <h5 style="color: #594585 !important;">2</h5>
+                        </div>
+                        <div class="d-flex flex-row justify-content-between">
+                            <input type="checkbox" class="form-check-input check-box-style">
+                            <h5 class="me-auto ms-4 " style="color: #526A84 !important;">None</h5>
+                            <h5 style="color: #594585 !important;">1</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-column p-0 m-3 mt-auto" style="border-bottom: 1px solid rgba(242, 240, 245, 1);">
+                    <div class="col-12 w-75 d-flex flex-row p-2">
+                        <img src="assets/New_Images/new_pregnant.png" alt="fall" width="30px" height="30px">
+                        <h4 class="ms-3 mt-1" style="color: rgba(82, 106, 132, 1) !important;">Pregnant</h4>
+                        <div class="ms-auto check_box d-flex flex-row justify-content-around p-0">
+                            <h5 class="check-yes p-1 me-2" [ngClass]="{'selected': isYesSelected['pregnant']}" (click)="selectYes('pregnant')">Yes</h5>
+                            <h5 class="check-no p-1" [ngClass]="{'selected': !isYesSelected['pregnant']}" (click)="selectNo('pregnant')">No</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-column p-0 m-3 mt-auto" style="border-bottom: 1px solid rgba(242, 240, 245, 1);">
+                    <div class="col-12 w-75 d-flex flex-row p-2">
+                        <img src="assets/New_Images/diabetes.png" alt="fall" width="30px" height="30px">
+                        <h4 class="ms-3 mt-1" style="color: rgba(82, 106, 132, 1) !important;">Diabetic</h4>
+                        <div class="ms-auto check_box d-flex flex-row justify-content-around p-0">
+                            <h5 class="check-yes p-1 me-2" [ngClass]="{'selected': isYesSelected['diabetes']}" (click)="selectYes('diabetes')">Yes</h5>
+                            <h5 class="check-no p-1" [ngClass]="{'selected': !isYesSelected['diabetes']}" (click)="selectNo('diabetes')">No</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="row d-flex flex-column p-0 m-3 mt-auto" style="border-bottom: 1px solid rgba(242, 240, 245, 1);">
+                    <div class="col-12 w-75 d-flex flex-row p-2">
+                        <img src="assets/New_Images/needle1.png" alt="fall" width="30px" height="30px">
+                        <h4 class="ms-3 mt-1" style="color: rgba(82, 106, 132, 1) !important;">Contrast Reaction</h4>
+                        <div class="ms-auto check_box d-flex flex-row justify-content-around p-0">
+                            <h5 class="check-yes p-1 me-2" [ngClass]="{'selected': isYesSelected['contrast']}" (click)="selectYes('contrast')">Yes</h5>
+                            <h5 class="check-no p-1" [ngClass]="{'selected': !isYesSelected['contrast']}" (click)="selectNo('contrast')">No</h5>
+                        </div>
+                    </div>
+                </div>
+                <div #contrastContent *ngIf="isYesSelected['contrast']" class="d-flex p-1 flex-row justify-content-end gap-1">
+                    <div class="cards d-flex flex-column align-items-center" [ngClass]="{'selected-card': selectedCard === 'rash'}" (click)="onCardClick('rash')" style="height: 80px;width: 120px;cursor: pointer;border: 1px solid #AFA5C6;">
+                        <img src="assets/New_Images/rash.png" alt="rash" width="38px" height="35px">
+                        <h5>Skin Rash</h5>
+                    </div>
+                    <div class="cards d-flex flex-column align-items-center"  [ngClass]="{'selected-card': selectedCard === 'short_of_breath'}" (click)="onCardClick('short_of_breath')" style="height: 80px;width: 120px;cursor: pointer; border: 1px solid #AFA5C6;">
+                        <img src="assets/New_Images/short_of_breath.png" alt="rash" width="38px" height="35px">
+                        <h5>Skin Rash</h5>
+                    </div>
+                    <div class="cards d-flex flex-column align-items-center"  [ngClass]="{'selected-card': selectedCard === 'vomit'}" (click)="onCardClick('vomit')" style="height: 80px;width: 120px;cursor: pointer; border: 1px solid #AFA5C6;">
+                        <img src="assets/New_Images/vomit.png.png" alt="rash" width="38px" height="35px">
+                        <h5>Skin Rash</h5>
+                    </div>
+                </div>
+                </div>
+                  <div class="d-flex justify-content-center p-3 mt-3">
+                    <button type="button" class="btn-outline me-3" style="width: 11% !important;" (click)="CloseModal('edit_precautions')"
+                    >Cancel</button>
+                  <button type="button" class="btn-primary" style="width: 11% !important;">Submit</button>
                   </div>
               </div>
             </div>
@@ -374,35 +542,90 @@
           <!--alerts popup precautions-->
           <div bsModal #edit_alerts="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
-              <div class="modal-content" style="width: 85%;">
+              <div class="modal-content" style="width: 50%;">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
-                  <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Choose the Alerts
+                  <h1 class="flex-grow-1 mt-2" style="font-size: 14px !important;color: #594585 !important;">Choose the Alerts
                   </h1>
                   <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('edit_alerts')"
                     style="cursor: pointer;">
                 </div>
-                <div class="d-flex justify-content-between p-2 m-4" style="border-bottom: 1px solid #D9D9D9;">
-                    <input class="form-check-input" type="checkbox" style="width: 24px !important;height: 24px !important;">
-                    <label class="me-auto ms-1 mt-2" style="font-family: 'Poppins';font-weight: 500;font-size: 13px;color: #2B3B3E;">Select all Alert</label>
-                    <a class="mt-2 mb-auto" href="#reset" style="font-family: 'Poppins';font-weight: 500;font-size: 12px;color: #594585;  border-bottom: 1px solid #594585 !important;">Reset</a>
-                </div>
-                <div class="d-flex justify-content-around">
-                    <button class="edit_alerts_buttons">High Blood Pressure</button>
-                    <button class="edit_alerts_buttons">Nasogastric Tube</button>
-                    <button class="edit_alerts_buttons">Pacemaker Tube</button>
-                    <button class="edit_alerts_buttons">Cochlea Implants</button>
-                </div>
-                <div class="d-flex justify-content-around mt-4">
-                    <button class="edit_alerts_buttons">Adrenal Insufficiency</button>
-                    <button class="edit_alerts_buttons">Glucose 6 Hosphate</button>
+                <div class="d-flex justify-content-center p-3 flex-column">
+                    <input type="text" class="form-control" style="width: 90% !important;font-style: italic;" placeholder="Search Precautions">
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <input type="checkbox" class="form-check-input check-box-style">
+                        <h5 class="me-auto ms-2 mt-1 " style="color: #4C5557 !important;">Cochlea Implants</h5>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <input type="checkbox" class="form-check-input check-box-style">
+                        <h5 class="me-auto ms-2 mt-1 " style="color: #4C5557 !important;">High Blood Pressure</h5>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <input type="checkbox" class="form-check-input check-box-style">
+                        <h5 class="me-auto ms-2 mt-1 " style="color: #4C5557 !important;">Nasogastric Tube</h5>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <input type="checkbox" class="form-check-input check-box-style">
+                        <h5 class="me-auto ms-2 mt-1 " style="color: #4C5557 !important;">Adrenal Insufficiency</h5>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <input type="checkbox" class="form-check-input check-box-style">
+                        <h5 class="me-auto ms-2 mt-1 " style="color: #4C5557 !important;">Glucose 6 Hosphate</h5>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <input type="checkbox" class="form-check-input check-box-style">
+                        <h5 class="me-auto ms-2 mt-1 " style="color: #4C5557 !important;">Pacemaker Tube</h5>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <input type="checkbox" class="form-check-input check-box-style">
+                        <h5 class="me-auto ms-2 mt-1 " style="color: #4C5557 !important;">Kidney Transplant Status</h5>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between mt-3">
+                        <input type="checkbox" class="form-check-input check-box-style">
+                        <h5 class="me-auto ms-2 mt-1 " style="color: #4C5557 !important;">Suicide/Self-harm Risk</h5>
+                    </div>
                 </div>
                   <div class="d-flex justify-content-center p-3 mt-3">
-                    <button type="button" class="btn-new me-2"
-                      style="background:#ffffff !important;color: #594585 !important;width: auto !important; border: 1px solid #594585 !important; font-weight: 500;
-                      font-size: 12px !important;
-                  " (click)="CloseModal('edit_alerts')"
-                      >Cancel</button>
-                    <button type="button" class="btn-new" style="width: auto !important;" >Update</button>
+                    <button type="button" class="btn-outline me-3" style="width: 17% !important;" (click)="CloseModal('edit_alerts')"
+                    >Cancel</button>
+                  <button type="button" class="btn-primary" style="width: 18% !important;">Update</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+
+          <!--view-GCS-->
+          <div bsModal #view_gcs="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+              <div class="modal-content" style="width: 85%;">
+                <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
+                  <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">View GCS
+                  </h1>
+                  <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('view_gcs')"
+                    style="cursor: pointer;">
+                </div>
+                <div class="d-flex justify-content-center p-3 mt-2">
+                    <h2 style="font-weight: 500 !important;padding: 5px 31px;border-radius: 100px;background-color: #2D9508;color: #fff !important;">4-Mild</h2>
+                </div>
+                <div class="p-3">
+                    <table class="table table-responsive">
+                        <thead style="background-color:#E4DAFA !important;">
+                            <tr>
+                                <th class="border-style">Eye Opening</th>
+                                <th class="border-style">Verbal Response</th>
+                                <th class="border-style">Motor Response</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th class="header-style">1-None</th>
+                                <th class="header-style">1-None</th>
+                                <th class="header-style">2-Extension</th>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                  <div class="d-flex justify-content-center p-3 mt-3">
+                  <button type="button" class="btn-primary" style="width: 90px !important;height: 30px !important;" (click)="CloseModal('view_gcs')">close</button>
                   </div>
               </div>
             </div>
@@ -460,14 +683,14 @@
                 </div>
                 <hr class="mt-0" style="color:rgba(231, 225, 243, 1);">
                 <div class="ms-3">
-                    <h4 class="notes-title">Speciality</h4>
-                    <p class="content-style">Diagnostic</p>
-                    <h4 class="notes-title">Critical Information</h4>
-                    <p class="content-style">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente eum
+                    <h6 style="color: #A8ACAD !important;">Speciality</h6>
+                    <h5 class="sub-h5" style="color: #4C5557 !important;">Diagnostic</h5>
+                    <h6 style="color: #A8ACAD !important;">Critical Information</h6>
+                    <p class="sub-h5" style="color: #4C5557 !important;">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sapiente eum
                         fugit aperiam ullam quae minus, voluptatum officia facere rem esse velit repellat hic unde! Nam
                         eius ullam blanditiis eligendi quia!</p>
-                    <h4 class="notes-title">Notes</h4>
-                    <p class="content-style">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam reiciendis
+                    <h6 style="color: #A8ACAD !important;">Notes</h6>
+                    <p class="sub-h5" style="color: #4C5557 !important;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Numquam reiciendis
                         provident harum dolorum laudantium voluptatum enim, et iste exercitationem blanditiis,
                         dignissimos officia. Expedita, sed? Non eligendi dolore totam assumenda consectetur.</p>
                 </div>
