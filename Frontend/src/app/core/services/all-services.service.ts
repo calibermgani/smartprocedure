@@ -28,6 +28,10 @@ export class AllServicesService {
   public saveDataIndication1 : any = environment_new.saveDataIndication;
   public clinicalPostDiagnosis : any = environment_new.clinicalPostDiagnosis;
   public saveDataPostDiagnosis1 : any = environment_new.saveDatapostDiagnosis;
+  public getLabDetails1 : any = environment_new.getLabDetails;
+  public saveDataLab1 : any = environment_new.saveDataLab;
+  public getMediationDetails : any = environment_new.getMediationDetails;
+  public saveMediationData1 : any = environment_new.saveMediationData;
   constructor(private http : HttpClient,private toastr : ToastrService,private datePipe: DatePipe) {
    }
 
@@ -1235,6 +1239,7 @@ export class AllServicesService {
     return age;
   }
 
+  //clinical_history pre-diagnosis, indication and post_diagnosis
   Get_Clinical_history() {
     let payload:Object = {};
     payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
@@ -1316,4 +1321,61 @@ export class AllServicesService {
     return this.http.post(`${this.apiUrl}${this.saveDataPostDiagnosis1}`, payload);
   }
 
+  //Labs details
+  GetLabDetails() {
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["stage_type"]='Requesting';
+    payload["mrn_number"]=patientDataJson.mrn_no;
+    payload["patient_id"]=patientDataJson.id;
+    payload['procedure'] = 'Procedure 1';
+    return this.http.post(`${this.apiUrl}${this.getLabDetails1}`,payload);
+  }
+
+  saveDataLab(rowData : any) {
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["stage_type"]='Requesting';
+    payload["mrn_number"]= patientDataJson.mrn_no;
+    payload["patient_id"]= patientDataJson.id;
+    payload['patient_lab_data'] = rowData;
+    payload['created_by'] = 1;
+    payload['added_by'] = 1;
+    payload['procedure'] = 'Procedure 1';
+  
+    return this.http.post(`${this.apiUrl}${this.saveDataLab1}`, payload);
+  }
+
+  //Medication Details
+  GetMedicationDetails() {
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["stage_type"]='Requesting';
+    payload["mrn_number"]=patientDataJson.mrn_no;
+    payload["patient_id"]=patientDataJson.id;
+    payload['procedure'] = 'Procedure 1';
+    return this.http.post(`${this.apiUrl}${this.getMediationDetails}`,payload);
+  }
+
+  saveDataMedication(rowData : any) {
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["stage_type"]='Requesting';
+    payload["mrn_number"]= patientDataJson.mrn_no;
+    payload["patient_id"]= patientDataJson.id;
+    payload['patient_mediation_data'] = rowData;
+    payload['created_by'] = 1;
+    payload['added_by'] = 1;
+    payload['procedure'] = 'Procedure 1';
+  
+    return this.http.post(`${this.apiUrl}${this.saveMediationData1}`, payload);
+  }
 }

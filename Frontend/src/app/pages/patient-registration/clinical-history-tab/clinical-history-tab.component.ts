@@ -37,7 +37,6 @@ export class ClinicalHistoryTabComponent implements OnInit {
   constructor(private allService: AllServicesService, private http: HttpClient,private toastr : ToastrService,private formBuilder: FormBuilder,private datePipe: DatePipe){}
 
   ngOnInit(){
-    // this.AddModal('addstaff');
     this.tableFormClinicalHistory = this.formBuilder.group({
       rows: this.formBuilder.array([this.createDiagnosisGroup()])
     });
@@ -58,7 +57,6 @@ export class ClinicalHistoryTabComponent implements OnInit {
   /*clinical_history Api Integration By Adaikkalam (Pre-Diagnosis)*/
   Get_Clinical_history(){
     this.allService.Get_Clinical_history().subscribe((clinical_data : any)=>{
-      console.log(clinical_data,'clinical');
       if(clinical_data.status === 'Success'){
         this.clinical_history = clinical_data.data;
         this.clinical_history  = this.clinical_history.map((dateTime)=>{
@@ -115,7 +113,6 @@ export class ClinicalHistoryTabComponent implements OnInit {
 
  clinical_History_Data(){
   const rowData = this.tableFormClinicalHistory.value.rows;
-  console.log(rowData,'rowww pre');
     this.allService.save_Clinical_Data(rowData).subscribe((clinical_data : any)=>{
       this.toastr.success(`${clinical_data.message}`,'Successfull', {
         positionClass: 'toast-top-center',
@@ -127,10 +124,6 @@ export class ClinicalHistoryTabComponent implements OnInit {
     (error:any)=>{
       console.error("API Error:", error);
     })
- }
-
- editClinicModal(modal : string){
-    if(modal === 'edit_clinical_history' && this.edit_clinical_history) this.edit_clinical_history?.show();
  }
 
    /*clinical_history Api Integration By Adaikkalam (Indication)*/
@@ -159,7 +152,6 @@ export class ClinicalHistoryTabComponent implements OnInit {
 
   get_Indication_History(){
     this.allService.Get_Indication_History().subscribe(( indication : any)=>{
-      console.log(indication,'indication');
       if(indication.status === 'Success') {
         this.indication = indication.data;
         this.indication = this.indication.map((dateTime)=>{
@@ -235,7 +227,6 @@ export class ClinicalHistoryTabComponent implements OnInit {
 
   get_Post_Diagnosis_History(){
     this.allService.Get_Post_Diagnosis_History().subscribe(( post_diagnosis : any)=>{
-      console.log(post_diagnosis,'post_diagnosis');
       if(post_diagnosis.status === 'Success') {
         this.post_diagnosis = post_diagnosis.data;
         this.post_diagnosis = this.post_diagnosis.map((dateTime)=>{
@@ -281,6 +272,8 @@ export class ClinicalHistoryTabComponent implements OnInit {
 
   selectDiagnosis(diagnosis : string){
     this.currentDiagnosis = diagnosis;
+    console.log(this.currentDiagnosis);
+    
   }
 
   clinical_history_save(){
@@ -295,10 +288,19 @@ export class ClinicalHistoryTabComponent implements OnInit {
 
   AddModal(modalName : string){
     if(modalName === 'addstaff' && this.addstaff) this.addstaff?.show();
-    // this.selectDiagnosis('Pre-diagnosis');
+    this.tableFormClinicalHistory = this.formBuilder.group({
+      rows: this.formBuilder.array([this.createDiagnosisGroup()])
+    });
+    this.tableFormIndication = this.formBuilder.group({
+      rows_1: this.formBuilder.array([this.createDiagnosisGroup1()])
+    });
+    this.tableFormPostDiagnosis = this.formBuilder.group({
+      rows_2: this.formBuilder.array([this.createDiagnosisGroup2()])
+    });
   }
 
   OpenModal(modalName: string, activeTab: string){
+   
     if(modalName === 'addstaff' && this.addstaff) this.addstaff?.show();
     this.tableFormClinicalHistory = this.formBuilder.group({
       rows: this.formBuilder.array([])
@@ -318,9 +320,15 @@ export class ClinicalHistoryTabComponent implements OnInit {
           code : values.code,
           date : values.date
         })
+        this.tableFormIndication = this.formBuilder.group({
+          rows_1: this.formBuilder.array([this.createDiagnosisGroup1()])
+        });
+        this.tableFormPostDiagnosis = this.formBuilder.group({
+          rows_2: this.formBuilder.array([this.createDiagnosisGroup2()])
+        });
       });
     }else if(activeTab === 'indication'){
-      this.selectDiagnosis('Indication');
+      this.selectDiagnosis('indication');
       this.indication.forEach(()=>this.addRowIndication());
       this.indication.forEach((values,index)=>{
         this.indication_rows.controls[index].patchValue({
@@ -328,6 +336,12 @@ export class ClinicalHistoryTabComponent implements OnInit {
           code : values.code,
           date : values.date
         })
+        this.tableFormClinicalHistory = this.formBuilder.group({
+          rows: this.formBuilder.array([this.createDiagnosisGroup()])
+        });
+        this.tableFormPostDiagnosis = this.formBuilder.group({
+          rows_2: this.formBuilder.array([this.createDiagnosisGroup2()])
+        });
       });
     }else if(activeTab === 'post_diagnosis'){
       this.selectDiagnosis('Post-diagnosis');
@@ -338,6 +352,12 @@ export class ClinicalHistoryTabComponent implements OnInit {
           code : values.code,
           date : values.date
         })
+        this.tableFormClinicalHistory = this.formBuilder.group({
+          rows: this.formBuilder.array([this.createDiagnosisGroup()])
+        });
+        this.tableFormIndication = this.formBuilder.group({
+          rows_1: this.formBuilder.array([this.createDiagnosisGroup1()])
+        });
       });
     }
   }

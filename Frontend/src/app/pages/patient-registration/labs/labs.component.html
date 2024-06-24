@@ -2,7 +2,8 @@
     <div class="row mt-1 m-0">
         <div class="col-12 d-flex justify-content-between" >
                 <h3 class="lab-texts">Labs</h3>
-                <button class="btn-primary" (click)="OpenModal('addstaff')"><img src="assets/New_Images/uil_edit.png" width="20px" alt="add-img">Edit</button>
+                <button class="btn-primary" *ngIf="labDetails.length > 0" (click)="OpenModal('addstaff')"><img src="assets/New_Images/uil_edit.png" width="20px" alt="add-img">Edit</button>
+                <button class="btn-primary" *ngIf="labDetails.length === 0" (click)="OpenModal('addstaff')"><img src="assets/New_Images/mdi_plus-circle.svg" width="20px" alt="add-img">Add</button>
         </div>
         <p class="lab-codes">EST X-RAY, PA AND LATERAL (701020) case provide</p>
         <div class="table-content">
@@ -17,19 +18,12 @@
                     </tr>
                 </thead>
                 <tbody class="table-body">
-                    <tr>
-                        <th>Diagnosis 1</th>
-                        <th>3424434</th>
-                        <th>05/22/2024 | 05.20 PM</th>
-                        <th>Noor Lucas</th>
-                        <th>05/22/2024 | 05.20 PM</th>
-                    </tr>
-                    <tr>
-                        <th>Diagnosis 1</th>
-                        <th>3424434</th>
-                        <th>05/22/2024 | 05.20 PM</th>
-                        <th>Noor Lucas</th>
-                        <th>05/22/2024 | 05.20 PM</th>
+                    <tr *ngFor="let data of labDetails">
+                        <th>{{data.test_name}}</th>
+                        <th>{{data.result}}</th>
+                        <th>{{data.created_at}}| {{data.created_Time}}</th>
+                        <th>{{data.updated_by}}</th>
+                        <th>{{data.created_at}}| {{data.created_Time}}</th>
                     </tr>
                 </tbody>
             </table>
@@ -53,10 +47,11 @@
         </div>
         <div class="row mt-1">
             <div class="col-12 p-4">
-                <div class="table-border">
+                <form [formGroup]="tableLab">
+                <div formArrayName="labRows" class="table-border">
                     <table class="table responsive" style=" background-color: #FAFAFA;">
                         <thead>
-                            <tr>
+                            <tr  >
                                 <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Test Name</th>
                                 <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Result</th>
                                 <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Date</th>
@@ -65,12 +60,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr *ngFor="let diagnosis of labRows.controls; let i = index" [formGroupName]="i">
                                 <th>
-                                    <input type="text" name="test-name" class="test-name">
+                                    <input type="text" name="test-name" class="test-name" formControlName="test_name">
                                 </th>
                                 <th>
-                                    <input type="text" name="result" class="result">
+                                    <input type="text" name="result" class="result" formControlName="result">
                                 </th>
                                 <th >
                                     <input type="text" placeholder="Select Date" class="form-control" bsDatepicker
@@ -78,22 +73,24 @@
                                         formControlName="date">
                                 </th>
                                     <th>
-                                        <img src="assets/New_Images/mdi_minus-circle.png" alt="remove-labs" height="24px" width="24px" class="mt-1 ms-auto">
+                                        <img *ngIf="i === 0 && labRows.length > 1" src="assets/New_Images/mdi_minus-circle.png" (click)="deleteLabRow(i)" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img  *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" (click)="deleteLabRow(i)" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
                                     </th>
                                     <th>
-                                        <img src="assets/New_Images/diagnosis.png" alt="add-labs" height="24px" width="24px" class="mt-1 ms-auto">
+                                        <img  *ngIf="i === 0 && labRows.length === 1" src="assets/New_Images/diagnosis.png" (click)="addLabRow()" alt="add-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img  *ngIf="i > 0" src="assets/New_Images/diagnosis.png" alt="add-labs" height="24px" (click)="addLabRow()" width="24px" class="mt-2 ms-auto">
                                     </th>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-        
+                </form>
             </div>
         </div>
           <div class="d-flex justify-content-center p-3 mt-5">
             <button type="button" class="btn-outline me-3" (click)="CloseModal('addstaff')"
               >Cancel</button>
-            <button type="button" class="btn-primary" style="width: auto !important;" >Submit</button>
+            <button type="button" class="btn-primary" style="width: auto !important;" (click)="saveLabDetails()">Submit</button>
           </div>
       </div>
     </div>

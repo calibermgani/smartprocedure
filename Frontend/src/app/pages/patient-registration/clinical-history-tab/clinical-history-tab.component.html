@@ -8,18 +8,18 @@
             <div class="row mt-2 mx-0">
                 <div class="col-12 clinical-table p-0">
                     <div class="d-flex justify-content-between header-designs">
-                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.5rem 1rem 0rem .5rem;">Pre Diagnosis</h3>
+                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.3rem 1rem 0rem .5rem;">Pre Diagnosis</h3>
                         <img *ngIf="clinical_history.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'pre-diagnosis')" width="16px" height="16px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
                         <h4 *ngIf="clinical_history.length > 0" class="edit-texts">Edit</h4>
-                        <img *ngIf="clinical_history.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
+                        <img *ngIf="clinical_history.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
                         <h4 *ngIf="clinical_history.length === 0" class="edit-texts">Add</h4>
                     </div>
                     <div>
                         <table class="table responsive">
                             <thead class="table-header">
                                 <tr>
-                                    <th scope="col">Diagnosis</th>
-                                    <th scope="col">Code</th>
+                                    <th scope="col" style="width: 19%;">Diagnosis</th>
+                                    <th scope="col" style="width: 15%;">Code</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Updated By</th>
                                     <th scope="col">Updated On</th>
@@ -38,18 +38,18 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-between header-designs">
-                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.7rem 1rem 0rem .5rem;">Indication</h3>
+                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.4rem 1rem 0rem .5rem;">Indication</h3>
                         <img *ngIf="indication.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'indication')"  width="16px" height="16px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
                         <h4 *ngIf="indication.length > 0" class="edit-texts">Edit</h4>
-                        <img *ngIf="indication.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto;cursor: pointer;">
+                        <img *ngIf="indication.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto;cursor: pointer;">
                         <h4 *ngIf="indication.length === 0" class="edit-texts">Add</h4>
                     </div>
                     <div>
                         <table class="table">
                             <thead class="table-header">
                                 <tr>
-                                    <th scope="col">Diagnosis</th>
-                                    <th scope="col">Code</th>
+                                    <th scope="col" style="width: 19%;">Diagnosis</th>
+                                    <th scope="col" style="width: 15%;">Code</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Updated By</th>
                                     <th scope="col">Updated On</th>
@@ -68,10 +68,10 @@
                         </table>
                     </div>
                     <div class="d-flex justify-content-between header-designs">
-                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.5rem 1rem 0rem .5rem;">Post Diagnosis</h3>
+                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.3rem 1rem 0rem .5rem;">Post Diagnosis</h3>
                         <img *ngIf="post_diagnosis.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'post_diagnosis')"  width="14px" height="14px" alt="add-img" style="margin: 0.8rem -0.5rem 0rem auto;cursor: pointer;">
                         <h4 *ngIf="post_diagnosis.length > 0" class="edit-texts">Edit</h4>
-                        <img *ngIf="post_diagnosis.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.8rem -0.5rem 0rem auto;cursor: pointer;">
+                        <img *ngIf="post_diagnosis.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto;cursor: pointer;">
                         <h4 *ngIf="post_diagnosis.length === 0" class="edit-texts">Add</h4>
                
                     </div>
@@ -79,8 +79,8 @@
                         <table class="table">
                             <thead class="table-header">
                                 <tr>
-                                    <th scope="col">Diagnosis</th>
-                                    <th scope="col">Code</th>
+                                    <th scope="col" style="width: 19%;">Diagnosis</th>
+                                    <th scope="col" style="width: 15%;">Code</th>
                                     <th scope="col">Date</th>
                                     <th scope="col">Updated By</th>
                                     <th scope="col">Updated On</th>
@@ -121,25 +121,25 @@
                 <div class="tab-pane" role="tabpanel" style="width: 100% !important;">
                 <ul class="nav line-tab px-0 nav-tabs  nav-tabs-custom nav-justified" role="tablist">
                     <li class="nav-item" role="presentation" (click)="selectDiagnosis('Pre-diagnosis')">
-                        <a class="nav-link active"  data-bs-toggle="tab" href="#pre_diagnosis" role="tab" aria-controls="pre_diagnosis" style="padding: 0.7rem;"
+                        <a  [ngClass]="currentDiagnosis === 'Pre-diagnosis' ? 'nav-link active' : 'nav-link' "  data-bs-toggle="tab" href="#pre_diagnosis" role="tab" aria-controls="pre_diagnosis" style="padding: 0.7rem;"
                             aria-selected="true" >
                             <h1 class="d-none d-sm-block name"> Pre Diagnosis</h1>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation" (click)="selectDiagnosis('indication')">
-                        <a class="nav-link"  data-bs-toggle="tab" href="#indication" role="tab" aria-selected="false" aria-controls="indication"  tabindex="-1" style="padding: 0.7rem;" >
+                        <a [ngClass]="currentDiagnosis === 'indication' ? 'nav-link active' : 'nav-link' "  data-bs-toggle="tab" href="#indication" role="tab" aria-selected="false" aria-controls="indication"  tabindex="-1" style="padding: 0.7rem;" >
                             <h1 class="d-none d-sm-block name">Indication
                             </h1>
                         </a>
                     </li>
                     <li class="nav-item" role="presentation" (click)="selectDiagnosis('Post-diagnosis')">
-                        <a class="nav-link"  data-bs-toggle="tab" href="#post_diagnosis" role="tab" aria-controls="post_diagnosis" aria-selected="false"  tabindex="-1" style="padding: 0.7rem;">
+                        <a [ngClass]="currentDiagnosis === 'Post-diagnosis' ? 'nav-link active' : 'nav-link' "  data-bs-toggle="tab" href="#post_diagnosis" role="tab" aria-controls="post_diagnosis" aria-selected="false"  tabindex="-1" style="padding: 0.7rem;">
                             <h1 class="d-none d-sm-block name">Post Diagnosis</h1>
                         </a>
                     </li>
                 </ul>
                 <div class="tab-content">
-                    <div class="tab-pane active show"  id="pre_diagnosis" role="tabpanel" aria-labelledby="pre-diagnosis-tab">
+                    <div  [ngClass]="currentDiagnosis === 'Pre-diagnosis' ? 'tab-pane active show' : 'tab-pane' "  id="pre_diagnosis" role="tabpanel" aria-labelledby="pre-diagnosis-tab">
                         <form [formGroup]="tableFormClinicalHistory">
                             <div formArrayName="rows">
                                 <div *ngFor="let diagnosis of rows.controls; let i = index" [formGroupName]="i" class="pre_diagnosis_style d-flex flex-row p-3">
@@ -170,7 +170,7 @@
                             </div>
                         </form>    
                     </div>
-                    <div  class="tab-pane" id="indication" role="tabpanel" aria-labelledby="indication-tab">
+                    <div  [ngClass]="currentDiagnosis === 'indication' ? 'tab-pane active show' : 'tab-pane' " id="indication" role="tabpanel" aria-labelledby="indication-tab">
                         <form [formGroup]="tableFormIndication">
                             <div formArrayName="rows_1">
                         <div *ngFor="let diagnosis of indication_rows.controls; let i = index" [formGroupName]="i" class="indication_style d-flex flex-row p-3">
@@ -192,8 +192,8 @@
                                     formControlName="date">                            
                                 </div>
                             <div *ngIf="indication_rows.length > 0" class="image ms-2 d-flex align-items-center" style="margin-top: 31px;">
-                                <img *ngIf="i === 0 && rows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addRowIndication()" alt="add-diagnosis" height="24px" width="24px">
-                                <img *ngIf="i === 0 && rows.length > 1" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowIndication(i)" alt="delete-diagnosis" height="24px" width="24px">
+                                <img *ngIf="i === 0 && indication_rows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addRowIndication()" alt="add-diagnosis" height="24px" width="24px">
+                                <img *ngIf="i === 0 && indication_rows.length > 1" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowIndication(i)" alt="delete-diagnosis" height="24px" width="24px">
                                 <img *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowIndication(i)" alt="delete-diagnosis" height="24px" width="24px">
                                 <img *ngIf="i > 0" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addRowIndication()" alt="add-diagnosis" height="24px" width="24px">
                             </div>
@@ -201,7 +201,7 @@
                             </div>
                         </form>
                     </div>
-                    <div  class="tab-pane" id="post_diagnosis" role="tabpanel" aria-labelledby="post-diagnosis-tab">
+                    <div   [ngClass]="currentDiagnosis === 'Post-diagnosis' ? 'tab-pane active show' : 'tab-pane' " id="post_diagnosis" role="tabpanel" aria-labelledby="post-diagnosis-tab">
                         <form [formGroup]="tableFormPostDiagnosis">
                             <div formArrayName="rows_2">
                         <div *ngFor="let diagnosis of post_diagnosis_rows.controls; let i = index" [formGroupName]="i" class="post_diagnosis_style d-flex flex-row p-3">
@@ -222,9 +222,9 @@
                                     [bsConfig]="{ adaptivePosition: true , dateInputFormat: 'YYYY-MM-DD' , dateOutputFormat:'YYYY-MM-DD' }"
                                     formControlName="date">                            
                             </div>
-                            <div *ngIf="rows.length > 0" class="image ms-2 d-flex align-items-center" style="margin-top: 31px;">
-                                <img *ngIf="i === 0 && rows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addPostDiagnosis()" alt="add-diagnosis" height="24px" width="24px">
-                                <img *ngIf="i === 0 && rows.length > 1" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowDiagnosis(i)" alt="delete-diagnosis" height="24px" width="24px">
+                            <div *ngIf="post_diagnosis_rows.length > 0" class="image ms-2 d-flex align-items-center" style="margin-top: 31px;">
+                                <img *ngIf="i === 0 && post_diagnosis_rows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addPostDiagnosis()" alt="add-diagnosis" height="24px" width="24px">
+                                <img *ngIf="i === 0 && post_diagnosis_rows.length > 1" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowDiagnosis(i)" alt="delete-diagnosis" height="24px" width="24px">
                                 <img *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteRowDiagnosis(i)" alt="delete-diagnosis" height="24px" width="24px">
                                 <img *ngIf="i > 0" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addPostDiagnosis()" alt="add-diagnosis" height="24px" width="24px">
                             </div>

@@ -2,7 +2,8 @@
     <div class="row mt-1 m-0">
         <div class="col-12 d-flex justify-content-between">
                 <h3 class="lab-texts">Medication</h3>
-                <button class="btn-primary" (click)="OpenModal('addstaff')"><img src="assets/New_Images/uil_edit.png" width="20px" alt="add-img">Edit</button>
+                <button class="btn-primary" *ngIf="medicationDetails.length > 0" (click)="OpenModal('addstaff')"><img src="assets/New_Images/uil_edit.png" width="20px" alt="add-img">Edit</button>
+                <button class="btn-primary" *ngIf="medicationDetails.length === 0" (click)="OpenModal('addstaff')"><img src="assets/New_Images/mdi_plus-circle.svg" width="20px" alt="add-img">Add</button>
         </div>
         <p class="lab-codes">The previous/current medication of the patients are listed below.</p>
         <div class="table-content">
@@ -17,13 +18,6 @@
                     </tr>
                 </thead>
                 <tbody class="table-body">
-                    <tr>
-                        <th>Diagnosis 1</th>
-                        <th>3424434</th>
-                        <th>05/22/2024 | 05.20 PM</th>
-                        <th>Noor Lucas</th>
-                        <th>05/22/2024 | 05.20 PM</th>
-                    </tr>
                     <tr>
                         <th>Diagnosis 1</th>
                         <th>3424434</th>
@@ -47,14 +41,15 @@
     <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
       <div class="modal-content" style="width: 85%;">
         <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
-          <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Lab
+          <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Medication
           </h1>
           <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('addstaff')"
             style="cursor: pointer;">
         </div>
         <div class="row mt-1">
             <div class="col-12 p-4">
-                <div class="table-border">
+                <form [formGroup]="tableMedication">
+                <div formArrayName="medicationRows" class="table-border">
                     <table class="table responsive" style=" background-color: #FAFAFA;">
                         <thead>
                             <tr>
@@ -66,12 +61,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
+                            <tr >
                                 <th>
-                                    <input type="text" name="test-name" class="test-name">
+                                    <input type="text" name="test-name" class="test-name" formControlName="test_name">
                                 </th>
                                 <th>
-                                    <input type="text" name="result" class="result">
+                                    <input type="text" name="result" class="result"  formControlName="result">
                                 </th>
                                 <th >
                                     <input type="text" placeholder="Select Date" class="form-control" bsDatepicker
@@ -79,22 +74,22 @@
                                     formControlName="date">
                                 </th>
                                     <th>
-                                        <img src="assets/New_Images/mdi_minus-circle.png" alt="remove-labs" height="24px" width="24px" class="mt-1 ms-auto">
+                                        <img src="assets/New_Images/mdi_minus-circle.png" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
                                     </th>
                                     <th>
-                                        <img src="assets/New_Images/diagnosis.png" alt="add-labs" height="24px" width="24px" class="mt-1 ms-auto">
+                                        <img src="assets/New_Images/diagnosis.png" alt="add-labs" height="24px" width="24px" class="mt-2 ms-auto">
                                     </th>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-        
+                </form>
             </div>
         </div>
           <div class="d-flex justify-content-center p-3 mt-5">
             <button type="button" class="btn-outline me-3" (click)="CloseModal('addstaff')"
               >Cancel</button>
-            <button type="button" class="btn-primary" style="width: auto !important;" >Submit</button>
+            <button type="button" class="btn-primary" style="width: auto !important;" (click)="saveMedicationDetails()">Submit</button>
           </div>
       </div>
     </div>
