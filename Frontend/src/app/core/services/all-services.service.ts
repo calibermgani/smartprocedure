@@ -32,6 +32,8 @@ export class AllServicesService {
   public saveDataLab1 : any = environment_new.saveDataLab;
   public getMediationDetails : any = environment_new.getMediationDetails;
   public saveMediationData1 : any = environment_new.saveMediationData;
+  public saveVitalDetails1 : any = environment_new.saveVitalDetails;
+  public editVitals1 : any = environment_new.editVitals;
   constructor(private http : HttpClient,private toastr : ToastrService,private datePipe: DatePipe) {
    }
 
@@ -1377,5 +1379,35 @@ export class AllServicesService {
     payload['procedure'] = 'Procedure 1';
   
     return this.http.post(`${this.apiUrl}${this.saveMediationData1}`, payload);
+  }
+
+  saveVitalDetails(blood_pressure: string, respiratory_rate: string, temperature: string, heart_beat: string, spO2: string) {
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["mrn_number"]= patientDataJson.mrn_no;
+    payload["patient_id"]= patientDataJson.id;
+    payload['created_by'] = 1;
+    payload['added_by'] = 1;
+    payload['procedure'] = 'Procedure 1';
+    payload['accession_no'] = patientDataJson.accession_no;
+    payload['blood_pressure'] = blood_pressure;
+    payload['respiratory_rate'] = respiratory_rate;
+    payload['temperature'] = temperature;
+    payload['heart_beat'] = heart_beat;
+    payload['spO2'] = spO2;
+    
+    return this.http.post(`${this.apiUrl}${this.saveVitalDetails1}`, payload);
+  }
+
+  editVitals(){
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]= patientDataJson.id;
+
+    return this.http.post(`${this.apiUrl}${this.editVitals1}`, payload);
   }
 }

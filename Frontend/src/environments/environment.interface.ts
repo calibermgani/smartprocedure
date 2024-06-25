@@ -24,6 +24,8 @@ export interface IEnvironment {
   getCheckListData?: string;
   kiziCheckBoxesData?: string;
   kiziCheckBoxesTimeLine?: string;
-  materialdashboard?:string
+  materialdashboard?:string;
+  saveVitalDetails?:string;
+  editVitals?:string;
 
 }

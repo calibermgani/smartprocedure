@@ -3,7 +3,7 @@
         <div class="col-12 d-flex justify-content-between">
                 <h3 class="lab-texts">Medication</h3>
                 <button class="btn-primary" *ngIf="medicationDetails.length > 0" (click)="OpenModal('addstaff')"><img src="assets/New_Images/uil_edit.png" width="20px" alt="add-img">Edit</button>
-                <button class="btn-primary" *ngIf="medicationDetails.length === 0" (click)="OpenModal('addstaff')"><img src="assets/New_Images/mdi_plus-circle.svg" width="20px" alt="add-img">Add</button>
+                <button class="btn-primary" *ngIf="medicationDetails.length === 0" (click)="AddModal('addstaff')"><img src="assets/New_Images/mdi_plus-circle.svg" width="20px" alt="add-img">Add</button>
         </div>
         <p class="lab-codes">The previous/current medication of the patients are listed below.</p>
         <div class="table-content">
@@ -18,12 +18,12 @@
                     </tr>
                 </thead>
                 <tbody class="table-body">
-                    <tr>
-                        <th>Diagnosis 1</th>
-                        <th>3424434</th>
-                        <th>05/22/2024 | 05.20 PM</th>
-                        <th>Noor Lucas</th>
-                        <th>05/22/2024 | 05.20 PM</th>
+                    <tr *ngFor="let data of medicationDetails">
+                        <th>{{data.test_name}}</th>
+                        <th>{{data.result}}</th>
+                        <th>{{data.created_at}} | {{data.created_Time}}</th>
+                        <th>{{data.updated_by}}</th>
+                        <th>{{data.created_at}} | {{data.created_Time}}</th>
                     </tr>
                 </tbody>
             </table>
@@ -39,7 +39,7 @@
 
 <div bsModal #addstaff="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
     <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
-      <div class="modal-content" style="width: 85%;">
+      <div class="modal-content">
         <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
           <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Medication
           </h1>
@@ -47,7 +47,7 @@
             style="cursor: pointer;">
         </div>
         <div class="row mt-1">
-            <div class="col-12 p-4">
+            <div class="col-12 p-5">
                 <form [formGroup]="tableMedication">
                 <div formArrayName="medicationRows" class="table-border">
                     <table class="table responsive" style=" background-color: #FAFAFA;">
@@ -61,7 +61,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr >
+                            <tr *ngFor="let diagnosis of medicationRows.controls; let i = index" [formGroupName]="i">
                                 <th>
                                     <input type="text" name="test-name" class="test-name" formControlName="test_name">
                                 </th>
@@ -74,10 +74,12 @@
                                     formControlName="date">
                                 </th>
                                     <th>
-                                        <img src="assets/New_Images/mdi_minus-circle.png" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img *ngIf="i === 0 && medicationRows.length > 1" src="assets/New_Images/mdi_minus-circle.png" (click)="deleteLabRow(i)" style="cursor: pointer;" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" (click)="deleteLabRow(i)" style="cursor: pointer;" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
                                     </th>
                                     <th>
-                                        <img src="assets/New_Images/diagnosis.png" alt="add-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img *ngIf="i === 0 && medicationRows.length === 1" src="assets/New_Images/diagnosis.png" (click)="addLabRow()" style="cursor: pointer;" alt="add-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img *ngIf="i > 0" src="assets/New_Images/diagnosis.png" (click)="addLabRow()" style="cursor: pointer;" alt="add-labs" height="24px" width="24px" class="mt-2 ms-auto">
                                     </th>
                             </tr>
                         </tbody>

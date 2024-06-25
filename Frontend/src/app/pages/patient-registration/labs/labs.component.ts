@@ -43,6 +43,12 @@ export class LabsComponent implements OnInit {
     })
   }
 
+  AddModal(modalName: string){
+    if(modalName === 'addstaff' && this.addstaff) this.addstaff?.show();
+    this.tableLab = this.formBuilder.group({
+      labRows: this.formBuilder.array([this.createLabGroup()])
+    });
+  }
   CloseModal(modalName: string){
     if(modalName === 'addstaff') this.addstaff?.hide();
   }

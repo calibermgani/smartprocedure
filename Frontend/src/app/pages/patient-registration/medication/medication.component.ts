@@ -43,6 +43,12 @@ export class MedicationComponent {
     })
   }
 
+  AddModal(modalName: string){
+    if(modalName === 'addstaff' && this.addstaff) this.addstaff?.show();
+        this.tableMedication = this.formBuilder.group({
+      medicationRows: this.formBuilder.array([this.createLabGroup()])
+    });
+  }
   CloseModal(modalName: string){
     if(modalName === 'addstaff') this.addstaff?.hide();
   }

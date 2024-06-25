@@ -1,8 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, ElementRef, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ModalDirective } from 'ngx-bootstrap/modal';
 import { Options } from 'ngx-slider-v2';
 import { AllServicesService } from 'src/app/core/services/all-services.service';
+import { ToastrService } from 'ngx-toastr';
 import { environment_new } from 'src/environments/environment';
 
 
@@ -31,6 +33,7 @@ export class PatientViewComponent {
 
   selectedCard: string = '';
 
+
   @ViewChild('edit_vitals', { static: false }) edit_vitals?: ModalDirective;
   @ViewChild('edit_precautions', { static: false }) edit_precautions?: ModalDirective;
   @ViewChild('edit_alerts', { static: false }) edit_alerts?: ModalDirective;
@@ -41,8 +44,19 @@ export class PatientViewComponent {
   patient_id : any= localStorage.getItem('PatientID')
   mrn_number : any = localStorage.getItem('MRN_NO');
   procedure_id : any = localStorage.getItem('Procedure');
+  patientViewForm: FormGroup;
+  vitalDetailData: any[]=[];
 
-  constructor(private allService:AllServicesService, private http: HttpClient){}
+  constructor(private allService:AllServicesService, private http: HttpClient,private formbuilder: FormBuilder, private toastr: ToastrService) {
+    this.patientViewForm = this.formbuilder.group({
+      blood_pressure: [''],
+      respiratory_rate: [''],
+      temperature: [''],
+      heart_beat: [''],
+      spO2: ['']
+    })
+  }
+  
 
   ngOnInit(){
     this.patient = this.allService.getPatientData();
@@ -51,6 +65,7 @@ export class PatientViewComponent {
 
   ngAfterViewInit(): void {
     this.scrollToContent();
+
   }
 
   OpenModal(modalName: string){
@@ -93,5 +108,27 @@ export class PatientViewComponent {
       this.selectedCard = card;
     }
   }
+
+  addVitalsDetails(vitalsDetails:any){
+    console.log(vitalsDetails);
+    this.allService.saveVitalDetails(vitalsDetails.blood_pressure,vitalsDetails.respiratory_rate,vitalsDetails.temperature,vitalsDetails.heart_beat,vitalsDetails.spO2).subscribe({
+      next:((res:any)=>{
+        this.toastr.success(`${res.message}`, 'Successful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+        if(res.status === 'Success'){
+          this.vitalDetailData = res.data;
+          console.log(this.vitalDetailData, 'vitals');
+        }
+      })
+    });
+    this.resetForm();
+  }
+
+  resetForm(){
+    this.patientViewForm.reset();
+  }
+
 
 }

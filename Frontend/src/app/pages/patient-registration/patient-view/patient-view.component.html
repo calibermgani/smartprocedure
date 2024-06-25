@@ -34,45 +34,37 @@
 <div class="row">
     <div class="col-2 p-0" style="margin-left: -0.4rem;">
         <div class="profile-design ">
-            <div class="d-flex p-2 flex-row w-auto">
+            <div class="d-flex p-1 flex-row w-auto">
                 <div class="d-flex flex-column ms-2 mt-3">
                     <img src="assets/New_Images/saudi_arabian.png" width="71px" height="71px" />
                     <h6 class="patient_type">out Patient</h6>
                 </div>
-                <div class="p-2 ms-2 d-flex flex-column">
+                <div class="p-1 ms-4 d-flex flex-column">
                     <h5 style="color:#594585 !important;">{{this.patient?.Name}}</h5>
-                    <div class="d-flex typography-texts">
-                        <h6>MRN:</h6>
-                        <span class="profile-values ms-1">{{this.patient?.mrn_no}}</span>
-                    </div>
-                    <div class="d-flex typography-texts">
-                        <h6>D.O.B:</h6>
-                        <span class="profile-values ms-1">342354</span>
-                    </div>
-                    <div class="d-flex flex-row typography-texts w-50 gap-1">
-                        <h6>Gender:</h6>
-                        <span class="profile-values ms-1">{{this.patient?.gender}}</span>                       
-                        <h6>Age:</h6>
-                        <span class="profile-values ms-1">{{this.patient?.age}}years</span>
+                    <p class="m-0" style="font-weight: 500 !important;font-size: 12px !important;color: #AFA5C6;">MRN: <span style="color:#526A84;font-weight: 500 !important;font-size: 12px !important;">{{this.patient?.mrn_no}}</span></p>
+                    <p class="m-0 mt-1"  style="font-weight: 500 !important;font-size: 12px !important;color: #AFA5C6;">D.O.B: <span style="color:#526A84;font-weight: 500 !important;font-size: 12px !important;">{{this.patient?.dob}}</span></p>
+                    <div class="d-flex mt-1 flex-row">
+                        <p class="m-0"  style="font-weight: 500 !important;font-size: 12px !important;color: #AFA5C6;">Gender: <span style="color:#526A84;font-weight: 500 !important;font-size: 12px !important;">{{this.patient?.gender}}</span></p>
+                        <p class="m-0 ms-3"  style="font-weight: 500 !important;font-size: 12px !important;color: #AFA5C6;">Age: <span style="color:#526A84;font-weight: 500 !important;font-size: 12px !important;">{{this.patient?.age}}</span></p>
                     </div>
                 </div>
             </div>
-            <div class="row d-flex p-1 m-1 flex-row w-auto h-auto " style="border-top: 1px solid rgba(231, 222, 250, 1); border-bottom: 1px solid rgba(231, 222, 250, 1);">
-                    <div class="col-4 d-flex flex-row p-1 align-items-center justify-content-around" style="border-right: 1px solid  rgba(231, 222, 250, 1);">
+            <div class="row d-flex p-1 m-1 flex-row w-auto h-auto mt-2" style="border-top: 1px solid rgba(231, 222, 250, 1); border-bottom: 1px solid rgba(231, 222, 250, 1);">
+                    <div class="col-4 d-flex flex-row p-1 align-items-center justify-content-around" style="border-right: 1px solid  rgba(231, 222, 250, 1);width: 25%;">
                             <img src="assets/New_Images/blood.png" alt="blood" width="25px" height="25px">
                         <div class="ps-0">
                             <h6 class="mb-0" style="font-weight: 500 !important;color: rgba(168, 172, 173, 1) !important;">BG</h6>
                             <h6 class="mb-auto" style="font-weight: 500 !important;color: rgba(250, 4, 4, 1) !important;">A1+</h6>
                         </div>
                     </div>
-                    <div class="col-4 d-flex align-items-center flex-row p-1 justify-content-around" style="border-right: 1px solid  rgba(231, 222, 250, 1);">
+                    <div class="col-4 d-flex align-items-center flex-row p-1 justify-content-around" style="border-right: 1px solid  rgba(231, 222, 250, 1);width: 38%;">
                             <img src="assets/New_Images/height.png" alt="height" width="20px" height="20px">
                         <div  class="ps-2">
                             <h6 class="mb-0" style="font-weight: 500 !important;color: rgba(168, 172, 173, 1) !important;">Height</h6>
                             <h6 class="mb-auto" style="font-weight: 500 !important;color: rgba(76, 85, 87, 1) !important;">18cm</h6>
                         </div>
                     </div>
-                    <div class="col-4 d-flex align-items-center justify-content-around flex-row p-1">
+                    <div class="col-4 d-flex align-items-center justify-content-around flex-row p-1" style="width: 30%;">
                             <img src="assets/New_Images/weight.png" alt="weight" width="20px" height="20px">
                         <div class="ps-2">
                             <h6 class="mb-0" style="font-weight: 500 !important;color: rgba(168, 172, 173, 1) !important;">Weight</h6>
@@ -264,72 +256,75 @@
         <!--edit_vitals popup-->
         <div bsModal #edit_vitals="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
-              <div class="modal-content" style="width: 85%;">
+              <div class="modal-content">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
                   <h1 class="flex-grow-1 mt-2" style="font-size: 14px !important;color: #594585 !important;">Edit Vitals
                   </h1>
                   <img src="assets/New_Images/ep_close-bold.png" width="16px" height="16px" (click)="CloseModal('edit_vitals')"
                     style="cursor: pointer;">
                 </div>
+                <form [formGroup]="patientViewForm">
                 <div class="row p-4 d-flex justify-content-around flex-row mt-4">
-                    <div class="col-5 w-48 p-0 vitals_border">
+                    <div class="col-6 w-auto p-0 vitals_border">
                         <div class="border-right">
                             <img src="assets/New_Images/edit_bloodgroup.png" alt="edit_bloodgroup" width="40px" height="40px">
                         </div>
                         <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
                             <label for="blood_pressure" class="text-label me-auto ms-2">Blood Pressure</label>
-                            <input type="text" class="edit-input">
+                            <input type="text" class="form-control" style="height: 31px !important;width: 91%;" formControlName="blood_pressure">
                         </div>
                     </div>
-                    <div class="col-5 w-48 p-0 vitals_border">
+                    <div class="col-6 w-auto p-0 vitals_border">
                         <div class="border-right">
                             <img src="assets/New_Images/edit_heartbeat.png" alt="edit_heartbeat" width="40px" height="40px">
                         </div>
                         <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
                             <label for="blood_pressure" class="text-label me-auto ms-2">Heart Beat</label>
-                            <input type="text" class="edit-input">
+                            <input type="text" class="form-control" style="height: 31px !important;width: 91%;" formControlName="heart_beat">
                         </div>
                     </div>
                 </div>
                 <div class="row p-4 d-flex justify-content-around flex-row">
-                    <div class="col-5 w-48 p-0 vitals_border">
+                   
+                    <div class="col-6 w-auto p-0 vitals_border">
                         <div class="border-right">
                             <img src="assets/New_Images/edit_respiratory.png" alt="edit_respiratory" width="40px" height="40px">
                         </div>
                         <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
                             <label for="blood_pressure" class="text-label me-auto ms-2">S<sub>p</sub>O2</label>
-                            <input type="text" class="edit-input">
+                            <input type="text" class="form-control" style="height: 31px !important;width: 91%;" formControlName="spO2">
                         </div>
                     </div>
-                    <div class="col-5 w-48 p-0 vitals_border">
+                    <div class="col-6 w-auto p-0 vitals_border">
                         <div class="border-right">
                             <img src="assets/New_Images/edit_SpO2.png" alt="edit_SpO2" width="40px" height="40px">
                         </div>
                         <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
                             <label for="blood_pressure" class="text-label me-auto ms-2">Respiratory Rate</label>
-                            <input type="text" class="edit-input">
+                            <input type="text" class="form-control" style="height: 31px !important;width: 91%;" formControlName="respiratory_rate">
                         </div>
                     </div>
                 </div>
-                <div class="row p-4 ms-3">
-                    <div class="col-6 p-0 vitals_border" style="width: 43.5%;">
+                <div class="row p-4 ms-5">
+                    <div class="col-12 p-0 vitals_border" style="width: 295px !important;">
                         <div class="border-right">
                             <img src="assets/New_Images/edit_temperature.png" alt="edit_temperature" width="40px" height="40px">
                         </div>
                         <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
                             <label for="blood_pressure" class="text-label me-auto ms-2">Temperature</label>
                             <div class="d-flex ms-2">
-                                <input type="text" class="edit-input" style="border-radius: 4px 0px 0px 4px !important;width: 70% !important;">
+                                <input type="text" class="form-control" formControlName="temperature" style="border-radius: 4px 0px 0px 4px !important;height: 31px !important;width: 70% !important;">
                             <span class="temperature-cel">in cel</span>
                             </div>
                         </div>
                     </div>
                 </div>
-                  <div class="d-flex justify-content-center p-3 mt-3">
+                <div class="d-flex justify-content-center p-3 mt-3">
                     <button type="button" class="btn-outline me-3" style="width: 11% !important;" (click)="CloseModal('edit_vitals')"
                     >Cancel</button>
-                  <button type="button" class="btn-primary" style="width: 11% !important;">Submit</button>
-                  </div>
+                  <button type="button" class="btn-primary" style="width: 11% !important;" (click)="addVitalsDetails(this.patientViewForm.value)">Submit</button>
+                </div>
+                </form>
               </div>
             </div>
           </div>
@@ -337,7 +332,7 @@
           <!--edit_precautions popup-->
           <div bsModal #edit_precautions="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
-              <div class="modal-content" style="width: 85%;">
+              <div class="modal-content">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
                   <h1 class="flex-grow-1 mt-2" style="font-size: 14px !important;color: #594585 !important;">Edit Precautions
                   </h1>
@@ -537,8 +532,8 @@
 
           <!--alerts popup precautions-->
           <div bsModal #edit_alerts="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
-            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
-              <div class="modal-content" style="width: 50%;">
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 450px !important;">
+              <div class="modal-content">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
                   <h1 class="flex-grow-1 mt-2" style="font-size: 14px !important;color: #594585 !important;">Choose the Alerts
                   </h1>
@@ -592,7 +587,7 @@
           <!--view-GCS-->
           <div bsModal #view_gcs="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
             <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
-              <div class="modal-content" style="width: 85%;">
+              <div class="modal-content">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
                   <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">View GCS
                   </h1>

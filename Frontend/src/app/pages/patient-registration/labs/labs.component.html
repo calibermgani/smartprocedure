@@ -3,7 +3,7 @@
         <div class="col-12 d-flex justify-content-between" >
                 <h3 class="lab-texts">Labs</h3>
                 <button class="btn-primary" *ngIf="labDetails.length > 0" (click)="OpenModal('addstaff')"><img src="assets/New_Images/uil_edit.png" width="20px" alt="add-img">Edit</button>
-                <button class="btn-primary" *ngIf="labDetails.length === 0" (click)="OpenModal('addstaff')"><img src="assets/New_Images/mdi_plus-circle.svg" width="20px" alt="add-img">Add</button>
+                <button class="btn-primary" *ngIf="labDetails.length === 0" (click)="AddModal('addstaff')"><img src="assets/New_Images/mdi_plus-circle.svg" width="20px" alt="add-img">Add</button>
         </div>
         <p class="lab-codes">EST X-RAY, PA AND LATERAL (701020) case provide</p>
         <div class="table-content">
@@ -38,7 +38,7 @@
 
 <div bsModal #addstaff="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
     <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
-      <div class="modal-content" style="width: 85%;">
+      <div class="modal-content">
         <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
           <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Lab
           </h1>
@@ -46,7 +46,7 @@
             style="cursor: pointer;">
         </div>
         <div class="row mt-1">
-            <div class="col-12 p-4">
+            <div class="col-12 p-5">
                 <form [formGroup]="tableLab">
                 <div formArrayName="labRows" class="table-border">
                     <table class="table responsive" style=" background-color: #FAFAFA;">
@@ -73,12 +73,12 @@
                                         formControlName="date">
                                 </th>
                                     <th>
-                                        <img *ngIf="i === 0 && labRows.length > 1" src="assets/New_Images/mdi_minus-circle.png" (click)="deleteLabRow(i)" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
-                                        <img  *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" (click)="deleteLabRow(i)" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img *ngIf="i === 0 && labRows.length > 1" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteLabRow(i)" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img  *ngIf="i > 0" src="assets/New_Images/mdi_minus-circle.png" style="cursor: pointer;" (click)="deleteLabRow(i)" alt="remove-labs" height="24px" width="24px" class="mt-2 ms-auto">
                                     </th>
                                     <th>
-                                        <img  *ngIf="i === 0 && labRows.length === 1" src="assets/New_Images/diagnosis.png" (click)="addLabRow()" alt="add-labs" height="24px" width="24px" class="mt-2 ms-auto">
-                                        <img  *ngIf="i > 0" src="assets/New_Images/diagnosis.png" alt="add-labs" height="24px" (click)="addLabRow()" width="24px" class="mt-2 ms-auto">
+                                        <img  *ngIf="i === 0 && labRows.length === 1" src="assets/New_Images/diagnosis.png" style="cursor: pointer;" (click)="addLabRow()" alt="add-labs" height="24px" width="24px" class="mt-2 ms-auto">
+                                        <img  *ngIf="i > 0" src="assets/New_Images/diagnosis.png" alt="add-labs" height="24px" style="cursor: pointer;" (click)="addLabRow()" width="24px" class="mt-2 ms-auto">
                                     </th>
                             </tr>
                         </tbody>
