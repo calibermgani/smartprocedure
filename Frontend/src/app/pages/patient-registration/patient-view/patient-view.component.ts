@@ -69,7 +69,18 @@ export class PatientViewComponent {
   }
 
   OpenModal(modalName: string){
-    if(modalName === 'edit_vitals' && this.edit_vitals) this.edit_vitals?.show();
+    if(modalName === 'edit_vitals' && this.edit_vitals){
+      this.edit_vitals?.show();
+      this.allService.editVitals().subscribe((res: any)=>{
+        this.patientViewForm.patchValue({
+          blood_pressure: res.blood_pressure,
+          respiratory_rate: res.respiratory_rate,
+          temperature: res.temperature,
+          heart_beat: res.heart_beat,
+          spO2: res.spO2
+        })
+      })
+    }
     else if(modalName === 'edit_precautions' && this.edit_precautions) this.edit_precautions?.show();
     else if(modalName === 'edit_alerts' && this.edit_alerts) this.edit_alerts?.show();
     else if(modalName === 'edit_alerts' && this.edit_alerts) this.edit_alerts?.show();
