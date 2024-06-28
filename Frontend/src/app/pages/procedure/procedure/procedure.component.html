@@ -1,4 +1,4 @@
-<div class="cards">
+<!-- <div class="cards">
   <div class="row p-1">
     <div class="col-1">
       <h1 class="header_name_bold mt-1" style="text-wrap: nowrap !important;word-break: normal !important;">Procedure List</h1>
@@ -22,7 +22,7 @@
         <div class="tab_filter_img me-2" (click)="ReloadGrid()">
           <img src="assets/images/reload.svg" width="20px" height="20px" tooltip="Reload" placement="bottom">
         </div>
-        <!-- <div class="tab_filter_img me-2">
+        <div class="tab_filter_img me-2">
           <img src="assets/images/Download.svg" width="20px" height="20px" tooltip="Import" placement="bottom">
           <input id="selectedFile" type="file" name="files[]" multiple id="jsonFile" accept=".xlsx" (change)="selectedFileChange($event)"  class="import_images"/>
           <input class="form-control d-none" value="" id="selectedFile" type="file" accept=".xlsx" (change)="selectedFileChange($event)">
@@ -42,7 +42,7 @@
               </div>
             </div>
           </div>
-        </div> -->
+        </div>
         <div class="tab_filter_img me-2">
           <img src="assets/images/print.svg" width="20px" height="20px" tooltip="Export" placement="bottom">
         </div>
@@ -227,6 +227,46 @@
       <ag-grid-angular class="ag-theme-alpine" [columnDefs]="columnDefs1" [gridOptions]="gridOptions1" #myGrid_1
         style="width: 100%;height: 700px;" (gridReady)="onGridReady_1($event)" [defaultColDef]="defaultColDef"></ag-grid-angular>
     </div>
-  </div>
+  </div> -->
 
-  <!-- <button type="button" class="btn btn-outline-primary" (click)="navigate_to_WorkArea()">Primary</button> -->
+
+<div class="row">
+  <div class="col-12">
+    <div class="d-flex" style="float: right;">
+      <div class="me-2">
+        <button class="btn-secondary"><img src="assets/New_Images/refresh.svg" style="margin-right: 8px;" >Refresh</button>
+      </div>
+      <div class="me-2">
+        <button class="btn-secondary"><img src="assets/New_Images/export.svg" style="margin-right: 8px;" alt="export">Export</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+
+    <!-- <div class="d-flex flex-row">
+      <div class="p-2 me-4 pointer" (click)="SelectStage('all_procedures')">
+        <h4>All Procedures</h4>
+      </div>
+      <div class="p-2 me-4 pointer" (click)="SelectStage('requesting')">
+        <h4>Requesting</h4>
+      </div>
+      <div class="p-2 me-4 pointer" (click)="SelectStage('Schedulling')">
+        <h4>Schedulling</h4>
+      </div>
+      <div class="p-2 me-4 pointer" (click)="SelectStage('')">
+        <h4>Pre Procedure</h4>
+      </div>
+      <div class="p-2 me-4 pointer" (click)="SelectStage()">
+        <h4>Intra Procedure</h4>
+      </div>
+      <div class="p-2 me-4 pointer" (click)="SelectStage()">
+        <h4>Post Procedure</h4>
+      </div>
+
+    </div> -->
+
+  </div>
+</div>

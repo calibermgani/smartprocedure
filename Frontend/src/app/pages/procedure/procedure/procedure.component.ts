@@ -480,4 +480,11 @@ export class ProcedureComponent implements OnInit {
       }
     })
   }
+
+
+
+
+  SelectStage(){
+
+  }
 }

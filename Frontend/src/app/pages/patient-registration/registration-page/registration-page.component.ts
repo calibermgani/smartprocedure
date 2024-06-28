@@ -28,17 +28,17 @@ export class RegistrationPageComponent {
   constructor(private formbuilder : UntypedFormBuilder,private allService : AllServicesService,private toastr : ToastrService,private router : Router){
     this.personaldetailsform = this.formbuilder.group({
       title : [,[Validators.required]],
-      first_name:['',[Validators.required, Validators.pattern('^[a-zA-Z]+$'),Validators.maxLength(50)]],
-      middle_name:['',[Validators.required, Validators.pattern('^[a-zA-Z]+$'),Validators.maxLength(50)]],
-      last_name:[''],
+      first_name:[,[Validators.required, Validators.pattern('^[a-zA-Z]+$'),Validators.maxLength(50)]],
+      middle_name:[,[Validators.required, Validators.pattern('^[a-zA-Z]+$'),Validators.maxLength(50)]],
+      last_name:[],
       partner_name : [],
       children_name: [],
       dob:[new Date(),[Validators.required]],
-      age:[''],
+      age:[],
       language : [],
       referred_by : [],
       gender : [,[Validators.required]],
-      martial_status : ['']
+      martial_status : []
     });
 
     this.contactDetailsform = this.formbuilder.group({
