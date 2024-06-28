@@ -116,7 +116,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
       if (x == '/material-management/viewfullgrid' || x =='/workarea' ) {
         var itemIndex = 1;
       }
-      else if(x=='/patient-registration/register'){
+      else if(x=='/patient-registration/register' || x=='/patient-registration/patient-view'){
         var itemIndex = 5;
       }
       else
