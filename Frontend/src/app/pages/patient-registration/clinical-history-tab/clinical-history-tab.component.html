@@ -8,8 +8,8 @@
             <div class="row mt-2 mx-0">
                 <div class="col-12 clinical-table p-0">
                     <div class="d-flex justify-content-between header-designs">
-                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.3rem 1rem 0rem .5rem;">Pre Diagnosis</h3>
-                        <img *ngIf="clinical_history.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'pre-diagnosis')" width="16px" height="16px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
+                        <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.4rem 1rem 0rem .5rem;">Pre Diagnosis</h3>
+                        <img *ngIf="clinical_history.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'pre-diagnosis')" width="16px" height="16px" alt="add-img" style="margin: 0.4rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
                         <h4 *ngIf="clinical_history.length > 0" class="edit-texts">Edit</h4>
                         <img *ngIf="clinical_history.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
                         <h4 *ngIf="clinical_history.length === 0" class="edit-texts">Add</h4>
@@ -33,13 +33,13 @@
                                     <th>{{data.updated_by === null ? '-': data.updated_by}}</th>
                                     <th>{{data.created_at}} | {{data.created_Time}}</th>
                                 </tr>
-                                <tr class="text-end"><td colspan="3" *ngIf="clinical_history.length < 0">No Data Found</td></tr>
+                                <tr class="text-center" *ngIf="clinical_history.length === 0"><td colspan="6" style="color: #2B3B3E;">No Data Found</td></tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="d-flex justify-content-between header-designs">
                         <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.4rem 1rem 0rem .5rem;">Indication</h3>
-                        <img *ngIf="indication.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'indication')"  width="16px" height="16px" alt="add-img" style="margin: 0.7rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
+                        <img *ngIf="indication.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'indication')"  width="16px" height="16px" alt="add-img" style="margin: 0.4rem -0.5rem 0rem auto; color: #594585 !important;cursor: pointer;">
                         <h4 *ngIf="indication.length > 0" class="edit-texts">Edit</h4>
                         <img *ngIf="indication.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto;cursor: pointer;">
                         <h4 *ngIf="indication.length === 0" class="edit-texts">Add</h4>
@@ -63,13 +63,13 @@
                                     <th>{{data.updated_by === null ? '-': data.updated_by}}</th>
                                     <th>{{data.created_at}} | {{data.created_Time}}</th>
                                 </tr>
-                                <tr class="text-end"><td colspan="3" *ngIf="indication.length < 0">No Data Found</td></tr>
+                                <tr class="text-center" *ngIf="indication.length === 0"><td colspan="6" style="color: #2B3B3E;">No Data Found</td></tr>
                             </tbody>
                         </table>
                     </div>
                     <div class="d-flex justify-content-between header-designs">
                         <h3 class="clicnical-texts" style="color: #2B3B3E !important; font-size: 12px !important; margin: 0.3rem 1rem 0rem .5rem;">Post Diagnosis</h3>
-                        <img *ngIf="post_diagnosis.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'post_diagnosis')"  width="14px" height="14px" alt="add-img" style="margin: 0.8rem -0.5rem 0rem auto;cursor: pointer;">
+                        <img *ngIf="post_diagnosis.length > 0" src="assets/New_Images/edit.png" (click)="OpenModal('addstaff', 'post_diagnosis')"  width="16px" height="16px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto;cursor: pointer;">
                         <h4 *ngIf="post_diagnosis.length > 0" class="edit-texts">Edit</h4>
                         <img *ngIf="post_diagnosis.length === 0" src="assets/New_Images/add.png" width="14px" height="14px" alt="add-img" style="margin: 0.5rem -0.5rem 0rem auto;cursor: pointer;">
                         <h4 *ngIf="post_diagnosis.length === 0" class="edit-texts">Add</h4>
@@ -94,7 +94,7 @@
                                     <th>{{data.updated_by === null ? '-': data.updated_by}}</th>
                                     <th>{{data.created_at}} | {{data.created_Time}}</th>
                                 </tr>
-                                <tr class="text-end"><td colspan="3" *ngIf="post_diagnosis.length < 0">No Data Found</td></tr>
+                                <tr class="text-center" *ngIf="post_diagnosis.length === 0"><td colspan="6" style="color: #2B3B3E;">No Data Found</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -108,7 +108,7 @@
 </div>
 
 <div bsModal #addstaff="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
-    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 600px !important;">
       <div class="modal-content">
         <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
           <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Clinical History
@@ -236,7 +236,7 @@
             </div>
         </div>
         </div>
-          <div class="d-flex justify-content-center p-3 mt-1">
+          <div class="d-flex justify-content-center p-3 mt-0">
             <button type="button" class="btn-outline me-3" style="width: 11% !important;" (click)="CloseModal('addstaff')"
               >Cancel</button>
             <button type="button" class="btn-primary" style="width: 11% !important;" (click)="clinical_history_save()" >Submit</button>

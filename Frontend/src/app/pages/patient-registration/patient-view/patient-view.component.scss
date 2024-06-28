@@ -28,18 +28,6 @@
     line-height: 25px;
 }
 
-// .text-style {
-//     font-size: 12px;
-//     border: 1px solid;
-//     // width: 85px;
-//     border-radius: 9px;
-//     background-color: #3ABE0B;
-//     color: #fff;
-//     padding: 1px 6px 1px 7px;
-//     font-weight: 600;
-//     font-family: 'Poppins';
-// }
-
 .in-patient-bg {
     background-color: #3ABE0B;
 }
@@ -47,26 +35,6 @@
 .out-patient-bg {
     background-color: #FF0000;
 }
-
-// .name-style {
-//     font-size: 15px;
-//     color: #594585;
-//     font-weight: 500;
-//     font-family: 'Poppins';
-// }
-
-// .mrn-style {
-//     font-size: 12px;
-//     font-weight: 500;
-//     font-family: 'Poppins';
-// }
-
-// .date-age-style {
-//     font-size: 12px !important;
-//     color: #4C5557;
-//     font-weight: 500;
-//     font-family: 'Poppins';
-// }
 
 .profile-details {
     font-family: 'Poppins';
@@ -89,7 +57,6 @@
     width: 96%;
     height: 100% !important;
     border: 1px solid rgba(231, 225, 243, 1);
-    // margin: -0.7rem 0rem 0rem -1.2rem;
     background-color: rgba(251, 249, 255, 1);
 }
 
@@ -227,7 +194,6 @@
 }
 
 .precautions-edit {
-    // width: 30%;
     height: auto;
     border: 1px solid rgba(231, 225, 243, 1);
     border-radius: 6px;
@@ -239,13 +205,10 @@
 
 .show_scroll:hover{
     transition-timing-function: ease-in-out 2s;
-    // transition: ease-in 2s;
-    // transition-property: ea;
     overflow-y: scroll;
 }
 
 .precautions-edit1 {
-    // width: 34%;
     height: auto;
     border: 1px solid rgba(231, 225, 243, 1);
     border-radius: 6px;
@@ -268,7 +231,6 @@
     color: #594585 !important;
 
 }
-
 
 @media (max-width: 768px) {
     .nav-tabs-custom .nav-item {
@@ -339,7 +301,6 @@
 
 ::ng-deep .ngx-slider .ngx-slider-selection
 {
-  // z-index: 2 !important;
   background-color: #594585 !important;
   border-radius: 2px !important;
   border: none !important;
@@ -378,9 +339,6 @@
 ::ng-deep .ngx-slider.animate .ngx-slider-pointer{
     border: 2px solid #FFF !important;
 }
-// .nav-tabs-custom{
-//     margin-left: -1rem !important;
-// }
 
 .patient_values{
     font-family: 'Poppins';
@@ -401,7 +359,7 @@
 .patient_type{
     border-radius: 100px;
     width: 86px;
-    margin: -14px -7px;
+    margin: -10px -7px;
     text-align: center;
     padding: 0px;
     background-color: rgb(58, 190, 11);

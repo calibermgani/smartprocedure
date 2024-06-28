@@ -21,17 +21,21 @@ export class PatientViewComponent {
   patientAge: number;
   patientType : string;
   isYesSelected: {[key:string]:boolean | null} = {
-    fall: null,
-    allergy: null,
-    isolation: null,
-    covid: null,
+    fall: false,
+    allergy: false,
+    isolation: false,
+    covid: false,
     gcs: false,
-    pregnant: null,
-    diabetes: null,
+    pregnant: false,
+    diabetes: false,
     contrast: false
   }
 
   selectedCard: string = '';
+  gcsEyeOpening : number[] = [];
+  gcsVerbalResponse : number[] = [];
+  gcsMotorResponse : number[] = [];
+  contrastReactionValues : number[] = [];
 
 
   @ViewChild('edit_vitals', { static: false }) edit_vitals?: ModalDirective;
@@ -45,7 +49,8 @@ export class PatientViewComponent {
   mrn_number : any = localStorage.getItem('MRN_NO');
   procedure_id : any = localStorage.getItem('Procedure');
   patientViewForm: FormGroup;
-  vitalDetailData: any[]=[];
+  vitalDetailData: any = {};
+
 
   constructor(private allService:AllServicesService, private http: HttpClient,private formbuilder: FormBuilder, private toastr: ToastrService) {
     this.patientViewForm = this.formbuilder.group({
@@ -105,6 +110,20 @@ export class PatientViewComponent {
   selectNo(item : string) {
     this.isYesSelected[item] = false;
   }
+  onCheckboxChange(precaution: string, value: number, event: any) {
+    if (event.target.checked && precaution === 'eye_opening') {
+      this.gcsEyeOpening.push(value);
+    } else if(event.target.checked && precaution === 'verbal_response') {
+      this.gcsVerbalResponse.push(value);
+    } else if(event.target.checked && precaution === 'motor_response') {
+      this.gcsMotorResponse.push(value);
+    }
+    else {
+      this.gcsEyeOpening = this.gcsEyeOpening.filter(item => item !== value);
+      this.gcsVerbalResponse = this.gcsVerbalResponse.filter(item => item !== value);
+      this.gcsMotorResponse = this.gcsMotorResponse.filter(item => item !== value);
+    }
+  }
 
   scrollToContent(): void {
     if ((this.contrastContent && this.isYesSelected['contrast']) || (this.contrastContent && this.isYesSelected['gcs'])) {
@@ -121,6 +140,7 @@ export class PatientViewComponent {
   }
 
   addVitalsDetails(vitalsDetails:any){
+    this.vitalDetailData = vitalsDetails;
     console.log(vitalsDetails);
     this.allService.saveVitalDetails(vitalsDetails.blood_pressure,vitalsDetails.respiratory_rate,vitalsDetails.temperature,vitalsDetails.heart_beat,vitalsDetails.spO2).subscribe({
       next:((res:any)=>{
@@ -128,10 +148,6 @@ export class PatientViewComponent {
           positionClass: 'toast-top-center',
           timeOut: 2000,
         });
-        if(res.status === 'Success'){
-          this.vitalDetailData = res.data;
-          console.log(this.vitalDetailData, 'vitals');
-        }
       })
     });
     this.resetForm();
@@ -139,6 +155,30 @@ export class PatientViewComponent {
 
   resetForm(){
     this.patientViewForm.reset();
+  }
+
+  savePrecautions(){
+    let fall = this.isYesSelected['fall'] ? 'yes': 'no'; 
+    let allergy = this.isYesSelected['allergy'] ? 'yes': 'no'; 
+    let isolation = this.isYesSelected['isolation'] ? 'yes': 'no'; 
+    let covid = this.isYesSelected['covid'] ? 'yes': 'no'; 
+    let gcs = this.isYesSelected['gcs'] ? 'yes': 'no'; 
+    let pregnant = this.isYesSelected['pregnant'] ? 'yes': 'no'; 
+    let diabetic = this.isYesSelected['diabetic'] ? 'yes': 'no'; 
+    let contrast_reaction = this.isYesSelected['contrast_reaction'] ? 'yes': 'no'; 
+    let gcs_eye_opening = `'gcs_eye_opening':[${this.gcsEyeOpening.join(',')}]`;
+    let gcs_verbal_response = `'gcs_verbal_response':[${this.gcsVerbalResponse.join(',')}]`;
+    let gcs_motor_response = `'gcs_motor_response':[${this.gcsMotorResponse.join(',')}]`;
+    let contrast_reaction_values = this.contrastReactionValues;
+
+    this.allService.savePrecautions(fall,allergy,isolation,covid,gcs,pregnant,diabetic,contrast_reaction,gcs_eye_opening,gcs_verbal_response,gcs_motor_response,contrast_reaction_values).subscribe({
+      next:((res:any)=>{
+        this.toastr.success(`${res.message}`, 'Successful', {
+          positionClass: 'toast-top-center',
+          timeOut: 2000,
+        });
+      })
+    })
   }
 
 

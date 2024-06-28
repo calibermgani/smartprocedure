@@ -35,7 +35,7 @@
     <div class="col-2 p-0" style="margin-left: -0.4rem;">
         <div class="profile-design ">
             <div class="d-flex p-1 flex-row w-auto">
-                <div class="d-flex flex-column ms-2 mt-3">
+                <div class="d-flex flex-column ms-2 mt-2">
                     <img src="assets/New_Images/saudi_arabian.png" width="71px" height="71px" />
                     <h6 class="patient_type">out Patient</h6>
                 </div>
@@ -255,7 +255,7 @@
 
         <!--edit_vitals popup-->
         <div bsModal #edit_vitals="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
-            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 700px !important;">
               <div class="modal-content">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
                   <h1 class="flex-grow-1 mt-2" style="font-size: 14px !important;color: #594585 !important;">Edit Vitals
@@ -271,7 +271,7 @@
                         </div>
                         <div class="ms-auto d-flex flex-column justify-content-center align-items-center mt-0" style="background-color: rgba(89, 69, 133, 0.05); padding: 0.7rem;">
                             <label for="blood_pressure" class="text-label me-auto ms-2">Blood Pressure</label>
-                            <input type="text" class="form-control" style="height: 31px !important;width: 91%;" formControlName="blood_pressure">
+                            <input type="number" class="form-control" style="height: 31px !important;width: 91%;" formControlName="blood_pressure">
                         </div>
                     </div>
                     <div class="col-6 w-auto p-0 vitals_border">
@@ -305,7 +305,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="row p-4 ms-5">
+                <div class="row p-4 ms-2">
                     <div class="col-12 p-0 vitals_border" style="width: 295px !important;">
                         <div class="border-right">
                             <img src="assets/New_Images/edit_temperature.png" alt="edit_temperature" width="40px" height="40px">
@@ -331,7 +331,7 @@
 
           <!--edit_precautions popup-->
           <div bsModal #edit_precautions="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
-            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+            <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 700px !important;">
               <div class="modal-content">
                 <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
                   <h1 class="flex-grow-1 mt-2" style="font-size: 14px !important;color: #594585 !important;">Edit Precautions
@@ -394,22 +394,22 @@
                     <div class="col-4" style="border-right: 1px solid  rgba(231, 225, 243, 1);">
                         <h5 class="ms-1" style="color: #594585 !important;">Eye Opening</h5>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('eye_opening',4, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Spontaneous</h5>
                             <h5 style="color: #594585 !important;">4</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('eye_opening', 3, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">To Sound</h5>
                             <h5 style="color: #594585 !important;">3</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('eye_opening', 2, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">To Pressure</h5>
                             <h5 style="color: #594585 !important;">2</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('eye_opening', 1, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">None</h5>
                             <h5 style="color: #594585 !important;">1</h5>
                         </div>
@@ -417,27 +417,27 @@
                     <div class="col-4" style="border-right: 1px solid  rgba(231, 225, 243, 1);">
                         <h5 class="ms-1" style="color: #594585 !important;">Verbal Response</h5>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('verbal_response', 5, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Orientated</h5>
                             <h5 style="color: #594585 !important;">5</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('verbal_response', 4, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Confused</h5>
                             <h5 style="color: #594585 !important;">4</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('verbal_response', 3, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Words</h5>
                             <h5 style="color: #594585 !important;">3</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('verbal_response', 2, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Sounds</h5>
                             <h5 style="color: #594585 !important;">2</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('verbal_response', 1, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">None</h5>
                             <h5 style="color: #594585 !important;">1</h5>
                         </div>
@@ -445,32 +445,32 @@
                     <div class="col-4" style="border-right: 1px solid  rgba(231, 225, 243, 1);">
                         <h5 class="ms-1" style="color: #594585 !important;">Motor Response</h5>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('motor_response', 6, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Obey Commands</h5>
                             <h5 style="color: #594585 !important;">6</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('motor_response', 5, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Localising</h5>
                             <h5 style="color: #594585 !important;">5</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('motor_response', 4, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Normal Flexion</h5>
                             <h5 style="color: #594585 !important;">4</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('motor_response', 3, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Abnormal Flexion</h5>
                             <h5 style="color: #594585 !important;">3</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('motor_response', 2, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">Extension</h5>
                             <h5 style="color: #594585 !important;">2</h5>
                         </div>
                         <div class="d-flex flex-row justify-content-between">
-                            <input type="checkbox" class="form-check-input check-box-style">
+                            <input type="checkbox" class="form-check-input check-box-style" (change)="onCheckboxChange('motor_response', 1, $event)">
                             <h5 class="me-auto ms-4 " style="color: #526A84 !important;">None</h5>
                             <h5 style="color: #594585 !important;">1</h5>
                         </div>
@@ -524,7 +524,7 @@
                   <div class="d-flex justify-content-center p-3 mt-3">
                     <button type="button" class="btn-outline me-3" style="width: 11% !important;" (click)="CloseModal('edit_precautions')"
                     >Cancel</button>
-                  <button type="button" class="btn-primary" style="width: 11% !important;">Submit</button>
+                  <button type="button" class="btn-primary" style="width: 11% !important;" (click)="savePrecautions()">Submit</button>
                   </div>
               </div>
             </div>

@@ -34,6 +34,8 @@ export class AllServicesService {
   public saveMediationData1 : any = environment_new.saveMediationData;
   public saveVitalDetails1 : any = environment_new.saveVitalDetails;
   public editVitals1 : any = environment_new.editVitals;
+  public savePrecautions1 : any = environment_new.savePrecautions;
+  public editPrecautions1 : any = environment_new.editPrecautions;
   constructor(private http : HttpClient,private toastr : ToastrService,private datePipe: DatePipe) {
    }
 
@@ -1409,5 +1411,39 @@ export class AllServicesService {
     payload["patient_id"]= patientDataJson.id;
 
     return this.http.post(`${this.apiUrl}${this.editVitals1}`, payload);
+  }
+
+  savePrecautions(fall: string, allergy: string, isolation: string, covid: string, gcs: string, pregnant: string, diabetic: string, contrast_reaction: string, gcs_eye_opening: any, gcs_verbal_response: any, gcs_motor_response: any, contrast_reaction_values: any) {
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]= patientDataJson.id;
+    payload['procedure'] = 'Procedure 1';
+    payload['accession_no'] = patientDataJson.accession_no;
+    payload['fall'] = fall;
+    payload['allergy'] = allergy;
+    payload['isolation'] = isolation;
+    payload['covid'] = covid;
+    payload['gcs'] = gcs;
+    payload['pregnant'] = pregnant;
+    payload['diabetic'] = diabetic;
+    payload['contrast_reaction'] = contrast_reaction;
+    payload['gcs_eye_opening'] = gcs_eye_opening;
+    payload['gcs_verbal_response'] = gcs_verbal_response;
+    payload['gcs_motor_response'] = gcs_motor_response;
+    payload['contrast_reaction_values'] = contrast_reaction_values;
+
+    return this.http.post(`${this.apiUrl}${this.savePrecautions1}`, payload);
+  }
+
+  editPrecautions(){
+    let patientData = localStorage.getItem('patientData');
+    let patientDataJson = JSON.parse(patientData);
+    let payload:Object = {};
+    payload["token"]='1a32e71a46317b9cc6feb7388238c95d';
+    payload["patient_id"]= patientDataJson.id;
+
+    return this.http.post(`${this.apiUrl}${this.editPrecautions1}`, payload);
   }
 }

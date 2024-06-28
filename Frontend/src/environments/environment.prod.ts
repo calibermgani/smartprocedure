@@ -39,5 +39,7 @@ export const environment_new:IEnvironment = {
   getCheckListData: '/procedures/check_list_index',
   materialdashboard : '/items/procedure_item_dashboard',
   saveVitalDetails : '/procedures/patient_vitals_store',
-  editVitals : '/procedures/patient_vitals_edit'
+  editVitals : '/procedures/patient_vitals_edit',
+  savePrecautions: '/procedures/patient_precautions_store',
+  editPrecautions: '/procedures/patient_precautions_edit'
 };

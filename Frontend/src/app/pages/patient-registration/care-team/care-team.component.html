@@ -16,10 +16,11 @@
                 </thead>
                 <tbody class="table-body">
                     <tr>
-                        <th>Diagnosis 1</th>
+                        <!-- <th>Diagnosis 1</th>
                         <th>Patient Escor</th>
-                        <th>05/22/2024 | 05.20 PM</th>
+                        <th>05/22/2024 | 05.20 PM</th> -->
                     </tr>
+                    <tr class="text-center"><td colspan="6" style="color: #2B3B3E;">No Data Found</td></tr>
                 </tbody>
             </table>
         </div>
@@ -33,7 +34,7 @@
 
 
 <div bsModal #addstaff="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="dialog-nested-name2" [config]="{ignoreBackdropClick: true}" >
-    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 850px !important;">
+    <div class="modal-dialog modal-dialog-centered modal-lg" style="max-width: 600px !important;">
       <div class="modal-content">
         <div class="d-flex justify-content-around align-items-center p-3 m-0" style="background: #ECE5FB; height: 2.5rem;">
           <h1 class="flex-grow-1" style="font-size: 14px !important;color: #594585 !important;">Lab
@@ -47,7 +48,7 @@
                     <table class="table responsive" style=" background-color: #FAFAFA;">
                         <thead>
                             <tr>
-                                <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Tests Name</th>
+                                <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Test Name</th>
                                 <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Designation</th>
                                 <th style="color:#717E85 !important;font-family: 'Poppins';font-size: 13px !important;font-weight: 500;">Date</th>
                                 <th></th>
@@ -57,7 +58,7 @@
                         <tbody>
                             <tr>
                                 <th>
-                                    <input type="text" name="form-control" class="test-name">
+                                    <input type="text" name="form-control" class="form-control">
                                 </th>
                                 <th>
                                     <input type="text" name="designation" class="form-control">
@@ -80,7 +81,7 @@
         
             </div>
         </div>
-          <div class="d-flex justify-content-center p-3 mt-5">
+          <div class="d-flex justify-content-center p-3 mt-0">
             <button type="button" class="btn-outline me-3" (click)="CloseModal('addstaff')"
               >Cancel</button>
             <button type="button" class="btn-primary" style="width: auto !important;" >Submit</button>

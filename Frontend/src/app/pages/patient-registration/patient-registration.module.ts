@@ -21,6 +21,7 @@ import { MedicationComponent } from './medication/medication.component';
 import { CareTeamComponent } from './care-team/care-team.component';
 import { NgxSliderModule } from 'ngx-slider-v2';
 import { NgxDropzoneModule } from 'ngx-dropzone';
+import {AccordionModule } from 'ngx-bootstrap/accordion';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
     SharedModule,
     NgxSliderModule,
     NgxDropzoneModule,
+    AccordionModule
   ]
 })
 export class PatientRegistrationModule { }

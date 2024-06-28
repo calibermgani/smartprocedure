@@ -1,99 +1,28 @@
 .profile-tooltip {
-    width: 25rem;
-    height: 19rem;
+    width: 300px;
+    height: 256px;
     padding: 10px;
     background-color: #FEF1C4;
     border: 1px solid #E4CD79;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     font-family: 'Poppins';
-
-    img {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin-right: 10px;
-    }
-
-    h3 {
-        display: inline;
-        margin: 0;
-        font-size: 1.1em;
-    }
-
-    span {
-        display: block;
-        margin-top: 5px;
-        color: #777;
-    }
-
-    .profiles {
-        font-size: 1em;
-        color: #625A3F !important;
-    }
-
-    hr {
-        margin: 10px 0;
-    }
-    .flex-container{
-        flex-direction: column;
-    }
-    .profile-name{
-        font-family: 'Poppins';
-        font-weight: 500;
-        font-style: 14px;
-        line-height: 21px;
-        color: #594585 !important;
-        margin-top: 0; 
-    }
-    .profile-name > h3{
-        font-family: 'Poppins';
-        font-weight: 500;
-        font-style: 14px;
-        line-height: 21px;
-    }
-    .profiles{
-        font-family: 'Poppins';
-        font-weight: 500;
-        font-style: 14px;
-        line-height: 24px;
-        color: #625A3F;
-    }
-    .content{
-        font-family: 'Poppins';
-        font-weight: 500;
-        color: #9A8D5F;
-        font-size: 12px;
-        line-height: 24px;
-    }
-    .date-content{
-        font-family: 'Poppins';
-        font-weight: 500;
-        color: #2B3B3E !important;
-        font-size: 14px;
-        line-height: 18px;
-        margin: -1rem 0rem 0rem 3.8rem;
-    }
-    .profile-container {
+    .image-container {
         position: relative;
+        width: 44px; /* Match the width of the image */
+        height: 44px; /* Match the height of the image */
     }
     
-    .profile-info {
+    .status-indicator {
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        gap: 0.5rem; 
-        padding: 0.5rem; 
-        margin: -.2rem 0rem 0rem 3.3rem;
+        bottom: 0;
+        right: 0;
+        width: 10px;
+        height: 10px;
+        background-color: #2D9508;
+        border-radius: 50%;
+        border: 2px solid #FDEAA5; /* Optional: to add a white border around the circle */
     }
-    
-    .profile-gender {
-        margin-top: 0;
-        color: #2B3B3E !important;
-    }
+   
     
 }

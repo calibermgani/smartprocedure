@@ -1,42 +1,50 @@
 <!-- <p>custom-tooltip works! {{params.value}}</p> -->
 <div class="profile-tooltip">
-    <div class="profile-container">
-        <img [src]="this.params?.image == null ? 'assets/New_Images/saudi_arabian.png' : this.params.image" alt="image" width="44px" height="44px">
-        <div class="profile-info">
-            <h3 class="profile-name">{{this.params?.Name}}</h3> - <h3 class="profile-gender">{{this.params?.gender}}</h3>
+    <div class="d-flex flex-row justify-content-around align-items-center" style="border-bottom: 1px solid #E4CD79;">
+        <!-- Image Section -->
+        <div class="image-container mb-2">
+            <img class="mb-2" src="assets/New_Images/saudi_arabian.png" alt="image" width="44px" height="44px">
+            <div class="status-indicator"></div>
         </div>
-        <span class="date-content">{{this.params?.dob}} , {{age}} years</span>
-        <hr style="border: 1px solid #E4CD79;">
+        <!-- Information Section -->
+        <div class="d-flex flex-column">
+            <div class="d-flex flex-row align-items-center">
+                <h2 style="color: #594585 !important;">{{this.params?.Name}}</h2>
+                <span class="mx-2 mb-2">-</span>
+                <h4 style="color: #2B3B3E !important;">{{this.params?.gender}}</h4>
+            </div>
+            <div>
+                <h6 style="color: #2B3B3E !important;font-weight: 500 !important;">{{this.params?.dob}}, {{age}}years</h6>
+            </div>
+        </div>
     </div>
 
-    <div  class="d-flex flex-container gap-0 m-0">
-        <div class="d-flex" style="margin-top: -.5rem;">
-            <span class="content">Email</span>
-            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 8rem;">{{this.params?.primary_email}}</h3>
+        <div class="d-flex flex-row mt-1">
+            <h6 style="font-weight: 500 !important;color: #9A8D5F !important;">Email</h6>
+            <h6 style="font-weight: 500 !important;color: #625A3F !important;margin-left: 5rem;">{{this.params?.primary_email}}</h6>
         </div>
-        <div class="d-flex" style="margin-top: -.5rem;">
-            <span class="content">Phone</span>
-            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 7.8rem;">{{this.params?.telephone}}</h3>
+        <div class="d-flex flex-row">
+            <h6 style="font-weight: 500 !important;color: #9A8D5F !important;">Phone</h6>
+            <h6 style="font-weight: 500 !important;color: #625A3F !important;margin-left: 4.7rem;">{{this.params?.telephone}}</h6>
         </div>
-        <div class="d-flex" style="margin-top: -.5rem;">
-            <span class="content">Occupation</span>
-            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 5.8rem;">{{this.params?.occupation}}</h3>
+        <div class="d-flex flex-row">
+            <h6 style="font-weight: 500 !important;color: #9A8D5F !important;">Occupation</h6>
+            <h6 style="font-weight: 500 !important;color: #625A3F !important;margin-left: 2.6rem;">{{this.params?.occupation}}</h6>
         </div>
-        <div class="d-flex" style="margin-top: -.5rem;">
-            <span class="content">Marital Status</span>
-            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 5rem;">{{this.params?.marital_status}}</h3>
+        <div class="d-flex flex-row">
+            <h6 style="font-weight: 500 !important;color: #9A8D5F !important;">Marital Status</h6>
+            <h6 style="font-weight: 500 !important;color: #625A3F !important;margin-left: 1.8rem;">{{this.params?.marital_status}}</h6>
         </div>
-        <div class="d-flex" style="margin-top: -.5rem;">
-            <span class="content">Referred By</span>
-            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 6rem;">{{this.params?.referred_by}}</h3>
+        <div class="d-flex flex-row">
+            <h6 style="font-weight: 500 !important;color: #9A8D5F !important;">Referred By</h6>
+            <h6 style="font-weight: 500 !important;color: #625A3F !important;margin-left: 2.7rem;">{{this.params?.referred_by}}</h6>
         </div>
-        <div class="d-flex" style="margin-top: -.5rem;">
-            <span class="content">Children Name</span>
-            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 4.5rem;">{{this.params?.name_of_children}}</h3>
+        <div class="d-flex flex-row">
+            <h6 style="font-weight: 500 !important;color: #9A8D5F !important;">Children Name</h6>
+            <h6 style="font-weight: 500 !important;color: #625A3F !important;margin-left: 1.3rem;">{{this.params?.name_of_children}}</h6>
         </div>
-        <div class="d-flex" style="margin-top: -.5rem;">
-            <span class="content">Partner Name</span>
-            <h3 class="profiles" style="margin: 0.3rem 0rem 0rem 5rem;">{{this.params?.name_of_partner}}</h3>
+        <div class="d-flex flex-row">
+            <h6 style="font-weight: 500 !important;color: #9A8D5F !important;">Partner Name</h6>
+            <h6 style="font-weight: 500 !important;color: #625A3F !important;margin-left: 1.8rem;">{{this.params?.name_of_partner}}partnerf</h6>
         </div>
-    </div>
 </div>

@@ -43,9 +43,9 @@ export const environment_new:IEnvironment = {
   kiziCheckBoxesData: '/procedures/kizin_tasks',
   kiziCheckBoxesTimeLine: '/procedures/kizin_timelines',
   saveVitalDetails : '/procedures/patient_vitals_store',
-  editVitals : '/procedures/patient_vitals_edit'
-
-
+  editVitals : '/procedures/patient_vitals_edit',
+  savePrecautions: '/procedures/patient_precautions_store',
+   editPrecautions: '/procedures/patient_precautions_edit'
 };
 
 

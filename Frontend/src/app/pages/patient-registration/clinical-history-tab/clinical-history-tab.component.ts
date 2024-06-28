@@ -169,6 +169,21 @@ export class ClinicalHistoryTabComponent implements OnInit {
   );
   }
 
+  resetFormAndAddEmptyRow1() {
+    this.tableFormIndication.reset();
+    (this.tableFormIndication.get('rows_1') as FormArray).clear();
+    this.addEmptyRow1();
+  }
+
+  addEmptyRow1() {
+    const rows = this.tableFormIndication.get('rows_1') as FormArray;
+    rows.push(this.formBuilder.group({
+      diagnosis: [''],
+      code: [''],
+      date: ['']
+    }));
+  }
+
   save_Indication_Data() {
     const rowData = this.tableFormIndication.value.rows_1;
     this.allService.save_Indication_Data(rowData).subscribe((indication_data : any)=>{
@@ -182,23 +197,6 @@ export class ClinicalHistoryTabComponent implements OnInit {
     (error:any)=>{
       console.error("API Error:", error);
     })
-  
-
-  }
-
-  resetFormAndAddEmptyRow1() {
-    this.tableFormClinicalHistory.reset();
-    (this.tableFormClinicalHistory.get('rows_1') as FormArray).clear();
-    this.addEmptyRow1();
-  }
-
-  addEmptyRow1() {
-    const rows = this.tableFormClinicalHistory.get('rows_1') as FormArray;
-    rows.push(this.formBuilder.group({
-      diagnosis: [''],
-      code: [''],
-      date: ['']
-    }));
   }
 
   /*clinical_history Api Integration By Adaikkalam (Post-Diagnosis)*/
@@ -241,6 +239,21 @@ export class ClinicalHistoryTabComponent implements OnInit {
       console.error("API Error:", error)
     });
   }
+  
+  resetFormAndAddEmptyRow2() {
+    this.tableFormPostDiagnosis.reset();
+    (this.tableFormPostDiagnosis.get('rows_2') as FormArray).clear();
+    this.addEmptyRow2();
+  }
+
+  addEmptyRow2() {
+    const rows = this.tableFormPostDiagnosis.get('rows_2') as FormArray;
+    rows.push(this.formBuilder.group({
+      diagnosis: [''],
+      code: [''],
+      date: ['']
+    }));
+  }
 
   save_Post_Diagnosis_Data() {
     const rowData = this.tableFormPostDiagnosis.value.rows_2;
@@ -253,23 +266,6 @@ export class ClinicalHistoryTabComponent implements OnInit {
       this.resetFormAndAddEmptyRow2();
     })
   }
-
-  
-  resetFormAndAddEmptyRow2() {
-    this.tableFormClinicalHistory.reset();
-    (this.tableFormClinicalHistory.get('rows_2') as FormArray).clear();
-    this.addEmptyRow2();
-  }
-
-  addEmptyRow2() {
-    const rows = this.tableFormClinicalHistory.get('rows_2') as FormArray;
-    rows.push(this.formBuilder.group({
-      diagnosis: [''],
-      code: [''],
-      date: ['']
-    }));
-  }
-
   selectDiagnosis(diagnosis : string){
     this.currentDiagnosis = diagnosis;
     console.log(this.currentDiagnosis);

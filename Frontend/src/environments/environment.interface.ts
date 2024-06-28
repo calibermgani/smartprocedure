@@ -27,5 +27,7 @@ export interface IEnvironment {
   materialdashboard?:string;
   saveVitalDetails?:string;
   editVitals?:string;
+  savePrecautions?:string;
+  editPrecautions?:string;
 
 }
