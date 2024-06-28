@@ -355,7 +355,15 @@ export class PatientListComponent implements OnInit{
           const patient_Type = 'patient_type';
           const ArrayForPatientType = [...new Map(this.patient_list.map(item => [item[patient_Type], item])).values()];
           console.log('ArrayForPatientType', ArrayForPatientType);
-          this.Patient_type = ArrayForPatientType.map(item => item[patient_Type]);
+          this.Patient_type = ArrayForPatientType.map(item =>{
+            if(item[patient_Type] != null || item[patient_Type] != undefined){
+              console.log(item[patient_Type]);
+              return item[patient_Type];
+            }
+            else{
+              return 0;
+            }
+          });
           console.log('Patient_type', this.Patient_type);
 
           const Bloodgroup = 'blood_group';
@@ -718,7 +726,56 @@ export class PatientListComponent implements OnInit{
   }
 
   GridCSVExport(){
-    this.gridApi_1.exportDataAsCsv();
+    // this.gridApi_1.exportDataAsCsv(this.getParams());
+    const csvData = this.prepareCsvExportData();
+    const csvContent = this.convertToCsv(csvData);
+    this.downloadCsv(csvContent);
   }
+
+   getParams() {
+    return {
+      allColumns: true,
+    };
+  }
+
+  prepareCsvExportData() {
+    const csvData = [];
+
+    this.TempGriddata.forEach((row,index) => {
+      const csvRow = {};
+
+      // csvRow['column1'] = row.column1;
+      // csvRow['column2'] = row.column2;
+      // csvRow['column3'] = row.column3;
+      // Add other columns as needed
+      csvRow[index] = row;
+
+      csvData.push(csvRow);
+    });
+
+    return csvData;
+  }
+
+  convertToCsv(data: any[]): string {
+    const header = Object.keys(data[0]).join(',');
+    const rows = data.map(row => Object.values(row).join(',')).join('\n');
+
+    return `${header}\n${rows}`;
+  }
+
+  downloadCsv(csvContent: string) {
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'data.csv');
+    link.style.visibility = 'hidden';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+
 
 }
